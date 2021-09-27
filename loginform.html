@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Login button</title>
+
+  <style>
+    body {font-family: Arial, Helvetica, sans-serif;}
+
+    /*Input fields */
+    input[type=text], input[type=password] {
+      width: 100%;
+      padding: 10px 20px;
+      margin: 10px 0;
+      display: inline-block;
+      border: 1px solid gray;
+      box-sizing: border-box;
+    }
+
+    /* Set a style for all buttons */
+    button {
+      background-color: green;
+      color: white;
+      padding: 15px 20px;
+      margin: 10px 0;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    button:hover {
+      opacity: 0.8;
+    }
+
+    /* Extra styles for the cancel button */
+    .cancelbtn {
+      width: auto;
+      padding: 10px 20px;
+      background-color: red;
+    }
+
+    .loginbtn{
+      width: 100%;
+      background-color: green;
+    }
+
+    /* Center and position the close button */
+    .closecontainer {
+      text-align: center;
+      margin: 25px 0 10px 0;
+      position: relative;
+    }
+
+    .container {
+      padding: 15px;
+    }
+
+    span.pwd {
+      float: right;
+      padding-top: 15px;
+    }
+
+    /* The popup's background */
+    .popup {
+      display: none; /* Hidden by default */
+      position: fixed;
+      z-index: 1; /* Sit on top of the current page*/
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto; /* for scroll if needed */
+      background-color: rgb(0,0,0); /* back up color */
+      background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+      padding-top: 60px;
+    }
+
+    /* Popup's Content */
+    .popup-content {
+      background-color: white;
+      margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom, and centered in left/right */
+      border: 1px solid gray;
+      width: 80%; /* Could be more or less, depending on screen size */
+    }
+
+    /* The Close Button (x) */
+    .close {
+      position: absolute;
+      right: 25px;
+      top: 0;
+      color: black;
+      font-size: 35px;
+      font-weight: bold;
+    }
+    /*turns close button red when over it*/
+    .close:hover,
+    .close:focus {
+      color: red;
+      cursor: pointer;
+    }
+
+  </style>
+</head>
+
+<body>
+  <h2>Login button v1.0</h2>
+  <button onclick="document.getElementById('login-popup').style.display='block'" style="width:auto;">Login</button>
+  <div id="login-popup" class="popup">
+    <!-- assuming i would send this form to the handler function -->
+    <form class="popup-content" action="/handler-function-here" method="get">
+      <div class="closecontainer">
+        <span onclick="document.getElementById('login-popup').style.display='none'" class="close" title="Close Modal">&times;</span>
+      </div>
+      <div class="container">
+        <label for="name"><b>Username</b></label>
+        <input type="text" placeholder="Enter Username" name="name" required>
+
+        <label for="pwd"><b>Password</b></label>
+        <input type="password" placeholder="Enter Password" name="pwd" required>
+
+        <button type="submit" class="loginbtn">Login</button>
+        <label>
+          <input type="checkbox" name="remember"> Remember me
+        </label>
+      </div>
+      <div class="container" style="background-color: lightgray">
+        <button type="button" onclick="document.getElementById('login-popup').style.display='none'" class="cancelbtn">Cancel</button>
+        <span class="pwd">Forgot <a href="link-to-pwd-reset">password?</a></span>
+        <!--href need updating -->
+      </div>
+    </form>
+  </div>
+  <script>
+    /* Get the popup*/
+    var popup = document.getElementById('login-popup');
+
+    /* If user clicks anywhere outside of the pop up, it closes*/
+    window.onclick = function(event) {
+      if (event.target == popup) {
+          popup.style.display = "none";
+      }
+    }
+  </script>
+</body>
+</html>
