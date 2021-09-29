@@ -2,11 +2,9 @@
 
 //This is our database class
 class cadDB {
-  //Hiding the username/pass so it's not so easy to hack if people wanted to.
-  //Remember to find out what these values are before you push this to the server.
-	private $dbname = <hidden for security>;
-	private $username = <hidden for security>;
-	private $password = <hidden for security>;
+	private $dbname = "cad_db";
+	private $username = 'pdoserver';
+	private $password = 'OxFp5UkCBpC3tSAL';
 	private $db;
 	private $config;
 	public function __construct() {
@@ -37,6 +35,12 @@ class cadDB {
 		}		
 		$result->execute($param);
 		return $result;
+	}
+
+	//This is for making sure ambo info gets created with the same ID as when the other data is submitted
+	public function lastInsertId()
+	{
+		return $this->db->lastInsertId();
 	}
 	
 	//Not used, but commented out for later in case we want to have a configuration file unique to this database.
