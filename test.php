@@ -5,7 +5,8 @@ include_once("./inc/header.php");
 ?>
 
 <body>
-	<h1>Welcome to the Diamond Team CAD</h1>
+	<?php if (checklogin()) { ?><div style="float:right;"><a href="inc/logout.php">Log out</a></div><?php } ?>
+	<h1>Welcome to the Diamond Team CAD - You are logged in as <?php echo $_SESSION['myusername']; ?></h1>
 	<div id="main"><span>This is a js generated dropdown, client side using AJAX:</span><select name="JSONAcro" id="JSONAcro"></select></div>
 	<div id="Reason"><span>This is a PHP generated dropdown, generated server side:</span>
 		<select name="ACRO" id="ACRO">
@@ -19,7 +20,7 @@ include_once("./inc/header.php");
 
 				}
 			 ?>
-		</select>
+		</select></div><br><br><div id="yourLocation"></div><br><br>
 	<script>
 		//This is just an example of doing asynchronous calls, or AJAX.
 		//We make our own handler function to start with (this would normally be found in a separate js file)
@@ -54,14 +55,14 @@ include_once("./inc/header.php");
 		});
 				
 		//Hidden until our HTTPS support gets done
-		/*function showPos(pos) {
-			x.innerHTML = "Your current location is " + pos.coords.latitude + "," + pos.coords.longitude;
+		function showPos(pos) {
+			document.getElementById("yourLocation").innerHTML = "Your current location is " + pos.coords.latitude + "," + pos.coords.longitude;
 		}
 		if ('geolocation' in navigator) {
 			navigator.geolocation.getCurrentPosition(showPos);
 		} else {
-			x.innerHTML = "Location data unavailable!";
-		}*/
+			document.getElementById("yourLocation").innerHTML = "Location data unavailable!";
+		}
 	</script><br/><br/><center>
 	<div id="tickettableexample"><div>This is a table generated automatically from php</div>
 
@@ -77,7 +78,7 @@ include_once("./inc/header.php");
 		<table>
 			<thead>
 				<tr>
-					<th>id></th>
+					<th>id</th>
 					<th>active</th>
 					<th>name</th>
 					<th>location</th>
@@ -88,7 +89,7 @@ include_once("./inc/header.php");
 				</tr>
 			</thead>
 			<tbody>
-		<?php
+		<?php 
 		//Here we run through each row from the returned table
 		foreach ($tbl as $row)
 		{
