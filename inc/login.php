@@ -47,7 +47,7 @@ if (isset($_POST['addnew'])) {
 }
 
 //If we receive a username and password, check if they match the db and log in the user, otherwise reject it.
-if (isset($_POST['name'])) {
+if (isset($_POST['userLogin']) && $_POST['userLogin'] == "login") {
 	$myusername=strtolower($_POST['name']);
 	$mypassword=$_POST['pwd'];
 	$params = array(":name" => $myusername);
