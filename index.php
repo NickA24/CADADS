@@ -1,5 +1,5 @@
 <?php 
-//This is an edit to test auto pulling
+//This is my last edit to test auto pulling. i hope.
 //This will be our main page. Including test.php for testing and info purposes
 include_once("./inc/login.php");
 $usrcheck = checklogin();
