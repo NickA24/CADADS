@@ -1,6 +1,7 @@
 <?php
 include_once("inc/login.php");
 include("inc/header.php");
+if (checklogin() != 1) { return; }
 ?>
 
 <body>
