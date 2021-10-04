@@ -143,8 +143,4 @@ var ticketTable = function(ele, showOld)
 			});
 		}
 	});
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> dd/main
