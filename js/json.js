@@ -18,6 +18,33 @@ var getJSON = function(url, callback) {
 	xhr.send();
 }
 
+var postJSON = function(url, params, callback) {
+	var xhr = new XMLHttpRequest();
+	xhr.open('post', url, true);
+	xhr.setRequestHeader('Content-Type', 'application/json');
+	xhr.responseType = 'json';
+	xhr.onload = function()
+		{
+			var status = xhr.status;
+			if (status == 200) {
+				callback(null, xhr.response);
+			} else {
+				callback(status, xhr.response);
+			}
+		};
+	xhr.send(JSON.stringify(parms));
+}
+
+var testFetch = function(url, params) {
+	fetch(url).then(response => {
+		if (response.ok){
+			return response.json();
+		}else{
+			return Promise.reject(response.status);
+		}
+	}).then(response => console.log(response)).catch(err => console.log('Error with message: ${err}'));
+}
+
 //This is an intermediate step in editing a ticket.
 //When a user hits the edit button, it will take the ID of that entry and get the data for it using our getJSON function
 //It will then edit all of the form fields listed below, tagged with an "edit" prefix and then the column designation.
