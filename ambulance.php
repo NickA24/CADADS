@@ -9,6 +9,7 @@
     if (err !== null) {
 			ele.innerHTML = "Oops, error:" + err;
 		} else {
+	alert(data);
       ele.innerHTML = data;
     }
   });
