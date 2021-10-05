@@ -6,7 +6,7 @@
 <script>
 var amboShortcuts = function(e) {
   var str = "You have pressed a button. Press info: ";
-  foreach (var j in e)
+  for (var j in e)
   {
     str += j + ":" + e[j] + " ";
   }
