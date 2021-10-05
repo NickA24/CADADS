@@ -4,6 +4,7 @@
 <h1>Ambulance <?php echo $_SESSION['myusername'] ?>:</h1>
 <div id="curCall"></div>
 <script>
+	document.addEventListener("load", function () {
     var ele = document.getElementById("curCall");
     getJSON("inc/getjson.php?tbl=curAmbo", function(err, data) {
     if (err !== null) {
@@ -13,5 +14,6 @@
       ele.innerHTML = data;
     }
   });
+});
 </body>
 </html>
