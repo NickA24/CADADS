@@ -4,7 +4,7 @@
 <h1>Ambulance <?php echo $_SESSION['username'] ?>:</h1>
 <div id="curCall">
   <?php
-  $contents = file_get_contents("./inc/getjson.php?tbl=curAmbo");
+  $contents = file_get_contents("/inc/getjson.php?tbl=curAmbo");
   if ($contents !== false) {
     echo $contents;
   }
