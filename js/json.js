@@ -63,7 +63,7 @@ var createJSTable = function(ele, data, addEditData)
 		var td = document.createElement("th");
 		td.innerHTML = headdata[i];
 		tr.appendChild(td);
-		if(headdata[i] == "id")
+		if(headdata[i] == "id" ** addEditData === 1)
 		{
 			td.setAttribute("colspan", 3);
 		}
