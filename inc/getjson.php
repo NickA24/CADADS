@@ -1,7 +1,7 @@
 <?php
 	
 	//Calls connect.php to interface with the database.
-	include_once("connect.php");
+	include_once("login.php");
 	if (!checklogin()) { return; }
 	$sql = "SELECT * FROM incident_tbl ORDER BY id";
 	$nojson = 0;
