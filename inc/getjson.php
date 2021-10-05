@@ -2,6 +2,7 @@
 	
 	//Calls connect.php to interface with the database.
 	include_once("connect.php");
+	if (!checklogin()) { return; }
 	$sql = "SELECT * FROM incident_tbl ORDER BY id";
 	$nojson = 0;
 	//Create an SQL statement to be called based on any GET data passed to this page.
