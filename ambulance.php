@@ -5,11 +5,7 @@
 <div id="curCall"></div>
 <script>
 var amboShortcuts = function(e) {
-  var str = "You have pressed a button. Press info: ";
-  for (var j in e)
-  {
-    str += j + ":" + e[j] + " ";
-  }
+  var str = "You have pressed a button. Press info: "+e.code+" alt:"+e.altKey+" shift:"+e.shiftKey+" ctrl:"+e.ctrlKey+" meta:"+e.metaKey+" repeat:"+e.repeat;
   
  console.log(str) 
 }
