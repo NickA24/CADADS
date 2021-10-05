@@ -9,7 +9,7 @@
     if (err !== null) {
 			ele.innerHTML = "Oops, error:" + err;
 		} else {
-      ele.innerHTML = data[0];
+      ele.innerHTML = data;
     }
   });
 </body>
