@@ -2,13 +2,15 @@
 <body>
 <?php if (checklogin()) { ?><div style="float:right;"><a href="inc/logout.php">Log out</a></div><?php } ?>
 <h1>Ambulance <?php echo $_SESSION['username'] ?>:</h1>
-<div id="curCall">
-  <?php
-  $contents = file_get_contents("/inc/getjson.php?tbl=curAmbo");
-  if ($contents !== false) {
-    echo $contents;
-  }
-  ?>
-  </div>
+<div id="curCall"></div>
+<script>
+    var ele = document.getElementById("curCall");
+    getJSON("./inc/getjson.php?tbl=curCall", function(err, data) {
+    if (err !== null) {
+			ele.innerHTML = "Oops, error:" + err;
+		} else {
+      ele.innerHTML = data[0];
+    }
+  });
 </body>
 </html>
