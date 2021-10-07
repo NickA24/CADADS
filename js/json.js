@@ -271,7 +271,6 @@ var adminEditUser = function(e)
 			data.forEach(function(j) {
 				for (var k in j)
 				{
-					console.log(k);
 					if (k == "user_type") {
 						
 						var sel = document.createElement("select");
@@ -315,10 +314,12 @@ var adminEditUser = function(e)
 			var sbm = document.createElement("button");
 			sbm.setAttribute("type", "submit");
 			sbm.setAttribute("value", "submit");
+			sbm.innerHTML = "Submit";
 			frm.appendChild(sbm);
 			var clr = document.createElement("button");
 			sbm.setAttribute("type", "reset");
 			sbm.setAttribute("value", "Clear");
+			sbm.innerHTML = "Clear";
 			frm.appendChild(clr);
 			editbox.appendChild(frm);
 		}
