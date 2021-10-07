@@ -22,10 +22,10 @@
 			while (x.firstChild) {
 				x.removeChild(x.firstChild);
 			}
-			createJSTable(x, inactive);
+			ticketTable(x, inactive);
 		});
 		//This is found in json.js, if it needs to be edited.
-		createJSTable(x, inactive);
+		ticketTable(x, inactive);
 	</script>
 
 <?php
