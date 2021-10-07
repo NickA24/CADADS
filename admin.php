@@ -70,7 +70,7 @@ if (isset($usrtype) && $usrtype == 3 && isset($_POST) && isset($_POST['submitTyp
 	switch($_POST['submitType'])
 	{
 		case 'adminAddUser':
-			echo adminAddUser($db,$_POST); 
+			$wedidathing = adminAddUser($db,$_POST); 
 			break;
 		case 'adminEditUser':
 			//editTicket($db,$_POST);
@@ -98,7 +98,7 @@ include('./inc/header.php');
 	<?php if (checklogin()) { ?><div style="float:right;"><a href="inc/logout.php">Log out</a></div><?php } ?>
 	<div>Admin main functions are to Add User, Change Password, Delete user, and see ticket data.</div>
 	<br><br>
-	<div id="msgBox"></div>
+	<div id="msgBox"><?php echo $wedidathing; ?></div>
 	<div id="AddUser"><h3>Add a New User</h3>
 		<form method="POST" id="addUser" action="admin.php">
 			<input type="hidden" name="submitType" id="submitType" value="adminAddUser">
