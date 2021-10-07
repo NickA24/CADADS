@@ -12,7 +12,7 @@ if ($usrcheck){
 			include('ambulance.php');
 			break;
 		case 3:
-			include('test.php');
+			include('admin.php');
 			break;
 	}
 } else {
