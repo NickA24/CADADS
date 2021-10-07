@@ -232,7 +232,7 @@ var adminListUsers = function(e)
 		} else {
 			data.forEach(function(j) {
 				console.log(j);
-			}
+			});
 		}
 	});
 	
