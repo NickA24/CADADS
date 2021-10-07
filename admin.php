@@ -88,6 +88,7 @@ if (isset($usrtype) && $usrtype == 3 && isset($_POST) && isset($_POST['submitTyp
 			break;
 		case 'adminDeleteUser':
 			$_SESSION['msgbox'] = adminDeleteUser($db, $_POST);
+			return;
 			break;
 	}
 	//After the code above has been handled, return the person to the previous page. This way they never hang out on a blank white page.
