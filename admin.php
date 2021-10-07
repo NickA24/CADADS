@@ -124,7 +124,7 @@ include('./inc/header.php');
 	</div>
 	<div id="ListUsers"><h3>List users to interact with:<button type="button" name="listUsers" id="listUsers" onclick="adminListUsers(event);">List</button></h3>
 		<select name="listedUsers" id="listedUsers"></select><button type="button" name="EditUserList" id="EditUserList" onclick="adminEditUser(event);">Edit</button>
-		<button name="DeleteUserList" id="DeleteUserList" onclick="adminDeleteUser(event);">Delete</button>
+		<button name="DeleteUserList" id="DeleteUserList" onclick="adminDeleteUsers(event);">Delete</button>
 	</div>
 	<div id="EditPassword"><h3>Edit a User's Name or Password</h3></div>
 	<div id="showold"><input type="checkbox" id="inactive" name="inactive"><label for="inactive">Show Inactive</label></div>
