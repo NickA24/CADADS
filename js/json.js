@@ -270,6 +270,7 @@ var adminEditUser = function(e)
 				{
 					var lbl = document.createElement("label");
 					lbl.setAttribute("for", k);
+					lbl.setAttribute("value", k+":");
 					var inp = document.createElement("input");
 					inp.setAttribute("id", k);
 					inp.setAttribute("name", k);
