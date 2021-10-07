@@ -18,8 +18,8 @@ function addTicket($db,$var)
 		return 'You need a valid name and location';
 	}
 	$priority = (isset($var['priority'])) ? $var['priority'] : 1;
-	$params = array(":active"=>"1", ":name"=>$var['name'], ":location"=>$var['location'], ":incident"=>$var['incident_type'], ":priority"=>$priority, ":comment"=>$var['comments']);
-	$sql = "INSERT INTO ticket(active, name, location, incident_type, priority, time, comments) VALUES(:active, :name, :location, :incident, :priority, NOW(), :comment)";	
+	$params = array(":active"=>"1", ":name"=>$var['name'], ":location"=>$var['location'], ":incident"=>$var['incident_type'], ":priority"=>$priority, ":dispatcher"=>$_SESSION['myid'], ":comment"=>$var['comments']);
+	$sql = "INSERT INTO ticket(active, name, location, incident_type, priority, dispatcher, time, comments) VALUES(:active, :name, :location, :incident, :priority, :dispatcher, NOW(), :comment)";	
 	$result = $db->query($sql, $params);
 	return $result;
 }
