@@ -225,14 +225,18 @@ var adminNewUser = function(e)
 var adminListUsers = function(e)
 {
 	e.preventDefault();
-	console.log("AdminListUsers is active");
 	const msgbox = document.getElementById("msgBox");
 	getJSON('inc/getjson.php?tbl=usr', function(err, data) {
 		if (err !== null) {
 			msgBox.innerHTML = err;
 		} else {
+			let lv = document.getElementById("listedUsers");
 			data.forEach(function(j) {
-				console.log(j);
+				var typ = "Dispatch";
+				if (j['user_type']==2) {typ = "Ambulance";}
+				if (j['user_type']==3) {typ = "Admin";}
+				var usr = new Option(j["name"]+"-"+typ, j['id']);
+				lv.addChild(usr);
 			});
 		}
 	});
