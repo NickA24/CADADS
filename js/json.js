@@ -244,6 +244,27 @@ var adminListUsers = function(e)
 	
 }
 
+var adminEditUser = function(e)
+{
+	e.preventDefault();
+	const msgbox = document.getElementById("msgBox");
+	const editbox = document.getElementById("editUser");
+	let lv = document.getElementById("listedUsers");
+		getJSON('inc/getjson.php?tbl=usr&usrid='+lv.value, function(err, data) {
+		if (err !== null) {
+			msgBox.innerHTML = err;
+		} else {
+			lv.textContent = '';
+			console.log(data[0]);
+			data.forEach(function(j) {
+				//for (var k in j)
+				//var lbl = document.createElement("label")
+				//lbl.setAttribute("for"
+			});
+		}
+	});
+}
+
 var adminDeleteUsers = function(e)
 {
 	e.preventDefault();
@@ -260,6 +281,8 @@ var adminDeleteUsers = function(e)
 				console.log(data);
 				msgbox.innerHTML = data;
 			}
+			let lv = document.getElementById("listedUsers");
+			lv.textContent = '';
 		});
 	} else {
 		msgbox.innerHTML = "Deletion cancelled";
