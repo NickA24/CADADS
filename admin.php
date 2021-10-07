@@ -131,7 +131,7 @@ include('./inc/header.php');
 		<select name="listedUsers" id="listedUsers"></select><button type="button" name="EditUserList" id="EditUserList" onclick="adminEditUser(event);">Edit</button>
 		<button name="DeleteUserList" id="DeleteUserList" onclick="adminDeleteUsers(event);">Delete</button>
 	</div>
-	<div id="EditPassword"><h3>Edit a User's Name or Password</h3></div>
+	<div id="EditUser"><h3>Edit a User's Name, Password, or Type</h3></div>
 	<div id="showold"><input type="checkbox" id="inactive" name="inactive"><label for="inactive">Show Inactive</label></div>
 	<div id="ambulancetableexample"></div></center>
 	<script>
