@@ -14,7 +14,6 @@ function adminAddUser($db,$var)
 {
 	if (!isset($var['name']) || !isset($var['pass']) || !isset($var['userType']))
 	{
-		echo 'no valid name/pass/type';
 		return 'You need a valid name, password, and usertype';
 	}
 	$un = $var['name'];
@@ -31,7 +30,7 @@ function adminAddUser($db,$var)
 		$query = "INSERT INTO ambulance_info(id, status, location, lastupdate) VALUES(:id, 0, 0, NOW())";
 		$result = $db->query($query, $params);
 	}
-	return $result->fetch(PDO::FETCH_ASSOC);
+	return "Success! added ".$un." to database as ".$ut."!";
 }
 /*
 //A function to edit already added tickets. Note these are submitted with a prefix of "edit" because of the code written for testing. This can be changed if you feel like it, but make sure you change the html/js as well.
