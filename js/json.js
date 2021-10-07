@@ -236,7 +236,7 @@ var adminListUsers = function(e)
 				if (j['user_type']==2) {typ = "Ambulance";}
 				if (j['user_type']==3) {typ = "Admin";}
 				var usr = new Option(j["name"]+"-"+typ, j['id']);
-				lv.addChild(usr);
+				lv.appendChild(usr);
 			});
 		}
 	});
