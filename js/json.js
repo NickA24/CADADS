@@ -231,6 +231,7 @@ var adminListUsers = function(e)
 			msgBox.innerHTML = err;
 		} else {
 			let lv = document.getElementById("listedUsers");
+			lv.textContent = '';
 			data.forEach(function(j) {
 				var typ = "Dispatch";
 				if (j['user_type']==2) {typ = "Ambulance";}
