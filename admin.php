@@ -19,7 +19,7 @@ include('./inc/header.php');
 			<option value="3">Admin</option></select>
 			<button type="submit" value="submit" name="addUserSubmit" id="addUserSubmit">Add New User</button>
 		</form>
-		  <script>document.getElementById("addUser").addEventListener('submit', adminNewUser, false);});</script>
+		  <script>document.getElementById("addUser").addEventListener('submit', adminNewUser, false);</script>
 	</div>
 	<div id="EditPassword"><h3>Edit a User's Name or Password</h3></div>
 	<div id="DeleteUser"><h3>Delete User (Not to be used)</h3></div>
