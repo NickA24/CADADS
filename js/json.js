@@ -262,18 +262,4 @@ var adminDeleteUsers = function(e)
 	} else {
 		msgbox.innerHTML = "Deletion cancelled";
 	}
-	getJSON('inc/getjson.php?tbl=usr', function(err, data) {
-		if (err !== null) {
-			msgBox.innerHTML = err;
-		} else {
-			let lv = document.getElementById("listedUsers");
-			data.forEach(function(j) {
-				var typ = "Dispatch";
-				if (j['user_type']==2) {typ = "Ambulance";}
-				if (j['user_type']==3) {typ = "Admin";}
-				var usr = new Option(j["name"]+"-"+typ, j['id']);
-				lv.appendChild(usr);
-			});
-		}
-	});
 }
