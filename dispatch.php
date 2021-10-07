@@ -78,9 +78,9 @@ if (checklogin() != 1) { return; }
 			while (x.firstChild) {
 				x.removeChild(x.firstChild);
 			}
-			ticketTable(x, inactive);
+			ticketTable(x, inactive, 1);
 		});
 		//This is found in json.js, if it needs to be edited.
-		ticketTable(x, inactive);
+		ticketTable(x, inactive, 1);
 	</script>
 </body>
