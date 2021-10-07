@@ -256,7 +256,6 @@ var adminDeleteUsers = function(e)
 			if (err !== null) {
 				msgbox.innerHTML = err;
 			} else {
-				console.log(data);
 				msgbox.innerHTML = data;
 			}
 		});
