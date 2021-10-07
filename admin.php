@@ -87,7 +87,7 @@ if (isset($usrtype) && $usrtype == 3 && isset($_POST) && isset($_POST['submitTyp
 			//editTicket($db,$_POST);
 			break;
 		case 'adminDeleteUser':
-			$_SESSION['msgbox'] = adminDeleteUser($db, $_POST);
+			echo adminDeleteUser($db, $_POST);
 			return;
 			break;
 	}
