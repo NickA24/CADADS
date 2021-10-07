@@ -31,7 +31,7 @@ function adminAddUser($db,$var)
 		$query = "INSERT INTO ambulance_info(id, status, location, lastupdate) VALUES(:id, 0, 0, NOW())";
 		$result = $db->query($query, $params);
 	}
-	return $result;
+	return $result->fetch(PDO::FETCH_ASSOC);
 }
 /*
 //A function to edit already added tickets. Note these are submitted with a prefix of "edit" because of the code written for testing. This can be changed if you feel like it, but make sure you change the html/js as well.
