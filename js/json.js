@@ -164,13 +164,15 @@ var createJSTable = function(ele, data, addEditData)
 //and then display it by creating a DOM table with javascript.
 //The messier code at the bottom checks if it is the ID field being created, and generates two buttons alongside it, Edit and Delete
 //This gives us the data in an easy format to allow the user to edit or delete information later. 
-var ticketTable = function(ele, showOld)
+var ticketTable = function(ele, showOld, edit)
 {
 	getJSON('inc/getjson.php?tbl=tkt&showinactive='+showOld, function(err, data) {
 		if (err !== null) {
 			ele.innerHTML = "Oops, error:" + err;
 		} else {
-			createJSTable(ele, data, 1);
+			var p = 0;
+			if (edit === 1) { p = 1; }
+			createJSTable(ele, data, p);
 		}
 	});
 }
