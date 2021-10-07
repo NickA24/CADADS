@@ -257,6 +257,9 @@ var adminEditUser = function(e)
 		} else {
 			lv.textContent = '';
 			console.log(data[0]);
+			var h2 = document.createElement("h2");
+			editbox.appendChild(h2);
+			h2.innerHTML = "Editing user "+data[0]['name'];
 			var frm = document.createElement("form");
 			frm.setAttribute("method", "POST");
 			frm.setAttribute("action", "admin.php");
