@@ -199,6 +199,7 @@ var loginsubmit = function(e)
 		} else {
 			if (data == "Success!") {
 				msgbox.innerHTML = data;
+				location.href = "index.php";
 				window.location.reload(true);
 			} else {
 				msgbox.innerHTML = data;
