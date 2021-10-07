@@ -206,3 +206,17 @@ var loginsubmit = function(e)
 		}
 	});
 }
+
+var adminNewUser = function(e)
+{
+	e.preventDefault();
+	const msgbox = document.getElementById("msgBox");
+	const params = new FormData(e.target)
+	postJSON('admin.php',params, function(err, data) {
+		if (err !== null) {
+			msgbox.innerHTML = err;
+		} else {
+			msgbox.innerHTML = data;
+		}
+	});
+}
