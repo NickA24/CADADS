@@ -69,7 +69,7 @@ if (isset($usrtype) && $usrtype == 3 && isset($_POST) && isset($_POST['submitTyp
 	switch($_POST['submitType'])
 	{
 		case 'adminAddUser':
-			$wedidathing = adminAddUser($db,$_POST); 
+			$_SESSION['msgbox'] = adminAddUser($db,$_POST); 
 			break;
 		case 'adminEditUser':
 			//editTicket($db,$_POST);
@@ -80,13 +80,13 @@ if (isset($usrtype) && $usrtype == 3 && isset($_POST) && isset($_POST['submitTyp
 	}
 	//After the code above has been handled, return the person to the previous page. This way they never hang out on a blank white page.
 	//(No longer needing this since we're using asynchronous stuff
-	//if(isset($_REQUEST["destination"])){
-	//	header("Location: {$_REQUEST['destination']}");
-	//} else if(isset($_SERVER["HTTP_REFERER"])){
-	//	header("Location: {$_SERVER['HTTP_REFERER']}");
-	//}else{
-	//	/* some fallback, maybe redirect to index.php */
-	//}
+	if(isset($_REQUEST["destination"])){
+		header("Location: {$_REQUEST['destination']}");
+	} else if(isset($_SERVER["HTTP_REFERER"])){
+		header("Location: {$_SERVER['HTTP_REFERER']}");
+	}else{
+		header("Location: index.php");
+	}
 }
 unset($_POST);
 $title = "Diamond Dispatch Admin Panel";
@@ -97,7 +97,7 @@ include('./inc/header.php');
 	<?php if (checklogin()) { ?><div style="float:right;"><a href="inc/logout.php">Log out</a></div><?php } ?>
 	<div>Admin main functions are to Add User, Change Password, Delete user, and see ticket data.</div>
 	<br><br>
-	<div id="msgBox"><?php echo $wedidathing; ?></div>
+	<div id="msgBox"><?php if (isset($_SESSION['msgbox'])) {echo $_SESSION['msgbox']; unset($_SESSION['msgbox']); } ?></div>
 	<div id="AddUser"><h3>Add a New User</h3>
 		<form method="POST" id="addUser">
 			<input type="hidden" name="submitType" id="submitType" value="adminAddUser">
