@@ -55,7 +55,7 @@ function adminDeleteUser($db,$var)
 	$result = $db->query($sql, $params);
 	$sql = "DELETE FROM users WHERE id = :id";
 	$result = $db->query($sql, $params);
-	return "Success! deleted user id ".$un." from database!";
+	return "Success! deleted user id ".$var['id']." from database!";
 }
 /*
 //A function to edit already added tickets. Note these are submitted with a prefix of "edit" because of the code written for testing. This can be changed if you feel like it, but make sure you change the html/js as well.
