@@ -249,6 +249,7 @@ var adminEditUser = function(e)
 	e.preventDefault();
 	const msgbox = document.getElementById("msgBox");
 	const editbox = document.getElementById("editUser");
+	editbox.textContent = '';
 	let lv = document.getElementById("listedUsers");
 		getJSON('inc/getjson.php?tbl=usr&usrid='+lv.value, function(err, data) {
 		if (err !== null) {
@@ -278,6 +279,7 @@ var adminEditUser = function(e)
 					frm.appendChild(inp);
 				}
 			});
+			editbox.appendChild(frm);
 		}
 	});
 }
