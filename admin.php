@@ -99,7 +99,7 @@ include('./inc/header.php');
 	<br><br>
 	<div id="msgBox"><?php echo $wedidathing; ?></div>
 	<div id="AddUser"><h3>Add a New User</h3>
-		<form method="POST" id="addUser" action="admin.php">
+		<form method="POST" id="addUser">
 			<input type="hidden" name="submitType" id="submitType" value="adminAddUser">
 			<label for="name">User Name:</label><input type="textbox" name="name" id="name">
 			<label for="pass">Password:</label><input type="textbox" name="pass" id="pass">
