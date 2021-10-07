@@ -226,7 +226,7 @@ var adminListUsers = function(e)
 {
 	e.preventDefault();
 	const msgbox = document.getElementById("msgBox");
-	getJSON('inc/getjson.php?tbl=usr", function(err, data) {
+	getJSON('inc/getjson.php?tbl=usr', function(err, data) {
 		if (err !== null) {
 			msgBox.innerHTML = err;
 		} else {
