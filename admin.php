@@ -1,6 +1,9 @@
 <?php include_once('./inc/login.php'); if (checklogin() != 3) { return; } ?>
 <html>
-<head><title>Admin panel</title></head>
+<head>
+	<title>Admin panel</title>
+	<script type="text/javascript" src="/js/json.js"></script>
+</head>
 <body>
 	<div>Admin main functions are to Add User, Change Password, Delete user, and see ticket data.</div>
 	<br><br>
