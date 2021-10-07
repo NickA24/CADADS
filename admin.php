@@ -7,9 +7,19 @@ include('./inc/header.php');
 	<?php if (checklogin()) { ?><div style="float:right;"><a href="inc/logout.php">Log out</a></div><?php } ?>
 	<div>Admin main functions are to Add User, Change Password, Delete user, and see ticket data.</div>
 	<br><br>
-	<div id="AddUser"><h3>Add a New User</h3></div>
+	<div id="AddUser"><h3>Add a New User</h3>
+		<form method="POST" id="addUser">
+			<input type="hidden" name="adminAddUser" id="adminAddUser" value="adminAddUser">
+			<label for="name">User Name:</label><input type="textbox" name="name" id="name">
+			<label for="pass">Password:</label><input type="textbox" name="pass" id="pass">
+			<label for="userType">User Type:</label><select id="userType" name="userType">
+			<option value="1" selected>Dispatch</option>
+			<option value="2">Ambulance</option>
+			<option value="3">Admin</option></select>
+		</form>
+	</div>
 	<div id="EditPassword"><h3>Edit a User's Name or Password</h3></div>
-	<div id="DeleteUser"><h3>Delete User (Not to be used</h3></div>
+	<div id="DeleteUser"><h3>Delete User (Not to be used)</h3></div>
 	<div id="showold"><input type="checkbox" id="inactive" name="inactive"><label for="inactive">Show Inactive</label></div>
 	<div id="ambulancetableexample"></div></center>
 	<script>
