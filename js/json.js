@@ -275,10 +275,9 @@ var adminEditUser = function(e)
 					if (k == "user_type") {
 						
 						var sel = document.createElement("select");
-						var opt1 = new Option("Dispatch", 1, false);
-						var opt2 = new Option("Ambulance", 2, false);
-						var opt3 = new Option("Admin", 3, false);
-						window['opt'+j[k]].setAttribute("selected", "true");
+						var opt1 = new Option("Dispatch", 1, false, if(j[k]==1){true}else{false});
+						var opt2 = new Option("Ambulance", 2, false,if(j[k]==2){true}else{false});
+						var opt3 = new Option("Admin", 3, false,if(j[k]==3){true}else{false});
 						sel.appendChild(opt1);
 						sel.appendChild(opt2);
 						sel.appendChild(opt3);
