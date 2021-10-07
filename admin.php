@@ -50,6 +50,10 @@ function adminDeleteUser($db,$var)
 	{
 		return 'You need a valid user id';
 	}
+	if ($var['id'] == $_SESSION['myid'])
+	{
+		return 'You cannot delete the user you are logged in as.';	
+	}
 	$params = array(":id"=>$var['id']);
 	$sql = "DELETE FROM ambulance_info WHERE id = :id";
 	$result = $db->query($sql, $params);
