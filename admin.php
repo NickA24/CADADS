@@ -64,7 +64,7 @@ function deleteTicket($db,$var)
 }
 */
 //This is the actual code in this module. If data is properly posted from a form, and a user with the proper credentials is requesting, they will be allowed to add/edit/delete tickets.
-if (isset($usrtype) && $usrtype == 3 and isset($_POST))
+if (isset($usrtype) && $usrtype == 3 && isset($_POST) && isset($_POST['submitType']))
 {
 	//Simple switch based on the submit type.
 	switch($_POST['submitType'])
