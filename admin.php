@@ -88,7 +88,6 @@ if (isset($usrtype) && $usrtype == 3 && isset($_POST) && isset($_POST['submitTyp
 	//}else{
 	//	/* some fallback, maybe redirect to index.php */
 	//}
-	return;
 }
 
 $title = "Diamond Dispatch Admin Panel";
@@ -101,7 +100,7 @@ include('./inc/header.php');
 	<br><br>
 	<div id="msgBox"></div>
 	<div id="AddUser"><h3>Add a New User</h3>
-		<form method="POST" id="addUser">
+		<form method="POST" id="addUser" action="admin.php">
 			<input type="hidden" name="submitType" id="submitType" value="adminAddUser">
 			<label for="name">User Name:</label><input type="textbox" name="name" id="name">
 			<label for="pass">Password:</label><input type="textbox" name="pass" id="pass">
@@ -111,7 +110,6 @@ include('./inc/header.php');
 			<option value="3">Admin</option></select>
 			<button type="submit" value="submit" name="addUserSubmit" id="addUserSubmit">Add New User</button>
 		</form>
-		  <script>document.getElementById("addUser").addEventListener('submit', adminAddUser, false);</script>
 	</div>
 	<div id="EditPassword"><h3>Edit a User's Name or Password</h3></div>
 	<div id="DeleteUser"><h3>Delete User (Not to be used)</h3></div>
