@@ -225,6 +225,7 @@ var adminNewUser = function(e)
 var adminListUsers = function(e)
 {
 	e.preventDefault();
+	console.log("AdminListUsers is active");
 	const msgbox = document.getElementById("msgBox");
 	getJSON('inc/getjson.php?tbl=usr', function(err, data) {
 		if (err !== null) {
