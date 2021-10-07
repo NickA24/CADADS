@@ -294,25 +294,25 @@ var adminEditUser = function(e)
 						frm.appendChild(sel);
 						
 					} else {
-						var lbl = document.createElement("label");
-						lbl.setAttribute("for", k);
-						lbl.innerHTML = k+":"
 						var inp = document.createElement("input");
 						inp.setAttribute("id", k);
 						inp.setAttribute("name", k);
-						inp.setAttribute("type", "textbox");
+						inp.setAttribute("type", "hidden");						
 						inp.setAttribute("value", j[k]);
-						if (k == "id")
-						{
-							inp.setAttribute("readonly", true);	
+						if (k != "id") {
+							var lbl = document.createElement("label");
+							lbl.setAttribute("for", k);
+							lbl.innerHTML = k+":"
+							inp.setAttribute("type", "textbox");
 						}
 						frm.appendChild(lbl);
 						frm.appendChild(inp);
 					}
 				}
 			});
-			var sbm = document.createElement("button");
+			var sbm = document.createElement("input");
 			sbm.setAttribute("type", "submit");
+			sbm.setAttribute("id", "usrEditSubmit");
 			sbm.setAttribute("value", "submit");
 			sbm.innerHTML = "Submit";
 			frm.appendChild(sbm);
