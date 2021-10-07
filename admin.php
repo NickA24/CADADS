@@ -121,8 +121,11 @@ include('./inc/header.php');
 			<button type="submit" value="submit" name="addUserSubmit" id="addUserSubmit">Add New User</button>
 		</form>
 	</div>
+	<div id="ListUsers"><h3>List users to interact with:<button type="button" name="listUsers" id="listUsers">List</button></h3>
+		<select name="listedUsers" id="listedUsers"></select><button type="button" name="EditUserList" id="EditUserList">Edit</button>
+		<button name="DeleteUserList" id="DeleteUserList">Delete</button>
+	</div>
 	<div id="EditPassword"><h3>Edit a User's Name or Password</h3></div>
-	<div id="DeleteUser"><h3>Delete User (Not to be used)</h3></div>
 	<div id="showold"><input type="checkbox" id="inactive" name="inactive"><label for="inactive">Show Inactive</label></div>
 	<div id="ambulancetableexample"></div></center>
 	<script>
