@@ -1,4 +1,5 @@
 <?php include_once('./inc/login.php'); if (checklogin() != 3) { return; } 
+$title = "Diamond Dispatch Admin Panel";
 include('./inc/header.php');
 ?>
 
