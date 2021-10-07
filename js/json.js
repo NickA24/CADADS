@@ -271,16 +271,34 @@ var adminEditUser = function(e)
 			data.forEach(function(j) {
 				for (var k in j)
 				{
-					var lbl = document.createElement("label");
-					lbl.setAttribute("for", k);
-					lbl.innerHTML = k+":"
-					var inp = document.createElement("input");
-					inp.setAttribute("id", k);
-					inp.setAttribute("name", k);
-					inp.setAttribute("type", "textbox");
-					inp.setAttribute("value", j[k]);
-					frm.appendChild(lbl);
-					frm.appendChild(inp);
+					if (k == "user_type") {
+						
+						var sel = document.createElement("select");
+						var opt1 = new Option("Dispatch", 1, false);
+						var opt2 = new Option("Ambulance", 2, false);
+						var opt3 = new Option("Admin", 3, false);
+						window['opt'+j[k]].setAttribute("selected", "true");
+						sel.appendChild(opt1);
+						sel.appendChild(opt2);
+						sel.appendChild(opt3);
+						frm.appendChild(sel);
+						
+					} else {
+						var lbl = document.createElement("label");
+						lbl.setAttribute("for", k);
+						lbl.innerHTML = k+":"
+						var inp = document.createElement("input");
+						inp.setAttribute("id", k);
+						inp.setAttribute("name", k);
+						inp.setAttribute("type", "textbox");
+						inp.setAttribute("value", j[k]);
+						if (k == "id")
+						{
+							inp.setAttribute("readonly", true);	
+						}
+						frm.appendChild(lbl);
+						frm.appendChild(inp);
+					}
 				}
 			});
 			editbox.appendChild(frm);
