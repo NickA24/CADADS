@@ -312,6 +312,14 @@ var adminEditUser = function(e)
 					}
 				}
 			});
+			var sbm = document.createElement("button");
+			sbm.setAttribute("type", "submit");
+			sbm.setAttribute("value", "submit");
+			frm.appendChild(sbm);
+			var clr = document.createElement("button");
+			sbm.setAttribute("type", "reset");
+			sbm.setAttribute("value", "Clear");
+			frm.appendChild(clr);
 			editbox.appendChild(frm);
 		}
 	});
