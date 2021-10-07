@@ -21,8 +21,6 @@ var getJSON = function(url, callback) {
 var postJSON = function(url, params, callback) {
 	var xhr = new XMLHttpRequest();
 	xhr.open('post', url, true);
-	xhr.setRequestHeader('Content-Type', 'application/json');
-	xhr.responseType = 'json';
 	xhr.onload = function()
 		{
 			var status = xhr.status;
@@ -32,7 +30,7 @@ var postJSON = function(url, params, callback) {
 				callback(status, xhr.response);
 			}
 		};
-	xhr.send(JSON.stringify(parms));
+	xhr.send(params);
 }
 
 var testFetch = function(url, params) {
@@ -172,7 +170,6 @@ var ticketTable = function(ele, showOld)
 		if (err !== null) {
 			ele.innerHTML = "Oops, error:" + err;
 		} else {
-			
 			createJSTable(ele, data, 1);
 		}
 	});
@@ -185,6 +182,25 @@ var amboInfo = function(ele)
 			ele.innerHTML = "Oops, error:" + err;
 		} else {
 			createJSTable(ele, data, 0);
+		}
+	});
+}
+
+var loginsubmit = function(e)
+{
+	e.preventDefault();
+	const msgbox = document.getElementById("msgBox");
+	const params = new FormData(e.target)
+	postJSON('inc/login.php',params, function(err, data) {
+		if (err !== null) {
+			msgbox.innerHTML = err;
+		} else {
+			if (data == "Success!") {
+				msgbox.innerHTML = data;
+				window.location.reload(true);
+			} else {
+				msgbox.innerHTML = data;
+			}
 		}
 	});
 }

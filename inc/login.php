@@ -77,7 +77,7 @@ if (isset($_POST)) {
 				$_SESSION['location'] = $result['location'];
 				$_SESSION['lastupdate'] = $result['lastupdate'];
 			}
-			header("Location: ../index.php");
+			//header("Location: ../index.php");
 		} else {
 			echo "Bad Username or Password";
 		}
