@@ -256,10 +256,27 @@ var adminEditUser = function(e)
 		} else {
 			lv.textContent = '';
 			console.log(data[0]);
+			var frm = document.createElement("form");
+			frm.setAttribute("method", "POST");
+			frm.setAttribute("action", "admin.php");
+			frm.setAttribute("id", "EditUser");
+			var submittype = document.createElement("input");
+			submittype.setAttribute("type", "hidden");
+			submittype.setAttribute("value", "adminEditUser");
+			frm.appendChild(submittype);
 			data.forEach(function(j) {
-				//for (var k in j)
-				//var lbl = document.createElement("label")
-				//lbl.setAttribute("for"
+				for (var k in j)
+				{
+					var lbl = document.createElement("label");
+					lbl.setAttribute("for", k);
+					var inp = document.createElement("input");
+					inp.setAttribute("id", k);
+					inp.setAttribute("name", k);
+					inp.setAttribute("type", "textbox");
+					inp.setAttribute("value", j[k]);
+					frm.appendChild(lbl);
+					frm.appendChild(inp);
+				}
 			});
 		}
 	});
