@@ -43,6 +43,20 @@ function adminAddUser($db,$var)
 	}
 	return "Success! added ".$un." to database as ".$utname."!";
 }
+
+function adminDeleteUser($db,$var)
+{
+	if (!isset($var['id']))
+	{
+		return 'You need a valid user id';
+	}
+	$params = array(":id"=>$var['id']);
+	$sql = "DELETE FROM ambulance_info WHERE id = :id";
+	$result = $db->query($sql, $params);
+	$sql = "DELETE FROM users WHERE id = :id";
+	$result = $db->query($sql, $params);
+	return "Success! deleted user id ".$un." from database!";
+}
 /*
 //A function to edit already added tickets. Note these are submitted with a prefix of "edit" because of the code written for testing. This can be changed if you feel like it, but make sure you change the html/js as well.
 //Note: You're not allowed to change ambulances using the edit feature. This is by design. If you want to change ambulances, that's a separate thing. (this may change in the future)
@@ -59,19 +73,6 @@ function editTicket($db,$var)
 	return $result;
 }
 
-//This deletes an entry from the database. Dispatchers shouldn't be deleting valid tickets, whether they were completed or called off, but it's here in case there was a mistake.
-function deleteTicket($db,$var)
-{
-	if (!isset($var['deleteid']))
-	{
-		echo 'no valid delete id';
-		return 'You need a valid id to delete';
-	}
-	$params = array(":id"=>$var['deleteid']);
-	$sql = "DELETE FROM ticket WHERE id = :id";
-	$result = $db->query($sql, $params);
-	return $result;
-}
 */
 //This is the actual code in this module. If data is properly posted from a form, and a user with the proper credentials is requesting, they will be allowed to add/edit/delete tickets.
 if (isset($usrtype) && $usrtype == 3 && isset($_POST) && isset($_POST['submitType']))
@@ -86,7 +87,7 @@ if (isset($usrtype) && $usrtype == 3 && isset($_POST) && isset($_POST['submitTyp
 			//editTicket($db,$_POST);
 			break;
 		case 'adminDeleteUser':
-			//deleteTicket($db,$_POST);
+			$_SESSION['msgbox'] = adminDeleteUser($db, $_POST);
 			break;
 	}
 	//After the code above has been handled, return the person to the previous page. This way they never hang out on a blank white page.
