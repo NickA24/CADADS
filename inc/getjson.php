@@ -14,10 +14,10 @@
 				$uid = '';
 				if ($_GET['usrid'])
 				{
-					$uid = "WHERE id = :id ";
+					$uid = "WHERE id = :id LIMIT 1 ";
 					$params = array(":id"=>$_GET['usrid']);
 				}
-				$sql = "SELECT id, name, user_type FROM users ".$uid."ORDER BY id";
+				$sql = "SELECT id, name, '' AS pass, user_type FROM users ".$uid."ORDER BY id";
 				break;
 			case 'editTicket':
 				$sql = "SELECT ticket.id, active, ticket.name, location, incident_type, priority, IF(ticket.ambulance>0,users.name,'None') AS ambulance, time, comments FROM ticket LEFT JOIN users ON users.id=ticket.ambulance WHERE ticket.id = :id";
