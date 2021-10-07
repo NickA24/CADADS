@@ -12,10 +12,9 @@
 		{
 			case 'usr':
 				$uid = '';
-				$params = '';
 				if ($_GET['usrid'])
 				{
-					$uid = " WHERE id = :id ";
+					$uid = "WHERE id = :id ";
 					$params = array(":id"=>$_GET['usrid']);
 				}
 				$sql = "SELECT id, name, user_type FROM users ".$uid."ORDER BY id";
