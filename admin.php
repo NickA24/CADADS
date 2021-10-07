@@ -88,7 +88,7 @@ if (isset($usrtype) && $usrtype == 3 && isset($_POST) && isset($_POST['submitTyp
 	//	/* some fallback, maybe redirect to index.php */
 	//}
 }
-
+unset($_POST);
 $title = "Diamond Dispatch Admin Panel";
 include('./inc/header.php');
 ?>
