@@ -271,6 +271,7 @@ var adminEditUser = function(e)
 			data.forEach(function(j) {
 				for (var k in j)
 				{
+					console.log(k);
 					if (k == "user_type") {
 						
 						var sel = document.createElement("select");
