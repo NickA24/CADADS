@@ -4,6 +4,7 @@ include('./inc/header.php');
 ?>
 
 <body>
+	<?php if (checklogin()) { ?><div style="float:right;"><a href="inc/logout.php">Log out</a></div><?php } ?>
 	<div>Admin main functions are to Add User, Change Password, Delete user, and see ticket data.</div>
 	<br><br>
 	<div id="AddUser"><h3>Add a New User</h3></div>
