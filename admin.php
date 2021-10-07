@@ -7,6 +7,7 @@ include('./inc/header.php');
 	<?php if (checklogin()) { ?><div style="float:right;"><a href="inc/logout.php">Log out</a></div><?php } ?>
 	<div>Admin main functions are to Add User, Change Password, Delete user, and see ticket data.</div>
 	<br><br>
+	<div id="msgBox"></div>
 	<div id="AddUser"><h3>Add a New User</h3>
 		<form method="POST" id="addUser">
 			<input type="hidden" name="adminAddUser" id="adminAddUser" value="adminAddUser">
@@ -16,6 +17,7 @@ include('./inc/header.php');
 			<option value="1" selected>Dispatch</option>
 			<option value="2">Ambulance</option>
 			<option value="3">Admin</option></select>
+			<button type="submit" value="submit" name="addUserSubmit" id="addUserSubmit">Add New User</button>
 		</form>
 	</div>
 	<div id="EditPassword"><h3>Edit a User's Name or Password</h3></div>
