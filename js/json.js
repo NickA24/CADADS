@@ -248,7 +248,7 @@ var adminEditUser = function(e)
 {
 	e.preventDefault();
 	const msgbox = document.getElementById("msgBox");
-	const editbox = document.getElementById("editUser");
+	const editbox = document.getElementById("EditUser");
 	editbox.textContent = '';
 	let lv = document.getElementById("listedUsers");
 		getJSON('inc/getjson.php?tbl=usr&usrid='+lv.value, function(err, data) {
