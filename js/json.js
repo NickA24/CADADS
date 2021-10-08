@@ -265,6 +265,8 @@ var adminEditUser = function(e)
 			frm.setAttribute("id", "EditUser");
 			var submittype = document.createElement("input");
 			submittype.setAttribute("type", "hidden");
+			submittype.setAttribute("name", "submitType");
+			submittype.setAttribute("id", "submitType");
 			submittype.setAttribute("value", "adminEditUser");
 			frm.appendChild(submittype);
 			data.forEach(function(j) {
