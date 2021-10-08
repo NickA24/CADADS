@@ -88,7 +88,7 @@ var createJSTable = function(ele, data, addEditData)
 		var td = document.createElement("th");
 		td.innerHTML = headdata[i];
 		tr.appendChild(td);
-		if(headdata[i] == "id" ** addEditData == 1)
+		if(headdata[i] == "id" && addEditData === 1)
 		{
 			td.setAttribute("colspan", 3);
 		}
@@ -171,7 +171,7 @@ var ticketTable = function(ele, showOld, edit)
 			ele.innerHTML = "Oops, error:" + err;
 		} else {
 			var p = 0;
-			if (edit == 1) { p = 1; }
+			if (edit === 1) { p = 1; }
 			createJSTable(ele, data, p);
 		}
 	});
