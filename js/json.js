@@ -171,7 +171,7 @@ var ticketTable = function(ele, showOld, edit)
 			ele.innerHTML = "Oops, error:" + err;
 		} else {
 			var p = 0;
-			if (edit === 1) { p = 1; }
+			if (edit == 1) { p = 1; }
 			createJSTable(ele, data, p);
 		}
 	});
