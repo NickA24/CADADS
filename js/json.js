@@ -371,3 +371,15 @@ var adminDeleteUsers = function(e)
 		msgbox.innerHTML = "Deletion cancelled";
 	}
 }
+
+var doPassCheck = function(t) {
+	if (t.value != document.getElementById('pass').value)
+	{
+		t.style.backgroundColor = "rgba(255,0,0,0.3)";
+		t.setCustomValidity('Passwords must match!');
+	} else {
+		t.setCustomValidity('');
+		t.style.backgroundColor = "";
+	}
+	t.reportValidity();	
+}
