@@ -316,7 +316,9 @@ var adminEditUser = function(e)
 			frm.appendChild(sbm);
 			var clr = document.createElement("button");
 			clr.setAttribute("type", "reset");
+			clr.setAttribute("id", "usrEditClear");
 			clr.setAttribute("value", "Clear");
+			clr.innerHTML = "Clear";
 			frm.appendChild(clr);
 			editbox.appendChild(frm);
 		}
