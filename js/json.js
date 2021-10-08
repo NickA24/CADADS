@@ -299,7 +299,7 @@ var adminEditUser = function(e)
 						inp.setAttribute("type", "hidden");						
 						inp.setAttribute("value", j[k]);
 						if (k == "pass") {
-							inp.setAttribute("placeholder", "Leave blank to keep password");
+							inp.setAttribute("placeholder", "Leave blank to keep same");
 						}
 						if (k != "id") {
 							var lbl = document.createElement("label");
