@@ -316,11 +316,27 @@ var adminEditUser = function(e)
 			sbm.setAttribute("type", "submit");
 			sbm.setAttribute("id", "usrEditSubmit");
 			sbm.setAttribute("value", "submit");
+			sbm.addEventHandler("submit", function(e) {
+				e.preventDefault();
+				let formData = new FormData(frm);
+				postJSON('admin.php',params, function(err, data) {
+					if (err !== null) {
+						msgbox.innerHTML = err;
+					} else {
+						console.log(data);
+						msgbox.innerHTML = data;
+					}
+					lv.textContent = '';
+					editbox.textContent = '';
+				});
+			});
 			frm.appendChild(sbm);
 			var clr = document.createElement("button");
 			clr.setAttribute("type", "reset");
 			clr.setAttribute("id", "usrEditClear");
 			clr.setAttribute("value", "Clear");
+			clr.addEventHandler("click", function(e) {e.preventDefault(); editbox.textContent=''; }
+					    
 			clr.innerHTML = "Clear";
 			frm.appendChild(clr);
 			editbox.appendChild(frm);
