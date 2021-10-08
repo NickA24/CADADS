@@ -66,14 +66,12 @@ function adminDeleteUser($db,$var)
 //Note it keeps the same password unless a new password is entered.
 function adminEditUser($db,$var)
 {
-	var_dump($var);
-	return;
 	if (!isset($var['id']))
 	{
 		echo "no valid user id";
 		return 'You need a valid user id to edit';
 	}
-	$params = array(":id"=>$var['id'], ":name"=>$var['name'], ":usertype"=>$var['usertype']);
+	$params = array(":id"=>$var['id'], ":name"=>$var['name'], ":usertype"=>$var['user_type']);
 	$sql = "UPDATE users SET name = :name, user_type = :usertype WHERE id = :id";
 	$result = $db->query($sql, $params);
 	if (isset($var['pass']))
@@ -97,7 +95,6 @@ if (isset($usrtype) && $usrtype == 3 && isset($_POST) && isset($_POST['submitTyp
 			break;
 		case 'adminEditUser':
 			$_SESSION['msgbox'] = adminEditUser($db,$_POST);
-			return;
 			break;
 		case 'adminDeleteUser':
 			echo adminDeleteUser($db, $_POST);
