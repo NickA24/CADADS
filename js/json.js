@@ -373,7 +373,7 @@ var adminDeleteUsers = function(e)
 }
 
 var doPassCheck = function(t) {
-	if (t.value != document.getElementById('pass').value && t.value != '')
+	if (t.value != document.getElementById('pass').value && t.value != '' && t.hasFocus() != true)
 	{
 		t.style.backgroundColor = "rgba(255,0,0,0.3)";
 		t.setCustomValidity('Passwords must match!');
