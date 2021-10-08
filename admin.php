@@ -71,25 +71,19 @@ function adminEditUser($db,$var)
 		echo "no valid user id";
 		return 'You need a valid user id to edit';
 	}
-	var_dump($var);
-	return;
-}
-
-/*
-function editTicket($db,$var)
-{
-	if (!isset($var['editid']) || !isset($var['editlocation']))
-	{
-		echo "no valid name or location";
-		return 'You need a valid name and location to edit';
-	}
-	$params = array(":active"=>$var['editactive'], ":name"=>$var['editname'], ":location"=>$var['editlocation'], ":incident"=>$var['editincident_type'], ":priority"=>$var['editpriority'], ":comments"=>$var['editcomments'], ":id"=>$var['editid']);
-	$sql = "UPDATE ticket SET active=:active, name=:name, location=:location, incident_type=:incident,priority=:priority,comments=:comments WHERE id = :id";
+	$params = array(":id"=>$var['id'], ":name"=>$var['name'], ":usertype"=>$var['usertype']);
+	$sql = "UPDATE users SET name = :name, user_type = :usertype WHERE id = :id";
 	$result = $db->query($sql, $params);
-	return $result;
+	if (isset($var['pass']))
+	{
+		unset($params);
+		$params = array(":id"=>$var['id'], ":pass"=> passmake($var['pass']));
+		$sql = "UPDATE users SET hash_pw = :pass WHERE id = :id";
+		$result = $db->query($sql, $params);
+	}
+	return "Updated user id ".$var['id'];
 }
 
-*/
 //This is the actual code in this module. If data is properly posted from a form, and a user with the proper credentials is requesting, they will be allowed to add/edit/delete tickets.
 if (isset($usrtype) && $usrtype == 3 && isset($_POST) && isset($_POST['submitType']))
 {
@@ -101,7 +95,6 @@ if (isset($usrtype) && $usrtype == 3 && isset($_POST) && isset($_POST['submitTyp
 			break;
 		case 'adminEditUser':
 			$_SESSION['msgbox'] = adminEditUser($db,$_POST);
-			return;
 			break;
 		case 'adminDeleteUser':
 			echo adminDeleteUser($db, $_POST);
