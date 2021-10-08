@@ -6,7 +6,8 @@ if (checklogin() != 1) { return; }
 
 <body>
 	<?php //Only display the logout link if you're already logged in
-	if (checklogin()) { ?><div style="float:right;"><a href="inc/logout.php">Log out</a></div><?php } ?>
+	echo logoutbutton(); 
+	?>
 	<center><h1>Testing dispatcher ticket functions</h1>
 	<div id="addticket">
 		<?php
