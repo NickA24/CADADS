@@ -304,8 +304,8 @@ var adminEditUser = function(e)
 							lbl.setAttribute("for", k);
 							lbl.innerHTML = k+":"
 							inp.setAttribute("type", "textbox");
+							frm.appendChild(lbl);
 						}
-						frm.appendChild(lbl);
 						frm.appendChild(inp);
 					}
 				}
