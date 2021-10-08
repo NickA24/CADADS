@@ -117,7 +117,7 @@ include('./inc/header.php');
 ?>
 
 <body>
-	<?php logoutbutton(); ?>
+	<?php echo logoutbutton(); ?>
 	<div>Admin main functions are to Add User, Change Password, Delete user, and see ticket data.</div>
 	<br><br>
 	<div id="msgBox"><?php if (isset($_SESSION['msgbox'])) {echo $_SESSION['msgbox']; unset($_SESSION['msgbox']); } ?></div>
