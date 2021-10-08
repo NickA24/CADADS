@@ -75,7 +75,7 @@ function adminEditUser($db,$var)
 	return;
 }
 
-
+/*
 function editTicket($db,$var)
 {
 	if (!isset($var['editid']) || !isset($var['editlocation']))
