@@ -125,7 +125,8 @@ include('./inc/header.php');
 		<form method="POST" id="addUser">
 			<input type="hidden" name="submitType" id="submitType" value="adminAddUser">
 			<label for="name">User Name:</label><input type="textbox" name="name" id="name">
-			<label for="pass">Password:</label><input type="textbox" name="pass" id="pass">
+			<label for="pass">Password:</label><input type="password" name="pass" id="pass">
+			<label for="dblchk"></label><input type="password" name="dblchk" id="dblchk" placeholder="Verify Password" onleave="if (this.value != document.getElementById('pass').value){this.setCustomValidity('Passwords must match!');}else{this.setCustomValidity('');}}">
 			<label for="userType">User Type:</label><select id="userType" name="userType">
 			<option value="1" selected>Dispatch</option>
 			<option value="2">Ambulance</option>
