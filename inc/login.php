@@ -23,6 +23,14 @@ function checklogin() {
 	return false;
 }
 
+function logoutbutton() {
+	if (checklogin())
+	{
+		return '<div style="float:right;">Logged in as '.$_SESSION['myusername'].'<a href="inc/logout.php">Log out</a></div>';
+	}
+	return '';
+}
+
 //Only need to do this part if we have any post data at all, otherwise skip the cycles
 if (isset($_POST)) {
 	//If we receive user data, check if it's valid and if it's submitted by an admin, and insert into the db
