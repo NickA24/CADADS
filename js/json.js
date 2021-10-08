@@ -335,8 +335,7 @@ var adminEditUser = function(e)
 			clr.setAttribute("type", "reset");
 			clr.setAttribute("id", "usrEditClear");
 			clr.setAttribute("value", "Clear");
-			clr.addEventHandler("click", function(e) {e.preventDefault(); editbox.textContent=''; }
-					    
+			clr.addEventHandler("click", function(e) {e.preventDefault(); editbox.textContent=''; });
 			clr.innerHTML = "Clear";
 			frm.appendChild(clr);
 			editbox.appendChild(frm);
