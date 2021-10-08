@@ -44,6 +44,7 @@ function adminAddUser($db,$var)
 	return "Success! added ".$un." to database as ".$utname."!";
 }
 
+//A function to delete users
 function adminDeleteUser($db,$var)
 {
 	if (!isset($var['id']))
@@ -61,9 +62,20 @@ function adminDeleteUser($db,$var)
 	$result = $db->query($sql, $params);
 	return "Success! deleted user id ".$var['id']." from database!";
 }
-/*
-//A function to edit already added tickets. Note these are submitted with a prefix of "edit" because of the code written for testing. This can be changed if you feel like it, but make sure you change the html/js as well.
-//Note: You're not allowed to change ambulances using the edit feature. This is by design. If you want to change ambulances, that's a separate thing. (this may change in the future)
+//A function to edit users. 
+//Note it keeps the same password unless a new password is entered.
+function adminEditUser($db,$var)
+{
+	if (!isset($var['id']))
+	{
+		echo "no valid user id";
+		return 'You need a valid user id to edit';
+	}
+	var_dump($var);
+	return;
+}
+
+
 function editTicket($db,$var)
 {
 	if (!isset($var['editid']) || !isset($var['editlocation']))
@@ -88,7 +100,8 @@ if (isset($usrtype) && $usrtype == 3 && isset($_POST) && isset($_POST['submitTyp
 			$_SESSION['msgbox'] = adminAddUser($db,$_POST); 
 			break;
 		case 'adminEditUser':
-			//editTicket($db,$_POST);
+			$_SESSION['msgbox'] = adminEditUser($db,$_POST);
+			return;
 			break;
 		case 'adminDeleteUser':
 			echo adminDeleteUser($db, $_POST);
