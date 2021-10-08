@@ -256,7 +256,6 @@ var adminEditUser = function(e)
 			msgBox.innerHTML = err;
 		} else {
 			lv.textContent = '';
-			console.log(data[0]);
 			var h2 = document.createElement("h2");
 			editbox.appendChild(h2);
 			h2.innerHTML = "Editing user "+data[0]['name'];
@@ -314,7 +313,6 @@ var adminEditUser = function(e)
 			sbm.setAttribute("type", "submit");
 			sbm.setAttribute("id", "usrEditSubmit");
 			sbm.setAttribute("value", "submit");
-			sbm.innerHTML = "Submit";
 			frm.appendChild(sbm);
 			var clr = document.createElement("button");
 			sbm.setAttribute("type", "reset");
