@@ -275,6 +275,9 @@ var adminEditUser = function(e)
 					if (k == "user_type") {
 						
 						var sel = document.createElement("select");
+						sel.setAttribute("name", "user_type");
+						sel.setAttribute("id", "user_type");
+						
 						var opt1 = new Option("Dispatch", 1, false);
 						var opt2 = new Option("Ambulance", 2, false);
 						var opt3 = new Option("Admin", 3, false);
