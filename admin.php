@@ -129,10 +129,14 @@ include('./inc/header.php');
 			<label for="dblchk"></label><input type="password" name="dblchk" id="dblchk" placeholder="Verify Password" onblur="
 				if (this.value != document.getElementById('pass').value)
 				{
+					this.style.backgroundColor = "rgba(255,0,0,0.3)";
 					this.setCustomValidity('Passwords must match!');
 				}else{
 					this.setCustomValidity('');
-				}">
+					this.style.backgroundColor = "";
+				}
+				this.reportValidity();
+				">
 			<label for="userType">User Type:</label><select id="userType" name="userType">
 			<option value="1" selected>Dispatch</option>
 			<option value="2">Ambulance</option>
