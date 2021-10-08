@@ -298,6 +298,9 @@ var adminEditUser = function(e)
 						inp.setAttribute("name", k);
 						inp.setAttribute("type", "hidden");						
 						inp.setAttribute("value", j[k]);
+						if (k == "pass") {
+							inp.setAttribute("placeholder", "Leave blank to keep password");
+						}
 						if (k != "id") {
 							var lbl = document.createElement("label");
 							lbl.setAttribute("for", k);
