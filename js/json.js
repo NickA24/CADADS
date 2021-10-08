@@ -316,7 +316,7 @@ var adminEditUser = function(e)
 			sbm.setAttribute("type", "submit");
 			sbm.setAttribute("id", "usrEditSubmit");
 			sbm.setAttribute("value", "submit");
-			sbm.addEventHandler("submit", function(e) {
+			sbm.addEventListener("submit", function(e) {
 				e.preventDefault();
 				let formData = new FormData(frm);
 				postJSON('admin.php',params, function(err, data) {
@@ -335,7 +335,7 @@ var adminEditUser = function(e)
 			clr.setAttribute("type", "reset");
 			clr.setAttribute("id", "usrEditClear");
 			clr.setAttribute("value", "Clear");
-			clr.addEventHandler("click", function(e) {e.preventDefault(); editbox.textContent=''; });
+			clr.addEventListener("click", function(e) {e.preventDefault(); editbox.textContent=''; });
 			clr.innerHTML = "Clear";
 			frm.appendChild(clr);
 			editbox.appendChild(frm);
