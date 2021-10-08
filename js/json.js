@@ -315,9 +315,8 @@ var adminEditUser = function(e)
 			sbm.setAttribute("value", "submit");
 			frm.appendChild(sbm);
 			var clr = document.createElement("button");
-			sbm.setAttribute("type", "reset");
-			sbm.setAttribute("value", "Clear");
-			sbm.innerHTML = "Clear";
+			clr.setAttribute("type", "reset");
+			clr.setAttribute("value", "Clear");
 			frm.appendChild(clr);
 			editbox.appendChild(frm);
 		}
