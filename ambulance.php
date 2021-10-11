@@ -48,12 +48,12 @@ function calculateAndDisplayRoute(directionsService, directionsRenderer) {
 		var m1 = new google.maps.Marker({
 			position: ele.data.ambulance_location,
 			label:"🚑",
-			map: document.getElementById("map").map;
+			map: document.getElementById("map").map
 		});
 		var m2 = new google.maps.Marker({
 			position: ele.data.ticket_location,
 			label:"🏁",
-			map: document.getElementById("map").map;
+			map: document.getElementById("map").map
 		});
 	})
 	.catch((e) => console.log("Directions request failed due to " + status));
