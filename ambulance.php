@@ -46,7 +46,7 @@ function calculateAndDisplayRoute(directionsService, directionsRenderer) {
 	.then((response) => {
 		directionsRenderer.setDirections(response);
 		console.log(response);
-		/*var m1 = new google.maps.Marker({
+		var m1 = new google.maps.Marker({
 			position: response.geocoded_waypoints[0],
 			label:"🚑",
 			map: document.getElementById("map").map
@@ -55,7 +55,7 @@ function calculateAndDisplayRoute(directionsService, directionsRenderer) {
 			position: response.request.destination.location,
 			label:"🏁",
 			map: document.getElementById("map").map
-		});*/
+		});
 	})
 	.catch((e) => console.log("Directions request failed due to " + status));
 }
