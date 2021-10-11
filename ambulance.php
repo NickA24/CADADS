@@ -26,30 +26,30 @@ function initMap() {
 	});
 
 	directionsRenderer.setMap(map);
-
-	function calculateAndDisplayRoute(directionsService, directionsRenderer) {
-		directionsService.route(
-		{
-			origin: 
-			{
-				query: document.querySelector("#curCall > table > tbody > tr > td:nth-child(3)"),
-			},
-			destination: 
-			{
-				query: document.querySelector("#curCall > table > tbody > tr > td:nth-child(6)"),
-			},
-			travelMode: google.maps.TravelMode.DRIVING,
-		})
-		.then((response) => {directionsRenderer.setDirections(response);})
-		.catch((e) => window.alert("Directions request failed due to " + status));
-	}
 	
-	function testfunction()
+	map.testfunction = function()
 	{
 		calculateAndDisplayRoute(directionsService, directionsRenderer);
 	}
 }
-    
+	
+function calculateAndDisplayRoute(directionsService, directionsRenderer) {
+	directionsService.route(
+	{
+		origin: 
+		{
+			query: document.querySelector("#curCall > table > tbody > tr > td:nth-child(3)"),
+		},
+		destination: 
+		{
+			query: document.querySelector("#curCall > table > tbody > tr > td:nth-child(6)"),
+		},
+		travelMode: google.maps.TravelMode.DRIVING,
+	})
+	.then((response) => {directionsRenderer.setDirections(response);})
+	.catch((e) => window.alert("Directions request failed due to " + status));
+}
+
 </script>
   
    <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
