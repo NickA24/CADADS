@@ -28,12 +28,10 @@ function initMap() {
 
 	directionsRenderer.setMap(map);
 	
-	const testfunc = function() {
+	map.testfunc = function() {
 		console.log("Attemping test function");
 		calculateAndDisplayRoute(directionsService, directionsRenderer);
 	};
-	
-	document.body.addEventListener("keydown", testfunc);
 }
 	
 function calculateAndDisplayRoute(directionsService, directionsRenderer) {
