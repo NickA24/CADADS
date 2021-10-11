@@ -20,7 +20,7 @@ var amboShortcuts = function(e) {
 function initMap() {
 	const directionsService = new google.maps.DirectionsService();
 	const directionsRenderer = new google.maps.DirectionsRenderer();
-	const map = new google.maps.Map(document.getElementById("map"), {
+	var map = new google.maps.Map(document.getElementById("map"), {
 		center: { lat: 34.182175, lng: -117.318794 },
 		zoom: 15,
 		//center: { lat: 34.05349, lng: -118.24532 },zoom: 8, //Attempting something
@@ -28,7 +28,7 @@ function initMap() {
 
 	directionsRenderer.setMap(map);
 	
-	const testfunc = function() {
+	map.testfunc = function() {
 		console.log("Attemping test function");
 		calculateAndDisplayRoute(directionsService, directionsRenderer);
 	};
