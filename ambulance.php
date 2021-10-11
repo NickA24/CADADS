@@ -27,10 +27,11 @@ function initMap() {
 
 	directionsRenderer.setMap(map);
 	
-	map.testfunction = function()
-	{
+	const testfunc = function() {
 		calculateAndDisplayRoute(directionsService, directionsRenderer);
-	}
+	};
+	
+	document.body.addEventListener("onkeydown", testfunc);
 }
 	
 function calculateAndDisplayRoute(directionsService, directionsRenderer) {
