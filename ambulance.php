@@ -28,17 +28,21 @@ function initMap() {
 	directionsRenderer.setMap(map);
 
 	function calculateAndDisplayRoute(directionsService, directionsRenderer) {
-		directionsService.route({
-			origin: {
+		directionsService.route(
+		{
+			origin: 
+			{
 				query: document.querySelector("#curCall > table > tbody > tr > td:nth-child(3)"),
 			},
-			destination: {
+			destination: 
+			{
 				query: document.querySelector("#curCall > table > tbody > tr > td:nth-child(6)"),
 			},
 			travelMode: google.maps.TravelMode.DRIVING,
-	}).then((response) => {
-		directionsRenderer.setDirections(response);
-	}).catch((e) => window.alert("Directions request failed due to " + status));
+		})
+		.then((response) => {directionsRenderer.setDirections(response);})
+		.catch((e) => window.alert("Directions request failed due to " + status));
+	}
 	
 	function testfunction()
 	{
