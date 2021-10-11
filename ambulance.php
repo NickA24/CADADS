@@ -45,9 +45,8 @@ function calculateAndDisplayRoute(directionsService, directionsRenderer) {
 	})
 	.then((response) => {
 		directionsRenderer.setDirections(response);
-		console.log(response);
 		var m1 = new google.maps.Marker({
-			position: response.request.destination.location,
+			position: response.request.origin.location,
 			title:"Ambulance Location",
 			label:"🚑",
 			map: document.getElementById("map").map
