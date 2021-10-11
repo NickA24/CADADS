@@ -33,6 +33,7 @@ function initMap() {
 		calculateAndDisplayRoute(directionsService, directionsRenderer);
 	};
 	document.getElementById("map").map = map;
+	map.testfunc();
 }
 	
 function calculateAndDisplayRoute(directionsService, directionsRenderer) {
