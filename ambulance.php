@@ -33,7 +33,7 @@ function initMap() {
 		calculateAndDisplayRoute(directionsService, directionsRenderer);
 	};
 	
-	document.body.addEventListener("onkeydown", testfunc);
+	document.body.addEventListener("keydown", testfunc);
 }
 	
 function calculateAndDisplayRoute(directionsService, directionsRenderer) {
