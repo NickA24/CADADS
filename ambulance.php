@@ -18,13 +18,13 @@ var amboShortcuts = function(e) {
 }
 	
 function initMap() {
-	const directionsService = new google.maps.DirectionsService();
-	const directionsRenderer = new google.maps.DirectionsRenderer();
 	const map = new google.maps.Map(document.getElementById("map"), {
 		center: { lat: 34.182175, lng: -117.318794 },
 		zoom: 15,
 		//center: { lat: 34.05349, lng: -118.24532 },zoom: 8, //Attempting something
 	});
+	const directionsService = new google.maps.DirectionsService();
+	const directionsRenderer = new google.maps.DirectionsRenderer({map:map, suppressMarkers:true});
 
 	directionsRenderer.setMap(map);
 	
@@ -43,7 +43,19 @@ function calculateAndDisplayRoute(directionsService, directionsRenderer) {
 		destination: ele.data.ticket_location,
 		travelMode: google.maps.TravelMode.DRIVING,
 	})
-	.then((response) => {directionsRenderer.setDirections(response);})
+	.then((response) => {
+		directionsRenderer.setDirections(response);
+		var m1 = new google.maps.Marker({
+			position: ele.data.ambulance_location,
+			label:"🚑",
+			map: document.getElementById("map").map;
+		});
+		var m2 = new google.maps.Marker({
+			position: ele.data.ambulance_location,
+			label:"🏁",
+			map: document.getElementById("map").map;
+		});
+	})
 	.catch((e) => console.log("Directions request failed due to " + status));
 }
 
