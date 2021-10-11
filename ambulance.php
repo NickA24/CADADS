@@ -45,7 +45,8 @@ function calculateAndDisplayRoute(directionsService, directionsRenderer) {
 	})
 	.then((response) => {
 		directionsRenderer.setDirections(response);
-		var m1 = new google.maps.Marker({
+		console.log(response);
+		/*var m1 = new google.maps.Marker({
 			position: ele.data.ambulance_location,
 			label:"🚑",
 			map: document.getElementById("map").map
@@ -54,7 +55,7 @@ function calculateAndDisplayRoute(directionsService, directionsRenderer) {
 			position: ele.data.ticket_location,
 			label:"🏁",
 			map: document.getElementById("map").map
-		});
+		});*/
 	})
 	.catch((e) => console.log("Directions request failed due to " + status));
 }
