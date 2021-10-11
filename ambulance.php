@@ -47,12 +47,14 @@ function calculateAndDisplayRoute(directionsService, directionsRenderer) {
 		directionsRenderer.setDirections(response);
 		console.log(response);
 		var m1 = new google.maps.Marker({
-			position: response.geocoded_waypoints[0],
+			position: response.request.destination.location,
+			title:"Ambulance Location",
 			label:"🚑",
 			map: document.getElementById("map").map
 		});
 		var m2 = new google.maps.Marker({
 			position: response.request.destination.location,
+			title:"Ticket Location",
 			label:"🏁",
 			map: document.getElementById("map").map
 		});
