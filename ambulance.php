@@ -28,6 +28,7 @@ function initMap() {
 	directionsRenderer.setMap(map);
 	
 	const testfunc = function() {
+		console.log("Attemping test function");
 		calculateAndDisplayRoute(directionsService, directionsRenderer);
 	};
 	
