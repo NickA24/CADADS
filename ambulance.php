@@ -17,9 +17,10 @@ var amboShortcuts = function(e) {
     console.log(str); 
 }
 
+const directionsService = new google.maps.DirectionsService();
+const directionsRenderer = new google.maps.DirectionsRenderer();
+	
 function initMap() {
-	const directionsService = new google.maps.DirectionsService();
-	const directionsRenderer = new google.maps.DirectionsRenderer();
 	const map = new google.maps.Map(document.getElementById("map"), {
 		center: { lat: 34.05349, lng: -118.24532 },//over LA as default
 		zoom: 8,
@@ -46,7 +47,7 @@ function calculateAndDisplayRoute(directionsService, directionsRenderer) {
   
    <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
     <script
-      src="https://maps.googleapis.com/maps/api/js?key=<?php include('./inc/config.php'); echo $GoogleAPIKey; ?>&callback=initMap&v=weekly"
+      src="/inc/googleapi.php"
       async
     ></script>
   
