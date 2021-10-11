@@ -183,7 +183,7 @@ var amboInfo = function(ele)
 		if (err !== null) {
 			ele.innerHTML = "Oops, error:" + err;
 		} else {
-			ele.data = data;
+			ele.data = data[0];
 			createJSTable(ele, data, 0);
 		}
 	});
