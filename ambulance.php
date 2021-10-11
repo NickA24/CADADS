@@ -50,7 +50,7 @@ function calculateAndDisplayRoute(directionsService, directionsRenderer) {
 		travelMode: google.maps.TravelMode.DRIVING,
 	})
 	.then((response) => {directionsRenderer.setDirections(response);})
-	.catch((e) => window.alert("Directions request failed due to " + status));
+	.catch((e) => console.log("Directions request failed due to " + status));
 }
 
 </script>
