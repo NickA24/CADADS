@@ -51,7 +51,7 @@ function calculateAndDisplayRoute(directionsService, directionsRenderer) {
 			map: document.getElementById("map").map;
 		});
 		var m2 = new google.maps.Marker({
-			position: ele.data.ambulance_location,
+			position: ele.data.ticket_location,
 			label:"🏁",
 			map: document.getElementById("map").map;
 		});
