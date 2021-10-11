@@ -37,16 +37,11 @@ function initMap() {
 }
 	
 function calculateAndDisplayRoute(directionsService, directionsRenderer) {
+	const ele = document.getElementById("curCall");
 	directionsService.route(
 	{
-		origin: 
-		{
-			query: document.querySelector("#curCall > table > tbody > tr > td:nth-child(3)"),
-		},
-		destination: 
-		{
-			query: document.querySelector("#curCall > table > tbody > tr > td:nth-child(6)"),
-		},
+		origin: ele.data.ambulance_location,
+		destination: ele.data.ticket_location,
 		travelMode: google.maps.TravelMode.DRIVING,
 	})
 	.then((response) => {directionsRenderer.setDirections(response);})
