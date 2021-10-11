@@ -1,6 +1,13 @@
 <?php	include_once("./inc/login.php"); include_once("./inc/header.php"); if (checklogin() != 2) { return; } ?>
 <body onload="var ele = document.getElementById('curCall'); amboInfo(ele); this.onkeydown = amboShortcuts;">
 <?php echo logoutbutton(); ?>
+    <style type="text/css">
+    /* Set the size of the div element that contains the map */
+    #map {
+      height: 600px;
+      width: 100%;
+    }
+  </style>
 <h1>Ambulance <?php echo $_SESSION['myusername'] ?>:</h1>
 <div id="curCall"></div>
 <div id="map"></div>
