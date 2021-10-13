@@ -159,7 +159,6 @@ var amboInfo = function(ele)
 		} else {
 			ele.data = data[0];
 			createJSTable(ele, data, 0);
-			document.getElementById("map").map.testfunc();
 		}
 	});
 }
