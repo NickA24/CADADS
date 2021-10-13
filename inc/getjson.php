@@ -24,8 +24,8 @@
 			case 'editTicket':
 				if ($_GET['returnAmbo'] == "1")
 				{
-					$sql = "SELECT ambulance_info.id, users.name FROM `ambulance_info` IF(current_ticket=id,1,0) as assigned LEFT JOIN users ON ambulance_info.id=users.id WHERE current_ticket=:id OR (current_ticket=0 AND status=1) ORDER BY FIELD(current_ticket, :2id, 0)";
-					$params = array(":id"=>$_GET['id'], ":2id"=>$_GET['id']);
+					$sql = "SELECT ambulance_info.id, users.name FROM `ambulance_info` IF(current_ticket=:cid,1,0) as assigned LEFT JOIN users ON ambulance_info.id=users.id WHERE current_ticket=:id OR (current_ticket=0 AND status=1) ORDER BY FIELD(current_ticket, :2id, 0)";
+					$params = array(":cid"=>$_GET['id'],":id"=>$_GET['id'], ":2id"=>$_GET['id']);
 					$ambulances = $db->query($sql, $params)->fetchAll(PDO::FETCH_ASSOC);
 				}
 				$sql = "SELECT ticket.id, active, ticket.name, location, incident_type, priority, ambulance, time, comments FROM ticket LEFT JOIN users ON users.id=ticket.ambulance WHERE ticket.id = :id LIMIT 1";
