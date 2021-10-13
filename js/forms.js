@@ -1,4 +1,4 @@
-/* This javascript file contains all functions that are related to the creation, editing, and posting of form data for our program
+// This javascript file contains all functions that are related to the creation, editing, and posting of form data for our program
 
 //This is an intermediate step in editing a dispatch ticket.
 //When a user hits the edit button, it will take the ID of that entry and get the data for it using our getJSON function
