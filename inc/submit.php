@@ -25,7 +25,8 @@ function addTicket($db,$var)
 }
 
 //A function to edit already added tickets. Note these are submitted with a prefix of "edit" because of the code written for testing. This can be changed if you feel like it, but make sure you change the html/js as well.
-//Note: You're not allowed to change ambulances using the edit feature. This is by design. If you want to change ambulances, that's a separate thing. (this may change in the future)
+//Note: If you edit an ambulance value in the ticket table, it will automatically update the relevant data in the ambulance_info table as well!
+//This is done by a database trigger.
 function editTicket($db,$var)
 {
 	if (!isset($var['editid']) || !isset($var['editlocation']))
