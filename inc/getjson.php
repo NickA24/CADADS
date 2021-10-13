@@ -22,7 +22,10 @@
 				$sql = "SELECT id, name, '' AS pass, user_type FROM users ".$uid."ORDER BY id".$lim;
 				break;
 			case 'editTicket':
-				$sql = "SELECT ticket.id, active, ticket.name, location, incident_type, priority, IF(ticket.ambulance>0,users.name,'None') AS ambulance, time, comments FROM ticket LEFT JOIN users ON users.id=ticket.ambulance WHERE ticket.id = :id";
+				$sql = "SELECT ambulance_info.id, users.name FROM `ambulance_info` LEFT JOIN users ON ambulance_info.id=users.id WHERE current_ticket=:id OR (current_ticket=0 AND status=1) ORDER BY current_ticket";
+				$params = array(":id"=>$_GET['id']);
+				$ambulances = json_encode($db->query($sql, $params)->fetchAll(PDO::FETCH_ASSOC));
+				$sql = "SELECT ticket.id, active, ticket.name, location, incident_type, priority, ambulance, time, comments FROM ticket LEFT JOIN users ON users.id=ticket.ambulance WHERE ticket.id = :id LIMIT 1";
 				$params = array(":id"=>$_GET['id']);
 				break;
 			case 'tkt':
@@ -49,5 +52,7 @@
 		-encode it to JSON using the php function built in_array
 		-"echo" it, which is a simple and unformatted way of printing data output_add_rewrite_var
 	This is perfect for using an AJAX call in javascript to return a premade object ready to be iterated through. */
-	echo  json_encode($db->query($sql, $params)->fetchAll(PDO::FETCH_ASSOC));
+	$return = $db->query($sql, $params)->fetchAll(PDO::FETCH_ASSOC);
+	if ($ambulances){ $return['ambulance'] = $ambulances;}
+	echo  json_encode($return);
 ?>
