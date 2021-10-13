@@ -26,7 +26,7 @@
 				{
 					$sql = "SELECT ambulance_info.id, users.name FROM `ambulance_info` LEFT JOIN users ON ambulance_info.id=users.id WHERE current_ticket=:id OR (current_ticket=0 AND status=1) ORDER BY current_ticket";
 					$params = array(":id"=>$_GET['id']);
-					$ambulances = json_encode($db->query($sql, $params)->fetchAll(PDO::FETCH_ASSOC));
+					$ambulances = $db->query($sql, $params)->fetchAll(PDO::FETCH_ASSOC);
 				}
 				$sql = "SELECT ticket.id, active, ticket.name, location, incident_type, priority, ambulance, time, comments FROM ticket LEFT JOIN users ON users.id=ticket.ambulance WHERE ticket.id = :id LIMIT 1";
 				$params = array(":id"=>$_GET['id']);
