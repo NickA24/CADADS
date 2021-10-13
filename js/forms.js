@@ -28,12 +28,17 @@ var editFormPrep = function(e)
 				  a.removeChild(a.firstChild);
 				}
 				if (data.ambulance) {
-					data.ambulance.forEach(function(j){
-						let n = j.name;
-						if (j.assigned) { n += " - Assigned Ambo"; }
-						let opt = new Option(n, j.id, j.assigned);
-						a.appendChild(opt);
-					});
+					if (typeof data.ambulance == "number") {
+						a.appendChild(new Option("Unable to be edited", data.ambulance, true);
+						a.disabled = true;
+					} else {
+						data.ambulance.forEach(function(j){
+							let n = j.name;
+							if (j.assigned) { n += " - Assigned Ambo"; }
+							let opt = new Option(n, j.id, j.assigned);
+							a.appendChild(opt);
+						});
+					}
 				} else {
 					a.appendChild(new Option("No Ambulances Available", 0, 1));	
 				}
