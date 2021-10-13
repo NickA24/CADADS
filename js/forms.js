@@ -161,7 +161,7 @@ var amboInfo = function(ele)
 			if (map.init)
 			{
 				map.setDirections(ele.data.ambulance_location, ele.data.ticket_location);
-				map.testFunction();
+				map.testfunc();
 			}
 			createJSTable(ele, data, 0);
 		}
