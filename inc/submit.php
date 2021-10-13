@@ -33,8 +33,8 @@ function editTicket($db,$var)
 		echo "no valid name or location";
 		return 'You need a valid name and location to edit';
 	}
-	$params = array(":active"=>$var['editactive'], ":name"=>$var['editname'], ":location"=>$var['editlocation'], ":incident"=>$var['editincident_type'], ":priority"=>$var['editpriority'], ":comments"=>$var['editcomments'], ":id"=>$var['editid']);
-	$sql = "UPDATE ticket SET active=:active, name=:name, location=:location, incident_type=:incident,priority=:priority,comments=:comments WHERE id = :id";
+	$params = array(":active"=>$var['editactive'], ":name"=>$var['editname'], ":location"=>$var['editlocation'], ":incident"=>$var['editincident_type'], ":priority"=>$var['editpriority'], ":ambulance"=>$var['editambulance'], ":comments"=>$var['editcomments'], ":id"=>$var['editid']);
+	$sql = "UPDATE ticket SET active=:active, name=:name, location=:location, incident_type=:incident,priority=:priority,ambulance=:ambulance,comments=:comments WHERE id = :id";
 	$result = $db->query($sql, $params);
 	return $result;
 }
