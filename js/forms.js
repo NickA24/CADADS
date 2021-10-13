@@ -1,29 +1,5 @@
 /* This javascript file contains all functions that are related to the creation, editing, and posting of form data for our program
 
-
-
-//This is our login script for the main page, when we are not logged in already. Used: loginform.html
-//input: e: form submission event
-var loginsubmit = function(e)
-{
-	e.preventDefault();
-	const msgbox = document.getElementById("msgBox");
-	const params = new FormData(e.target)
-	postJSON('inc/login.php',params, function(err, data) {
-		if (err !== null) {
-			msgbox.innerHTML = err;
-		} else {
-			if (data == "Success!") {
-				msgbox.innerHTML = data;
-				location.href = "index.php";
-				window.location.reload(true);
-			} else {
-				msgbox.innerHTML = data;
-			}
-		}
-	});
-}
-
 //This is an intermediate step in editing a dispatch ticket.
 //When a user hits the edit button, it will take the ID of that entry and get the data for it using our getJSON function
 //It will then edit all of the form fields listed below, tagged with an "edit" prefix and then the column designation.
