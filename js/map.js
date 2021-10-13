@@ -43,6 +43,15 @@ var ddMap = {
 		this.start = s;
 		this.end = e;	
 	},
+	getTime: function() {
+		const v = this.dr.routes[0].legs[0];
+		return v.duration;
+	}
+	getDistance: function() {
+		const v = this.dr.routes[0].legs[0];
+		return v.distance;
+	}
+	get
 	testfunc: function() {
 		//This runs an initial route determined by the ambulance and ticket locations. uses ds and dr in case we need to do this multiple times? we'll see.
 		if (this.start && this.end) {
@@ -67,17 +76,17 @@ var ddMap = {
 		.then((response) => {
 			//Once we get them back, set the directions.
 			directionsRenderer.setDirections(response);
-			const ovp = response.routes[0].overview_path;
+			const ovp = response.routes[0];
 			//Next, do some magic with the returned data, so we have lat and long of locations. Markers REQUIRE latlong, can't use street data.
 			var m1 = new google.maps.Marker({
-				position: ovp[0],
-				title:"Ambulance Location",
+				position: ovp.overview_path[0],
+				title:"Ambulance Location:\n"+ovp.legs[0].start_address,
 				label:"🚑",
 				map: this.map
 			});
 			var m2 = new google.maps.Marker({
-				position: ovp[ovp.length-1],
-				title:"Ticket Location",
+				position: ovp.overview_path[ovp.overview_path.length-1],
+				title:"Ticket Location:\n"+ovp.legs[0].end_address,
 				label:"🏁",
 				map: this.map
 			});
