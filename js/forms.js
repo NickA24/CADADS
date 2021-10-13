@@ -158,6 +158,10 @@ var amboInfo = function(ele)
 			ele.innerHTML = "Oops, error:" + err;
 		} else {
 			ele.data = data[0];
+			if (map.init)
+			{
+				map.setDirections(ele.data.ambulance_location, ele.data.ticket_location);
+			}
 			createJSTable(ele, data, 0);
 		}
 	});
