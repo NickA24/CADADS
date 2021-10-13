@@ -7,4 +7,7 @@
 	<link rel="stylesheet" type="text/css" href="/css/style.css" />
 	<script type="text/javascript" src="/js/json.js"></script>
 	<script type="text/javascript" src="/js/forms.js"></script>
+	<?php if ($needmap == 1) { ?>
+	<script type="text/javascript" src="/js/map.js"></script>
+	<?php } ?>
 </head>
