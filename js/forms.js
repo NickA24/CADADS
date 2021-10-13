@@ -24,7 +24,7 @@ var editFormPrep = function(e)
 				document.getElementById("editpriority").value = data.priority;
 				document.getElementById("editcomments").value = data.comments;
 				const a = document.getElementById("editambulance");
-				data.ambulances.foreach(function(j){
+				data.ambulances.forEach(function(j){
 					let opt = new Option(j.name, j.id, false);
 					a.appendChild(opt);
 				});
