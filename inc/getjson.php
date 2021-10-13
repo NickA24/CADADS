@@ -56,6 +56,6 @@
 		-"echo" it, which is a simple and unformatted way of printing data output_add_rewrite_var
 	This is perfect for using an AJAX call in javascript to return a premade object ready to be iterated through. */
 	$return = $db->query($sql, $params)->fetchAll(PDO::FETCH_ASSOC);
-	if ($ambulances){ $return['ambulance'] = $ambulances;}
+	if ($ambulances){ $return[0]['ambulance'] = $ambulances;}
 	echo  json_encode($return);
 ?>
