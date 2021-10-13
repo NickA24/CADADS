@@ -42,3 +42,30 @@ var testFetch = function(url, params) {
 		}
 	}).then(response => console.log(response)).catch(err => console.log('Error with message: ${err}'));
 }
+
+
+
+
+//This is our login script for the main page, when we are not logged in already.
+//Used: loginform.html
+//Placed in this file as loginform uses json but not any of the forms.js scripts.
+//input: e: form submission event
+var loginsubmit = function(e)
+{
+	e.preventDefault();
+	const msgbox = document.getElementById("msgBox");
+	const params = new FormData(e.target)
+	postJSON('inc/login.php',params, function(err, data) {
+		if (err !== null) {
+			msgbox.innerHTML = err;
+		} else {
+			if (data == "Success!") {
+				msgbox.innerHTML = data;
+				location.href = "index.php";
+				window.location.reload(true);
+			} else {
+				msgbox.innerHTML = data;
+			}
+		}
+	});
+}
