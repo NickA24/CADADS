@@ -24,10 +24,19 @@ var editFormPrep = function(e)
 				document.getElementById("editpriority").value = data.priority;
 				document.getElementById("editcomments").value = data.comments;
 				const a = document.getElementById("editambulance");
-				data.ambulance.forEach(function(j){
-					let opt = new Option(j.name, j.id, false);
-					a.appendChild(opt);
-				});
+				while (a.firstChild) {
+				  a.removeChild(a.firstChild);
+				}
+				if (data.ambulance) {
+					data.ambulance.forEach(function(j){
+						let n = j.name;
+						if (j.assigned) { n += " - Assigned Ambo"; }
+						let opt = new Option(n, j.id, j.assigned);
+						a.appendChild(opt);
+					});
+				} else {
+					a.appendChild(new Option("No Ambulances Available", 0, 1));	
+				}
 			}
 		});
 	}
