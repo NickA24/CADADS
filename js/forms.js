@@ -25,7 +25,7 @@ var editFormPrep = function(e)
 				document.getElementById("editcomments").value = data.comments;
 				const a = document.getElementById("editambulance");
 				data.ambulances.foreach(function(j){
-					let opt = new Option(j['name'], j['id'], false);
+					let opt = new Option(j.name, j.id, false);
 					a.appendChild(opt);
 				});
 			}
