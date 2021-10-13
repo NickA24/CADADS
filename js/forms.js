@@ -29,7 +29,7 @@ var editFormPrep = function(e)
 				}
 				if (data.ambulance) {
 					if (typeof data.ambulance == "number") {
-						a.appendChild(new Option("Unable to be edited", data.ambulance, true);
+						a.appendChild(new Option("Unable to be edited", data.ambulance, true));
 						a.disabled = true;
 					} else {
 						data.ambulance.forEach(function(j){
