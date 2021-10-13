@@ -11,7 +11,7 @@ var editFormPrep = function(e)
 	e.preventDefault();
 	if (e.target.submitType.value == "editTicket" && e.target.editid.value > 0)
 	{
-		getJSON('inc/getjson.php?tbl=editTicket&id='+e.target.editid.value, function(err, data) {
+		getJSON('inc/getjson.php?tbl=editTicket&returnAmbo=1&id='+e.target.editid.value, function(err, data) {
 			if (err !== null) {
 				alert("Error finding entry data:" + err);
 			} else {
