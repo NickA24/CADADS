@@ -58,7 +58,7 @@ if (checklogin() != 1) { return; }
 				}
 			 ?>
 		</select><label for="editpriority">Priority:</label><select id="editpriority" name="editpriority"><option value="1">1</option><option value="2">2</option><option value="3">3</option></select>
-		<label for="editambulance">Assigned Ambulance:</label><select id="editambulance" name="editambulance" placeholder="No Ambulance"></select>
+		<label for="editambulance">Assigned Ambulance:</label><select id="editambulance" name="editambulance"><option id="editambulancex" value="0">No Assigned Ambulance</option></select>
 		<label for="editcomments">Comments:</label><input type="textbox" id="editcomments" name="editcomments" placeholder="Comments not required">
 		<button type="submit" name="editsubmitbtn" id="editsubmitbtn" class="editsubmitbtn">Edit Ticket</button>
 		<button type="reset" name="editclose" id="editclose">Close</button>
