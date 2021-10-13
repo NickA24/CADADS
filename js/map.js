@@ -1,19 +1,13 @@
 //This is the callback function specified in the Google Maps API code. 
 //This way we can use the same map info in multiple pages, but change what this function might do
 function initMap() {
-	var ele = document.getElementById('curCall'); 
-	if (!map.init && ele.data) {
-		map.initMap(ele.data.ambulance_location, ele.data.ticket_location);
-	}
+	map.initMap();
 }
 
 //Event listener, called on body load.
 function loadInit() {
 	var ele = document.getElementById('curCall'); 
 	amboInfo(ele);
-	if (!map.init && ele.data) {
-		map.initMap(ele.data.ambulance_location, ele.data.ticket_location);
-	}
 	document.getElementsByTagName("body")[0].addEventListener("keypress", amboShortcuts, false);
 }
 
@@ -31,15 +25,12 @@ var ddMap = {
 	dr: null, //Placeholder for directionsRenderer
 	iw: null, //Placeholder for google infowindow
 	start: null, //Stores the ambulance location
-	end: null, //Stores the ticket location
-	directions: null, // Don't remember what this does.
+	end: null, //Stores the ticket location 
 	infowindow: null, // Placeholder to create an instance of google maps api's infowindow
-	initMap: function(amb_loc, tkt_loc) { //Passes origin and destination
+	initMap: function() { //Passes origin and destination
 		this.map = new google.maps.Map(document.getElementById("map"), {center: { lat: 34.182175, lng: -117.318794 },zoom: 15,});
 		this.ds = new google.maps.DirectionsService();
 		this.dr = new google.maps.DirectionsRenderer({map:this.map, suppressMarkers:true, polylineOptions: {strokeColor: "FireBrick"}});
-		this.start = amb_loc;
-		this.end = tkt_loc;
 		this.init = true;
 		//Previous lines filled out our placeholders. Next line sets the DirectionsRenderer map.
 		this.dr.setMap(this.map);
@@ -48,9 +39,15 @@ var ddMap = {
 		this.infowindow = new google.maps.InfoWindow({content: contentString});
 		this.testfunc();
 	},
+	setDirections: function(s, e) {
+		this.start = s;
+		this.end = e;	
+	},
 	testfunc: function() {
 		//This runs an initial route determined by the ambulance and ticket locations. uses ds and dr in case we need to do this multiple times? we'll see.
-		this.calculateAndDisplayRoute(this.ds, this.dr);
+		if (this.start && this.end) {
+			this.calculateAndDisplayRoute(this.ds, this.dr);
+		}
 		
 	},
 	infoWindowHandler: function(marker) {
