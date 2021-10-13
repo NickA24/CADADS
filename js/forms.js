@@ -27,7 +27,7 @@ var editFormPrep = function(e)
 				while (a.firstChild) {
 				  a.removeChild(a.firstChild);
 				}
-				f (data.ambulance and data.ambulance.isArray()) {
+				if (data.ambulance) {
 					data.ambulance.forEach(function(j){
 						let n = j.name;
 						if (j.assigned) { n += " - Assigned Ambo"; }
