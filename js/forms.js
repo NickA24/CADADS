@@ -22,8 +22,12 @@ var editFormPrep = function(e)
 				document.getElementById("editlocation").value = data.location;
 				document.getElementById("editincident_type").value = data.incident_type;
 				document.getElementById("editpriority").value = data.priority;
-				document.getElementById("editambulance").value = data.ambulance;
 				document.getElementById("editcomments").value = data.comments;
+				const a = document.getElementById("editambulance");
+				data.ambulances.foreach(function(j){
+					let opt = new Option(j['name'], j['id'], false);
+					a.appendChild(opt);
+				});
 			}
 		});
 	}
