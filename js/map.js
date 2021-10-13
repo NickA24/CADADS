@@ -11,7 +11,7 @@ function initMap() {
 function loadInit() {
 	var ele = document.getElementById('curCall'); 
 	amboInfo(ele);
-	if (!map.init) {
+	if (!map.init && ele.data) {
 		map.initMap(ele.data.ambulance_location, ele.data.ticket_location);
 	}
 	document.getElementsByTagName("body")[0].addEventListener("keypress", amboShortcuts, false);
