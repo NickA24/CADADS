@@ -32,6 +32,7 @@ var editFormPrep = function(e)
 						a.appendChild(new Option("Unable to be edited", data.ambulance, true));
 						a.disabled = true;
 					} else {
+						a.disabled = false;
 						data.ambulance.forEach(function(j){
 							let n = j.name;
 							if (j.assigned) { n += " - Assigned Ambo"; }
