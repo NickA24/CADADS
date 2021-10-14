@@ -51,9 +51,6 @@ var ddMap = {
 		const v = this.dr.routes[0].legs[0];
 		return v.distance;
 	},
-	makeMarkers: function() {
-
-	},
 	testfunc: function() {
 		//This runs an initial route determined by the ambulance and ticket locations. uses ds and dr in case we need to do this multiple times? we'll see.
 		if (this.start && this.end) {
