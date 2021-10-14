@@ -51,6 +51,28 @@ var ddMap = {
 		const v = this.dr.routes[0].legs[0];
 		return v.distance;
 	},
+	makeMarkers: function() {
+		const ovp = this.dr.routes[0];
+		var m1 = new google.maps.Marker({
+			position: ovp.overview_path[0],
+			title:"Ambulance Location:\n"+ovp.legs[0].start_address,
+			label:"🚑",
+			map: this.map
+		});
+		m1.addListener('click', () => this.infoWindowHandler(m1));
+		if (this.end != this.start)
+		{
+			var m2 = new google.maps.Marker({
+				position: ovp.overview_path[ovp.overview_path.length-1],
+				title:"Ticket Location:\n"+ovp.legs[0].end_address,
+				label:"🏁",
+				map: this.map
+			});
+			m2.addListener('click', () => this.infoWindowHandler(m2));
+		} else {
+			this.map.setZoom(18);	
+		}
+	},
 	testfunc: function() {
 		//This runs an initial route determined by the ambulance and ticket locations. uses ds and dr in case we need to do this multiple times? we'll see.
 		if (this.start && this.end) {
@@ -75,29 +97,9 @@ var ddMap = {
 		.then((response) => {
 			//Once we get them back, set the directions.
 			directionsRenderer.setDirections(response);
-			const ovp = response.routes[0];
+			this.makeMarkers();
 			//Next, do some magic with the returned data, so we have lat and long of locations. Markers REQUIRE latlong, can't use street data.
-		}).then(() => {
-			var m1 = new google.maps.Marker({
-				position: ovp.overview_path[0],
-				title:"Ambulance Location:\n"+ovp.legs[0].start_address,
-				label:"🚑",
-				map: this.map
-			});
-			m1.addListener('click', () => this.infoWindowHandler(m1));
-			if (this.end != this.start)
-			{
-				var m2 = new google.maps.Marker({
-					position: ovp.overview_path[ovp.overview_path.length-1],
-					title:"Ticket Location:\n"+ovp.legs[0].end_address,
-					label:"🏁",
-					map: this.map
-				});
-				m2.addListener('click', () => this.infoWindowHandler(m2));
-			} else {
-				this.map.setZoom(18);	
-			}
-		}).catch((e) => console.log("Directions request failed due to " + e.status));
+		})..catch((e) => console.log("Directions request failed due to " + e.status));
 	}
 };
 
