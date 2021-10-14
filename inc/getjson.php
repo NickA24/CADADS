@@ -42,6 +42,14 @@
 			case 'amb':
 				$sql = "SELECT users.id, users.name, status, location, lastupdate FROM users LEFT JOIN ambulance_info ON users.id = ambulance_info.id WHERE users.user_type = 2 ORDER BY status, lastupdate";
 				break;
+			case 'hosp':
+				$sql = "SELECT * FROM hospitals";
+				if (!empty($_GET['hospid']))
+				{
+					$params = array(":id"=>$_GET['hospid']);
+					$sql .= " WHERE id = :id LIMIT 1";
+				}
+				break;
 			case 'curAmbo':
 				$params = array(":id"=>$_SESSION['myid']);
 				$sql = "SELECT ambulance_info.id as id, ambulance_status.name as status, ambulance_info.location as ambulance_location, active, ticket.name, ticket.location as ticket_location, CONCAT(CONCAT(ack, ' - '), description) as incident_type, priority, time, comments FROM ambulance_info LEFT JOIN ticket ON ambulance_info.current_ticket = ticket.id LEFT JOIN incident_tbl ON incident_type = incident_tbl.id LEFT JOIN ambulance_status ON status = ambulance_status.id WHERE ambulance_info.id = :id LIMIT 1";
