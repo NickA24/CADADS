@@ -77,12 +77,14 @@ var ddMap = {
 			directionsRenderer.setDirections(response);
 			const ovp = response.routes[0];
 			//Next, do some magic with the returned data, so we have lat and long of locations. Markers REQUIRE latlong, can't use street data.
+		}).then(() => {
 			var m1 = new google.maps.Marker({
 				position: ovp.overview_path[0],
 				title:"Ambulance Location:\n"+ovp.legs[0].start_address,
 				label:"🚑",
 				map: this.map
 			});
+			m1.addListener('click', () => this.infoWindowHandler(m1));
 			if (this.end != this.start)
 			{
 				var m2 = new google.maps.Marker({
@@ -91,13 +93,11 @@ var ddMap = {
 					label:"🏁",
 					map: this.map
 				});
+				m2.addListener('click', () => this.infoWindowHandler(m2));
 			} else {
 				this.map.setZoom(18);	
 			}
-			m1.addListener('click', () => this.infoWindowHandler(m1));
-			m2.addListener('click', () => this.infoWindowHandler(m2));
-		})
-		.catch((e) => console.log("Directions request failed due to " + status));
+		}).catch((e) => console.log("Directions request failed due to " + e.status));
 	}
 };
 
