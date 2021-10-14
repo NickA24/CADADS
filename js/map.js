@@ -83,12 +83,17 @@ var ddMap = {
 				label:"🚑",
 				map: this.map
 			});
-			var m2 = new google.maps.Marker({
-				position: ovp.overview_path[ovp.overview_path.length-1],
-				title:"Ticket Location:\n"+ovp.legs[0].end_address,
-				label:"🏁",
-				map: this.map
-			});
+			if (this.end != this.start)
+			{
+				var m2 = new google.maps.Marker({
+					position: ovp.overview_path[ovp.overview_path.length-1],
+					title:"Ticket Location:\n"+ovp.legs[0].end_address,
+					label:"🏁",
+					map: this.map
+				});
+			} else {
+				this.map.setZoom(18);	
+			}
 			m1.addListener('click', () => this.infoWindowHandler(m1));
 			m2.addListener('click', () => this.infoWindowHandler(m2));
 		})
