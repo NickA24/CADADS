@@ -67,5 +67,6 @@ var loginsubmit = function(e)
 				msgbox.innerHTML = data;
 			}
 		}
+		setTimeout("document.getElementById('msgbox').style.display='none';", 2000);
 	});
 }
