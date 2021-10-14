@@ -153,8 +153,10 @@
 </body>
 <script type="text/javascript" src="/js/json.js"></script>
 <script>
-    document.addEventListener('DOMContentLoaded', function(e) {document.getElementById("loginbox").addEventListener('submit', loginsubmit, false, 2000);});
-    window.setTimeout("document.getElementById('msgBox').style.display='none';", 2000)
+  document.addEventListener('DOMContentLoaded', function(e) {
+      document.getElementById("loginbox").addEventListener('submit', loginsubmit, false);
+      window.setTimeout("document.getElementById('msgBox').style.display='none';", 2000)
+  });
 </script>
 <script>
     var login = document.getElementById("loginbtn");
