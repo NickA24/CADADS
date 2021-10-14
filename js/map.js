@@ -93,7 +93,7 @@ var ddMap = {
 				});
 				m2.addListener('click', () => this.infoWindowHandler(m2));
 			} else {
-				this.map.setZoom(18);	
+				setTimeout(()=>{this.map.setZoom(18);},2000);	
 			}
 			//Next, do some magic with the returned data, so we have lat and long of locations. Markers REQUIRE latlong, can't use street data.
 		}).catch((e) => console.log("Directions request failed due to " + e));
