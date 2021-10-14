@@ -180,7 +180,7 @@ var amboInfo = function(ele)
 			if (map.init)
 			{
 				let dest = ele.data.ticket_location;
-				if (dest == '') { dest = ele.data.ambulance_location; }
+				if (dest == false) { dest = ele.data.ambulance_location; }
 				map.setDirections(ele.data.ambulance_location, dest);
 				map.testfunc();
 			}
