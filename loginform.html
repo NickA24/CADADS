@@ -41,7 +41,7 @@
           box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.5);
       }
       .btn-block {
-          width: 100%;
+          width: 300px;
           display:block;
       }
       
@@ -62,20 +62,36 @@
         background: -webkit-radial-gradient(0% 100%, ellipse cover, rgba(104,128,138,.4) 10%,rgba(138,114,76,0) 40%), linear-gradient(to bottom,  rgba(57,173,219,.25) 0%,rgba(42,60,87,.4) 100%), linear-gradient(135deg,  #670d10 0%,#092756 100%);
         filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3E1D6D', endColorstr='#092756',GradientType=1 );
       }
-      
       .login {
           position: absolute;
           top: 50%;
-          left: 50%;
+          left: 46%;
           margin: -150px 0 0 -150px;
           width:300px;
           height:300px;
+          max-width: 400px;
       }
       .login h2 {
           color: #fff;
           text-shadow: 0 0 10px rgba(0,0,0,0.3);
           letter-spacing:1px;
           text-align:center;
+      }
+      .shiftRight {
+          padding-top:140px;
+          padding-left: 50px;
+      }
+      .buttonload {
+          position: absolute;
+          visibility:hidden;
+          top: 81%;
+          left: 17%;
+          width:300px;
+          height:37px;
+      }
+      .fa {
+        margin-left: -12px;
+        margin-right: 8px;
       }
       input {
           width: 278px;
@@ -92,19 +108,18 @@
           box-shadow: inset 0 -5px 45px rgba(100,100,100,0.2), 0 1px 1px rgba(255,255,255,0.2);
       }
       .logo {
-          width:128px;
-          height:128px;
+          width:400px;
+          height:150px;
           position:absolute;
+          z-index:2;
       }
       .background {
-          width:1500px;
-          height:800px;
-          position:absolute;
+          width:100%;
+          height:100%;
+          background-position: center;
+          background-repeat: repeat;
           opacity: 0.2;
-      }
-      #msgBox {
-	text-align: center;
-	background: rgba(255,73,73,0.2);
+          z-index:1;
       }
   </style>
   <script type="text/javascript" src="/js/json.js"></script>
@@ -115,19 +130,30 @@
 
 <body>
     <div style="position:relative">
-        <!-- <img class="logo" src="logo.png" alt="DD_Logo"/> -->         <!-- logo will be added once made, working on it-->
         <img class="background" src="img/background2.png" alt="Background"/>
     </div>
-    <form  method="post" id="loginbox">
+    <form action="/inc/login.php" method="post">
         <div class="login">
-            <h2>Diamond Dispatch</h2>
-	    <div id="msgBox"></div>
-	    <input type="hidden" name="userLogin" value="login">
-            <input type="text" placeholder="Username" name="name" required>
-            <input type="password" placeholder="Password" name="pwd" required>
-            <button type="submit" class="btn btn-primary btn-block btn-large">Login</button>
+            <img class="logo" src="img/logo_v2_trans.png" alt="DD_Logo"/>
+            <div class="shiftRight">
+                <input type="text" placeholder="Username" name="name" required>
+                <input type="password" placeholder="Password" name="pwd" required>
+                <button type="submit" class="btn btn-primary btn-block" id="loginbtn">Login</button>
+                <button class="buttonload btn btn-primary btn-block" id="loggingIN">
+                  <i class="fa fa-circle-o-notch fa-spin"></i>Logging in...
+                </button>
+            </div>
         </div>
     </form>
 </body>
+<script>
+    var login = document.getElementById("loginbtn");
+    var Loggingin = document.getElementById("loggingIN");
+
+    login.onclick = function() {
+        Loggingin.style.visibility = "visible";
+        window.setTimeout("document.getElementById('loggingIN').style.display='none';", 1000)
+    }
+</script>
 </html>
 
