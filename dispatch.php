@@ -1,8 +1,3 @@
-<?php
-include_once("inc/login.php");
-include("inc/header.php");
-if (checklogin() != 1) { return; }
-?>
 <style>
     @media screen and (max-height: 450px) {
       .sidenav {padding-top: 15px;}
@@ -78,7 +73,6 @@ if (checklogin() != 1) { return; }
         top: 0;
         left: 0;
         background-color: white;
-        overflow-x: hidden;
         padding-top: 60px;
         border-right: 2px solid black;
         transition: 0.2s;
@@ -109,7 +103,6 @@ if (checklogin() != 1) { return; }
         top: 0;
         left: 0;
         background-color: white;
-        overflow-x: hidden;
         padding-top: 60px;
         border-right: 2px solid black;
         transition: 0.2s;
@@ -181,14 +174,19 @@ if (checklogin() != 1) { return; }
     }
 </style>
 <body>
-	<?php //Only display the logout link if you're already logged in
-	echo logoutbutton(); 
-	?>
     <ul>
       <li>Home</a></li>
       <li>Add Ticket</a></li>
       <li>Edit Ticket</a></li>
-      <li style="float:right"><a class="active">My Account</a></li>
+      <li style="float:right"><a class="active">
+          <?php
+          include_once("inc/login.php");
+          include("inc/header.php");
+          if (checklogin() != 1) { return; }
+          ?>
+          <?php //Only display the logout link if you're already logged in
+          echo logoutbutton();
+          ?></a></li>
     </ul>
     <div class="leftContainer">
         <center><h1>Active Tickets</h1></center>
