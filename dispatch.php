@@ -10,7 +10,6 @@
     }
     body {
         font-family: 'Open Sans', sans-serif;
-        overflow: hidden;
     }
     ul {
         list-style-type: none;
