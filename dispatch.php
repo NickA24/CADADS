@@ -1,3 +1,8 @@
+<?php
+    include_once("inc/login.php");
+    include("inc/header.php");
+    if (checklogin() != 1) { return; }
+?>
 <style>
     @media screen and (max-height: 450px) {
       .sidenav {padding-top: 15px;}
