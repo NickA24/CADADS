@@ -180,14 +180,6 @@
       <li>Home</a></li>
       <li>Add Ticket</a></li>
       <li>Edit Ticket</a></li>
-      <?php
-          include_once("inc/login.php");
-          include("inc/header.php");
-          if (checklogin() != 1) { return; }
-      ?>
-      <?php //Only display the logout link if you're already logged in
-          echo logoutbutton();
-      ?>
       <li style="float:right">
           <a class="active">
               <?php
