@@ -256,8 +256,8 @@
                         <input type="textbox" id="editid" name="editid" readonly>
                     <label for="editactive">Active:</label>
                         <select id="editactive" name="editactive">
-                            <option value="0">Yes</option>
-                            <option value="1">No</option>
+                            <option value="0">No</option>
+                            <option value="1">Yes</option>
                         </select>
                         <br>
                     <label for="editname">Name:</label>
