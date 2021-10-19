@@ -109,17 +109,17 @@ var ddMap = {
 				icn.url = icn.url+"%20|888888|000000";
 			} else if (obj['status'] == "Available" || obj['status'] == 1)
 			{
-				icn.url = icn.url+"%20|00ff00|000000";	
+				icn.url = icn.url+"%20|00ff00|000000";
 			} else {
-				icn.url = icn.url+"%20|ff0000|000000";	
+				icn.url = icn.url+"%20|"+obj['clr']+"|000000";	
 			}
 		} else if (obj['type'] == 0) {
 			//Destinations
 			lbl = endoji;
 			if (obj['isFree'] == 0) {
-				icn.url = icn.url+"%20|ff6666|000000";
+				icn.url = icn.url+"%20|ff8888|000000";
 		    	} else {
-				icn.url = icn.url+"%20|00cc00|000000";	
+				icn.url = icn.url+"%20|ff0000|000000";	
 			}
 		} else {
 			console.log(obj);
@@ -218,6 +218,7 @@ var ddMap = {
 			obj.status = route.status
 			obj.type = "1";
 			obj.title = route.name+":\n"+route.location;
+			obj.clr = clr;
 			this.addMarker(ovp.overview_path[0], obj);
 		}).catch((e) => console.log("Directions request failed due to " + e));
 	},
