@@ -116,10 +116,11 @@ var ddMap = {
 		} else if (obj['type'] == 0) {
 			//Destinations
 			lbl = endoji;
-			icn.url = icn.url+"%20|00cc00|000000";
 			if (obj['isFree'] == 0) {
 				icn.url = icn.url+"%20|ff6666|000000";
-		    	}
+		    	} else {
+				icn.url = icn.url+"%20|00cc00|000000";	
+			}
 		} else {
 			console.log(obj);
 		}
