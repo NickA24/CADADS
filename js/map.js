@@ -93,6 +93,7 @@ var ddMap = {
 		{
 			case "2":
 				//Hospitals
+				console.log("Shouldn't be any hospitals yet");
 				break;
 			case "1":
 				//Ambulances
@@ -112,6 +113,8 @@ var ddMap = {
 				lbl = endoji;
 				icn.url = icn.url+"%20|ff0000|000000";
 				break;
+			default:
+				console.log(obj['type');
 		}	
 		const marker = new google.maps.Marker({
 			position: position,
