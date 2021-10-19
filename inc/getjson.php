@@ -37,10 +37,10 @@
 				{
 					$where = '';
 				}
-				$sql = "SELECT ticket.id, active, ticket.name, location, incident_tbl.description AS incident_type, priority, IF(ticket.ambulance>0,users.name,'None') AS ambulance, time, comments FROM ticket LEFT JOIN incident_tbl ON ticket.incident_type = incident_tbl.id LEFT JOIN users ON users.id=ticket.ambulance ".$where."ORDER BY active, time";
+				$sql = "SELECT ticket.id, active, ticket.name, location, lat, lng, incident_tbl.description AS incident_type, priority, IF(ticket.ambulance>0,users.name,'None') AS ambulance, time, comments FROM ticket LEFT JOIN incident_tbl ON ticket.incident_type = incident_tbl.id LEFT JOIN users ON users.id=ticket.ambulance ".$where."ORDER BY active, time";
 				break;
 			case 'amb':
-				$sql = "SELECT users.id, users.name, status, location, lastupdate FROM users LEFT JOIN ambulance_info ON users.id = ambulance_info.id WHERE users.user_type = 2 ORDER BY status, lastupdate";
+				$sql = "SELECT users.id, users.name, status, location, loclat, loclng, destination, dstlat, dstlng, lastupdate FROM users LEFT JOIN ambulance_info ON users.id = ambulance_info.id WHERE users.user_type = 2 ORDER BY status, lastupdate";
 				break;
 			case 'hosp':
 				$sql = "SELECT * FROM hospitals";
@@ -52,10 +52,10 @@
 				break;
 			case 'curAmbo':
 				$params = array(":id"=>$_SESSION['myid']);
-				$sql = "SELECT ambulance_info.id as id, ambulance_status.name as status, ambulance_info.location as ambulance_location, ambulance_info.destination as destination, active, ticket.name, ticket.location as ticket_location, CONCAT(CONCAT(ack, ' - '), description) as incident_type, priority, time, comments FROM ambulance_info LEFT JOIN ticket ON ambulance_info.current_ticket = ticket.id LEFT JOIN incident_tbl ON incident_type = incident_tbl.id LEFT JOIN ambulance_status ON status = ambulance_status.id WHERE ambulance_info.id = :id LIMIT 1";
+				$sql = "SELECT ambulance_info.id as id, ambulance_status.name as status, ambulance_info.location as ambulance_location, loclat, loclng, ambulance_info.destination as destination, dstlat, dstlng, active, ticket.name, CONCAT(CONCAT(ack, ' - '), description) as incident_type, priority, time, comments FROM ambulance_info LEFT JOIN ticket ON ambulance_info.current_ticket = ticket.id LEFT JOIN incident_tbl ON incident_type = incident_tbl.id LEFT JOIN ambulance_status ON status = ambulance_status.id WHERE ambulance_info.id = :id LIMIT 1";
 				break;
 			case 'dispatchMap':
-				$sql = "SELECT id, status, location, loclat, loclng, destination, dstlat, dstlng, 1 as source FROM ambulance_info UNION SELECT id, active as status, location, lat as loclat, lng as loclng, NULL as destination, NULL as dstlat, NULL as dstlng, 0 as source FROM ticket WHERE Active = 1 AND ambulance = 0";
+				$sql = "SELECT users.id AS id, users.name AS name, status, location, loclat, loclng, destination, dstlat, dstlng, 1 as source FROM ambulance_info LEFT JOIN users ON users.id=ambulance_info.id UNION SELECT id, name, active as status, location, lat as loclat, lng as loclng, NULL as destination, NULL as dstlat, NULL as dstlng, 0 as source FROM ticket WHERE Active = 1 AND ambulance = 0";
 				break;
 		}
 	}
