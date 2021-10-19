@@ -20,9 +20,11 @@ function loadScript(url, callback, arg1)
 //Event listener, called on body load.
 function loadInit(loc) 
 {
+	//loc:1 means ambulance.php, 2:dispatch
+	//Loads the google script, and after loading will do the map initialization.
 	if (loc == 1) 
 	{
-		var ele = document.getElementById('curCall'); 
+		var ele = document.getElementById('curCall'); 	
 		loadScript('/inc/googleapi.php', amboInfo, ele);
 		document.getElementsByTagName("body")[0].addEventListener("keypress", amboShortcuts, false);
 	} 
