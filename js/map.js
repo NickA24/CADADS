@@ -97,10 +97,10 @@ var ddMap = {
 			case "1":
 				//Ambulances
 				lbl = amboji;
-				if (obj['status'] == "Out of Service" || obj['status'] == "Unavailable")
+				if (obj['status'] == "Out of Service" || obj['status'] == "Unavailable" || obj['status'] == 0 || obj['status'] == 3)
 				{
 					icn.url = icn.url+"%20|888888|000000";
-				} else if (obj['status'] == "Available")
+				} else if (obj['status'] == "Available" || obj['status'] == 1)
 				{
 					icn.url = icn.url+"%20|00ff00|000000";	
 				} else {
