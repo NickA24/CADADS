@@ -185,8 +185,8 @@ var ddMap = {
 			for (var i = 0; i < 6; i++) {
 				color += letters[Math.floor(Math.random() * 16)];
 			}
-		} while(!colors.includes(color));
-		colors.push(color);
+		} while(!this.colors.includes(color));
+		this.colors.push(color);
 		return color;
 	},
 	//general routes for all ambo->dir
