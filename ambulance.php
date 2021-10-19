@@ -11,6 +11,5 @@
 <h1>Ambulance <?php echo $_SESSION['myusername'] ?>:</h1>
 <div id="curCall"></div>
 <div id="map"></div>
-<script type="text/javascript" src="/inc/googleapi.php" async></script>
 </body>
 </html>
