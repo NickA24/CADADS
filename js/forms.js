@@ -108,7 +108,7 @@ var createJSTable = function(ele, data, addEditData)
 				hid2.setAttribute("value",j[k]);
 				var btn1 = document.createElement("button");
 				btn1.setAttribute("type", "submit");
-				btn1.setAttribute("class", "editButton");
+				btn1.setAttribute("class", "edButton");
 				btn1.innerHTML = "Edit";
 				form1.appendChild(hid1);
 				form1.appendChild(hid2);
@@ -134,7 +134,7 @@ var createJSTable = function(ele, data, addEditData)
 				hid4.setAttribute("value",j[k]);
 				var btn2 = document.createElement("button");
 				btn2.setAttribute("type", "submit");
-				btn2.setAttribute("class", "deleteButton");
+				btn2.setAttribute("class", "edButton");
 				btn2.innerHTML = "Delete";
 				form2.appendChild(hid3);
 				form2.appendChild(hid4);
