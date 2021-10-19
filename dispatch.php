@@ -1,7 +1,9 @@
 <?php
     include_once("inc/login.php");
-    include("inc/header.php");
     if (checklogin() != 1) { return; }
+    $needmap = 1;
+    include("inc/header.php");
+
 ?>
 <style>
     @media screen and (max-height: 450px) {
