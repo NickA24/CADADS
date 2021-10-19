@@ -98,6 +98,8 @@ var ddMap = {
 			//Next, do some magic with the returned data, so we have lat and long of locations. Markers REQUIRE latlong, can't use street data.
 		}).catch((e) => console.log("Directions request failed due to " + e));
 	}
+	import('/inc/googleapi.php').then((module) => {initMap();});
+	//<script type="text/javascript" src="/inc/googleapi.php" async></script>
 };
 
 //After defining what ddMap does, create a global instance of it.
