@@ -159,6 +159,7 @@ var ddMap = {
 			destination: route.destination,
 			travelMode: google.maps.TravelMode.DRIVING,
 		}).then((response) => {
+			const ovp = response.routes[0];
 			this.dr.setDirections(response);
 			this.addMarker(ovp.overview_path[0], 1);
 			this.addMarker(ovp.overview_path[ovp.overview_path.length-1], 0);
