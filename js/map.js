@@ -89,33 +89,28 @@ var ddMap = {
 		let lbl = "";
 		let title = obj['title'];
 		let icn = { url: "https://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=", labelOrigin: new google.maps.Point(10,10) };
-		switch(obj['type'])
-		{
-			case "2":
-				//Hospitals
-				console.log("Shouldn't be any hospitals yet");
-				break;
-			case "1":
-				//Ambulances
-				lbl = amboji;
-				if (obj['status'] == "Out of Service" || obj['status'] == "Unavailable" || obj['status'] == 0 || obj['status'] == 3)
-				{
-					icn.url = icn.url+"%20|888888|000000";
-				} else if (obj['status'] == "Available" || obj['status'] == 1)
-				{
-					icn.url = icn.url+"%20|00ff00|000000";	
-				} else {
-					icn.url = icn.url+"%20|ff0000|000000";	
-				}
-				break;
-			case "0":
-				//Destinations
-				lbl = endoji;
-				icn.url = icn.url+"%20|ff0000|000000";
-				break;
-			default:
-				console.log(obj);
-		}	
+		if (obj['type'] == 2) {
+			//Hospitals
+			console.log("Shouldn't be any hospitals yet");
+		} else if (obj['type'] == 1) {
+			//Ambulances
+			lbl = amboji;
+			if (obj['status'] == "Out of Service" || obj['status'] == "Unavailable" || obj['status'] == 0 || obj['status'] == 3)
+			{
+				icn.url = icn.url+"%20|888888|000000";
+			} else if (obj['status'] == "Available" || obj['status'] == 1)
+			{
+				icn.url = icn.url+"%20|00ff00|000000";	
+			} else {
+				icn.url = icn.url+"%20|ff0000|000000";	
+			}
+		} else if (obj['type'] == 0) {
+			//Destinations
+			lbl = endoji;
+			icn.url = icn.url+"%20|ff0000|000000";
+		} else {
+			console.log(obj);
+		}
 		const marker = new google.maps.Marker({
 			position: position,
 			title: title,
