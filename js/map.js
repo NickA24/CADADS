@@ -52,6 +52,7 @@ var ddMap = {
 	end: null, //Stores the ticket location 
 	infowindow: null, // Placeholder to create an instance of google maps api's infowindow
 	markers: [],
+	directions: [],
 	bounds:null,
 	initMap: function() { //Passes origin and destination
 		this.map = new google.maps.Map(document.getElementById("map"), {center: { lat: 34.182175, lng: -117.318794 },zoom: 15,});
@@ -167,15 +168,25 @@ var ddMap = {
 		this.infowindow.setContent(marker.getTitle().split("\n").join("<br>"));
 		this.infowindow.open(this.map, marker);
 	},
+	clearAlldr: function() {
+		for (let i = 0; i < this.directions.length; i++) 
+		{
+			this.directions[i] = null;
+		}
+		this.directions = [];
+	},
 	//general routes for all ambo->dir
 	calcAllRoutes: function(route) {
+		this.clearAlldr();
 		this.ds.route({
 			origin: route.location,
 			destination: route.destination,
 			travelMode: google.maps.TravelMode.DRIVING,
 		}).then((response) => {
 			const ovp = response.routes[0];
-			this.dr.setDirections(response);
+			let newdr = new google.maps.DirectionsRenderer({map:this.map, suppressMarkers:true, polylineOptions: {strokeColor: "FireBrick"}});
+			newdr.setDirections(response);
+			this.directions.push(newdr);
 			let obj = new Object();
 			obj.status = route.status
 			obj.type = "1";
