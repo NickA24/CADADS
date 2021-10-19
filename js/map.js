@@ -167,6 +167,7 @@ var ddMap = {
 	//specific route for ambulances
 	calculateAndDisplayRoute: function(start, end) {
 		//This routes the directions through the google server
+		if (!start || !end) { return; }
 		this.ds.route(
 		{
 			origin: start,
