@@ -137,7 +137,7 @@ var ddMap = {
 								if (err !== null) {
 									console.log("Oops, error:" + err);
 								} else {
-									conosle.log(data.results.geometry.location);
+									console.log(data.results.geometry.location);
 									map.addMarker(data.results.geometry.location, e.source);
 								}
 							});
