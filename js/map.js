@@ -152,6 +152,8 @@ var ddMap = {
 							if (e.source == 0) { obj.title += ": "+e.status; }
 							obj.title += ":\n"+e.location;
 							map.addMarker({lat:e.loclat, lng:e.loclng}, obj);
+							this.bounds.union({lat:e.loclat, lng:e.loclng});
+							this.map.fitBounds(this.bounds);
 						}
 					});
 				}
