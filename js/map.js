@@ -9,8 +9,8 @@ function loadScript(url, callback, arg1)
 	var scr = document.createElement('script');
 	scr.type = 'text/javascript';
 	scr.src = url;
-	script.onreadystatechange = function() { callback(arg1); };
-	script.onload = function() { callback(arg1); };
+	scr.onreadystatechange = function() { callback(arg1); };
+	scr.onload = function() { callback(arg1); };
 	document.head.appendChild(scr);
 }
 
