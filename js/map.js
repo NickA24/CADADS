@@ -209,7 +209,7 @@ var ddMap = {
 			this.bounds.union(response.routes[0].bounds);
 			this.map.fitBounds(this.bounds);
 			//Next, do some magic with the returned data, so we have lat and long of locations. Markers REQUIRE latlong, can't use street data.
-		}).catch((e) => console.log("Directions request failed due to " + e));
+		});//.catch((e) => console.log("Directions request failed due to " + e));
 	}
 };
 
