@@ -197,11 +197,36 @@
 	    width: 59%;
 	    height: 100%;
     }
-    .editButton {
-        width: 100%;
+    .edButton {
+        display: inline-block;
+        *display: inline;
+        *zoom: 1;
+        padding: 4px 10px 4px;
+        margin-bottom: 0;
+        font-size: 13px;
+        line-height: 18px;
+        color: #2C4E63;
+        text-align: center;
+        text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+        vertical-align: middle;
+        background-color: #2C4E63;
+        width: 70px;
     }
-    .deleteButton {
-        width: 100%;
+    .edButton:hover {
+        text-decoration: none;
+        background-color: #3A1F5B;
+        background-position: 0 -15px;
+    }
+    .edButton-primary {
+        padding: 9px 14px;
+        font-size: 15px;
+        line-height: normal;
+        border-radius: 5px;
+        color: #ffffff;
+        background-color: #2C4E63;
+        border: 1px solid #FFFFFF;
+        text-shadow: 1px 1px 1px rgba(0,0,0,0.4);
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.5);
     }
 </style>
 <body onload="loadInit(2);">
