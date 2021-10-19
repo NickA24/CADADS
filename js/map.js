@@ -116,7 +116,10 @@ var ddMap = {
 		} else if (obj['type'] == 0) {
 			//Destinations
 			lbl = endoji;
-			icn.url = icn.url+"%20|ff0000|000000";
+			icn.url = icn.url+"%20|00cc00|000000";
+			if (obj['isFree'] == 0 {
+				icn.url = icn.url+"%20|ff6666|000000";
+		    	}
 		} else {
 			console.log(obj);
 		}
@@ -157,6 +160,7 @@ var ddMap = {
 							obj.status = e.status
 							obj.type = e.source;
 							obj.title = e.name;
+							obj.isFree = e.isFree
 							if (e.source == 0) { obj.title += ": "+e.status; }
 							obj.title += ":\n"+e.location;
 							map.addMarker({"lat":e.loclat, "lng":e.loclng}, obj);
