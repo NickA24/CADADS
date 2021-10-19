@@ -125,7 +125,7 @@ var ddMap = {
 		this.markers.push(marker);
 	},
 	showMarkers: function() {
-		setMapMarkers(this.map);
+		this.setMapMarkers(this.map);
 	},
 	hideMarkers: function() {
 		this.setMapMarkers(null);
