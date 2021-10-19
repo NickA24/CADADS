@@ -208,7 +208,7 @@ var ddMap = {
 			obj.type = "1";
 			obj.title = route.name+":\n"+route.location;
 			this.addMarker(ovp.overview_path[0], obj);
-			this.bounds.union(response.routes[0].bounds);
+			this.bounds.extend(response.routes[0].bounds);
 			this.map.fitBounds(this.bounds);
 		}).catch((e) => console.log("Directions request failed due to " + e));
 	},
