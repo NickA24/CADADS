@@ -129,6 +129,7 @@ var ddMap = {
 		});
 		marker.addListener('click', () => this.infoWindowHandler(marker));
 		this.markers.push(marker);
+		this.doBounding();
 	},
 	showMarkers: function() {
 		this.setMapMarkers(this.map);
@@ -161,7 +162,7 @@ var ddMap = {
 							map.addMarker({"lat":e.loclat, "lng":e.loclng}, obj);
 						}
 					});
-					setTimeout(function(){map.doBounding()},500);
+					setTimeout(function(){map.doBounding()},1500);
 				}
 			}
 		});
