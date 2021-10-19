@@ -7,7 +7,7 @@ function initMap() {
 //Event listener, called on body load.
 function loadInit() {
 	var scr = document.createElement('script');
-	script.src = '/inc/googleapi.php';
+	scr.src = '/inc/googleapi.php';
 	document.head.appendChild(scr);
 	//<script type="text/javascript" src="/inc/googleapi.php" async></script>
 	var ele = document.getElementById('curCall'); 
