@@ -117,7 +117,7 @@ var ddMap = {
 			//Destinations
 			lbl = endoji;
 			icn.url = icn.url+"%20|00cc00|000000";
-			if (obj['isFree'] == 0 {
+			if (obj['isFree'] == 0) {
 				icn.url = icn.url+"%20|ff6666|000000";
 		    	}
 		} else {
