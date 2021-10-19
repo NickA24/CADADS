@@ -122,7 +122,7 @@ var ddMap = {
 		this.markers = [];
 	},
 	setupDispatch: function() {
-		getJSON('inc/getjson.php?tbl=dispatchMap', function(err, data){
+		getJSON('inc/getjson.php?tbl=dispatchMap', (err, data)=>{
 			if (err !== null) {
 				console.log("Oops, error:" + err);
 			} else {
@@ -133,12 +133,13 @@ var ddMap = {
 						{
 							map.calcAllRoutes(e);
 						} else {
-							getJSON('inc/googlegeocode.php?address='+e.location, function(err, data){
-								if (err !== null) {
-									console.log("Oops, error:" + err);
+							getJSON('inc/googlegeocode.php?address='+e.location, (err2, data2)=>{
+								if (err2 !== null) {
+									console.log("Oops, error:" + err2);
 								} else {
-									console.log(data.results.geometry.location);
-									map.addMarker(data.results.geometry.location, e.source);
+									console.log(e.location+":");
+									console.log(data2.results[0]);
+									map.addMarker(data2.results[0].geometry.location, e.source);
 								}
 							});
 						}
