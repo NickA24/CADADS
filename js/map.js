@@ -88,7 +88,7 @@ var ddMap = {
 		const endoji = "🏁";
 		let lbl = "";
 		let title = obj['title'];
-		let icn = { url: "https://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=", labelOrigin: new google.maps.Point(20,16) };
+		let icn = { url: "https://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=", labelOrigin: new google.maps.Point(10,10) };
 		switch(obj['type'])
 		{
 			case "0":
