@@ -179,7 +179,7 @@
         box-shadow: inset 0 -5px 45px rgba(100,100,100,0.2), 0 1px 1px rgba(255,255,255,0.2);
     }
 </style>
-<body>
+<body onload="loadInit(2);">
     <ul>
       <li>Home</a></li>
       <li>Add Ticket</a></li>
@@ -308,6 +308,7 @@
         </div>
         <div id="ambulancetableexample"></div></center>
     </div>
+<div id="map"></div>
 	<script>
 		var x = document.getElementById("ambulancetableexample");
 		var y = document.querySelector('input[id="inactive"]');
