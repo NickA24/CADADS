@@ -4,14 +4,21 @@ function initMap() {
 	map.initMap();
 }
 
+function loadScript(url, callback, arg1)
+{
+	var scr = document.createElement('script');
+	scr.type = 'text/javascript';
+	scr.src = url;
+	script.onreadystatechange = function() { callback(arg1); };
+	script.onload = function() { callback(arg1); };
+	document.head.appendChild(scr);
+}
+
 //Event listener, called on body load.
 function loadInit() {
-	var scr = document.createElement('script');
-	scr.src = '/inc/googleapi.php';
-	document.head.appendChild(scr);
 	//<script type="text/javascript" src="/inc/googleapi.php" async></script>
 	var ele = document.getElementById('curCall'); 
-	amboInfo(ele);
+	loadScript('/inc/googleapi.php', amboInfo, ele);
 	document.getElementsByTagName("body")[0].addEventListener("keypress", amboShortcuts, false);
 }
 
