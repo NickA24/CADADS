@@ -9,17 +9,28 @@ function loadScript(url, callback, arg1)
 	var scr = document.createElement('script');
 	scr.type = 'text/javascript';
 	scr.src = url;
-	scr.onreadystatechange = function() { callback(arg1); };
-	scr.onload = function() { callback(arg1); };
+	if (callback) 
+	{
+		scr.onreadystatechange = function() { callback(arg1); };
+		scr.onload = function() { callback(arg1); };
+	}
 	document.head.appendChild(scr);
 }
 
 //Event listener, called on body load.
-function loadInit() {
-	//<script type="text/javascript" src="/inc/googleapi.php" async></script>
-	var ele = document.getElementById('curCall'); 
-	loadScript('/inc/googleapi.php', amboInfo, ele);
-	document.getElementsByTagName("body")[0].addEventListener("keypress", amboShortcuts, false);
+function loadInit(loc) 
+{
+	if (loc == 1) 
+	{
+		var ele = document.getElementById('curCall'); 
+		loadScript('/inc/googleapi.php', amboInfo, ele);
+		document.getElementsByTagName("body")[0].addEventListener("keypress", amboShortcuts, false);
+	} 
+	else if (loc == 2) 
+	{
+		var ele = document.getElementById('body');
+		loadScript('/inc/googleapi.php', amboInfo, ele);
+	}
 }
 
 //Hotkeys for the page. Will use later to do automatic ambulance status updates
