@@ -252,6 +252,7 @@ var ddMap = {
 			obj.status = data.status
 			obj.type = "1";
 			obj.title = "Your location:\n"+data.ambulance_location;
+			obj.clr = "#ff0000";
 			this.addMarker(ovp.overview_path[0], obj);
 			if (this.end != this.start)
 			{
