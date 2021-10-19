@@ -55,7 +55,7 @@
 				$sql = "SELECT ambulance_info.id as id, ambulance_status.name as status, ambulance_info.location as ambulance_location, ambulance_info.destination as destination, active, ticket.name, ticket.location as ticket_location, CONCAT(CONCAT(ack, ' - '), description) as incident_type, priority, time, comments FROM ambulance_info LEFT JOIN ticket ON ambulance_info.current_ticket = ticket.id LEFT JOIN incident_tbl ON incident_type = incident_tbl.id LEFT JOIN ambulance_status ON status = ambulance_status.id WHERE ambulance_info.id = :id LIMIT 1";
 				break;
 			case 'dispatchMap':
-				$sql = "SELECT id, location, destination, 1 as source FROM ambulance_info UNION SELECT id, location, NULL as destination, 0 as source FROM ticket WHERE Active = 1 AND ambulance = 0";
+				$sql = "SELECT id, status, location, loclat, loclng, destination, dstlat, dstlng, 1 as source FROM ambulance_info UNION SELECT id, active as status, location, lat as loclat, lng as loclng, NULL as destination, NULL as dstlat, NULL as dstlng, 0 as source FROM ticket WHERE Active = 1 AND ambulance = 0";
 				break;
 		}
 	}
