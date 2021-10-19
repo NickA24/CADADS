@@ -186,8 +186,8 @@ var ddMap = {
 		if (!this.start || !this.end) { return; }
 		this.ds.route(
 		{
-			origin: start,
-			destination: end,
+			origin: this.start,
+			destination: this.end,
 			travelMode: google.maps.TravelMode.DRIVING,
 		})
 		.then((response) => {
