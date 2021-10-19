@@ -64,7 +64,6 @@ var ddMap = {
 		//This initializes our infowindow for use with markers.
 		this.infowindow = new google.maps.InfoWindow({content: contentString});
 		this.bounds = new google.maps.LatLngBounds();
-		this.testfunc();
 	},
 	setDirections: function(s, e) {
 		this.start = s;
