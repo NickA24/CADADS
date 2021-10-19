@@ -120,6 +120,21 @@ var ddMap = {
 		hideMarkers();
 		this.markers = [];
 	},
+	setupMarkers: function() {
+		getJSON('inc/getjson.php?tbl=dispatchMap', function(err, data){
+			if (err !== null) {
+				ele.innerHTML = "Oops, error:" + err;
+			} else {
+				console.log(data);
+				if (map.init)
+				{
+					//map.setDirections(ele.data.ambulance_location, dest);
+					//map.testfunc();
+					
+				}
+			}
+		});
+	},
 	testfunc: function() {
 		//This runs an initial route determined by the ambulance and ticket locations. uses ds and dr in case we need to do this multiple times? we'll see.
 		if (this.start && this.end) {
