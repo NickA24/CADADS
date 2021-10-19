@@ -151,7 +151,7 @@ var ddMap = {
 							obj.title = e.name;
 							if (e.source == 0) { obj.title += ": "+e.status; }
 							obj.title += ":\n"+e.location;
-							map.addMarker({lat:e.loclat, lng:e.loclng});
+							map.addMarker({lat:e.loclat, lng:e.loclng}, obj);
 						}
 					});
 				}
