@@ -40,8 +40,13 @@ function editTicket($db,$var)
 		return 'You need a valid name and location to edit';
 	}
 	if (!isset($var['ambulance'])) { $var['ambulance'] = 0; }
-	$params = array(":active"=>$var['editactive'], ":name"=>$var['editname'], ":location"=>$var['editlocation'], ":incident"=>$var['editincident_type'], ":priority"=>$var['editpriority'], ":ambulance"=>$var['editambulance'], ":comments"=>$var['editcomments'], ":id"=>$var['editid']);
-	$sql = "UPDATE ticket SET active=:active, name=:name, location=:location, incident_type=:incident,priority=:priority,ambulance=:ambulance,comments=:comments WHERE id = :id";
+	$address = $var['editlocation'];
+        include('incgeo.php');
+        $var['editlocation'] = $Geocodeobj["results"][0]["formatted_address"];
+        $var['editlat'] = $Geocodeobj["results"][0]["geometry"]["location"]["lat"];
+        $var['editlng'] = $Geocodeobj["results"][0]["geometry"]["location"]["lng"];
+	$params = array(":active"=>$var['editactive'], ":name"=>$var['editname'], ":location"=>$var['editlocation'], ":lat"=>$var['editlat'], ":lng"=>$var['editlng'], ":incident"=>$var['editincident_type'], ":priority"=>$var['editpriority'], ":ambulance"=>$var['editambulance'], ":comments"=>$var['editcomments'], ":id"=>$var['editid']);
+	$sql = "UPDATE ticket SET active=:active, name=:name, location=:location, lat=:lat, lng=:lng, incident_type=:incident,priority=:priority,ambulance=:ambulance,comments=:comments WHERE id = :id";
 	$result = $db->query($sql, $params);
 	return $result;
 }
