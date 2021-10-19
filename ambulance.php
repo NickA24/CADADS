@@ -1,5 +1,5 @@
 <?php include_once("./inc/login.php"); $needmap = 1; include_once("./inc/header.php"); if (checklogin() != 2) { return; } ?>
-<body onload="loadInit();">
+<body onload="loadInit(1);">
 <?php echo logoutbutton(); ?>
     <style type="text/css">
     /* Set the size of the div element that contains the map */
