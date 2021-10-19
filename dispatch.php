@@ -197,10 +197,10 @@
 	    width: 59%;
 	    height: 100%;
     }
-    .editform3 {
+    .editButton {
         width: 10%;
     }
-    .deleteform3 {
+    .deleteButton {
         width: 10%;
     }
 </style>
