@@ -154,7 +154,7 @@ var ddMap = {
 							map.addMarker({"lat":e.loclat, "lng":e.loclng}, obj);
 							const q = new google.maps.LatLng(e.loclat, e.loclng);
 							this.bounds.extend(q);
-							this.map.fitBounds(this.bounds);
+							this.map.fitBounds(this.bounds, 20);
 						}
 					});
 				}
@@ -209,7 +209,7 @@ var ddMap = {
 			obj.title = route.name+":\n"+route.location;
 			this.addMarker(ovp.overview_path[0], obj);
 			this.bounds.extend(response.routes[0].bounds);
-			this.map.fitBounds(this.bounds);
+			this.map.fitBounds(this.bounds, 20);
 		}).catch((e) => console.log("Directions request failed due to " + e));
 	},
 	//specific route for ambulances
