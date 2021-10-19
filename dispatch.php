@@ -198,10 +198,10 @@
 	    height: 100%;
     }
     .editButton {
-        width: 10%;
+        width: 100%;
     }
     .deleteButton {
-        width: 10%;
+        width: 100%;
     }
 </style>
 <body onload="loadInit(2);">
