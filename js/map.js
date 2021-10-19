@@ -221,7 +221,7 @@ var ddMap = {
 			travelMode: google.maps.TravelMode.DRIVING,
 		}).then((response) => {
 			const ovp = response.routes[0];
-			const clr = this.getRandomColor(route['isFree']);
+			const clr = this.getRandomColor(route['id']);
 			let newdr = new google.maps.DirectionsRenderer({map:this.map, suppressMarkers:true, polylineOptions: {strokeColor: clr}});
 			newdr.setDirections(response);
 			this.directions.push(newdr);
