@@ -23,8 +23,8 @@ function addTicket($db,$var)
         $var['lat'] = $Geocodeobj["results"][0]["geometry"]["location"]["lat"];
         $var['lng'] = $Geocodeobj["results"][0]["geometry"]["location"]["lng"];
         $priority = (isset($var['priority'])) ? $var['priority'] : 1;
-        $params = array(":active"=>"1", ":name"=>$var['name'], ":location"=>$var['location'],":lat"=>$var['lat'], ":lng"=>$var['lng'], ":incident"=>$var['incident_type'], ":priority"=>$priority, ":dispatcher$
-        $sql = "INSERT INTO ticket(active, name, location, lat, lng, incident_type, priority, dispatcher, time, comments) VALUES(:active, :name, :location, :lat, :lng, :incident, :priority, :dispatcher, NOW($
+        $params = array(":active"=>"1", ":name"=>$var['name'], ":location"=>$var['location'],":lat"=>$var['lat'], ":lng"=>$var['lng'], ":incident"=>$var['incident_type'], ":priority"=>$priority, ":dispatcher"=>$_SESSION['myid'], ":comment"=>$var['comments']);
+        $sql = "INSERT INTO ticket(active, name, location, lat, lng, incident_type, priority, dispatcher, time, comments) VALUES(:active, :name, :location, :lat, :lng, :incident, :priority, :dispatcher, NOW(), :comment)";
         $result = $db->query($sql, $params);
 	return $result;
 }
