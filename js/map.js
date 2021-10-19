@@ -161,9 +161,9 @@ var ddMap = {
 							map.addMarker({"lat":e.loclat, "lng":e.loclng}, obj);
 						}
 					});
+					setTimeout(function(){map.doBounding()},5000);
 				}
 			}
-			setTimeout(map.doBounding,5000);
 		});
 	},
 	testfunc: function(data) {
