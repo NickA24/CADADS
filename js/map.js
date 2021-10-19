@@ -127,14 +127,14 @@ var ddMap = {
 			} else {
 				if (map.init)
 				{
-					data.forEach((e) => {
+					data.forEach(function(e) {
 					     if (e.location && e.destination) 
 						{
 							this.calcAllRoutes(e);
 						} else {
 							this.addMarker(e.location, e.source);
 						}
-					});
+					},this);
 				}
 			}
 		});
