@@ -53,6 +53,7 @@ var ddMap = {
 	infowindow: null, // Placeholder to create an instance of google maps api's infowindow
 	markers: [],
 	directions: [],
+	colors: [],
 	bounds:null,
 	initMap: function() { //Passes origin and destination
 		this.map = new google.maps.Map(document.getElementById("map"), {center: { lat: 34.182175, lng: -117.318794 },zoom: 15,});
@@ -174,6 +175,19 @@ var ddMap = {
 			this.directions[i] = null;
 		}
 		this.directions = [];
+		this.colors = [];
+	},
+	getRandomColor: function() {
+		var color;
+		do
+			var letters = '0123456789ABCDEF';
+			color = '#';
+			for (var i = 0; i < 6; i++) {
+				color += letters[Math.floor(Math.random() * 16)];
+			}
+		while(!colors.includes(color));
+		colors.push(color);
+		return color;
 	},
 	//general routes for all ambo->dir
 	calcAllRoutes: function(route) {
@@ -184,7 +198,7 @@ var ddMap = {
 			travelMode: google.maps.TravelMode.DRIVING,
 		}).then((response) => {
 			const ovp = response.routes[0];
-			let newdr = new google.maps.DirectionsRenderer({map:this.map, suppressMarkers:true, polylineOptions: {strokeColor: "FireBrick"}});
+			let newdr = new google.maps.DirectionsRenderer({map:this.map, suppressMarkers:true, polylineOptions: {strokeColor: this.getRandomColor()}});
 			newdr.setDirections(response);
 			this.directions.push(newdr);
 			let obj = new Object();
