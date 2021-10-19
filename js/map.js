@@ -194,7 +194,7 @@ var ddMap = {
 			//Once we get them back, set the directions.
 			this.dr.setDirections(response);
 			const ovp = response.routes[0];
-			let obj = null;
+			let obj = new Object();
 			obj.status = data.status
 			obj.type = "1";
 			obj.title = "Your location:\n"+data.ambulance_location;
