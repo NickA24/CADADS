@@ -52,7 +52,7 @@ var ddMap = {
 	end: null, //Stores the ticket location 
 	infowindow: null, // Placeholder to create an instance of google maps api's infowindow
 	markers: [],
-	bounds,
+	bounds:null,
 	initMap: function() { //Passes origin and destination
 		this.map = new google.maps.Map(document.getElementById("map"), {center: { lat: 34.182175, lng: -117.318794 },zoom: 15,});
 		this.ds = new google.maps.DirectionsService();
