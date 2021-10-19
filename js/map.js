@@ -119,6 +119,8 @@ var ddMap = {
 			if (obj['isFree'] == 0) {
 				icn.url = icn.url+"%20|ff0000|000000";
 		    	} else {
+				console.log(this.colors);
+				console.log(map.colors);
 				console.log(obj['isFree'] + ":" + this.colors[obj['isFree']]);
 				//Figure out how to color it based on what ambo it's connected to.
 				if (this.colors[obj['isFree']]) {
