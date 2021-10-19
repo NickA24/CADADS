@@ -20,6 +20,7 @@
         padding: 0;
         overflow: hidden;
         background-color: #333;
+	z-index: 1;
     }
     li {
         float: left;
