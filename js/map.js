@@ -51,6 +51,7 @@ var ddMap = {
 	start: null, //Stores the ambulance location
 	end: null, //Stores the ticket location 
 	infowindow: null, // Placeholder to create an instance of google maps api's infowindow
+	markers: [],
 	initMap: function() { //Passes origin and destination
 		this.map = new google.maps.Map(document.getElementById("map"), {center: { lat: 34.182175, lng: -117.318794 },zoom: 15,});
 		this.ds = new google.maps.DirectionsService();
@@ -74,6 +75,50 @@ var ddMap = {
 	getDistance: function() {
 		const v = this.dr.routes[0].legs[0];
 		return v.distance;
+	},
+	setMapMarkers(map) {
+		for (let i = 0; i < this.markers.length; i++) 
+		{
+			this.markers[i].setMap(map);
+		}
+	},
+	addMarker: function(position, icon) {
+		const amboji = "🚑";
+		const endoji = "🏁";
+		const lbl;
+		const title = "";
+		if (icon)
+		{
+			if (icon == 1)
+			{
+				lbl = amboji;
+				title = "Ambulance Location:\n"+position;
+			} else {
+				lbl = endoji;
+				title = "Ticket Location:\n"+position;
+			}
+		} else {
+			lbl = ""
+			title = "Location:"+position;
+		}
+		const marker = new google.maps.Marker({
+			position: position
+			title:title
+			label:lbl,
+			map: this.map
+		});
+		marker.addListener('click', () => this.infoWindowHandler(marker));
+		this.markers.push(marker);
+	},
+	showMarkers: function() {
+		setMapMarkers(this.map);
+	},
+	hideMarkers: function() {
+		setMapMarkers(null);
+	},
+	deleteMarkers: function() {
+		hideMarkers();
+		this.markers = [];
 	},
 	testfunc: function() {
 		//This runs an initial route determined by the ambulance and ticket locations. uses ds and dr in case we need to do this multiple times? we'll see.
@@ -100,22 +145,24 @@ var ddMap = {
 			//Once we get them back, set the directions.
 			directionsRenderer.setDirections(response);
 			const ovp = response.routes[0];
-			var m1 = new google.maps.Marker({
-				position: ovp.overview_path[0],
-				title:"Ambulance Location:\n"+ovp.legs[0].start_address,
-				label:"🚑",
-				map: this.map
-			});
-			m1.addListener('click', () => this.infoWindowHandler(m1));
+			//var m1 = new google.maps.Marker({
+			//	position: ovp.overview_path[0],
+			//	title:"Ambulance Location:\n"+ovp.legs[0].start_address,
+			//	label:"🚑",
+			//	map: this.map
+			//});
+			//m1.addListener('click', () => this.infoWindowHandler(m1));
+			this.addMarker(ovp.overview_path[0], 1);
 			if (this.end != this.start)
 			{
-				var m2 = new google.maps.Marker({
-					position: ovp.overview_path[ovp.overview_path.length-1],
-					title:"Ticket Location:\n"+ovp.legs[0].end_address,
-					label:"🏁",
-					map: this.map
-				});
-				m2.addListener('click', () => this.infoWindowHandler(m2));
+				this.addMarker(ovp.overview_path[ovp.overview_path.length-1], 0);
+			//	var m2 = new google.maps.Marker({
+			//		position: ovp.overview_path[ovp.overview_path.length-1],
+			//		title:"Ticket Location:\n"+ovp.legs[0].end_address,
+			//		label:"🏁",
+			//		map: this.map
+			//	});
+			//	m2.addListener('click', () => this.infoWindowHandler(m2));
 			} else {
 				setTimeout(()=>{this.map.setZoom(18);},500);	
 			}
