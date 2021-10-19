@@ -120,17 +120,21 @@ var ddMap = {
 		hideMarkers();
 		this.markers = [];
 	},
-	setupMarkers: function() {
+	setupDispatch: function() {
 		getJSON('inc/getjson.php?tbl=dispatchMap', function(err, data){
 			if (err !== null) {
 				ele.innerHTML = "Oops, error:" + err;
 			} else {
-				console.log(data);
 				if (map.init)
 				{
-					//map.setDirections(ele.data.ambulance_location, dest);
-					//map.testfunc();
-					
+					data.forEach(e=>
+					     if (e.location && e.destination) 
+						{
+							this.calcAllRoutes(e);
+						} else {
+							this.addMarker(e.location, e.source);
+						}
+					);
 				}
 			}
 		});
@@ -148,6 +152,19 @@ var ddMap = {
 		this.infowindow.setContent(marker.getTitle());
 		this.infowindow.open(this.map, marker);
 	},
+	//general routes for all ambo->dir
+	calcAllRoutes: function(route) {
+		this.ds.route({
+			origin: route.location,
+			destination: route.destination,
+			travelMode: google.maps.TravelMode.DRIVING,
+		}).then(response) => {
+			this.dr.setDirections(response);
+			this.addMarker(ovp.overview_path[0], 1);
+			this.addMarker(ovp.overview_path[ovp.overview_path.length-1], 0);
+		}).catch((e) => console.log("Directions request failed due to " + e));
+	},
+	//specific route for ambulances
 	calculateAndDisplayRoute: function(directionsService, directionsRenderer) {
 		//This routes the directions through the google server
 		directionsService.route(
