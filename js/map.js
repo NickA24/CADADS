@@ -118,8 +118,9 @@ var ddMap = {
 			//Destinations
 			lbl = endoji;
 			if (obj['isFree'] == 0) {
-				icn.url = icn.url+"%20|ff8888|000000";
+				icn.url = icn.url+"%20|ff0000|000000";
 		    	} else {
+				//Figure out how to color it based on what ambo it's connected to.
 				icn.url = icn.url+"%20|ff0000|000000";	
 			}
 		} else {
