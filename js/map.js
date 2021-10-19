@@ -205,7 +205,7 @@ var ddMap = {
 			{
 				obj.status = data.active;
 				obj.type = "2";
-				obj.title = data.name+"\n"+data.destination
+				obj.title = data.name+" "+data.incident_type+"\n"+data.destination
 				this.addMarker(ovp.overview_path[ovp.overview_path.length-1], obj);
 			}
 			this.bounds.union(response.routes[0].bounds);
