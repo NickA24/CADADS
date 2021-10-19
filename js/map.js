@@ -198,7 +198,8 @@ var ddMap = {
 			travelMode: google.maps.TravelMode.DRIVING,
 		}).then((response) => {
 			const ovp = response.routes[0];
-			let newdr = new google.maps.DirectionsRenderer({map:this.map, suppressMarkers:true, polylineOptions: {strokeColor: this.getRandomColor()}});
+			const clr = this.getRandomColor();
+			let newdr = new google.maps.DirectionsRenderer({map:this.map, suppressMarkers:true, polylineOptions: {strokeColor: clr}});
 			newdr.setDirections(response);
 			this.directions.push(newdr);
 			let obj = new Object();
