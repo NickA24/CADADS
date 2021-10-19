@@ -193,14 +193,18 @@ var ddMap = {
 		this.directions = [];
 		this.colors = [];
 	},
-	getRandomColor: function() {
+	getRandomColor: function(id) {
 		var color;
 		var letters = '0123456789ABCDEF';
 		color = '#';
 		for (var i = 0; i < 6; i++) {
 			color += letters[Math.floor(Math.random() * 16)];
 		}
-		this.colors.push(color);
+		if (id) {
+			this.colors[id] = color;
+		} else {
+			this.colors.push(color);
+		}
 		return color;
 	},
 	//general routes for all ambo->dir
