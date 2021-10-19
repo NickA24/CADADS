@@ -128,10 +128,10 @@ var ddMap = {
 		setMapMarkers(this.map);
 	},
 	hideMarkers: function() {
-		setMapMarkers(null);
+		this.setMapMarkers(null);
 	},
 	deleteMarkers: function() {
-		hideMarkers();
+		this.hideMarkers();
 		this.markers = [];
 	},
 	setupDispatch: function() {
