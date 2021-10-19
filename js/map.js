@@ -111,7 +111,7 @@ var ddMap = {
 			case "2":
 				//Destinations
 				lbl = endoji;
-				icn.url = 'http://labs.google.com/ridefinder/images/mm_20_red.png';
+				icn.url = 'http://maps.google.com/mapfiles/kml/paddle/stop.png'
 				break;
 		}	
 		const marker = new google.maps.Marker({
