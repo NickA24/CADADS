@@ -179,13 +179,13 @@ var ddMap = {
 	},
 	getRandomColor: function() {
 		var color;
-		do
+		do {
 			var letters = '0123456789ABCDEF';
 			color = '#';
 			for (var i = 0; i < 6; i++) {
 				color += letters[Math.floor(Math.random() * 16)];
 			}
-		while(!colors.includes(color));
+		} while(!colors.includes(color));
 		colors.push(color);
 		return color;
 	},
