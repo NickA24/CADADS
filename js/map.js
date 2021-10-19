@@ -182,8 +182,8 @@ var ddMap = {
 			{
 				this.addMarker(ovp.overview_path[ovp.overview_path.length-1], 0);
 			}
-			bounds.union(result.routes[0].bounds);
-			map.fitBounds(bounds);
+			this.bounds.union(result.routes[0].bounds);
+			map.fitBounds(this.bounds);
 			//Next, do some magic with the returned data, so we have lat and long of locations. Markers REQUIRE latlong, can't use street data.
 		}).catch((e) => console.log("Directions request failed due to " + e));
 	}
