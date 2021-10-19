@@ -111,16 +111,15 @@ var ddMap = {
 			{
 				icn.url = icn.url+"%20|00ff00|000000";
 			} else {
-				console.log(obj['clr']);
 				icn.url = icn.url+"%20|"+obj['clr'].substring(1)+"|000000";	
 			}
 		} else if (obj['type'] == 0) {
 			//Destinations
 			lbl = endoji;
-			console.log(obj['isFree']);
 			if (obj['isFree'] == 0) {
 				icn.url = icn.url+"%20|ff0000|000000";
 		    	} else {
+				console.log(obj['isFree'] + ":" + this.colors[obj['isFree']]);
 				//Figure out how to color it based on what ambo it's connected to.
 				if (this.colors[obj['isFree']]) {
 					icn.url = icn.url+"%20|"+this.colors[obj['isFree']].substring(1)+"|000000";
