@@ -196,6 +196,9 @@
 	    width: 59%;
 	    height: 100%;
     }
+    #table {
+        width: 40%;
+    }
 </style>
 <body onload="loadInit(2);">
     <nav class="sticky">
