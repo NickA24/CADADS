@@ -31,7 +31,7 @@ function loadInit(loc)
 	else if (loc == 2) 
 	{
 		var ele = document.getElementById('body');
-		loadScript('/inc/googleapi.php', amboInfo, ele);
+		loadScript('/inc/googleapi.php');
 	}
 }
 
