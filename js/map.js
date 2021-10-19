@@ -94,7 +94,7 @@ var ddMap = {
 		var extendPoint2 = new google.maps.LatLng(this.bounds.getNorthEast().lat() - 0.01, this.bounds.getNorthEast().lng() - 0.01);
 		this.bounds.extend(extendPoint1);
 		this.bounds.extend(extendPoint2);
-		this.map.fitBounds(this.bounds);
+		this.map.fitBounds(this.bounds, 20);
 	},
 	addMarker: function(position, obj) {
 		const amboji = "🚑";
@@ -217,8 +217,6 @@ var ddMap = {
 			obj.type = "1";
 			obj.title = route.name+":\n"+route.location;
 			this.addMarker(ovp.overview_path[0], obj);
-			this.bounds.extend(response.routes[0].bounds);
-			this.map.fitBounds(this.bounds, 20);
 		}).catch((e) => console.log("Directions request failed due to " + e));
 	},
 	//specific route for ambulances
