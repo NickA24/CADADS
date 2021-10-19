@@ -197,14 +197,11 @@
 	    width: 59%;
 	    height: 100%;
     }
-    #table {
-        width: 40%;
+    .editButton {
+        width: 10%;
     }
-    #thead {
-        width: 40%;
-    }
-    #tbody {
-        width: 40%;
+    .deleteButton {
+        width: 10%;
     }
 </style>
 <body onload="loadInit(2);">
