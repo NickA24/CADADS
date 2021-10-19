@@ -105,7 +105,7 @@ var ddMap = {
 				{
 					icn.url = url+"green-dot.png";	
 				} else {
-					icn.url += "red-dot.png";	
+					icn.url = url+"red-dot.png";	
 				}
 				break;
 			case "2":
