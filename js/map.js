@@ -88,7 +88,7 @@ var ddMap = {
 		const endoji = "🏁";
 		let lbl = "";
 		let url = "https://maps.google.com/mapfiles/kml/paddle/";
-		let icn = { url: '' };
+		let icn = { url: '', size: new google.maps.Size(20,32)};
 		let title = obj['title'];
 		switch(obj['type'])
 		{
