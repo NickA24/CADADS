@@ -88,6 +88,7 @@ var ddMap = {
 		const endoji = "🏁";
 		let lbl = "";
 		let title = obj['title'];
+		let icn = { url: "https://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=" };
 		switch(obj['type'])
 		{
 			case "0":
@@ -98,23 +99,25 @@ var ddMap = {
 				lbl = amboji;
 				if (obj['status'] == "Out of Service" || obj['status'] == "Unavailable")
 				{
-					//icn.url = url+"wht-blank.png";
+					icn.url = icn.url+"%20|888888|000000";
 				} else if (obj['status'] == "Available")
 				{
-					//icn.url = url+"grn-blank.png";	
+					//icn.url = icn.url+"%20|00ff00|000000";	
 				} else {
-					//icn.url = url+"red-blank.png";	
+					//icn.url = icn.url+"%20|ff0000|000000";	
 				}
 				break;
 			case "2":
 				//Destinations
 				lbl = endoji;
+				icn.url = icn.url+"%20|ff0000|000000";
 				break;
 		}	
 		const marker = new google.maps.Marker({
 			position: position,
 			title: title,
 			label: lbl,
+			icon: icn,
 			map: this.map
 		});
 		marker.addListener('click', () => this.infoWindowHandler(marker));
