@@ -120,14 +120,8 @@ var ddMap = {
 				icn.url = icn.url+"%20|ff0000|000000";
 		    	} else {
 				//Figure out how to color it based on what ambo it's connected to.
-				const p = obj['isFree'];
-				console.log(this.colors);
-				console.log(this.colors[p]);
-				if (this.colors[obj['isFree']]) {
-					icn.url = icn.url+"%20|"+this.colors[obj['isFree']].substring(1)+"|000000";
-				} else {
-					icn.url = icn.url+"%20|ff0000|000000";
-				}
+				const clr = this.getRandomColor(obj['isFree']);
+				icn.url = icn.url+"%20|"+clr.substring(1)+"|000000";
 			}
 		} else {
 			console.log(obj);
@@ -200,6 +194,7 @@ var ddMap = {
 		this.colors = [];
 	},
 	getRandomColor: function(id) {
+		if (this.colors[id]) { return this.colors[id]; }
 		var color;
 		var letters = '0123456789ABCDEF';
 		color = '#';
