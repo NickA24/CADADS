@@ -98,13 +98,13 @@ var ddMap = {
 				title = "Ticket Location:\n"+position;
 			}
 		} else {
-			lbl = ""
+			lbl = "";
 			title = "Location:"+position;
 		}
 		const marker = new google.maps.Marker({
-			position: position
-			title:title
-			label:lbl,
+			position: position,
+			title: title,
+			label: lbl,
 			map: this.map
 		});
 		marker.addListener('click', () => this.infoWindowHandler(marker));
