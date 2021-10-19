@@ -77,8 +77,9 @@
         background-color: lightgray;
     }
     .add {
-        width: 100%;
+        width: 90%;
         height: 50px;
+	margin-left: 5%;
     }
     .sidenavAdd {
         height: 100%;
