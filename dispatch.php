@@ -199,6 +199,12 @@
     #table {
         width: 40%;
     }
+    #thead {
+        width: 40%;
+    }
+    #tbody {
+        width: 40%;
+    }
 </style>
 <body onload="loadInit(2);">
     <nav class="sticky">
