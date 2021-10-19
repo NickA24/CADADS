@@ -124,7 +124,7 @@ var ddMap = {
 	setupDispatch: function() {
 		getJSON('inc/getjson.php?tbl=dispatchMap', function(err, data){
 			if (err !== null) {
-				ele.innerHTML = "Oops, error:" + err;
+				console.log("Oops, error:" + err);
 			} else {
 				if (map.init)
 				{
@@ -133,7 +133,13 @@ var ddMap = {
 						{
 							map.calcAllRoutes(e);
 						} else {
-							map.addMarker(e.location, e.source);
+							getJSON('inc/googlegeocode.php?address='+e.location, function(err, data){
+								if (err !== null) {
+									console.log("Oops, error:" + err);
+								} else {
+									map.addMarker(data.results.geometry.location, e.source);
+								}
+							});
 						}
 					});
 				}
