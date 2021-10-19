@@ -87,7 +87,7 @@ var ddMap = {
 		const amboji = "🚑";
 		const endoji = "🏁";
 		let lbl = "";
-		let url = "http://maps.google.com/mapfiles/ms/icons/";
+		let url = "https://maps.google.com/mapfiles/kml/paddle/";
 		let icn = { url: '' };
 		let title = obj['title'];
 		switch(obj['type'])
@@ -100,12 +100,12 @@ var ddMap = {
 				lbl = amboji;
 				if (obj['status'] == "Out of Service" || obj['status'] == "Unavailable")
 				{
-					icn.url = url+"gray-dot.png";
+					icn.url = url+"wht-blank.png";
 				} else if (obj['status'] == "Available")
 				{
-					icn.url = url+"green-dot.png";	
+					icn.url = url+"grn-blank.png";	
 				} else {
-					icn.url = url+"red-dot.png";	
+					icn.url = url+"red-blank.png";	
 				}
 				break;
 			case "2":
