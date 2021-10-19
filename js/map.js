@@ -121,7 +121,11 @@ var ddMap = {
 				icn.url = icn.url+"%20|ff0000|000000";
 		    	} else {
 				//Figure out how to color it based on what ambo it's connected to.
-				icn.url = icn.url+"%20|ff0000|000000";	
+				if (this.colors[obj['isFree']]) {
+					icn.url = icn.url+"%20|"+this.colors[obj['isFree']].substring(1)+"|000000";
+				} else {
+					icn.url = icn.url+"%20|ff0000|000000";
+				}
 			}
 		} else {
 			console.log(obj);
