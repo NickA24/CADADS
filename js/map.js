@@ -111,6 +111,7 @@ var ddMap = {
 			{
 				icn.url = icn.url+"%20|00ff00|000000";
 			} else {
+				console.log(obj['clr']);
 				icn.url = icn.url+"%20|"+obj['clr']+"|000000";	
 			}
 		} else if (obj['type'] == 0) {
