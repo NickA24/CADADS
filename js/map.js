@@ -85,6 +85,18 @@ var ddMap = {
 			this.markers[i].setMap(map);
 		}
 	},
+	doBounding: function() {
+		for (var index in this.markers ) {
+			let latlng = this.markers[index].getPosition();
+			this.bounds.extend(latlng);
+		}
+	       	var extendPoint1 = new google.maps.LatLng(this.bounds.getNorthEast().lat() + 0.01, this.bounds.getNorthEast().lng() + 0.01);
+		var extendPoint2 = new google.maps.LatLng(this.bounds.getNorthEast().lat() - 0.01, this.bounds.getNorthEast().lng() - 0.01);
+		this.bounds.extend(extendPoint1);
+		this.bounds.extend(extendPoint2);
+	    	}
+		this.map.fitBounds(this.bounds);
+	},
 	addMarker: function(position, obj) {
 		const amboji = "🚑";
 		const endoji = "🏁";
@@ -152,11 +164,9 @@ var ddMap = {
 							if (e.source == 0) { obj.title += ": "+e.status; }
 							obj.title += ":\n"+e.location;
 							map.addMarker({"lat":e.loclat, "lng":e.loclng}, obj);
-							const q = new google.maps.LatLng(e.loclat, e.loclng);
-							this.bounds.extend(q);
-							this.map.fitBounds(this.bounds, 20);
 						}
 					});
+					this.doBounding();
 				}
 			}
 		});
