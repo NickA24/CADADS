@@ -11,6 +11,7 @@
       .sidenav a {font-size: 18px;}
     }
     body {
+	margin: 0;
         font-family: 'Open Sans', sans-serif;
     }
     ul {
@@ -30,6 +31,12 @@
     }
     li:hover:not(.active) {
         background-color: #111;
+    }
+    .sticky {
+        background-color: #ffffff;
+        position: -webkit-sticky;
+        position: sticky;
+        top: 0;
     }
     .btn {
         display: inline-block;
@@ -189,18 +196,20 @@
     }
 </style>
 <body onload="loadInit(2);">
-    <ul>
-      <li>Home</a></li>
-      <li>Add Ticket</a></li>
-      <li>Edit Ticket</a></li>
-      <li style="float:right">
-          <a class="active">
-              <?php
-              echo logoutbutton();
-              ?>
-          </a>
-      </li>
-    </ul>
+    <nav class="sticky">
+        <ul>
+          <li style="background-color:black">Diamond Dispatch</li>
+          <li>Add Ticket</li>
+          <li>Edit Ticket</li>
+          <li style="float:right">
+              <a class="active">
+                  <?php
+                  echo logoutbutton();
+                  ?>
+              </a>
+          </li>
+        </ul>
+    </nav>
     <div class="leftContainer">
         <center><h1>Active Tickets</h1></center>
         <button onclick="openNavAdd()" class="add btn btn-primary">Create New</button>
