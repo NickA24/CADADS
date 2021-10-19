@@ -166,7 +166,7 @@ var ddMap = {
 	infoWindowHandler: function(marker) {
 		//EventHandler, listening to click events on our generated markers.
 		this.infowindow.close(); 
-		this.infowindow.setContent(marker.getTitle());
+		this.infowindow.setContent(marker.getTitle().split("\n").join("<br>"));
 		this.infowindow.open(this.map, marker);
 	},
 	//general routes for all ambo->dir
