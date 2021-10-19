@@ -184,7 +184,7 @@
 	    position: absolute;
 	    top: 54px;
 	    right: 0;
-	    width: 60%;
+	    width: 55%;
 	    height: 100%;
     }
 </style>
