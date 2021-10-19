@@ -169,7 +169,7 @@ var ddMap = {
 		//This routes the directions through the google server
 		this.ds.route(
 		{
-			origin: tart,
+			origin: start,
 			destination: end,
 			travelMode: google.maps.TravelMode.DRIVING,
 		})
