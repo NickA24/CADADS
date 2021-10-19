@@ -19,6 +19,7 @@ function addTicket($db,$var)
 	}
         $address = $var['location'];
         include('incgeo.php');
+	var_dump($Geocodeobj);
         $var['location'] = $Geocodeobj["results"][0]["formatted_address"];
         $var['lat'] = $Geocodeobj["results"][0]["geometry"]["location"]["lat"];
         $var['lng'] = $Geocodeobj["results"][0]["geometry"]["location"]["lng"];
