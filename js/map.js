@@ -91,7 +91,7 @@ var ddMap = {
 		let icn = { url: "https://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=", labelOrigin: new google.maps.Point(10,10) };
 		switch(obj['type'])
 		{
-			case "0":
+			case "2":
 				//Hospitals
 				break;
 			case "1":
@@ -107,7 +107,7 @@ var ddMap = {
 					icn.url = icn.url+"%20|ff0000|000000";	
 				}
 				break;
-			case "2":
+			case "0":
 				//Destinations
 				lbl = endoji;
 				icn.url = icn.url+"%20|ff0000|000000";
@@ -141,17 +141,17 @@ var ddMap = {
 				if (map.init)
 				{
 					data.forEach((e) => {
-					     if (e.location && e.destination) 
+					     if (e.destination) 
 						{
 							map.calcAllRoutes(e);
 						} else {
-							getJSON('inc/googlegeocode.php?address='+e.location, (err2, data2)=>{
-								if (err2 !== null) {
-									console.log("Oops, error:" + err2);
-								} else {
-									map.addMarker(data2.results[0].geometry.location, e.source);
-								}
-							});
+							let obj = new Object();
+							obj.status = e.status
+							obj.type = e.source;
+							obj.title = e.name;
+							if (e.source == 0) { obj.title += ": "+e.status; }
+							obj.title += ":\n"+e.location;
+							map.addMarker({lat:e.loclat, lng:e.loclng});
 						}
 					});
 				}
@@ -178,8 +178,13 @@ var ddMap = {
 		}).then((response) => {
 			const ovp = response.routes[0];
 			this.dr.setDirections(response);
-			this.addMarker(ovp.overview_path[0], 1);
-			this.addMarker(ovp.overview_path[ovp.overview_path.length-1], 0);
+			let obj = new Object();
+			obj.status = route.status
+			obj.type = "1";
+			obj.title = route.name+":\n"+route.location;
+			this.addMarker(ovp.overview_path[0], obj);
+			this.bounds.union(response.routes[0].bounds);
+			this.map.fitBounds(this.bounds);
 		}).catch((e) => console.log("Directions request failed due to " + e));
 	},
 	//specific route for ambulances
@@ -204,7 +209,7 @@ var ddMap = {
 			if (this.end != this.start)
 			{
 				obj.status = data.active;
-				obj.type = "2";
+				obj.type = "0";
 				obj.title = data.name+": "+data.incident_type+"\n"+data.destination
 				this.addMarker(ovp.overview_path[ovp.overview_path.length-1], obj);
 			}
