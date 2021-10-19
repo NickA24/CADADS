@@ -87,8 +87,6 @@ var ddMap = {
 		const amboji = "🚑";
 		const endoji = "🏁";
 		let lbl = "";
-		let url = "https://maps.google.com/mapfiles/kml/paddle/";
-		let icn = { url: '', size: new google.maps.Size(20,32)};
 		let title = obj['title'];
 		switch(obj['type'])
 		{
@@ -100,25 +98,23 @@ var ddMap = {
 				lbl = amboji;
 				if (obj['status'] == "Out of Service" || obj['status'] == "Unavailable")
 				{
-					icn.url = url+"wht-blank.png";
+					//icn.url = url+"wht-blank.png";
 				} else if (obj['status'] == "Available")
 				{
-					icn.url = url+"grn-blank.png";	
+					//icn.url = url+"grn-blank.png";	
 				} else {
-					icn.url = url+"red-blank.png";	
+					//icn.url = url+"red-blank.png";	
 				}
 				break;
 			case "2":
 				//Destinations
 				lbl = endoji;
-				icn.url = 'https://maps.google.com/mapfiles/kml/paddle/stop.png'
 				break;
 		}	
 		const marker = new google.maps.Marker({
 			position: position,
 			title: title,
 			label: lbl,
-			icon: icn,
 			map: this.map
 		});
 		marker.addListener('click', () => this.infoWindowHandler(marker));
