@@ -6,6 +6,10 @@ function initMap() {
 
 //Event listener, called on body load.
 function loadInit() {
+	var scr = document.createElement('script');
+	script.src = '/inc/googleapi.php';
+	document.head.appendChild(scr);
+	//<script type="text/javascript" src="/inc/googleapi.php" async></script>
 	var ele = document.getElementById('curCall'); 
 	amboInfo(ele);
 	document.getElementsByTagName("body")[0].addEventListener("keypress", amboShortcuts, false);
@@ -98,10 +102,6 @@ var ddMap = {
 			//Next, do some magic with the returned data, so we have lat and long of locations. Markers REQUIRE latlong, can't use street data.
 		}).catch((e) => console.log("Directions request failed due to " + e));
 	}
-	var scr = document.createElement('script');
-	script.src = '/inc/googleapi.php';
-	document.head.appendChild(scr);
-	//<script type="text/javascript" src="/inc/googleapi.php" async></script>
 };
 
 //After defining what ddMap does, create a global instance of it.
