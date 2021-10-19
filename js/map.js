@@ -83,29 +83,39 @@ var ddMap = {
 			this.markers[i].setMap(map);
 		}
 	},
-	addMarker: function(position, icon) {
+	addMarker: function(position, obj) {
 		const amboji = "🚑";
 		const endoji = "🏁";
 		let lbl = "";
-		let title = "";
-		if (icon)
+		let url = "http://maps.google.com/mapfiles/ms/icons/";
+		let icn = { url: '' };
+		let title = obj['title'];
+		switch(obj['type'])
 		{
-			if (icon == 1)
-			{
+			case "0":
+				//Hospitals
+				break;
+			case "1":
+				//Ambulances
 				lbl = amboji;
-				title = "Ambulance Location:\n"+position;
-			} else {
+				if (obj['status'] == "Out of Service" || obj['status'] == "Unavailable")
+				{
+					icn.url = url+"gray-dot.png";
+				} else if (obj['status'] == "Available")
+				{
+					icn.url = url+"green-dot.png";	
+				}
+				break;
+			case "2":
+				//Destinations
 				lbl = endoji;
-				title = "Ticket Location:\n"+position;
-			}
-		} else {
-			lbl = "";
-			title = "Location:"+position;
-		}
+				break;
+		}	
 		const marker = new google.maps.Marker({
 			position: position,
 			title: title,
 			label: lbl,
+			icon: icn,
 			map: this.map
 		});
 		marker.addListener('click', () => this.infoWindowHandler(marker));
@@ -146,9 +156,10 @@ var ddMap = {
 			}
 		});
 	},
-	testfunc: function() {
+	testfunc: function(data) {
 		//This runs an initial route determined by the ambulance and ticket locations.
-		this.calculateAndDisplayRoute(this.start, this.end);
+		map.setDirections({lat:data.loclat, lng:data.loclng}, {lat:data.dstlat,lng:data.dstlng});
+		this.calculateAndDisplayRoute(data);
 	},
 	infoWindowHandler: function(marker) {
 		//EventHandler, listening to click events on our generated markers.
@@ -170,9 +181,9 @@ var ddMap = {
 		}).catch((e) => console.log("Directions request failed due to " + e));
 	},
 	//specific route for ambulances
-	calculateAndDisplayRoute: function(start, end) {
+	calculateAndDisplayRoute: function(data) {
 		//This routes the directions through the google server
-		if (!start || !end) { return; }
+		if (!this.start || !this.end) { return; }
 		this.ds.route(
 		{
 			origin: start,
@@ -183,10 +194,17 @@ var ddMap = {
 			//Once we get them back, set the directions.
 			this.dr.setDirections(response);
 			const ovp = response.routes[0];
-			this.addMarker(ovp.overview_path[0], 1);
-			if (end != start)
+			let obj = null;
+			obj.status = data.status
+			obj.type = "1";
+			obj.title = "Your location:\n"+data.ambulance_location;
+			this.addMarker(ovp.overview_path[0], obj);
+			if (this.end != this.start)
 			{
-				this.addMarker(ovp.overview_path[ovp.overview_path.length-1], 0);
+				obj.status = data.active;
+				obj.type = "2";
+				obj.title = data.name+"\n"+data.destination
+				this.addMarker(ovp.overview_path[ovp.overview_path.length-1], obj);
 			}
 			this.bounds.union(response.routes[0].bounds);
 			this.map.fitBounds(this.bounds);
