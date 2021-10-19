@@ -139,6 +139,13 @@ var ddMap = {
 								} else {
 									console.log(e.location+":");
 									console.log(data2.results[0]);
+									if (data2.results[0].geometry.bounds.length !== 0)
+									{
+										this.bounds.union(data2.results[0].geometry.bounds.northeast);
+										this.map.fitBounds(this.bounds);
+										this.bounds.union(data2.results[0].geometry.bounds.southwest);
+										this.map.fitBounds(this.bounds);
+									}
 									map.addMarker(data2.results[0].geometry.location, e.source);
 								}
 							});
