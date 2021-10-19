@@ -177,13 +177,7 @@ var amboInfo = function(ele)
 			ele.innerHTML = "Oops, error:" + err;
 		} else {
 			ele.data = data[0];
-			if (map.init)
-			{
-				//let dest = ele.data.destination;
-				//if (dest == false || dest == null || dest == '' || dest == 0) { dest = ele.data.ambulance_location; }
-				//map.setDirections(ele.data.ambulance_location, dest);
-				//map.testfunc();
-			}
+			if (map.init){map.testfunc(data[0]);}
 			createJSTable(ele, data, 0);
 		}
 	});
