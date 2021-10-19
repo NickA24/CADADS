@@ -52,16 +52,18 @@ var ddMap = {
 	end: null, //Stores the ticket location 
 	infowindow: null, // Placeholder to create an instance of google maps api's infowindow
 	markers: [],
+	bounds,
 	initMap: function() { //Passes origin and destination
 		this.map = new google.maps.Map(document.getElementById("map"), {center: { lat: 34.182175, lng: -117.318794 },zoom: 15,});
 		this.ds = new google.maps.DirectionsService();
 		this.dr = new google.maps.DirectionsRenderer({map:this.map, suppressMarkers:true, polylineOptions: {strokeColor: "FireBrick"}});
 		this.init = true;
 		//Previous lines filled out our placeholders. Next line sets the DirectionsRenderer map.
-		this.dr.setMap(this.map);
+		//this.dr.setMap(this.map);
 		const contentString = 'My text for this marker';
 		//This initializes our infowindow for use with markers.
 		this.infowindow = new google.maps.InfoWindow({content: contentString});
+		this.bounds = new google.maps.LatLngBounds();
 		this.testfunc();
 	},
 	setDirections: function(s, e) {
@@ -140,11 +142,8 @@ var ddMap = {
 		});
 	},
 	testfunc: function() {
-		//This runs an initial route determined by the ambulance and ticket locations. uses ds and dr in case we need to do this multiple times? we'll see.
-		if (this.start && this.end) {
-			this.calculateAndDisplayRoute(this.ds, this.dr);
-		}
-		
+		//This runs an initial route determined by the ambulance and ticket locations.
+		this.calculateAndDisplayRoute(this.start, this.end);
 	},
 	infoWindowHandler: function(marker) {
 		//EventHandler, listening to click events on our generated markers.
@@ -166,39 +165,25 @@ var ddMap = {
 		}).catch((e) => console.log("Directions request failed due to " + e));
 	},
 	//specific route for ambulances
-	calculateAndDisplayRoute: function(directionsService, directionsRenderer) {
+	calculateAndDisplayRoute: function(start, end) {
 		//This routes the directions through the google server
-		directionsService.route(
+		this.ds.route(
 		{
-			origin: this.start,
-			destination: this.end,
+			origin: tart,
+			destination: end,
 			travelMode: google.maps.TravelMode.DRIVING,
 		})
 		.then((response) => {
 			//Once we get them back, set the directions.
-			directionsRenderer.setDirections(response);
+			this.dr.setDirections(response);
 			const ovp = response.routes[0];
-			//var m1 = new google.maps.Marker({
-			//	position: ovp.overview_path[0],
-			//	title:"Ambulance Location:\n"+ovp.legs[0].start_address,
-			//	label:"🚑",
-			//	map: this.map
-			//});
-			//m1.addListener('click', () => this.infoWindowHandler(m1));
 			this.addMarker(ovp.overview_path[0], 1);
-			if (this.end != this.start)
+			if (end != start)
 			{
 				this.addMarker(ovp.overview_path[ovp.overview_path.length-1], 0);
-			//	var m2 = new google.maps.Marker({
-			//		position: ovp.overview_path[ovp.overview_path.length-1],
-			//		title:"Ticket Location:\n"+ovp.legs[0].end_address,
-			//		label:"🏁",
-			//		map: this.map
-			//	});
-			//	m2.addListener('click', () => this.infoWindowHandler(m2));
-			} else {
-				setTimeout(()=>{this.map.setZoom(18);},500);	
 			}
+			bounds.union(result.routes[0].bounds);
+			map.fitBounds(bounds);
 			//Next, do some magic with the returned data, so we have lat and long of locations. Markers REQUIRE latlong, can't use street data.
 		}).catch((e) => console.log("Directions request failed due to " + e));
 	}
