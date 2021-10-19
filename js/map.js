@@ -88,7 +88,7 @@ var ddMap = {
 		const endoji = "🏁";
 		let lbl = "";
 		let title = obj['title'];
-		let icn = { url: "https://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=" };
+		let icn = { url: "https://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=", labelOrigin: new google.maps.Point(20,16) };
 		switch(obj['type'])
 		{
 			case "0":
@@ -102,9 +102,9 @@ var ddMap = {
 					icn.url = icn.url+"%20|888888|000000";
 				} else if (obj['status'] == "Available")
 				{
-					//icn.url = icn.url+"%20|00ff00|000000";	
+					icn.url = icn.url+"%20|00ff00|000000";	
 				} else {
-					//icn.url = icn.url+"%20|ff0000|000000";	
+					icn.url = icn.url+"%20|ff0000|000000";	
 				}
 				break;
 			case "2":
