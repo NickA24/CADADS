@@ -163,7 +163,7 @@ var ddMap = {
 					});
 				}
 			}
-			setTimeout(map.doBounding(),3000);
+			setTimeout(map.doBounding,5000);
 		});
 	},
 	testfunc: function(data) {
