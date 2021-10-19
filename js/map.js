@@ -85,8 +85,8 @@ var ddMap = {
 	addMarker: function(position, icon) {
 		const amboji = "🚑";
 		const endoji = "🏁";
-		const lbl;
-		const title = "";
+		let lbl = "";
+		let title = "";
 		if (icon)
 		{
 			if (icon == 1)
