@@ -165,7 +165,7 @@ var ddMap = {
 							map.addMarker({"lat":e.loclat, "lng":e.loclng}, obj);
 						}
 					});
-					this.doBounding();
+					map.doBounding();
 				}
 			}
 		});
