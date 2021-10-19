@@ -141,9 +141,9 @@ var ddMap = {
 									console.log(data2.results[0]);
 									if (data2.results[0].geometry.bounds.length !== 0)
 									{
-										this.bounds.union(data2.results[0].geometry.bounds.northeast);
+										this.bounds.union((data2.results[0].geometry.bounds.northeast.lat,data2.results[0].geometry.bounds.northeast.lng));
 										this.map.fitBounds(this.bounds);
-										this.bounds.union(data2.results[0].geometry.bounds.southwest);
+										this.bounds.union((data2.results[0].geometry.bounds.southwest.lat,data2.results[0].geometry.bounds.southwest.lng));
 										this.map.fitBounds(this.bounds);
 									}
 									map.addMarker(data2.results[0].geometry.location, e.source);
