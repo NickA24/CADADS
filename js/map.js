@@ -94,7 +94,6 @@ var ddMap = {
 		var extendPoint2 = new google.maps.LatLng(this.bounds.getNorthEast().lat() - 0.01, this.bounds.getNorthEast().lng() - 0.01);
 		this.bounds.extend(extendPoint1);
 		this.bounds.extend(extendPoint2);
-	    	}
 		this.map.fitBounds(this.bounds);
 	},
 	addMarker: function(position, obj) {
