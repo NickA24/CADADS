@@ -114,7 +114,7 @@ var ddMap = {
 				icn.url = icn.url+"%20|ff0000|000000";
 				break;
 			default:
-				console.log(obj['type']);
+				console.log(obj);
 		}	
 		const marker = new google.maps.Marker({
 			position: position,
