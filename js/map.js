@@ -152,7 +152,8 @@ var ddMap = {
 							if (e.source == 0) { obj.title += ": "+e.status; }
 							obj.title += ":\n"+e.location;
 							map.addMarker({"lat":e.loclat, "lng":e.loclng}, obj);
-							this.bounds.union(new google.maps.LatLng(e.loclat, e.loclng));
+							const q = new google.maps.LatLng(e.loclat, e.loclng);
+							this.bounds.union(q,q);
 							this.map.fitBounds(this.bounds);
 						}
 					});
