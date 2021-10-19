@@ -127,7 +127,7 @@ var ddMap = {
 			} else {
 				if (map.init)
 				{
-					data.forEach(function(e) {
+					data.forEach((e) => {
 					     if (e.location && e.destination) 
 						{
 							this.calcAllRoutes(e);
