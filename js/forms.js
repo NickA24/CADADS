@@ -110,6 +110,7 @@ var createJSTable = function(ele, data, addEditData)
 				btn1.setAttribute("type", "submit");
 				btn1.setAttribute("class", "edButton");
 				btn1.setAttribute("class", "edButton-primary");
+				btn1.onclick = openNavEdit();
 				btn1.innerHTML = "Edit";
 				form1.appendChild(hid1);
 				form1.appendChild(hid2);
@@ -137,6 +138,7 @@ var createJSTable = function(ele, data, addEditData)
 				btn2.setAttribute("type", "submit");
 				btn2.setAttribute("class", "edButton");
 				btn2.setAttribute("class", "edButton-primary");
+				btn2.onclick = closeNavEdit();
 				btn2.innerHTML = "Delete";
 				form2.appendChild(hid3);
 				form2.appendChild(hid4);
