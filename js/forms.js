@@ -94,6 +94,7 @@ var createJSTable = function(ele, data, addEditData)
 				var form1 = document.createElement("form");
 				form1.setAttribute("name","editform"+j[k]);
 				form1.setAttribute("id","editform"+j[k]);
+				form1.setAttribute("class", "leftContainer");
 				form1.setAttribute("method", "post");
 				form1.setAttribute("action", "inc/submit.php");
 				var hid1 = document.createElement("input");
@@ -138,7 +139,7 @@ var createJSTable = function(ele, data, addEditData)
 				btn2.setAttribute("type", "submit");
 				btn2.setAttribute("class", "edButton");
 				btn2.setAttribute("class", "edButton-primary");
-				btn2.onclick = closeNavEdit();
+				btn2.setAttribute("onclick", "areYouSure()");
 				btn2.innerHTML = "Delete";
 				form2.appendChild(hid3);
 				form2.appendChild(hid4);
