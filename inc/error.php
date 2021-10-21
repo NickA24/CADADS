@@ -23,6 +23,7 @@ echo '<h1>'.$title.'</h1>
 <p>'.$message.'</p>';
 // Insert footer here
 ?>
+<p>If you feel this error is incorrect, please contact your Server Administrator</p>
 <p><a href="./">Return to main page</a></p>
 </body>
 </html>
