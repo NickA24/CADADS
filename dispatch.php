@@ -367,10 +367,12 @@
 		ticketTable(x, inactive, 1);
 		
 	function confirmDeleteTicket(e) {
+		e.preventDefault();
 		if (confirm("Are you sure you want to delete?")) {
+			console.log("Go ahead and delete");
 			//Do submit
-		} else {
-			e.preventDefault();  
+		} else { 
+			console.log("Skip it please");
 			//Skipped	
 		}
 	}
