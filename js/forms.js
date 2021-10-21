@@ -155,7 +155,7 @@ var createJSTable = function(ele, data, addEditData)
 				form2.appendChild(hid4);
 				form2.appendChild(btn2);
 				td3.appendChild(form2);
-				form2.addEventListener('submit', areYouSure);
+				form2.addEventListener('submit', confirmDeleteTicket);
 				tr.appendChild(td3);
 			}
 		}
