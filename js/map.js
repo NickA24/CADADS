@@ -81,18 +81,18 @@ var ddMap = {
 		const v = this.dr.routes[0].legs[0];
 		return v.distance;
 	},
-	setMapMarkers(map) {
-		for (let i = 0; i < this.markers.length; i++) 
-		{
-			this.markers[i].setMap(map);
-		}
-	},
 	doBounding: function() {
 		for (var index in this.markers ) {
 			let latlng = this.markers[index].getPosition();
 			this.bounds.extend(latlng);
 		}
 		this.map.fitBounds(this.bounds, 50);
+	},
+	setMapMarkers(map) {
+		for (let i = 0; i < this.markers.length; i++) 
+		{
+			this.markers[i].setMap(map);
+		}
 	},
 	addMarker: function(position, obj) {
 		const amboji = "🚑";
@@ -156,6 +156,7 @@ var ddMap = {
 		this.markers = [];
 	},
 	zoomOnMarker: function(id) {
+		console.log(id);
 		this.map.setZoom(17);
 		this.map.panTo(this.markers[id].position);
 	},
