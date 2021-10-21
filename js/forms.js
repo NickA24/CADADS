@@ -174,7 +174,6 @@ var ticketTable = function(ele, showOld, edit)
 				delete j.active;
 				delete j.lat;
 				delete j.lng;
-				delete 
 			});
 			createJSTable(ele, data, p);
 		}
