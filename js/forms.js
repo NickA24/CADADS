@@ -75,6 +75,7 @@ var createJSTable = function(ele, data, addEditData)
 		tr.appendChild(td);
 		if(headdata[i] == "id" && addEditData === 1)
 		{
+			td.innerHTML = "";
 			td.setAttribute("colspan", 3);
 		}
 	}
@@ -90,6 +91,7 @@ var createJSTable = function(ele, data, addEditData)
 			tr.appendChild(td);
 			if (k == "id" && addEditData === 1)
 			{
+				td.innerHTML = '';
 				var td2 = document.createElement("td");
 				var form1 = document.createElement("form");
 				form1.setAttribute("name","editform"+j[k]);
@@ -168,6 +170,12 @@ var ticketTable = function(ele, showOld, edit)
 		} else {
 			var p = 0;
 			if (edit === 1) { p = 1; }
+			data.forEach(function(j) {
+				delete j.active;
+				delete j.lat;
+				delete j.lng;
+				delete 
+			});
 			createJSTable(ele, data, p);
 		}
 	});
@@ -186,6 +194,7 @@ var amboInfo = function(ele)
 			ele.data = data[0];
 			if (map.init){map.setupAmbulanceRoute(data[0]);}
 			//If you want to get rid of individual values here's a dirty hack
+			//This still leaves all the data available via the ele element, but just removed it for the table gen.
 			delete data[0].loclat;
 			delete data[0].loclng;
 			delete data[0].dstlat;
