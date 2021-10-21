@@ -21,7 +21,7 @@ function loadScript(url, callback, arg1)
 function loadInit(loc) 
 {
 	//automatic click checker to zoom on the map when clicking a ticket
-	document.onclick= function(e){e=window.event? event.srcElement: e.target;if (e.className && e.className.indexOf('markerZoom')!=-1) { console.log(e.src); map.zoomOnMarker(e.src); }}
+	document.onclick= function(e){e=window.event? event.srcElement: e.target;if (e.className && e.className.indexOf('markerZoom')!=-1) { map.zoomOnMarker(e.target); }}
 	//loc:1 means ambulance.php, 2:dispatch
 	//Loads the google script, and after loading will do the map initialization.
 	if (loc == 1) 
