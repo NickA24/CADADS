@@ -295,7 +295,6 @@
         //If we can find a way to have it hidden, and then when a person hits the edit button it can pop over the screen that would be great
         //For now having it go here is perfectly fine.
         ?>
-        <button onclick="openNavEdit()" class="add btn btn-primary">Edit Test</button>
         <div id="mySidenavEdit" class="sidenavEdit">
             <div id="editTicketPopup" name="editTicketPopup" class="editTicketPopup">
                 <a href="javascript:void(0)" class="closebtn" onclick="closeNavEdit()">&times;</a>
