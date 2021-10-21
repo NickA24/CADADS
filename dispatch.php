@@ -366,8 +366,10 @@
 		//This is found in json.js, if it needs to be edited.
 		ticketTable(x, inactive, 1);
 		
-	function areYouSure() {
-	  confirm("Are you sure you want to delete?");
+	function areYouSure(e) {
+	  if (!confirm("Are you sure you want to delete?")) {
+		e.preventDefault();  
+	  }
 	}
         
         function openNavAdd() {
