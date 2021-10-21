@@ -33,6 +33,10 @@
     li:hover:not(.active) {
         background-color: #111;
     }
+    .logoutbutn {
+        float: right;
+        text-decoration: none;
+    }
     .sticky {
         background-color: #ffffff;
         position: -webkit-sticky;
@@ -235,7 +239,7 @@
           <li style="background-color:black">Diamond Dispatch</li>
           <li>Add Ticket</li>
           <li>Edit Ticket</li>
-          <li style="float:right">
+          <li class="logoutbutn">
               <a class="active">
                   <?php
                   echo logoutbutton();
