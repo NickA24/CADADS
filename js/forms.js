@@ -89,6 +89,10 @@ var createJSTable = function(ele, data, addEditData)
 			var td = document.createElement("td");
 			td.innerHTML = j[k];
 			tr.appendChild(td);
+			if (k == "name" && addEditData === 1)
+			{
+				td.innerHTML = "<a class='markerZoom' src='"+j["id"]+"'>"+j[k]+"</a>";	
+			}
 			if (k == "id" && addEditData === 1)
 			{
 				td.innerHTML = '';
