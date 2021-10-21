@@ -367,9 +367,12 @@
 		ticketTable(x, inactive, 1);
 		
 	function areYouSure(e) {
-	  if (!confirm("Are you sure you want to delete?")) {
 		e.preventDefault();  
-	  }
+		if (confirm("Are you sure you want to delete?")) {
+			//Do submit
+		} else {
+			//Skipped	
+		}
 	}
         
         function openNavAdd() {
