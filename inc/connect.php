@@ -4,10 +4,11 @@ include_once('config.php');
 class cadDB {
 	private $dbname = "cad_db";
 	private $username = 'pdoserver';
-	private $password = $PDOKey;
+	private $password = '';
 	private $db;
 	private $config;
-	public function __construct() {
+	public function __construct($param) {
+		$this->password = $param;
 		$this->createDB();
 	}
 	
@@ -57,5 +58,5 @@ class cadDB {
 	}*/
 }
 
-$db = new cadDB();
+$db = new cadDB($PDOKey);
 ?>
