@@ -156,7 +156,7 @@ var ddMap = {
 		this.markers = [];
 	},
 	zoomOnMarker: function(id) {
-		id = this.markers.findIndex((e)=>e.type=="Ticket"&&e.id=id);
+		id = this.markers.findIndex((e)=>e.type=="Ticket"&&e.id==id);
 		this.map.setZoom(17);
 		this.map.panTo(this.markers[id].position);
 	},
