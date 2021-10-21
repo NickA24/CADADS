@@ -366,11 +366,11 @@
 		//This is found in json.js, if it needs to be edited.
 		ticketTable(x, inactive, 1);
 		
-	function areYouSure(e) {
-		e.preventDefault();  
+	function confirmDeleteTicket(e) {
 		if (confirm("Are you sure you want to delete?")) {
 			//Do submit
 		} else {
+			e.preventDefault();  
 			//Skipped	
 		}
 	}
