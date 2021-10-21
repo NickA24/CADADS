@@ -353,19 +353,15 @@
         </div>
             <br><br>
         <?php
-        //We are dynamically calling the database with javascript here. It will automatically update when Show Inactive is toggled
+        //We are dynamically calling the database with javascript here.
         //In the future, it will most likely update both on a timer, as well as when data is pushed from the server telling it to update
         ?>
-        <div id="showold">
-            <input type="checkbox" id="inactive" name="inactive">
-                <label for="inactive">Show Inactive</label>
-            </input>
-        </div>
-        <div id="ambulancetableexample"></div></center>
+        
+        <div id="tickets"></div></center>
     </div>
 <div id="map"></div>
 	<script>
-		var x = document.getElementById("ambulancetableexample");
+		var x = document.getElementById("tickets");
 		var y = document.querySelector('input[id="inactive"]');
 		var inactive = 0;
 		//This is the code to get the table to update on click.
