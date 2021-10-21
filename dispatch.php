@@ -369,7 +369,7 @@
 	function confirmDeleteTicket(e) {
 		e.preventDefault();
 		if (confirm("Are you sure you want to delete?")) {
-			console.log("Go ahead and delete");
+			console.log(e);
 			//Do submit
 		} else { 
 			console.log("Skip it please");
