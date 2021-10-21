@@ -362,16 +362,7 @@
 <div id="map"></div>
 	<script>
 		var x = document.getElementById("tickets");
-		var y = document.querySelector('input[id="inactive"]');
 		var inactive = 0;
-		//This is the code to get the table to update on click.
-		y.addEventListener('click', (event) => {
-			if(y.checked) { inactive = 1; } else {inactive = 0;}
-			while (x.firstChild) {
-				x.removeChild(x.firstChild);
-			}
-			ticketTable(x, inactive, 1);
-		});
 		//This is found in json.js, if it needs to be edited.
 		ticketTable(x, inactive, 1);
 		
