@@ -1,10 +1,10 @@
 <?php
-
+include_once('config.php');
 //This is our database class
 class cadDB {
 	private $dbname = "cad_db";
 	private $username = 'pdoserver';
-	private $password = 'OxFp5UkCBpC3tSAL';
+	private $password = $PDOKey;
 	private $db;
 	private $config;
 	public function __construct() {
