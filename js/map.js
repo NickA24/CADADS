@@ -122,7 +122,7 @@ var ddMap = {
 			//Destinations
 			lbl = endoji;
 			typename = 'Ticket';
-			if (obj['isFree'] == 0) {
+			if (obj['isFree'] == 0 || obj['clr'] == "#ff0000") {
 				icn.url = icn.url+"%20|ff0000|000000";
 		    	} else {
 				//Figure out how to color it based on what ambo it's connected to.
