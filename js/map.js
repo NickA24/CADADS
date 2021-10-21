@@ -98,12 +98,15 @@ var ddMap = {
 		let lbl = "";
 		let title = obj['title'];
 		let icn = { url: "https://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=", labelOrigin: new google.maps.Point(10,10) };
+		let typename = '';
 		if (obj['type'] == 2) {
 			//Hospitals
+			typename = 'Hospital';
 			console.log("Shouldn't be any hospitals yet");
 		} else if (obj['type'] == 1) {
 			//Ambulances
 			lbl = amboji;
+			typename = 'Ambulance';
 			if (obj['status'] == "Out of Service" || obj['status'] == "Unavailable" || obj['status'] == 0 || obj['status'] == 3)
 			{
 				icn.url = icn.url+"%20|888888|000000";
@@ -116,6 +119,7 @@ var ddMap = {
 		} else if (obj['type'] == 0) {
 			//Destinations
 			lbl = endoji;
+			typename = 'Ticket';
 			if (obj['isFree'] == 0) {
 				icn.url = icn.url+"%20|ff0000|000000";
 		    	} else {
@@ -133,6 +137,8 @@ var ddMap = {
 			icon: icn,
 			map: this.map
 		});
+		marker.type = typename;
+		marker.id = obj['id'];
 		marker.addListener('click', () => this.infoWindowHandler(marker));
 		this.markers.push(marker);
 		this.doBounding();
@@ -146,6 +152,10 @@ var ddMap = {
 	deleteMarkers: function() {
 		this.hideMarkers();
 		this.markers = [];
+	},
+	zoomOnMarker: function(id) {
+		this.map.setZoom(17);
+		this.map.panTo(this.markers[id].position);
 	},
 	setupDispatch: function() {
 		getJSON('inc/getjson.php?tbl=dispatchMap', (err, data)=>{
@@ -163,7 +173,8 @@ var ddMap = {
 							obj.status = e.status
 							obj.type = e.source;
 							obj.title = e.name;
-							obj.isFree = e.isFree
+							obj.isFree = e.isFree;
+							obj.id = e.id;
 							if (e.source == 0) { obj.title += ": "+e.status; }
 							obj.title += ":\n"+e.location;
 							map.addMarker({"lat":e.loclat, "lng":e.loclng}, obj);
@@ -174,7 +185,7 @@ var ddMap = {
 			}
 		});
 	},
-	testfunc: function(data) {
+	setupAmbulanceRoute: function(data) {
 		//This runs an initial route determined by the ambulance and ticket locations.
 		map.setDirections({lat:data.loclat, lng:data.loclng}, {lat:data.dstlat,lng:data.dstlng});
 		this.calculateAndDisplayRoute(data);
@@ -226,6 +237,7 @@ var ddMap = {
 			obj.type = "1";
 			obj.title = route.name+":\n"+route.location;
 			obj.clr = clr;
+			obj.id = route['id'];
 			this.addMarker(ovp.overview_path[0], obj);
 		}).catch((e) => console.log("Directions request failed due to " + e));
 	},
