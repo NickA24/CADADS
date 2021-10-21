@@ -186,12 +186,12 @@ var amboInfo = function(ele)
 			ele.data = data[0];
 			if (map.init){map.setupAmbulanceRoute(data[0]);}
 			//If you want to get rid of individual values here's a dirty hack
-			delete data.loclat;
-			delete data.loclng;
-			delete data.dstlat;
-			delete data.dstlng;
-			delete data.active;
-			delete data.id;
+			delete data[0].loclat;
+			delete data[0].loclng;
+			delete data[0].dstlat;
+			delete data[0].dstlng;
+			delete data[0].active;
+			delete data[0].id;
 			createJSTable(ele, data, 0);
 		}
 	});
