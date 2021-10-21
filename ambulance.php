@@ -7,6 +7,7 @@
     }
     ul {
         list-style-type: none;
+        width: 100%;
         margin: 0;
         padding: 0;
         overflow: hidden;
@@ -48,7 +49,7 @@
           <li>Change Status</li>
           <li>Call Dispatch</li>
           <li>Call Caller</li>
-          <li class="logoutbutn">Logout
+          <li class="logoutbutn">
               <a class="active">
                   <?php
                   echo logoutbutton();
