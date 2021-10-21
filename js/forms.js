@@ -89,7 +89,6 @@ var createJSTable = function(ele, data, addEditData)
 			var td = document.createElement("td");
 			if (k == "name" && addEditData === 1)
 			{
-				console.log(k+":"+j[k]);
 				var a = document.createElement("a");
 				a.setAttribute("class", "markerZoom");
 				a.setAttribute("src", j["id"]);
