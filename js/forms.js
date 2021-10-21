@@ -150,7 +150,7 @@ var createJSTable = function(ele, data, addEditData)
 				btn2.setAttribute("type", "submit");
 				btn2.setAttribute("class", "edButton");
 				btn2.setAttribute("class", "edButton-primary");
-				btn2.setAttribute("onclick", "areYouSure()");
+				btn2.setAttribute.onsubmit = function(e) { areYouSure(e); };
 				btn2.innerHTML = "Delete";
 				form2.appendChild(hid3);
 				form2.appendChild(hid4);
