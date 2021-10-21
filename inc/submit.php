@@ -18,7 +18,7 @@ function addTicket($db,$var)
 		return 'You need a valid name and location';
 	}
         $address = $var['location'];
-        include('incgeo.php');
+        include('googlegeocode.php');
         $var['location'] = $Geocodeobj["results"][0]["formatted_address"];
         $var['lat'] = strval($Geocodeobj["results"][0]["geometry"]["location"]["lat"]);
         $var['lng'] = strval($Geocodeobj["results"][0]["geometry"]["location"]["lng"]);
@@ -41,7 +41,7 @@ function editTicket($db,$var)
 	}
 	if (!isset($var['ambulance'])) { $var['ambulance'] = 0; }
 	$address = $var['editlocation'];
-        include('incgeo.php');
+        include('googlegeocode.php');
         $var['editlocation'] = $Geocodeobj["results"][0]["formatted_address"];
         $var['editlat'] = $Geocodeobj["results"][0]["geometry"]["location"]["lat"];
         $var['editlng'] = $Geocodeobj["results"][0]["geometry"]["location"]["lng"];
