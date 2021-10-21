@@ -88,11 +88,11 @@ var createJSTable = function(ele, data, addEditData)
 			//K is the associated key, so we use that to get the value from the arrray
 			var td = document.createElement("td");
 			td.innerHTML = j[k];
-			tr.appendChild(td);
 			if (k == "name" && addEditData === 1)
 			{
 				td.innerHTML = "<a class='markerZoom' src='"+j["id"]+"'>"+j[k]+"</a>";	
 			}
+			tr.appendChild(td);
 			if (k == "id" && addEditData === 1)
 			{
 				td.innerHTML = '';
