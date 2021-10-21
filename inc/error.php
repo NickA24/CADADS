@@ -17,7 +17,7 @@ $message = $codes[$status][1];
 if ($title == false || strlen($status) != 3) {
        $message = 'Please supply a valid status code.';
 }
-include('inc/header.php');
+include('header.php');
 // Insert headers here
 echo '<h1>'.$title.'</h1>
 <p>'.$message.'</p>';
