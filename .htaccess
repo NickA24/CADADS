@@ -2,3 +2,13 @@ RewriteEngine on
 RewriteRule "^(.*/)?\.git/" - [F,L]
 
 RedirectMatch 404 /\.git
+
+ErrorDocument 400 /inc/error.php
+ErrorDocument 401 /inc/error.php
+ErrorDocument 403 /inc/error.php
+ErrorDocument 404 /inc/error.php
+ErrorDocument 405 /inc/error.php
+ErrorDocument 408 /inc/error.php
+ErrorDocument 500 /inc/error.php
+ErrorDocument 502 /inc/error.php
+ErrorDocument 504 /inc/error.php
