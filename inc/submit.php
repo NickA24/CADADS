@@ -22,12 +22,15 @@ function addTicket($db,$var)
         $var['location'] = $Geocodeobj["results"][0]["formatted_address"];
         $var['lat'] = strval($Geocodeobj["results"][0]["geometry"]["location"]["lat"]);
         $var['lng'] = strval($Geocodeobj["results"][0]["geometry"]["location"]["lng"]);
-	return var_export($var, true);
+	if ($var['location'] == NULL || $var['lat'] == '' || $var['lng'] == '') {
+		echo 'Invalid address passed';
+		return 'There was a problem with your submission: Not a valid street address';
+	}
         $priority = (isset($var['priority'])) ? $var['priority'] : 1;
         $params = array(":active"=>"1", ":name"=>$var['name'], ":location"=>$var['location'], ":lat"=>$var['lat'], ":lng"=>$var['lng'], ":incident"=>$var['incident_type'], ":priority"=>$priority, ":dispatcher"=>$_SESSION['myid'], ":comment"=>$var['comments']);
         $sql = "INSERT INTO ticket(active, name, location, lat, lng, incident_type, priority, dispatcher, time, comments) VALUES(:active, :name, :location, :lat, :lng, :incident, :priority, :dispatcher, NOW(), :comment)";
         $result = $db->query($sql, $params);
-	return $result;
+	return "Ticket added successfully!";
 }
 
 //A function to edit already added tickets. Note these are submitted with a prefix of "edit" because of the code written for testing. This can be changed if you feel like it, but make sure you change the html/js as well.
@@ -46,10 +49,14 @@ function editTicket($db,$var)
         $var['editlocation'] = $Geocodeobj["results"][0]["formatted_address"];
         $var['editlat'] = $Geocodeobj["results"][0]["geometry"]["location"]["lat"];
         $var['editlng'] = $Geocodeobj["results"][0]["geometry"]["location"]["lng"];
+	if ($var['location'] == NULL || $var['lat'] == '' || $var['lng'] == '') {
+		echo 'Invalid address passed';
+		return 'There was a problem with your submission: Not a valid street address';
+	}
 	$params = array(":active"=>$var['editactive'], ":name"=>$var['editname'], ":location"=>$var['editlocation'], ":lat"=>$var['editlat'], ":lng"=>$var['editlng'], ":incident"=>$var['editincident_type'], ":priority"=>$var['editpriority'], ":ambulance"=>$var['editambulance'], ":comments"=>$var['editcomments'], ":id"=>$var['editid']);
 	$sql = "UPDATE ticket SET active=:active, name=:name, location=:location, lat=:lat, lng=:lng, incident_type=:incident,priority=:priority,ambulance=:ambulance,comments=:comments WHERE id = :id";
 	$result = $db->query($sql, $params);
-	return $result;
+	return "Ticket edited successfully!";
 }
 
 //This deletes an entry from the database. Dispatchers shouldn't be deleting valid tickets, whether they were completed or called off, but it's here in case there was a mistake.
@@ -63,7 +70,7 @@ function deleteTicket($db,$var)
 	$params = array(":id"=>$var['deleteid']);
 	$sql = "DELETE FROM ticket WHERE id = :id";
 	$result = $db->query($sql, $params);
-	return $result;
+	return "Ticket deleted successfully!";
 }
 
 //This is the actual code in this module. If data is properly posted from a form, and a user with the proper credentials is requesting, they will be allowed to add/edit/delete tickets.
