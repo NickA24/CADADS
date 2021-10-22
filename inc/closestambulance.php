@@ -1,8 +1,8 @@
 <?php
-    include_once("inc/login.php");
+    include_once("login.php");
     if (checklogin() != 1) { return; }
     $needmap = 1;
-    include("inc/header.php");
+    include("header.php");
 
 ?>
 
