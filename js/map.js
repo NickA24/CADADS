@@ -35,6 +35,11 @@ function loadInit(loc)
 		var ele = document.getElementById('body');
 		loadScript('/inc/googleapi.php', map.setupDispatch);
 	}
+	else if (loc == 3)
+	{
+		var ele = document.getElementById('pick3');
+		loadScript('/inc/googleapi.php', map.setupAmboPicking, ele);
+	}
 }
 
 //Hotkeys for the page. Will use later to do automatic ambulance status updates
@@ -192,6 +197,9 @@ var ddMap = {
 		//This runs an initial route determined by the ambulance and ticket locations.
 		map.setDirections({lat:data.loclat, lng:data.loclng}, {lat:data.dstlat,lng:data.dstlng});
 		this.calculateAndDisplayRoute(data);
+	},
+	setupAmboPicking: function(data) {
+		//nuffin
 	},
 	infoWindowHandler: function(marker) {
 		//EventHandler, listening to click events on our generated markers.
