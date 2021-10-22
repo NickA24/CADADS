@@ -77,7 +77,7 @@
     .leftContainer {
         width:40%;
         height: 100%;
-        padding-top: 10;
+        padding-top: 10px;
         background-color: lightgray;
     }
     .add {
