@@ -3,7 +3,7 @@
 //We may in the future choose to use prebuilt options like JQuery to automate this stuff
 //Though we should be careful about adding extra overhead that the ambo's have to deal with.
 var getJSON = function(url, callback) {
-	var xhr = new XMLHttpRequest();
+	/*var xhr = new XMLHttpRequest();
 	xhr.open('get', url, true);
 	xhr.responseType = 'json';
 	xhr.onload = function()
@@ -15,7 +15,7 @@ var getJSON = function(url, callback) {
 				callback(status, xhr.response);
 			}
 		};
-	xhr.send();
+	xhr.send();*/
 }
 
 var postJSON = function(url, params, callback) {
@@ -33,14 +33,14 @@ var postJSON = function(url, params, callback) {
 	xhr.send(params);
 }
 
-var testFetch = function(url, params) {
-	fetch(url).then(response => {
+var testFetch = function(url, params, callback) {
+	fetch(url, params).then(response => {
 		if (response.ok){
 			return response.json();
 		}else{
 			return Promise.reject(response.status);
 		}
-	}).then(response => console.log(response)).catch(err => console.log('Error with message: ${err}'));
+	}).then(response => console.log(response); callback(response)).catch(err => console.log('Error with message: ${err}'));
 }
 
 
