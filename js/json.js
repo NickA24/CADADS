@@ -2,7 +2,7 @@
 //We make our own handler function to start with (this would normally be found in a separate js file)
 //We may in the future choose to use prebuilt options like JQuery to automate this stuff
 //Though we should be careful about adding extra overhead that the ambo's have to deal with.
-var getJSON = function(url, params, callback) {
+var getJSON = function(url, callback) {
 	var xhr = new XMLHttpRequest();
 	xhr.open('get', url, true);
 	xhr.responseType = 'json';
