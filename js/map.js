@@ -212,10 +212,12 @@ var ddMap = {
 			} else {
 				if (map.init)
 				{	
-					ele.data = data;
+					
 					data.forEach((e, k) => {
-						ele.data[k].drid = map.calcAllRoutes(e);
+						map.calcAllRoutes(e);
+						data[k].drid = map.directions.length-1;
 					});
+					ele.data = data;
 					let obj = new Object();
 					obj.status = 0;
 					obj.type = 0;
@@ -281,7 +283,6 @@ var ddMap = {
 			obj.clr = clr;
 			obj.id = route['id'];
 			this.addMarker(ovp.overview_path[0], obj);
-			return map.directions.length-1;
 		}).catch((e) => console.log("Directions request failed due to " + e));
 	},
 	//specific route for ambulances
