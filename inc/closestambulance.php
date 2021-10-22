@@ -17,9 +17,9 @@
         bottom: 0;
         left: 0;
         right: 0;
-        top: 15%;
+        top: 25%;
         width:100%;
-        height:85%;
+        height:75%;
     }
 </style>
   <div id="pick3">
