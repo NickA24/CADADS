@@ -268,6 +268,7 @@ var ddMap = {
 			obj.status = route.status
 			obj.type = "1";
 			obj.title = route.name+":\n"+route.location;
+			console.log(newdr.directions.routes[0]);
 			if (newdr.directions.routes[0].legs[0]) {
 				obj.title += "\n"+newdr.directions.routes[0].legs[0].distance.text+","+newdr.directions.routes[0].legs[0].duration.text;
 			}
