@@ -213,11 +213,11 @@ var ddMap = {
 				if (map.init)
 				{
 					ele.data = data;
-					const rev = data;
-					rev.reverse();
-					rev.forEach((e) => {
+					data.reverse();
+					data.forEach((e) => {
 						map.calcAllRoutes(e);
 					});
+					data.reverse();
 				}
 			}
 		});
