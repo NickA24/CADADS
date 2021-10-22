@@ -236,7 +236,7 @@
 	cursor: pointer;    
     }
 </style>
-<body onload="loadInit(2);">
+<body onload="loadInit(2, '<?php echo $_SESSION['preferred_map']; ?>');">
     <nav class="sticky">
         <ul>
           <li style="background-color:black">Diamond Dispatch</li>
