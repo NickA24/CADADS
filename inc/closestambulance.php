@@ -1,8 +1,6 @@
 <?php
     include_once("login.php");
     if (checklogin() != 1) { return; }
-    $needmap = 1;
-    include("header.php");
     if (!isset($_POST))
     {
         var_dump($_POST);
@@ -14,6 +12,9 @@
         return;
         header("Location: ../");
     }
+    $needmap = 1;
+    include("header.php");
+
 ?>
 
 <body onload="loadInit(3, '<?php echo $_SESSION['preferred_map'], "',", $_GET['id']; ?>);">
