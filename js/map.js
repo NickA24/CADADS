@@ -212,7 +212,9 @@ var ddMap = {
 
 				data.forEach((e, k) => {
 					map.calcAllRoutes(e);
-					var p = document.getElementById("ambo"+e.rtid).firstChild.nextElementSibling.nextElementSibling;
+					console.log(e.rtid);
+					console.log(data.rtid);
+					//var p = document.getElementById("ambo"+e.rtid).firstChild.nextElementSibling.nextElementSibling;
 					/*p.innerHTML = e.name;
 					p = p.nextElementSibling;
 					p.innerHTML = map.directions[e.rtid].directions.routes[0].legs[0].distance.text;
