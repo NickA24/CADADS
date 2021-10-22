@@ -9,7 +9,7 @@ var getJSON = function(url, params, callback) {
 		}else{
 			return Promise.reject(response.status);
 		}
-	}).then(response => console.log(response); callback(response);).catch(err => console.log('Error with message: ${err}'));
+	}).then(response => callback(response)).catch(err => console.log('Error with message: ${err}'));
 	/*var xhr = new XMLHttpRequest();
 	xhr.open('get', url, true);
 	xhr.responseType = 'json';
@@ -36,7 +36,7 @@ var postJSON = function(url, params, callback) {
 		}else{
 			return Promise.reject(response.status);
 		}
-	}).then(response => console.log(response); callback(response);).catch(err => console.log('Error with message: ${err}'));
+	}).then(response => callback(response);).catch(err => console.log('Error with message: ${err}'));
 	/*var xhr = new XMLHttpRequest();
 	xhr.open('post', url, true);
 	xhr.onload = function()
@@ -58,7 +58,7 @@ var testFetch = function(url, params, callback) {
 		}else{
 			return Promise.reject(response.status);
 		}
-	}).then(response => console.log(response); callback(response)).catch(err => console.log('Error with message: ${err}'));
+	}).then(response => callback(response)).catch(err => console.log('Error with message: ${err}'));
 }
 
 
