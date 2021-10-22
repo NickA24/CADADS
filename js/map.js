@@ -287,6 +287,8 @@ var ddMap = {
 			obj.clr = clr;
 			obj.id = route['id'];
 			this.addMarker(ovp.overview_path[0], obj);
+		}).then(() => {
+			console.log("we do it here");
 		}).catch((e) => console.log("Directions request failed due to " + e));
 	},
 	//specific route for ambulances
