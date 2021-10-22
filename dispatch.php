@@ -77,7 +77,7 @@
     .leftContainer {
         width:40%;
         height: 100%;
-        padding-top: 10px;
+        padding-top: 0; /* This causes misalignment with the edit button. Why? I don't know. */
         background-color: lightgray;
     }
     .add {
