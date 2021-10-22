@@ -213,11 +213,9 @@ var ddMap = {
 				if (map.init)
 				{
 					ele.data = data;
-					data.reverse();
 					data.forEach((e) => {
 						map.calcAllRoutes(e);
 					});
-					data.reverse();
 					let obj = new Object();
 					obj.status = 0;
 					obj.type = 0;
