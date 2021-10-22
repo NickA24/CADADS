@@ -215,7 +215,7 @@ var ddMap = {
 					
 					data.forEach((e, k) => {
 						map.calcAllRoutes(e);
-						console.log(this.markers);
+						console.log(map.markers);
 					});
 					ele.data = data;
 					let obj = new Object();
