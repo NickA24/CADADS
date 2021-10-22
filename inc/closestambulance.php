@@ -16,6 +16,12 @@
         position: fixed;
         height:15%;
         width:100%;
+        display:flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        align-content: center;
+        justify-content: flex-start;
+        align-items: center;
     }
     #map {
         position: fixed;
