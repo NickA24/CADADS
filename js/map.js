@@ -215,6 +215,7 @@ var ddMap = {
 					
 					data.forEach((e, k) => {
 						data[k].drid = map.calcAllRoutes(e);
+						console.log(data[k].drid);
 					});
 					ele.data = data;
 					let obj = new Object();
@@ -282,6 +283,7 @@ var ddMap = {
 			obj.clr = clr;
 			obj.id = route['id'];
 			this.addMarker(ovp.overview_path[0], obj);
+			console.log(this.directions.length-1);
 			return this.directions.length-1;
 		}).catch((e) => console.log("Directions request failed due to " + e));
 	},
