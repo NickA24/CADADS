@@ -214,12 +214,16 @@ var ddMap = {
 				{	
 					
 					data.forEach((e, k) => {
+						console.log("starting");
 						map.calcAllRoutes(e);
+						console.log("past this part");
 						for (var i=0;i<map.markers.length;i++) {
+							console.log("made it in");
 							if (map.markers[i].id = e.id) {
 								data[k].rtid = i;
 							}
 						}
+						console.log("passed");
 					});
 					ele.data = data;
 					let obj = new Object();
