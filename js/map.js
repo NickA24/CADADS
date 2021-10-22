@@ -206,7 +206,7 @@ var ddMap = {
 		this.calculateAndDisplayRoute(data);
 	},
 	setupAmboPicking: function(ele) {
-		getJSON('getjson.php?tbl=closest&ticketid='+ele.id, (err, data)=>{
+		getJSON('getjson.php?tbl=closest&ticketid='+ele.ticketid, (err, data)=>{
 			if (err !== null) {
 				console.log("Oops, error:" + err);
 			} else {
