@@ -295,8 +295,7 @@
         </ul>
     </nav>
     <div class="leftContainer">
-	<?php msgbox(); ?>
-        <center><h1>Active Tickets</h1></center>
+	<center><h1>Active Tickets</h1></center>
         <button onclick="openNavAdd()" class="add btn btn-primary">Create New</button>
         <div id="mySidenav" class="sidenavAdd">
             <div id="addticket">
@@ -406,6 +405,7 @@
         
         <div id="tickets"></div></center>
     </div>
+<?php msgbox(); ?> 
 <div id="map"></div>
 	<script>
 		var x = document.getElementById("tickets");
