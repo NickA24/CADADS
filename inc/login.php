@@ -61,7 +61,7 @@ if (isset($_POST)) {
 		$myusername=strtolower($_POST['name']);
 		$mypassword=$_POST['pwd'];
 		$params = array(":name" => $myusername);
-		$query = 'SELECT a.id, a.name, a.hash_pw, a.user_type, b..style as preferred_map FROM users as a LEFT JOIN map_styles as b ON a.preferred_map=b.id WHERE a.name = :name';
+		$query = 'SELECT a.id, a.name, a.hash_pw, a.user_type, b.style as preferred_map FROM users as a LEFT JOIN map_styles as b ON a.preferred_map=b.id WHERE a.name = :name';
 		$result = $db->query($query, $params);
 		$result = $result->fetch();
 		if (!$result) {echo "Bad Username or Password!"; return;}
