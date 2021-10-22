@@ -205,7 +205,16 @@ var ddMap = {
 		this.calculateAndDisplayRoute(data);
 	},
 	setupAmboPicking: function(data) {
-		//nuffin
+		getJSON('inc/getjson.php?tbl=closest&ticketid=', (err, data)=>{
+			if (err !== null) {
+				console.log("Oops, error:" + err);
+			} else {
+				if (map.init)
+				{
+				
+				}
+			}
+		});
 	},
 	infoWindowHandler: function(marker) {
 		//EventHandler, listening to click events on our generated markers.
