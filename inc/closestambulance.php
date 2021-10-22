@@ -7,7 +7,7 @@
 
 <body onload="loadInit(3, '<?php echo $_SESSION['preferred_map'], "',", $_GET['id']; ?>);">
     <style>
-    html, body, div, p {
+    html, body {
         height: 100%;
         margin: 0;
         padding: 0;
