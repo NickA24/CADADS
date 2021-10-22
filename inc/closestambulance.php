@@ -5,8 +5,10 @@
     include("header.php");
 
 ?>
-<style>
-    .map {
+
+<body onload="loadInit(3);">
+    <style>
+    #map {
         position: fixed;
         bottom: 0;
         left: 0;
@@ -14,8 +16,6 @@
         top: 10%;
     }
 </style>
-
-<body onload="loadInit(3);">
   <div id="pick3"></div>
   <div id="map"></div>
 </body>
