@@ -217,7 +217,7 @@ var ddMap = {
 						console.log("starting");
 						map.calcAllRoutes(e);
 						console.log("past this part");
-						console.log(map.markers);
+						console.log(map.markers.length);
 						for (var i=0;i<map.markers.length;i++) {
 							console.log("made it in");
 							if (map.markers[i].id = e.id) {
