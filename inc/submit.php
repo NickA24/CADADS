@@ -80,7 +80,9 @@ if (isset($usrtype) && $usrtype > 0 and isset($_POST))
 	switch($_POST['submitType'])
 	{
 		case 'addTicket':
-			$_SESSION['msgbox'] = addTicket($db,$_POST); 
+			$_SESSION['msgbox'] = addTicket($db,$_POST);
+			//Do not go to the previous page! let's choose a valid ambulance instead.
+			header("Location: closestambulance.php");
 			break;
 		case 'editTicket':
 			$_SESSION['msgbox'] = editTicket($db,$_POST);
