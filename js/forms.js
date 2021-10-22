@@ -53,9 +53,9 @@ var editFormPrep = function(e)
 //It accepts 3 inputs:
 //ele: an HTML element to be used for displaying the table
 //data: this is JSON data, probably returned from getjson.php
-//addEditData: boolean value. 1(true): specifically for displaying multiple tickets, it will use colspan:3
+//config: for passing arguments. Main argument is addEditData - boolean value. 1(true): specifically for displaying multiple tickets, it will use colspan:3
 //This allows one table header to cover the three table columns of id, edit, and delete.
-var createJSTable = function(ele, data, addEditData, obj)
+var createJSTable = function(ele, data, config)
 {
 	//The majority of this is using createelement to make the html nodes
 	//It's kind of monotonous but it's just one way to generate this stuff
@@ -73,7 +73,7 @@ var createJSTable = function(ele, data, addEditData, obj)
 		var td = document.createElement("th");
 		td.innerHTML = headdata[i];
 		tr.appendChild(td);
-		if(headdata[i] == "id" && addEditData === 1)
+		if(headdata[i] == "id" && config.addEditData === 1)
 		{
 			td.innerHTML = "";
 			td.setAttribute("colspan", 3);
@@ -91,7 +91,7 @@ var createJSTable = function(ele, data, addEditData, obj)
 			var td = document.createElement("td");
 			td.innerHTML = j[k];	
 			tr.appendChild(td);
-			if (k == "id" && addEditData === 1)
+			if (k == "id" && config.addEditData === 1)
 			{
 				td.innerHTML = '';
 				var td2 = document.createElement("td");
@@ -170,14 +170,17 @@ var ticketTable = function(ele, showOld, edit)
 		if (err !== null) {
 			ele.innerHTML = "Oops, error:" + err;
 		} else {
+			ele.data = data;
 			var p = 0;
-			if (edit === 1) { p = 1; }
+			let config = new Object();
+			config.addEditData = 0;
+			if (edit === 1) { config.addEditData = 1; }
 			data.forEach(function(j) {
 				delete j.active;
 				delete j.lat;
 				delete j.lng;
 			});
-			createJSTable(ele, data, p);
+			createJSTable(ele, data, config);
 		}
 	});
 }
@@ -193,6 +196,8 @@ var amboInfo = function(ele)
 			ele.innerHTML = "Oops, error:" + err;
 		} else {
 			ele.data = data[0];
+			let config = new Object();
+			config.addEditData = 0;
 			if (map.init){map.setupAmbulanceRoute(data[0]);}
 			//If you want to get rid of individual values here's a dirty hack
 			//This still leaves all the data available via the ele element, but just removed it for the table gen.
@@ -203,7 +208,7 @@ var amboInfo = function(ele)
 			delete data[0].dstlng;
 			delete data[0].active;
 			delete data[0].id;
-			createJSTable(ele, data, 0);
+			createJSTable(ele, data, config);
 		}
 	});
 }
