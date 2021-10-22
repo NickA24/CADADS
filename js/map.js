@@ -18,12 +18,13 @@ function loadScript(url, callback, arg1)
 }
 
 //Event listener, called on body load.
-function loadInit(loc) 
+function loadInit(loc, style) 
 {
 	//automatic click checker to zoom on the map when clicking a ticket
 	document.onclick= function(e){e=window.event? event.srcElement: e.target;const x = e.closest('.markerZoom'); if (x) { map.zoomOnMarker(x.getAttribute("src")); }}
 	//loc:1 means ambulance.php, 2:dispatch
 	//Loads the google script, and after loading will do the map initialization.
+	map.mapStyle = style;
 	if (loc == 1) 
 	{
 		var ele = document.getElementById('curCall');
@@ -62,11 +63,12 @@ var ddMap = {
 	directions: [],
 	colors: [],
 	bounds:null,
-	initMap: function(mapstyle) { //Passes origin and destination
+	mapStyle:null,
+	initMap: function() { //Passes origin and destination
 		this.map = new google.maps.Map(document.getElementById("map"), {
 			center: { lat: 34.182175, lng: -117.318794 },
 			zoom: 15,
-			mapId: mapstyle,
+			mapId: this.mapStyle,
 		});
 		this.ds = new google.maps.DirectionsService();
 		this.dr = new google.maps.DirectionsRenderer({map:this.map, suppressMarkers:true, polylineOptions: {strokeColor: "FireBrick"}});
