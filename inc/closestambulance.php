@@ -3,6 +3,10 @@
     if (checklogin() != 1) { return; }
     $needmap = 1;
     include("header.php");
+    if (isset($_POST))
+    {
+        header("Location: ../index.php");
+    }
 ?>
 
 <body onload="loadInit(3, '<?php echo $_SESSION['preferred_map'], "',", $_GET['id']; ?>);">
