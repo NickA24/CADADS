@@ -214,8 +214,7 @@ var ddMap = {
 				{	
 					ele.data = data;
 					data.forEach((e, k) => {
-						ele.data[k].drid = map.calcAllRoutes(e);
-						console.log(e);
+						console.log(map.calcAllRoutes(e));
 						console.log(k);
 						console.log(ele.data[k]);
 					});
