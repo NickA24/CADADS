@@ -27,8 +27,8 @@ var getJSON = function(url, params, callback) {
 
 var postJSON = function(url, params, callback) {
 	const options = {
-		method: 'POST';
-		body: JSON.stringify(params)
+		method: 'POST',
+		body: JSON.stringify(params),
 	};
 	fetch(url, options).then(response => {
 		if (response.ok){
