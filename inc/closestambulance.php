@@ -12,14 +12,19 @@
         margin: 0;
         padding: 0;
     }
+    #pick3 {
+        position: fixed;
+        height:15%;
+        width:100%;
+    }
     #map {
         position: fixed;
         bottom: 0;
         left: 0;
         right: 0;
-        top: 25%;
+        top: 15%;
         width:100%;
-        height:75%;
+        height:85%;
     }
 </style>
   <div id="pick3">
@@ -42,6 +47,6 @@
           <button type="submit">Submit</button>
       </form>
   </div>
-  <div id="map" style="position:fixed"></div>
+  <div id="map"></div>
 </body>
 </html>
