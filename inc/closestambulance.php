@@ -7,7 +7,7 @@
 ?>
 
 
-<body onload="loadInit(2);">
+<body onload="loadInit(3);">
   <div id="pick3"></div>
   <div id="map"></div>
 </body>
