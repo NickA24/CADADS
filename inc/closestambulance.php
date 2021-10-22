@@ -21,8 +21,11 @@
         flex-direction: column;
         flex-wrap: nowrap;
         align-content: center;
-        justify-content: flex-start;
+        justify-content: flex-end;
         align-items: center;
+    }
+    #pick3 form {
+        text-align: center;
     }
     #map {
         position: fixed;
