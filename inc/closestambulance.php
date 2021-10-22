@@ -72,7 +72,7 @@
                   <td>Time</td>
               </tr>
           </table>
-          <button type="submit">Submit</button><button type="button" onclick="location.href='../'>Leave Unassigned</button>
+          <button type="submit">Submit</button><button type="button" onclick="location.href='../'">Leave Unassigned</button>
       </form>
   </div>
   <div id="map"></div>
