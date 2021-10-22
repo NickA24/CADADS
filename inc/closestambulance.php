@@ -9,6 +9,10 @@
         return;
         header("Location: ../index.php");
     }
+    if (!isset($_GET) || !isset($_GET['id']))
+    {
+        header("Location: ../index.php");
+    }
 ?>
 
 <body onload="loadInit(3, '<?php echo $_SESSION['preferred_map'], "',", $_GET['id']; ?>);">
