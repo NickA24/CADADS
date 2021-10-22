@@ -185,7 +185,7 @@ var ddMap = {
 							map.calcAllRoutes(e);
 						} else {
 							let obj = new Object();
-							obj.status = e.status
+							obj.status = e.status;
 							obj.type = e.source;
 							obj.title = e.name;
 							obj.isFree = e.isFree;
@@ -218,6 +218,15 @@ var ddMap = {
 						map.calcAllRoutes(e);
 					});
 					data.reverse();
+					let obj = new Object();
+					obj.status = 0;
+					obj.type = 0;
+					obj.title = "Destination";
+					obj.isFree = 0;
+					obj.id = data[0].current_ticket;
+					obj.title += ":\n"+data[0].destination;
+					map.addMarker({"lat":data[0].dstlat, "lng":data[0].dstlng}, obj);
+					setTimeout(function(){map.doBounding()},1500);
 				}
 			}
 		});
@@ -268,7 +277,6 @@ var ddMap = {
 			obj.status = route.status
 			obj.type = "1";
 			obj.title = route.name+":\n"+route.location;
-			console.log(newdr.directions.routes[0]);
 			if (newdr.directions.routes[0].legs[0]) {
 				obj.title += "\n"+newdr.directions.routes[0].legs[0].distance.text+", "+newdr.directions.routes[0].legs[0].duration.text;
 			}
