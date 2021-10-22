@@ -212,10 +212,11 @@ var ddMap = {
 			} else {
 				if (map.init)
 				{
-					ele.data = data;
+					
 					data.forEach((e, k) => {
 						data[k].drid = map.calcAllRoutes(e);
 					});
+					ele.data = data;
 					let obj = new Object();
 					obj.status = 0;
 					obj.type = 0;
