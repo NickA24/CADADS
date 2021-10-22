@@ -7,10 +7,11 @@
     {
         var_dump($_POST);
         return;
-        header("Location: ../index.php");
+        header("Location: ../");
     }
     if (!isset($_GET) || !isset($_GET['id']))
     {
+        return;
         header("Location: ../");
     }
 ?>
