@@ -252,6 +252,7 @@
         </ul>
     </nav>
     <div class="leftContainer">
+	<?php msgbox(); ?>
         <center><h1>Active Tickets</h1></center>
         <button onclick="openNavAdd()" class="add btn btn-primary">Create New</button>
         <div id="mySidenav" class="sidenavAdd">
