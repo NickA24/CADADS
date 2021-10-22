@@ -7,10 +7,11 @@
 
 <body onload="loadInit(3, '<?php echo $_SESSION['preferred_map'], "',", $_GET['id']; ?>);">
     <style>
-    html, body {
+    html, body, div, p {
         height: 100%;
         margin: 0;
         padding: 0;
+        border: 0;
     }
     #pick3 {
         position: fixed;
