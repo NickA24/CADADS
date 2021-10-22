@@ -5,7 +5,7 @@
     include("header.php");
 ?>
 
-<body onload="loadInit(3, '<?php echo $_SESSION['preferred_map'], "'," $_GET['id']; ?>);">
+<body onload="loadInit(3, '<?php echo $_SESSION['preferred_map'], "',", $_GET['id']; ?>);">
     <style>
     html, body {
         height: 100%;
