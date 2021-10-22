@@ -11,3 +11,14 @@
 	<script type="text/javascript" src="/js/map.js"></script>
 	<?php } ?>
 </head>
+	
+<?php
+	function msgBox() {
+		echo '<div id="msgBox">';
+		if (isset($_SESSION['msgbox'])) {
+			echo $_SESSION['msgbox']; 
+			unset($_SESSION['msgbox']); 
+		}
+		echo '</div>';
+	}	
+?>
