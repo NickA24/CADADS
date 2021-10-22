@@ -40,7 +40,7 @@ var testFetch = function(url, params, callback) {
 		}else{
 			return Promise.reject(response.status);
 		}
-	}).then(response => callback(response)).catch(err => console.log('Error with message: ${err}'));
+	}).then(response => callback(response)).catch(err => console.log('Error with message: '+err));
 }
 
 
