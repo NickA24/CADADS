@@ -2,7 +2,14 @@
 //We make our own handler function to start with (this would normally be found in a separate js file)
 //We may in the future choose to use prebuilt options like JQuery to automate this stuff
 //Though we should be careful about adding extra overhead that the ambo's have to deal with.
-var getJSON = function(url, callback) {
+var getJSON = function(url, params, callback) {
+	fetch(url, params).then(response => {
+		if (response.ok){
+			return response.json();
+		}else{
+			return Promise.reject(response.status);
+		}
+	}).then(response => console.log(response); callback(response)).catch(err => console.log('Error with message: ${err}'));
 	/*var xhr = new XMLHttpRequest();
 	xhr.open('get', url, true);
 	xhr.responseType = 'json';
@@ -19,7 +26,18 @@ var getJSON = function(url, callback) {
 }
 
 var postJSON = function(url, params, callback) {
-	var xhr = new XMLHttpRequest();
+	const options = {
+		method: 'POST';
+		body: JSON.stringify(params)
+	};
+	fetch(url, options).then(response => {
+		if (response.ok){
+			return response.json();
+		}else{
+			return Promise.reject(response.status);
+		}
+	}).then(response => console.log(response); callback(response)).catch(err => console.log('Error with message: ${err}'));
+	/*var xhr = new XMLHttpRequest();
 	xhr.open('post', url, true);
 	xhr.onload = function()
 		{
@@ -30,7 +48,7 @@ var postJSON = function(url, params, callback) {
 				callback(status, xhr.response);
 			}
 		};
-	xhr.send(params);
+	xhr.send(params); */
 }
 
 var testFetch = function(url, params, callback) {
