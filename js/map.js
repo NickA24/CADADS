@@ -212,6 +212,7 @@ var ddMap = {
 
 				data.forEach((e) => {
 					map.calcAllRoutes(e);
+					Array.from(document.getElementById("ambo"+e.rtid).forEach((tr, row_ind)
 				});
 				ele.data = data;
 				let obj = new Object();
