@@ -59,7 +59,7 @@
 				break;
 			case 'closest':
 				$params = array(":id"=>$_GET['ticketid']);
-        			$sql = "SELECT a.id, c.name, a.status, b.id as current_ticket, a.location, a.loclat, a.loclng, b.location as destination, b.lat as dstlat, b.lng as dstlng, ABS(ABS(a.loclat-b.lat)+ABS(a.loclng-b.lng)) as distance FROM ambulance_info a, ticket b LEFT JOIN users as c ON a.id=c.id WHERE b.id = :id and a.status = 1 ORDER BY distance ASC LIMIT 3";
+        			$sql = "SELECT a.id, c.name, a.status, b.id as current_ticket, a.location, a.loclat, a.loclng, b.location as destination, b.lat as dstlat, b.lng as dstlng, ABS(ABS(a.loclat-b.lat)+ABS(a.loclng-b.lng)) as distance FROM ambulance_info a, ticket b, users c WHERE a.id = c.id and b.id = 32 and a.status = 1 ORDER BY distance ASC LIMIT 3";
         			break;
 		}
 	}
