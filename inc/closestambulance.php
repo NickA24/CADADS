@@ -42,6 +42,6 @@
           <button type="submit">Submit</button>
       </form>
   </div>
-  <div id="map"></div>
+  <div id="map" style="position:fixed"></div>
 </body>
 </html>
