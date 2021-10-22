@@ -63,7 +63,11 @@ var ddMap = {
 	colors: [],
 	bounds:null,
 	initMap: function() { //Passes origin and destination
-		this.map = new google.maps.Map(document.getElementById("map"), {center: { lat: 34.182175, lng: -117.318794 },zoom: 15,});
+		this.map = new google.maps.Map(document.getElementById("map"), {
+			center: { lat: 34.182175, lng: -117.318794 },
+			zoom: 15,
+			mapId: cfb41772e69a897e,
+		});
 		this.ds = new google.maps.DirectionsService();
 		this.dr = new google.maps.DirectionsRenderer({map:this.map, suppressMarkers:true, polylineOptions: {strokeColor: "FireBrick"}});
 		this.init = true;
