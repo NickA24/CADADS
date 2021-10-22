@@ -38,7 +38,7 @@
     }
 </style>
   <div id="pick3">
-      <p>Please choose between the closest 3 ambulances for ticket#<?php echo $_GET['id']; ?></p>
+      <span>Please choose between the closest 3 ambulances for ticket#<?php echo $_GET['id']; ?></span>
       <form class="chooseambulance" action="closestambulance.php" method="post">
           <table>
               <tr class="ambo1" id="ambo1">
