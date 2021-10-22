@@ -210,8 +210,14 @@ var ddMap = {
 			if (map.init)
 			{	
 
-				data.forEach((e) => {
+				data.forEach((e, k) => {
 					map.calcAllRoutes(e);
+					var p = document.getElementById("ambo"+e.rtid).firstChild.nextElementSibling.nextElementSibling;
+					p.innerHTML = e.name;
+					p = p.nextElementSibling;
+					p.innerHTML = map.directions[e.rtid].directions.routes[0].legs[0].distance.text;
+					p = p.nextElementSibling;
+					p.innerHTML = map.directions[e.rtid].directions.routes[0].legs[0].duration.text;
 				});
 				ele.data = data;
 				let obj = new Object();
