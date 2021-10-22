@@ -270,7 +270,7 @@ var ddMap = {
 			obj.title = route.name+":\n"+route.location;
 			console.log(newdr.directions.routes[0]);
 			if (newdr.directions.routes[0].legs[0]) {
-				obj.title += "\n"+newdr.directions.routes[0].legs[0].distance.text+","+newdr.directions.routes[0].legs[0].duration.text;
+				obj.title += "\n"+newdr.directions.routes[0].legs[0].distance.text+", "+newdr.directions.routes[0].legs[0].duration.text;
 			}
 			obj.clr = clr;
 			obj.id = route['id'];
