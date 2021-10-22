@@ -3,10 +3,9 @@
     if (checklogin() != 1) { return; }
     $needmap = 1;
     include("header.php");
-
 ?>
 
-<body onload="loadInit(3, '<?php echo $_SESSION['preferred_map']; ?>');">
+<body onload="loadInit(3, '<?php echo $_SESSION['preferred_map'], "'," $_GET['id']; ?>);">
     <style>
     html, body {
         height: 100%;
