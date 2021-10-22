@@ -225,29 +225,6 @@ var ddMap = {
 				setTimeout(function(){map.doBounding()},1500);
 			}
 		});
-		/*getJSON('getjson.php?tbl=closest&ticketid='+ele.ticketid, (err, data)=>{
-			if (err !== null) {
-				console.log("Oops, error:" + err);
-			} else {
-				if (map.init)
-				{	
-					
-					data.forEach((e) => {
-						map.calcAllRoutes(e);
-					});
-					ele.data = data;
-					let obj = new Object();
-					obj.status = 0;
-					obj.type = 0;
-					obj.title = "Destination";
-					obj.isFree = 0;
-					obj.id = data[0].current_ticket;
-					obj.title += ":\n"+data[0].destination;
-					map.addMarker({"lat":data[0].dstlat, "lng":data[0].dstlng}, obj);
-					setTimeout(function(){map.doBounding()},1500);
-				}
-			}
-		});*/
 	},
 	infoWindowHandler: function(marker) {
 		//EventHandler, listening to click events on our generated markers.
@@ -291,6 +268,7 @@ var ddMap = {
 			let newdr = new google.maps.DirectionsRenderer({map:this.map, suppressMarkers:true, polylineOptions: {strokeColor: clr}});
 			newdr.setDirections(response);
 			this.directions.push(newdr);
+			route.rtid=this.directions.length-1;
 			let obj = new Object();
 			obj.status = route.status
 			obj.type = "1";
