@@ -211,13 +211,11 @@ var ddMap = {
 				console.log("Oops, error:" + err);
 			} else {
 				if (map.init)
-				{
-					let x = {};
-					data.forEach((e, k) => {
-						x.push(map.calcAllRoutes(e));
-					});
+				{	
 					ele.data = data;
-					ele.drid = x;
+					data.forEach((e, k) => {
+						ele.data[k].drid = map.calcAllRoutes(e);
+					});
 					let obj = new Object();
 					obj.status = 0;
 					obj.type = 0;
