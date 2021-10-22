@@ -3,8 +3,10 @@
     if (checklogin() != 1) { return; }
     $needmap = 1;
     include("header.php");
-    if (isset($_POST))
+    if (!isset($_POST))
     {
+        var_dump($_POST);
+        return;
         header("Location: ../index.php");
     }
 ?>
