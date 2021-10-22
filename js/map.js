@@ -217,8 +217,10 @@ var ddMap = {
 						map.calcAllRoutes(e);
 						console.log(map.markers);
 						console.log(map.directions);
+						data[k].rtid = "hi";
 					});
 					ele.data = data;
+					console.log(data[0].rtid);
 					let obj = new Object();
 					obj.status = 0;
 					obj.type = 0;
