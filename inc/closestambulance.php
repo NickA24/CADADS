@@ -6,7 +6,7 @@
 
 ?>
 
-<body onload="loadInit(3);">
+<body onload="loadInit(3, '<?php echo $_SESSION['preferred_map']; ?>');">
     <style>
     #map {
         position: fixed;
