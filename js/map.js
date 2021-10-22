@@ -18,7 +18,7 @@ function loadScript(url, callback, arg1)
 }
 
 //Event listener, called on body load.
-function loadInit(loc, style) 
+function loadInit(loc, style, id) 
 {
 	//automatic click checker to zoom on the map when clicking a ticket
 	document.onclick= function(e){e=window.event? event.srcElement: e.target;const x = e.closest('.markerZoom'); if (x) { map.zoomOnMarker(x.getAttribute("src")); }}
@@ -39,6 +39,7 @@ function loadInit(loc, style)
 	else if (loc == 3)
 	{
 		var ele = document.getElementById('pick3');
+		ele.ticketid = id;
 		loadScript('/inc/googleapi.php', map.setupAmboPicking, ele);
 	}
 }
@@ -211,7 +212,7 @@ var ddMap = {
 			} else {
 				if (map.init)
 				{
-				
+					//yeah
 				}
 			}
 		});
