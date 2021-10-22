@@ -60,7 +60,7 @@
                   <td>Time</td>
               </tr>
           </table>
-          <button type="submit">Submit</button>
+          <button type="submit">Submit</button><button type="button">Leave Unassigned</button>
       </form>
   </div>
   <div id="map"></div>
