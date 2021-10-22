@@ -236,13 +236,17 @@
 	cursor: pointer;    
     }
     .popup {
-	    position:fixed;
-	    top: 100px;
-	    left: 100px;
-	    right: 100px;
-	    bottom: 100px;
-	    display:none;
-	    z-index:9999;
+	position: fixed;
+	top: 100px;
+	left: 100px;
+	right: 100px;
+	bottom: 100px;
+	display: flex;
+	z-index: 9999;
+	background-color: lightgray;
+	justify-content: center;
+	align-items: center;
+	visibility: hidden;
      }
 </style>
 <body onload="loadInit(2);">
