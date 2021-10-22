@@ -75,6 +75,7 @@ if (isset($_POST)) {
 			$_SESSION['status'] = 0;
 			$_SESSION['location'] = 0;
 			$_SESSION['lastupdate'] = 0;
+			$_SESSION['preferred_map'] = $result['preferred_map'];
 			if ($_SESSION['user_type'] == 2)
 			{
 				$query = 'SELECT * FROM ambulance_info WHERE id = :id';
