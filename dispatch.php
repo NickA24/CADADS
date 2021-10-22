@@ -235,6 +235,15 @@
     .markerZoom {
 	cursor: pointer;    
     }
+    .popup {
+	    position:fixed;
+	    top: 100px;
+	    left: 100px;
+	    right: 100px;
+	    bottom: 100px;
+	    display:none;
+	    z-index:9999;
+     }
 </style>
 <body onload="loadInit(2);">
     <nav class="sticky">
@@ -363,6 +372,7 @@
         <div id="tickets"></div></center>
     </div>
 <?php msgbox(); ?> 
+<div id="popup" class="popup">bla bla bla</div>
 <div id="map"></div>
 	<script>
 		var x = document.getElementById("tickets");
