@@ -42,7 +42,7 @@
         width: 100%;
     }
 </style>
-<body onload="loadInit(1);">
+<body onload="loadInit(1, '<?php echo $_SESSION['preferred_map']; ?>');">
     <nav class="sticky">
         <ul>
           <li style="background-color:black">Diamond Dispatch: <?php echo $_SESSION['myusername'] ?></li>
