@@ -205,15 +205,17 @@ var ddMap = {
 		map.setDirections({lat:data.loclat, lng:data.loclng}, {lat:data.dstlat,lng:data.dstlng});
 		this.calculateAndDisplayRoute(data);
 	},
-	setupAmboPicking: function(data) {
-		const id = document.getElementById("pick3").ticketid;
-		getJSON('getjson.php?tbl=closest&ticketid='+id, (err, data)=>{
+	setupAmboPicking: function(ele) {
+		getJSON('getjson.php?tbl=closest&ticketid='+ele.id, (err, data)=>{
 			if (err !== null) {
 				console.log("Oops, error:" + err);
 			} else {
 				if (map.init)
 				{
-					//yeah
+					ele.data = data;
+					data.forEach((e) => {
+						map.calcAllRoutes(e);
+					});
 				}
 			}
 		});
