@@ -215,12 +215,13 @@ var ddMap = {
 					
 					data.forEach((e, k) => {
 						map.calcAllRoutes(e);
-						console.log(map.markers);
-						console.log(map.directions);
-						data[k].rtid = "hi";
+						for (var i=0;i<map.markers.length;i++) {
+							if (map.markers[i].id = e.id) {
+								data[k].rtid = i;
+							}
+						}
 					});
 					ele.data = data;
-					console.log(data[0].rtid);
 					let obj = new Object();
 					obj.status = 0;
 					obj.type = 0;
