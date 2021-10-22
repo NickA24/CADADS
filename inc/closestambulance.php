@@ -1,6 +1,6 @@
 <?php
     include_once("login.php");
-    if (checklogin() != 1) { return; }
+    if (checklogin() != 1) { header("Location: ../"); return; }
     if (!isset($_POST))
     {
         var_dump($_POST);
