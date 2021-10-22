@@ -74,13 +74,13 @@ if (isset($usrtype) && $usrtype > 0 and isset($_POST))
 	switch($_POST['submitType'])
 	{
 		case 'addTicket':
-			addTicket($db,$_POST); 
+			$_SESSION['msgbox'] = addTicket($db,$_POST); 
 			break;
 		case 'editTicket':
-			editTicket($db,$_POST);
+			$_SESSION['msgbox'] = editTicket($db,$_POST);
 			break;
 		case 'deleteTicket':
-			deleteTicket($db,$_POST);
+			$_SESSION['msgbox'] = deleteTicket($db,$_POST);
 			break;
 	}
 	//After the code above has been handled, return the person to the previous page. This way they never hang out on a blank white page.
