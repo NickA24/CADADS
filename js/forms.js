@@ -55,7 +55,7 @@ var editFormPrep = function(e)
 //data: this is JSON data, probably returned from getjson.php
 //addEditData: boolean value. 1(true): specifically for displaying multiple tickets, it will use colspan:3
 //This allows one table header to cover the three table columns of id, edit, and delete.
-var createJSTable = function(ele, data, addEditData)
+var createJSTable = function(ele, data, addEditData, obj)
 {
 	//The majority of this is using createelement to make the html nodes
 	//It's kind of monotonous but it's just one way to generate this stuff
@@ -83,20 +83,13 @@ var createJSTable = function(ele, data, addEditData)
 		//Here we're iterating through the object itself.
 		//Note each one is listed as 0:{array} so we're stripping out the number first
 		var tr = document.createElement("tr");
+		tr.setAttribute("class", "markerZoom");
+		tr.setAttribute("src", j["id"]);
 		tbody.appendChild(tr);
 		for (var k in j) {
 			//K is the associated key, so we use that to get the value from the arrray
 			var td = document.createElement("td");
-			if (k == "name" && addEditData === 1)
-			{
-				var a = document.createElement("a");
-				a.setAttribute("class", "markerZoom");
-				a.setAttribute("src", j["id"]);
-				a.appendChild(document.createTextNode(j[k]));
-				td.appendChild(a);
-			} else {
-				td.innerHTML = j[k];	
-			}
+			td.innerHTML = j[k];	
 			tr.appendChild(td);
 			if (k == "id" && addEditData === 1)
 			{
@@ -203,6 +196,7 @@ var amboInfo = function(ele)
 			if (map.init){map.setupAmbulanceRoute(data[0]);}
 			//If you want to get rid of individual values here's a dirty hack
 			//This still leaves all the data available via the ele element, but just removed it for the table gen.
+			//Here's a fancy hack: Pass an object
 			delete data[0].loclat;
 			delete data[0].loclng;
 			delete data[0].dstlat;
