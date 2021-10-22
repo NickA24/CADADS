@@ -57,6 +57,10 @@
 			case 'dispatchMap':
 				$sql = "SELECT users.id AS id, users.name AS name, status, location, loclat, loclng, destination, dstlat, dstlng, 1 as source, current_ticket as isFree FROM ambulance_info LEFT JOIN users ON users.id=ambulance_info.id WHERE status > 0 UNION SELECT ticket.id, name, incident_tbl.description AS status, location, lat as loclat, lng as loclng, NULL as destination, NULL as dstlat, NULL as dstlng, 0 as source, ambulance as isFree FROM ticket LEFT JOIN incident_tbl ON incident_tbl.id=ticket.incident_type WHERE Active = 1";
 				break;
+			case 'closest':
+				$params = array(":id"=>$_GET['ticketid']);
+        			$sql = "SELECT a.id, a.status, b.id as current_ticket, a.location, a.loclat, a.loclng, b.location as destination, b.lat as dstlat, b.lng as dstlng, ABS(ABS(a.loclat-b.lat)+ABS(a.loclng-b.lng)) as distance FROM ambulance_info a, ticket b WHERE b.id = :id and a.status = 1 ORDER BY distance ASC LIMIT 3";
+        			break;
 		}
 	}
 	
