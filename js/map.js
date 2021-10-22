@@ -214,7 +214,7 @@ var ddMap = {
 				{	
 					ele.data = data;
 					data.forEach((e, k) => {
-						ele.data[k].drid = map.calcAllRoutes(e));
+						ele.data[k].drid = map.calcAllRoutes(e);
 					});
 					let obj = new Object();
 					obj.status = 0;
