@@ -287,6 +287,11 @@ var ddMap = {
 			p.innerHTML = map.directions[route.rtid].directions.routes[0].legs[0].distance.text;
 			p = p.nextElementSibling;
 			p.innerHTML = map.directions[route.rtid].directions.routes[0].legs[0].duration.text;
+			p = p.nextElementSibling;
+			if (map.directions[route.rtid].directions.routes[0].legs[0].duration.value > 600) {
+				p.innerHTML = "Warning - Longer than 10 minute response time";
+				p.style = "bgcolor:#ff9999";
+			}
 		}).catch((e) => console.log("Directions request failed due to " + e));
 	},
 	//specific route for ambulances
