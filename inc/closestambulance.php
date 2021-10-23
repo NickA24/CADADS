@@ -53,6 +53,7 @@
   <div id="pick3">
       <span>Please choose between the closest 3 ambulances for ticket#<?php echo $_GET['id']; ?></span>
       <form class="chooseambulance" action="closestambulance.php" method="post">
+          <input type="hidden" id="ticket" name="ticket" value="<?php echo $_GET['id']; ?>"></input>
           <table>
               <tr class="ambo1" id="ambo0">
                   <td><input type="radio" id="radioambo0" name="amboselect" value="1"></td>
