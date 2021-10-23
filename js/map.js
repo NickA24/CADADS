@@ -209,19 +209,10 @@ var ddMap = {
 		testFetch('getjson.php?tbl=closest&ticketid='+ele.ticketid, new Object(), (data)=> {
 			if (map.init)
 			{	
-
+				ele.data = data;
 				data.forEach((e, k) => {
 					map.calcAllRoutes(e);
-					console.log(e.rtid);
-					console.log(data.rtid);
-					//var p = document.getElementById("ambo"+e.rtid).firstChild.nextElementSibling.nextElementSibling;
-					/*p.innerHTML = e.name;
-					p = p.nextElementSibling;
-					p.innerHTML = map.directions[e.rtid].directions.routes[0].legs[0].distance.text;
-					p = p.nextElementSibling;
-					p.innerHTML = map.directions[e.rtid].directions.routes[0].legs[0].duration.text;*/
 				});
-				ele.data = data;
 				let obj = new Object();
 				obj.status = 0;
 				obj.type = 0;
@@ -288,7 +279,7 @@ var ddMap = {
 			obj.id = route['id'];
 			this.addMarker(ovp.overview_path[0], obj);
 		}).then(() => {
-			console.log("we do it here");
+			console.log(ele);
 		}).catch((e) => console.log("Directions request failed due to " + e));
 	},
 	//specific route for ambulances
