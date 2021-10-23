@@ -3,9 +3,10 @@
     if (checklogin() != 1) { header("Location: ../"); return; }
     if (isset($_POST))
     {
-        echo "Got a post";
-        var_dump($_POST);
-        return;
+        $params = array(":ambo"=> $_POST['amboselect'], ":id"=> $_POST['ticket']);
+        $sql = "UPDATE ticket SET ambulance = :ambo WHERE id = :id";
+        $db->query($sql, params);
+        $_SESSION['msgbox'] = "Ambulance has been notified, Ticket is active";
         header("Location: ../");
     }
     if (!isset($_GET) || !isset($_GET['id']))
