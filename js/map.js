@@ -280,6 +280,7 @@ var ddMap = {
 			obj.id = route['id'];
 			this.addMarker(ovp.overview_path[0], obj);
 		}).then(() => {
+			document.getElementById("radioambo"+route.arrayid).value = route.id;
 			var p = document.getElementById("ambo"+route.arrayid).firstChild.nextElementSibling.nextElementSibling;
 			p.innerHTML = route.name;
 			p = p.nextElementSibling;
