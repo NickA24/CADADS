@@ -279,8 +279,12 @@ var ddMap = {
 			obj.id = route['id'];
 			this.addMarker(ovp.overview_path[0], obj);
 		}).then(() => {
-			console.log(route);
-			console.log(document.getElementById("pick3").data);
+			var p = document.getElementById("ambo"+route.rtid).firstChild.nextElementSibling.nextElementSibling;
+			p.innerHTML = route.name;
+			p = p.nextElementSibling;
+			p.innerHTML = map.directions[route.rtid].directions.routes[0].legs[0].distance.text;
+			p = p.nextElementSibling;
+			p.innerHTML = map.directions[route.rtid].directions.routes[0].legs[0].duration.text;
 		}).catch((e) => console.log("Directions request failed due to " + e));
 	},
 	//specific route for ambulances
