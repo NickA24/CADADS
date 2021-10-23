@@ -5,13 +5,12 @@
     {
         $params = array(":ambo"=> $_POST['amboselect'], ":id"=> $_POST['ticket']);
         $sql = "UPDATE ticket SET ambulance = :ambo WHERE id = :id";
-        $result = $db->query($sql, params);
+        $result = $db->query($sql, $params);
         if ($result) {
             $_SESSION['msgbox'] = "Ambulance has been notified, Ticket is active";
         } else {
             $_SESSION['msgbox'] = "There may have been a problem with assigning your ambulance.";   
         }
-        return;
         header("Location: ../");
     }
     if (!isset($_GET) || !isset($_GET['id']))
