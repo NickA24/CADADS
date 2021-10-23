@@ -55,21 +55,21 @@
           <table>
               <tr class="ambo1" id="ambo0">
                   <td><input type="radio" id="radioambo1" name="amboselect" value="1"></td>
-                  <td>A1</td>
-                  <td>Distance</td>
-                  <td>Time</td>
+                  <td></td>
+                  <td>e</td>
+                  <td></td>
               </tr>
               <tr class="ambo2" id="ambo1">
                   <td><input type="radio" id="radioambo2" name="amboselect" value="2"></td>
-                  <td>A2</td>
-                  <td>Distance</td>
-                  <td>Time</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
               </tr>
               <tr class="ambo3" id="ambo2">
                   <td><input type="radio" id="radioambo3" name="amboselect" value="3"></td>
-                  <td>A3</td>
-                  <td>Distance</td>
-                  <td>Time</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
               </tr>
           </table>
           <button type="submit">Submit</button><button type="button" onclick="location.href='../'">Leave Unassigned</button>
