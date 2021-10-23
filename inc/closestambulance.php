@@ -1,12 +1,16 @@
 <?php
     include_once("login.php");
     if (checklogin() != 1) { header("Location: ../"); return; }
-    if (isset($_POST))
+    if (isset($_POST) && $_POST['chooseambo'] == 'chooseambo')
     {
         $params = array(":ambo"=> $_POST['amboselect'], ":id"=> $_POST['ticket']);
         $sql = "UPDATE ticket SET ambulance = :ambo WHERE id = :id";
-        $db->query($sql, params);
-        $_SESSION['msgbox'] = "Ambulance has been notified, Ticket is active";
+        $result = $db->query($sql, params);
+        if ($result) {
+            $_SESSION['msgbox'] = "Ambulance has been notified, Ticket is active";
+        } else {
+            $_SESSION['msgbox'] = "There may have been a problem with assigning your ambulance.";   
+        }
         header("Location: ../");
     }
     if (!isset($_GET) || !isset($_GET['id']))
@@ -54,6 +58,7 @@
   <div id="pick3">
       <span>Please choose between the closest 3 ambulances for ticket#<?php echo $_GET['id']; ?></span>
       <form class="chooseambulance" action="closestambulance.php" method="post">
+          <input type="hidden" id="chooseambo" name="chooseambo" value="chooseambo"></input>
           <input type="hidden" id="ticket" name="ticket" value="<?php echo $_GET['id']; ?>"></input>
           <table>
               <tr class="ambo1" id="ambo0">
