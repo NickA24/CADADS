@@ -77,7 +77,7 @@
                   <td></td>
               </tr>
           </table>
-          <button type="submit">Submit</button><button type="button" onclick="location.href='../'">Leave Unassigned</button>
+          <button type="submit" name="submit" value="Submit">Submit</button><button type="button" onclick="location.href='../'">Leave Unassigned</button>
       </form>
   </div>
   <div id="map"></div>
