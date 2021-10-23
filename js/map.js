@@ -290,7 +290,7 @@ var ddMap = {
 			p = p.nextElementSibling;
 			if (map.directions[route.rtid].directions.routes[0].legs[0].duration.value > 600) {
 				p.innerHTML = "Warning - >10min response time - Inform caller";
-				p.style = {background-color: '#f7baba'};
+				p.style.backgroundColor = '#f7baba';
 			}
 		}).catch((e) => console.log("Directions request failed due to " + e));
 	},
