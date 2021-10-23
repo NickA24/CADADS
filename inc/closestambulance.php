@@ -11,6 +11,7 @@
         } else {
             $_SESSION['msgbox'] = "There may have been a problem with assigning your ambulance.";   
         }
+        return;
         header("Location: ../");
     }
     if (!isset($_GET) || !isset($_GET['id']))
