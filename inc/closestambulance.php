@@ -53,21 +53,21 @@
       <span>Please choose between the closest 3 ambulances for ticket#<?php echo $_GET['id']; ?></span>
       <form class="chooseambulance" action="closestambulance.php" method="post">
           <table>
-              <tr class="ambo1" id="ambo1">
+              <tr class="ambo1" id="ambo0">
                   <td><input type="radio" id="radioambo1" name="amboselect" value="1"></td>
-                  <td>Ambo1</td>
+                  <td>A1</td>
                   <td>Distance</td>
                   <td>Time</td>
               </tr>
-              <tr class="ambo2" id="ambo2">
+              <tr class="ambo2" id="ambo1">
                   <td><input type="radio" id="radioambo2" name="amboselect" value="2"></td>
-                  <td>Ambo2</td>
+                  <td>A2</td>
                   <td>Distance</td>
                   <td>Time</td>
               </tr>
-              <tr class="ambo3" id="ambo3">
+              <tr class="ambo3" id="ambo2">
                   <td><input type="radio" id="radioambo3" name="amboselect" value="3"></td>
-                  <td>Ambo3</td>
+                  <td>A3</td>
                   <td>Distance</td>
                   <td>Time</td>
               </tr>
