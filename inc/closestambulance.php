@@ -58,15 +58,18 @@
                   <td></td>
                   <td>e</td>
                   <td></td>
+                  <td></td>
               </tr>
               <tr class="ambo2" id="ambo1">
                   <td><input type="radio" id="radioambo1" name="amboselect" value="2"></td>
                   <td></td>
                   <td></td>
                   <td></td>
+                  <td></td>
               </tr>
               <tr class="ambo3" id="ambo2">
                   <td><input type="radio" id="radioambo2" name="amboselect" value="3"></td>
+                  <td></td>
                   <td></td>
                   <td></td>
                   <td></td>
