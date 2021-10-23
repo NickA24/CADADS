@@ -279,7 +279,6 @@ var ddMap = {
 			if (newdr.directions.routes[0].legs[0]) {
 				obj.title += "\n"+newdr.directions.routes[0].legs[0].distance.text+", "+newdr.directions.routes[0].legs[0].duration.text;
 			}
-			if (
 			obj.clr = clr;
 			obj.id = route['id'];
 			this.addMarker(ovp.overview_path[0], obj);
