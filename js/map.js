@@ -279,7 +279,7 @@ var ddMap = {
 			obj.id = route['id'];
 			this.addMarker(ovp.overview_path[0], obj);
 		}).then(() => {
-			console.log(document.getElementById("pick3"));
+			console.log(document.getElementById("pick3").data);
 		}).catch((e) => console.log("Directions request failed due to " + e));
 	},
 	//specific route for ambulances
