@@ -1,7 +1,7 @@
 <?php
     include_once("login.php");
     if (checklogin() != 1) { header("Location: ../"); return; }
-    if (!isset($_POST))
+    if (isset($_POST))
     {
         echo "Got a post";
         var_dump($_POST);
