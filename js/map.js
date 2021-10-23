@@ -211,6 +211,7 @@ var ddMap = {
 			{	
 				ele.data = data;
 				data.forEach((e, k) => {
+					e.arrayid = k;
 					map.calcAllRoutes(e);
 				});
 				let obj = new Object();
@@ -279,7 +280,7 @@ var ddMap = {
 			obj.id = route['id'];
 			this.addMarker(ovp.overview_path[0], obj);
 		}).then(() => {
-			var p = document.getElementById("ambo"+route.rtid).firstChild.nextElementSibling.nextElementSibling;
+			var p = document.getElementById("ambo"+route.arrayid).firstChild.nextElementSibling.nextElementSibling;
 			p.innerHTML = route.name;
 			p = p.nextElementSibling;
 			p.innerHTML = map.directions[route.rtid].directions.routes[0].legs[0].distance.text;
