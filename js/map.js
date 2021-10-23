@@ -191,7 +191,10 @@ var ddMap = {
 							obj.isFree = e.isFree;
 							obj.id = e.id;
 							if (e.source == 0) { obj.title += ": "+e.status; }
-							obj.title += ":\n"+e.location;
+							obj.title += "\n"+e.location;
+							if (obj.isFree) {
+								obj.title += "\n"+"<a href='inc/closestambulance.php?id="+obj.id+"'>Find Closest Ambulance</a>";	
+							}
 							map.addMarker({"lat":e.loclat, "lng":e.loclng}, obj);
 						}
 					});
@@ -276,21 +279,24 @@ var ddMap = {
 			if (newdr.directions.routes[0].legs[0]) {
 				obj.title += "\n"+newdr.directions.routes[0].legs[0].distance.text+", "+newdr.directions.routes[0].legs[0].duration.text;
 			}
+			if (
 			obj.clr = clr;
 			obj.id = route['id'];
 			this.addMarker(ovp.overview_path[0], obj);
 		}).then(() => {
-			document.getElementById("radioambo"+route.arrayid).value = route.id;
-			var p = document.getElementById("ambo"+route.arrayid).firstChild.nextElementSibling.nextElementSibling;
-			p.innerHTML = route.name;
-			p = p.nextElementSibling;
-			p.innerHTML = map.directions[route.rtid].directions.routes[0].legs[0].distance.text;
-			p = p.nextElementSibling;
-			p.innerHTML = map.directions[route.rtid].directions.routes[0].legs[0].duration.text;
-			p = p.nextElementSibling;
-			if (map.directions[route.rtid].directions.routes[0].legs[0].duration.value > 600) {
-				p.innerHTML = "Warning - >10min response time - Inform caller";
-				p.style.backgroundColor = '#f7baba';
+			if (document.getElementById("radioambo"+route.arrayid)) {
+				document.getElementById("radioambo"+route.arrayid).value = route.id;
+				var p = document.getElementById("ambo"+route.arrayid).firstChild.nextElementSibling.nextElementSibling;
+				p.innerHTML = route.name;
+				p = p.nextElementSibling;
+				p.innerHTML = map.directions[route.rtid].directions.routes[0].legs[0].distance.text;
+				p = p.nextElementSibling;
+				p.innerHTML = map.directions[route.rtid].directions.routes[0].legs[0].duration.text;
+				p = p.nextElementSibling;
+				if (map.directions[route.rtid].directions.routes[0].legs[0].duration.value > 600) {
+					p.innerHTML = "Warning - >10min response time - Inform caller";
+					p.style.backgroundColor = '#f7baba';
+				}
 			}
 		}).catch((e) => console.log("Directions request failed due to " + e));
 	},
