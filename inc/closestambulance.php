@@ -3,6 +3,7 @@
     if (checklogin() != 1) { header("Location: ../"); return; }
     if (!isset($_POST))
     {
+        echo "Got a post";
         var_dump($_POST);
         return;
         header("Location: ../");
