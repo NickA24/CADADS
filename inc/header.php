@@ -20,5 +20,8 @@
 			unset($_SESSION['msgbox']); 
 		}
 		echo '</div>';
+		echo '<script>  var x = document.getElementById("msgBox");
+		setTimeout(function(){ x.className = "show"; setTimeout(function(){x.className = x.className.replace("show", ""); }, 3000);},500);
+		</script>';
 	}	
 ?>
