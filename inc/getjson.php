@@ -54,6 +54,7 @@
 				$time = 0;
 				if (isset($_GET['lastupdate'])) { $time = $_GET['lastupdate']; }
 				$params = array(":id"=>$_SESSION['myid'], ":time"=>$time);
+				var_dump($params);
 				$sql = "SELECT ambulance_info.id as id, ambulance_status.name as status, ambulance_info.location as ambulance_location, loclat, loclng, ambulance_info.destination as destination, dstlat, dstlng, active, ticket.name, CONCAT(CONCAT(ack, ' - '), description) as incident_type, priority, time, lastupdate, comments FROM ambulance_info LEFT JOIN ticket ON ambulance_info.current_ticket = ticket.id LEFT JOIN incident_tbl ON incident_type = incident_tbl.id LEFT JOIN ambulance_status ON status = ambulance_status.id WHERE ambulance_info.id = :id AND lastupdate > :time LIMIT 1";
 				break;
 			case 'dispatchMap':
