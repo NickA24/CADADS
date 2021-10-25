@@ -74,5 +74,7 @@
 	This is perfect for using an AJAX call in javascript to return a premade object ready to be iterated through. */
 	$return = $db->query($sql, $params)->fetchAll(PDO::FETCH_ASSOC);
 	if ($ambulances){ $return[0]['ambulance'] = $ambulances;}
-	echo  json_encode($return);
+	if (!empty($return)) {
+		echo  json_encode($return);
+	}
 ?>
