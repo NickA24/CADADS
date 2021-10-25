@@ -51,7 +51,7 @@ function editTicket($db,$var)
         $var['editlng'] = $Geocodeobj["results"][0]["geometry"]["location"]["lng"];
 	if ($var['location'] == NULL || $var['lat'] == '' || $var['lng'] == '') {
 		echo 'Invalid address passed';
-		return 'There was a problem with your submission: Not a valid street address:'.$var['editlocation'].":".$var['editlat'].":".$var['editlng'];
+		return 'There was a problem with your submission: Not a valid street address:'.$var['location'] == NULL.":".$var['lat'] == ''.":".$var['lng'] == '';
 	}
 	$params = array(":active"=>$var['editactive'], ":name"=>$var['editname'], ":location"=>$var['editlocation'], ":lat"=>$var['editlat'], ":lng"=>$var['editlng'], ":incident"=>$var['editincident_type'], ":priority"=>$var['editpriority'], ":ambulance"=>$var['editambulance'], ":comments"=>$var['editcomments'], ":id"=>$var['editid']);
 	$sql = "UPDATE ticket SET active=:active, name=:name, location=:location, lat=:lat, lng=:lng, incident_type=:incident,priority=:priority,ambulance=:ambulance,comments=:comments WHERE id = :id";
