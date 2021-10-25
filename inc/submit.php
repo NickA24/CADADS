@@ -49,9 +49,9 @@ function editTicket($db,$var)
         $var['editlocation'] = $Geocodeobj["results"][0]["formatted_address"];
         $var['editlat'] = $Geocodeobj["results"][0]["geometry"]["location"]["lat"];
         $var['editlng'] = $Geocodeobj["results"][0]["geometry"]["location"]["lng"];
-	if ($var['location'] == NULL || $var['lat'] == '' || $var['lng'] == '') {
+	if ($var['editlocation'] == NULL || $var['editlat'] == '' || $var['editlng'] == '') {
 		echo 'Invalid address passed';
-		return 'There was a problem with your submission: Not a valid street address:'.($var['location'] == NULL).":".($var['lat'] == '').":".($var['lng'] == '');
+		return 'There was a problem with your submission: Not a valid street address:';
 	}
 	$params = array(":active"=>$var['editactive'], ":name"=>$var['editname'], ":location"=>$var['editlocation'], ":lat"=>$var['editlat'], ":lng"=>$var['editlng'], ":incident"=>$var['editincident_type'], ":priority"=>$var['editpriority'], ":ambulance"=>$var['editambulance'], ":comments"=>$var['editcomments'], ":id"=>$var['editid']);
 	$sql = "UPDATE ticket SET active=:active, name=:name, location=:location, lat=:lat, lng=:lng, incident_type=:incident,priority=:priority,ambulance=:ambulance,comments=:comments WHERE id = :id";
