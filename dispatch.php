@@ -285,8 +285,6 @@
     <nav class="sticky">
         <ul>
           <li style="background-color:black">Diamond Dispatch</li>
-          <li>Add Ticket</li>
-          <li>Edit Ticket</li>
           <li class="logoutbutn">
               <a class="active">
                   <?php
