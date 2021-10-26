@@ -1,5 +1,7 @@
 <?php include_once("./inc/login.php"); $needmap = 1; include_once("./inc/header.php"); if (checklogin() != 2) { return; } ?>
 <?php echo logoutbutton(); ?>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style type="text/css">
     body {
         margin: 0;
