@@ -62,6 +62,7 @@ var createJSTable = function(ele, data, config)
 	//We auto-generate the header data off the JSON object's keys.
 	var headdata = Object.keys(data[0]);
 	var table = document.createElement('table');
+	table.setAttribute("class", "table1");
 	var thead = document.createElement('thead');
 	var tbody = document.createElement('tbody');
 	table.appendChild(thead);
