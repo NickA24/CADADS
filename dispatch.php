@@ -199,12 +199,12 @@
         border-radius: 4px;
         box-shadow: inset 0 -5px 45px rgba(100,100,100,0.2), 0 1px 1px rgba(255,255,255,0.2);
     }
-    #mapholder {
-	    position: fixed;
-	    top: 3.49%;
+    #map {
+	    position: absolute;
+	    top: 49px;
 	    right: 0;
 	    width: 59%;
-	    height: 96.51%;
+	    height: 96%;
     }
     .edButton {
         display: inline-block;
@@ -411,7 +411,7 @@
         <div id="tickets"></div></center>
     </div>
 <?php msgbox(); ?> 
-<div id="mapholder"><div id="map"></div></div>
+<div id="map"></div>
 	<script>
 		var x = document.getElementById("tickets");
 		var inactive = 0;
