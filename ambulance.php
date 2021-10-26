@@ -73,7 +73,7 @@
     /* Set the size of the div element that contains the map */
     #map {
         position: fixed !important;
-        top: 128px;
+        top: 175px;
         left: 0;
         right: 0;
         bottom: 0;
