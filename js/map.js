@@ -192,7 +192,7 @@ var ddMap = {
 							obj.id = e.id;
 							if (e.source == 0) { obj.title += ": "+e.status; }
 							obj.title += "\n"+e.location;
-							if (!obj.isFree && obj.type == "ticket") {
+							if (!obj.isFree && obj.type == "Ticket") {
 								obj.title += "\n"+"<a href='inc/closestambulance.php?id="+obj.id+"'>Find Closest Ambulance</a>";	
 							}
 							map.addMarker({"lat":e.loclat, "lng":e.loclng}, obj);
