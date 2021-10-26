@@ -15,7 +15,7 @@
 			case 'usr':
 				$uid = '';
 				$lim = '';
-				if ($_GET['usrid'])
+				if (isset($_GET['usrid']))
 				{
 					$uid = "WHERE id = :id ";
 					$lim = " LIMIT 1";
