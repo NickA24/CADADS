@@ -1,3 +1,4 @@
+<?php if (!isset($needmap)) {$needmap = 0;} ?>
 <!DOCTYPE html>
 <html>
 <head>
