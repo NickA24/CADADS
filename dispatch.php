@@ -205,6 +205,8 @@
 	    right: 0;
 	    bottom: 0;
 	    width: 59%;
+	    overflow: hidden;
+
     }
     .edButton {
         display: inline-block;
