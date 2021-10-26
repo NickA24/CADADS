@@ -84,8 +84,7 @@ var createJSTable = function(ele, data, config)
 		//Here we're iterating through the object itself.
 		//Note each one is listed as 0:{array} so we're stripping out the number first
 		var tr = document.createElement("tr");
-		tr.setAttribute("class", "markerZoom");
-		tr.setAttribute("class", "rows_" + headdata[k]);
+		tr.setAttribute("class", "markerZoom rows_" + headdata[k]);
 		tr.setAttribute("src", j["id"]);
 		tbody.appendChild(tr);
 		for (var k in j) {
