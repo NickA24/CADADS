@@ -199,9 +199,9 @@
         border-radius: 4px;
         box-shadow: inset 0 -5px 45px rgba(100,100,100,0.2), 0 1px 1px rgba(255,255,255,0.2);
     }
-    #map {
-	    position: absolute;
-	    top: 59px;
+    #mapholder {
+	    position: fixed;
+	    top: 3.49%;
 	    right: 0;
 	    width: 59%;
 	    height: 96.51%;
@@ -411,7 +411,7 @@
         <div id="tickets"></div></center>
     </div>
 <?php msgbox(); ?> 
-<div id="map"></div>
+<div id="mapholder"><div id="map"></div></div>
 	<script>
 		var x = document.getElementById("tickets");
 		var inactive = 0;
