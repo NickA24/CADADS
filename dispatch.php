@@ -201,10 +201,10 @@
     }
     #map {
 	    position: fixed !important;
-	    top: 3.49%; /* 49px */
+	    top: 46px;
 	    right: 0;
+	    bottom: 0;
 	    width: 59%;
-	    height: 96.51%;
     }
     .edButton {
         display: inline-block;
