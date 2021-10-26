@@ -72,8 +72,11 @@
     }
     /* Set the size of the div element that contains the map */
     #map {
-        height: 600px;
-        width: 100%;
+        position: fixed !important;
+        top: 128px
+        left: 0;
+        right: 0;
+        bottom: 0;
     }
 </style>
 <body onload="loadInit(1, '<?php echo $_SESSION['preferred_map']; ?>');">
