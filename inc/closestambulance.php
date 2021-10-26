@@ -1,7 +1,7 @@
 <?php
     include_once("login.php");
     if (checklogin() != 1) { header("Location: ../"); return; }
-    if (isset($_POST) && $_POST['chooseambo'] == 'chooseambo')
+    if (isset($_POST) && isset($_POST['chooseambo']) && $_POST['chooseambo'] == 'chooseambo')
     {
         $params = array(":ambo"=> $_POST['amboselect'], ":id"=> $_POST['ticket']);
         $sql = "UPDATE ticket SET ambulance = :ambo WHERE id = :id";
