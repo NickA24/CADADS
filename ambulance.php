@@ -36,6 +36,38 @@
         top: 0;
         z-index: 1;
     }
+        .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #f9f9f9;
+      min-width: 160px;
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      z-index: 1;
+    }
+
+    .dropdown-content a {
+      float: none;
+      color: black;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+      text-align: left;
+    }
+
+    .dropdown-content a:hover {
+      background-color: #ddd;
+    }
+
+    .show {
+      display: block;
+    }
+    h3 {
+        display: inline;
+        padding-left: 5px;
+    }
+    .h3 {
+        text-align: center;
+    }
     /* Set the size of the div element that contains the map */
     #map {
         height: 600px;
@@ -46,9 +78,13 @@
     <nav class="sticky">
         <ul>
           <li style="background-color:black">Diamond Dispatch: <?php echo $_SESSION['myusername'] ?></li>
-          <li>Change Status</li>
-          <li>Call Dispatch</li>
-          <li>Call Caller</li>
+          <li class="dropbtn" onclick="dropdown()">Change Status <i class="fa fa-caret-down"></i>
+                <div class="dropdown-content" id="myDropdown">
+                    <a href="#">Out of Service</a>
+                    <a href="#">Availible</a>
+                    <a href="#">Enroute</a>
+                    <a href="#">Unavailable</a>
+                  </div>
           <li class="logoutbutn">
               <a class="active">
                   <?php
