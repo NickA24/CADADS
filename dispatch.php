@@ -200,11 +200,11 @@
         box-shadow: inset 0 -5px 45px rgba(100,100,100,0.2), 0 1px 1px rgba(255,255,255,0.2);
     }
     #map {
-	    position: absolute;
-	    top: 49px;
+	    position: fixed !important;
+	    top: 3.49%; /* 49px */
 	    right: 0;
 	    width: 59%;
-	    height: 96%;
+	    height: 96.51%;
     }
     .edButton {
         display: inline-block;
