@@ -26,7 +26,7 @@ function checklogin() {
 function logoutbutton() {
 	if (checklogin())
 	{
-		return '<div style="float:right;">Logged in as '.$_SESSION['myusername'].'. <a href="inc/logout.php">Log out</a></div>';
+		return '<div style="float:right;">Logged in as '.$_SESSION['myusername'].'. <a href="inc/logout.php" style="color:lightblue">Log out</a></div>';
 	}
 	return '';
 }
