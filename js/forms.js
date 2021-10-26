@@ -71,6 +71,7 @@ var createJSTable = function(ele, data, config)
 	thead.appendChild(tr);
 	for (var i = 0; i < headdata.length; i++) {
 		var td = document.createElement("th");
+		td.setAttribute("class", "header" + headdata[i]);
 		td.innerHTML = headdata[i];
 		tr.appendChild(td);
 		if(headdata[i] == "id" && config.addEditData === 1)
