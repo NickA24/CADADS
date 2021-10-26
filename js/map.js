@@ -196,6 +196,20 @@ var ddMap = {
 									obj.title += "\n"+"<a href='inc/closestambulance.php?id="+obj.id+"'>Find Closest Ambulance</a>";	
 								}
 							} else {
+								switch(e.status) {
+									case 0:
+										obj.title += " - Out of Service";
+										break;
+									case 1:
+										obj.title += " - Available";
+										break;
+									case 2:
+										obj.title += " - Enroute";
+										break;
+									case 3:
+										obj.title += " - Unavailable";
+										break;
+								}
 								obj.title += "\n"+e.location;
 							}
 							map.addMarker({"lat":e.loclat, "lng":e.loclng}, obj);
