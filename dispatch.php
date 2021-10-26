@@ -80,6 +80,11 @@
         padding-top: 0; /* This causes misalignment with the edit button. Why? I don't know. */
         background-color: lightgray;
     }
+    #tickets {
+        width:40%;
+        height: 100%;
+        padding-top: 10;
+    }
     .add {
         width: 90%;
         height: 50px;
