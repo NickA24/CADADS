@@ -197,16 +197,16 @@ var ddMap = {
 								}
 							} else {
 								switch(e.status) {
-									case 0:
+									case "0":
 										obj.title += " - Out of Service";
 										break;
-									case 1:
+									case "1":
 										obj.title += " - Available";
 										break;
-									case 2:
+									case "2":
 										obj.title += " - Enroute";
 										break;
-									case 3:
+									case "3":
 										obj.title += " - Unavailable";
 										break;
 								}
