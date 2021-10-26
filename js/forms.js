@@ -80,7 +80,7 @@ var createJSTable = function(ele, data, config)
 			td.setAttribute("colspan", 3);
 		}
 	}
-	data.forEach(function(k => j) {
+	data.forEach(function(j, k) {
 		//Here we're iterating through the object itself.
 		//Note each one is listed as 0:{array} so we're stripping out the number first
 		var tr = document.createElement("tr");
