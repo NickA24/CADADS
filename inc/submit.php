@@ -94,9 +94,9 @@ if (isset($usrtype) && $usrtype > 0 and isset($_POST))
 	}
 	//After the code above has been handled, return the person to the previous page. This way they never hang out on a blank white page.
 	if(isset($_REQUEST["destination"])){
-		header("Location: {$_REQUEST['destination']}");
+		//header("Location: {$_REQUEST['destination']}");
 	} else if(isset($_SERVER["HTTP_REFERER"])){
-		header("Location: {$_SERVER['HTTP_REFERER']}");
+		//header("Location: {$_SERVER['HTTP_REFERER']}");
 	}else{
 		/* some fallback, maybe redirect to index.php */
 	}
