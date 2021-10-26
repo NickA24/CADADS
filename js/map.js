@@ -190,10 +190,13 @@ var ddMap = {
 							obj.title = e.name;
 							obj.isFree = e.isFree;
 							obj.id = e.id;
-							if (e.source == 0) { obj.title += ": "+e.status; }
-							obj.title += "\n"+e.location;
-							if (obj.isFree == 0 && obj.source == 0) {
-								obj.title += "\n"+"<a href='inc/closestambulance.php?id="+obj.id+"'>Find Closest Ambulance</a>";	
+							if (e.source == 0) { 
+								obj.title += ": "+e.status + "\n"+e.location;
+								if (e.isFree == 0) {
+									obj.title += "\n"+"<a href='inc/closestambulance.php?id="+obj.id+"'>Find Closest Ambulance</a>";	
+								}
+							} else {
+								obj.title += "\n"+e.location;
 							}
 							map.addMarker({"lat":e.loclat, "lng":e.loclng}, obj);
 						}
