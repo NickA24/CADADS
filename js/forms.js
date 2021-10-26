@@ -90,13 +90,13 @@ var createJSTable = function(ele, data, config)
 		for (var k in j) {
 			//K is the associated key, so we use that to get the value from the arrray
 			var td = document.createElement("td");
+			td.setAttribute("class", "info_" + headdata[v]);
 			td.innerHTML = j[k];	
 			tr.appendChild(td);
 			if (k == "id" && config.addEditData === 1)
 			{
 				td.innerHTML = '';
 				var td2 = document.createElement("td");
-				td.setAttribute("class", "info_" + headdata[v]);
 				var form1 = document.createElement("form");
 				form1.setAttribute("name","editform"+j[k]);
 				form1.setAttribute("id","editform"+j[k]);
