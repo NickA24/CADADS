@@ -200,7 +200,8 @@
         box-shadow: inset 0 -5px 45px rgba(100,100,100,0.2), 0 1px 1px rgba(255,255,255,0.2);
     }
     #map {
-	    top: 3.49%;
+	    position: absolute;
+	    top: 59px;
 	    right: 0;
 	    width: 59%;
 	    height: 96.51%;
