@@ -27,7 +27,7 @@ function adminAddUser($db,$var)
 	{
 		$newid = $db->lastInsertId();
 		$params = array(":id"=>$newid);
-		$query = "INSERT INTO ambulance_info(id, status, location, lastupdate) VALUES(:id, 0, 0, NOW())";
+		$query = "INSERT INTO ambulance_info(id, lastupdate) VALUES(:id, NOW())";
 		$result = $db->query($query, $params);
 	}
 	switch($ut)
