@@ -29,13 +29,18 @@ class cadDB {
 	//If a parameter is passed, it will pass data to the database, assuming the SQL query is something that adds or updates new information
 	public function query($query, $param = null)
 	{
-		if ($param) {
-			$result = $this->db->prepare($query);
-		} else {
-			$result = $this->db->query($query);
-		}		
-		$result->execute($param);
-		return $result;
+		try {
+			if ($param) {
+				$result = $this->db->prepare($query);
+			} else {
+				$result = $this->db->query($query);
+			}		
+			$result->execute($param);
+			return $result;
+		} catch (PDOException $e) {
+			exit ("Unexpected error from PDO: ".$e->getMessage());
+			return 0;
+		}
 	}
 
 	//This is for making sure ambo info gets created with the same ID as when the other data is submitted
