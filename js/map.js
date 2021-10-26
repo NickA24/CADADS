@@ -200,16 +200,16 @@ var ddMap = {
 								switch(e.status) {
 									case "0":
 										console.log(e.name+":"+e.status);
-										obj.title += " - Out of Service";
+										obj.title += ": Out of Service";
 										break;
 									case "1":
-										obj.title += " - Available";
+										obj.title += ": Available";
 										break;
 									case "2":
-										obj.title += " - Enroute";
+										obj.title += ": Enroute";
 										break;
 									case "3":
-										obj.title += " - Unavailable";
+										obj.title += ": Unavailable";
 										break;
 								}
 								obj.title += "\n"+e.location;
@@ -294,7 +294,7 @@ var ddMap = {
 			let obj = new Object();
 			obj.status = route.status
 			obj.type = "1";
-			obj.title = route.name+":\n"+route.location;
+			obj.title = route.name+": Enroute\n"+route.location;
 			if (newdr.directions.routes[0].legs[0]) {
 				obj.title += "\n"+newdr.directions.routes[0].legs[0].distance.text+", "+newdr.directions.routes[0].legs[0].duration.text;
 			}
