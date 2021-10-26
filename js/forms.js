@@ -80,11 +80,11 @@ var createJSTable = function(ele, data, config)
 			td.setAttribute("colspan", 3);
 		}
 	}
-	data.forEach(function(j, k) {
+	data.forEach(function(j, v) {
 		//Here we're iterating through the object itself.
 		//Note each one is listed as 0:{array} so we're stripping out the number first
 		var tr = document.createElement("tr");
-		tr.setAttribute("class", "markerZoom rows_" + k);
+		tr.setAttribute("class", "markerZoom rows_" + v);
 		tr.setAttribute("src", j["id"]);
 		tbody.appendChild(tr);
 		for (var k in j) {
@@ -96,6 +96,7 @@ var createJSTable = function(ele, data, config)
 			{
 				td.innerHTML = '';
 				var td2 = document.createElement("td");
+				td.setAttribute("class", "info_" + headdata[v]);
 				var form1 = document.createElement("form");
 				form1.setAttribute("name","editform"+j[k]);
 				form1.setAttribute("id","editform"+j[k]);
