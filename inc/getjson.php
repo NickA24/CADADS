@@ -4,6 +4,7 @@
 	include_once("login.php");
 	if (!checklogin()) { return; }
 	$sql = "SELECT * FROM incident_tbl ORDER BY id";
+	$ambulances = false;
 	$nojson = 0;
 	//Create an SQL statement to be called based on any GET data passed to this page.
 	if (!empty($_GET))
