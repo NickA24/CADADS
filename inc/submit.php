@@ -82,8 +82,8 @@ if (isset($usrtype) && $usrtype > 0 and isset($_POST))
 		case 'addTicket':
 			$_SESSION['msgbox'] = addTicket($db,$_POST);
 			//Do not go to the previous page! let's choose a valid ambulance instead.
-			header("Location: closestambulance.php?id=".$db->lastInsertId());
-			return;
+			//header("Location: closestambulance.php?id=".$db->lastInsertId());
+			//return;
 			break;
 		case 'editTicket':
 			$_SESSION['msgbox'] = editTicket($db,$_POST);
