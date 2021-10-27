@@ -172,7 +172,7 @@ var ticketTable = function(ele, showOld, edit)
 	getJSON('inc/getjson.php?tbl=tkt&showinactive='+showOld, function(err, data) {
 		if (err !== null) {
 			ele.innerHTML = "Oops, error:" + err;
-		} else {
+		} else if (data !== null) {
 			ele.data = data;
 			var p = 0;
 			let config = new Object();
@@ -197,7 +197,7 @@ var amboInfo = function(ele)
 	getJSON('inc/getjson.php?tbl=curAmbo', function(err, data){
 		if (err !== null) {
 			ele.innerHTML = "Oops, error:" + err;
-		} else {
+		} else if (data !== null) {
 			ele.data = data[0];
 			let config = new Object();
 			config.addEditData = 0;
