@@ -176,7 +176,7 @@ var ddMap = {
 		getJSON('inc/getjson.php?tbl=dispatchMap', (err, data)=>{
 			if (err !== null) {
 				console.log("Oops, error:" + err);
-			} else {
+			} else if (data !== null) {
 				if (map.init)
 				{
 					data.forEach((e) => {
