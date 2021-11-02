@@ -410,7 +410,7 @@
         //In the future, it will most likely update both on a timer, as well as when data is pushed from the server telling it to update
         ?>
         
-        <div id="tickets"></div></center>
+        <div id="tickets" style="overflow-x:auto";></div></center>
     </div>
 <?php msgbox(); ?> 
 <div id="map"></div>
