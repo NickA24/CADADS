@@ -63,6 +63,29 @@
     .show {
       display: block;
     }
+    .dropdownMap-content {
+      display: none;
+      position: absolute;
+      background-color: #f9f9f9;
+      min-width: 160px;
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      z-index: 1;
+    }
+    .dropdownMap-content a {
+      float: none;
+      color: black;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+      text-align: left;
+    }
+    .dropdownMap-content a:hover {
+      background-color: #ddd;
+    }
+    .show {
+      display: block;
+    }
+    
     h3 {
         display: inline;
         padding-left: 5px;
@@ -90,6 +113,15 @@
                     <a href="#">Enroute</a>
                     <a href="#">Unavailable</a>
                   </div>
+          </li>
+          <li class="dropbtnMap" onclick="dropdownMap()">Map Style <i class="fa fa-caret-down"></i>
+                <div class="dropdownMap-content" id="myDropdownMap">
+                    <a href="#">Default</a>
+                    <a href="#">Night</a>
+                    <a href="#">Retro</a>
+                    <a href="#">Aubergine</a>
+                </div>
+          </li>
           <li class="logoutbutn">
               <a class="active">
                   <?php
@@ -109,6 +141,18 @@
     window.onclick = function(e) {
       if (!e.target.matches('.dropbtn')) {
       var myDropdown = document.getElementById("myDropdown");
+        if (myDropdown.classList.contains('show')) {
+          myDropdown.classList.remove('show');
+        }
+      }
+    }
+    
+    function dropdownMap() {
+        document.getElementById("myDropdownMap").classList.toggle("show");
+    }
+    window.onclick = function(e) {
+      if (!e.target.matches('.dropbtnMap')) {
+      var myDropdown = document.getElementById("myDropdownMap");
         if (myDropdown.classList.contains('show')) {
           myDropdown.classList.remove('show');
         }
