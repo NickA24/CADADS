@@ -77,7 +77,7 @@
         width:40%;
         height: 100%;
         padding-top: 10px;
-	x-overflow: auto;
+	overflow-x: auto;
     }
     .add {
         width: 90%;
