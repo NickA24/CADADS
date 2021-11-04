@@ -1,3 +1,115 @@
 table, thead, tbody, tr, th, td {
 	text-align: center;
 }
+
+.logout:link, .logout:visited {
+	color: rgba(0,102,204,1);
+}
+
+	/* The snackbar - position it at the top and in the middle of the screen */
+	#msgBoxPopup {
+		/* located in style.css */
+		min-width: 250px; 
+		margin-left: -125px; 
+		background-color: #333; 
+		color: #fff; 
+		text-align: center; 
+		border-radius: 2px; 
+		padding: 16px;
+		position: fixed;
+		z-index: 1;
+		left: 50%;
+		top: 0;
+		visibility: hidden; 		
+		overflow: hidden;
+		opacity: 0;
+		transition: top 500ms ease-in, opacity 500ms ease-in, visibility 0s 2s;
+	}
+
+	#msgBoxPopup.show {
+		visibility: visible;
+		opacity: 1;
+		top: 60px;
+		transition: top 500ms ease-out, opacity 500ms ease-out;
+	}
+	
+	
+/* For our sticky navigation menu bar thinggy */	
+	ul {
+        list-style-type: none;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: #333;
+        z-index: 1;
+    }
+    li {
+        float: left;
+        display: block;
+        color: white;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+    }
+    li:hover:not(.active) {
+        background-color: #111;
+    }
+	li:first-of-type {
+		background-color:black;
+	}
+    .logoutbutn {
+        float: right;
+        text-decoration: none;
+    }
+    .sticky {
+        background-color: #ffffff;
+        position: -webkit-sticky;
+        position: sticky;
+        top: 0;
+        z-index: 1;
+    }
+        .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #f9f9f9;
+      min-width: 160px;
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      z-index: 1;
+    }
+
+    .dropdown-content a {
+      float: none;
+      color: black;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+      text-align: left;
+    }
+
+    .dropdown-content a:hover {
+      background-color: #ddd;
+    }
+
+	.dropdownMap-content {
+      display: none;
+      position: absolute;
+      background-color: #f9f9f9;
+      min-width: 160px;
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      z-index: 1;
+    }
+    .dropdownMap-content a {
+      float: none;
+      color: black;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+      text-align: left;
+    }
+    .dropdownMap-content a:hover {
+      background-color: #ddd;
+    }
+    .show {
+      display: block;
+    }

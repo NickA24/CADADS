@@ -1,0 +1,21 @@
+    body {
+        margin: 0;
+        font-family: 'Open Sans', sans-serif;
+    }
+
+
+    h3 {
+        display: inline;
+        padding-left: 5px;
+    }
+    .h3 {
+        text-align: center;
+    }
+    /* Set the size of the div element that contains the map */
+    #map {
+        position: fixed !important;
+        top: 200px;
+        left: 0;
+        right: 0;
+        bottom: 0;
+    }

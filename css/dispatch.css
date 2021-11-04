@@ -1,0 +1,237 @@
+   @media screen and (max-height: 450px) {
+      .sidenav {padding-top: 15px;}
+      .sidenav a {font-size: 18px;}
+    }
+    body {
+		text-align: center;
+		margin: 0;
+        font-family: 'Open Sans', sans-serif;
+    }
+    ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: #333;
+	z-index: 1;
+    }
+    li {
+        float: left;
+        display: block;
+        color: white;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+    }
+    li:hover:not(.active) {
+        background-color: #111;
+    }
+    .logoutbutn {
+        float: right;
+        text-decoration: none;
+    }
+    .sticky {
+        background-color: #ffffff;
+        position: -webkit-sticky;
+        position: sticky;
+        top: 0;
+	z-index: 1;
+    }
+    .btn {
+        display: inline-block;
+        *display: inline;
+        *zoom: 1;
+        padding: 4px 10px 4px;
+        margin-bottom: 0;
+        font-size: 13px;
+        line-height: 18px;
+        color: #2C4E63;
+        text-align: center;
+        text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+        vertical-align: middle;
+        background-color: #2C4E63;
+    }
+    .btn:hover {
+        text-decoration: none;
+        background-color: #3A1F5B;
+        background-position: 0 -15px;
+    }
+    .btn-primary {
+        padding: 9px 14px;
+        font-size: 15px;
+        line-height: normal;
+        border-radius: 5px;
+        color: #ffffff;
+        background-color: #2C4E63;
+        border: 1px solid #FFFFFF;
+        text-shadow: 1px 1px 1px rgba(0,0,0,0.4);
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.5);
+    }
+    .leftContainer {
+        width:40%;
+        height: 100%;
+        padding-top: 0; /* This causes misalignment with the edit button. Why? I don't know. */
+        background-color: lightgray;
+    }
+    #tickets {
+        width:40%;
+        height: 100%;
+        padding-top: 10px;
+    }
+    .add {
+        width: 90%;
+        height: 50px;
+	margin-left: 5%;
+    }
+    .sidenavAdd {
+        height: 100%;
+        width: 0;
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        left: 0;
+        background-color: white;
+        overflow-x: hidden;
+        padding-top: 60px;
+        border-right: 2px solid black;
+        transition: 0.2s;
+    }
+    .sidenavAdd a:hover {
+        color: #f1f1f1;
+    }
+    .sidenavAdd .closebtn {
+        text-decoration: none;
+        position: absolute;
+        padding-top: 10px;
+        top: 0;
+        right: 25px;
+        font-size: 36px;
+        margin-left: 50px;
+        color: black;
+    }
+    .add-new-ticket {
+        text-align: left;
+        font-family: 'Open Sans', sans-serif;
+        padding-left: 6%;
+    }
+    .sidenavEdit {
+        height: 100%;
+        width: 0;
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        left: 0;
+        background-color: white;
+        overflow-x: hidden;
+        padding-top: 60px;
+        border-right: 2px solid black;
+        transition: 0.2s;
+    }
+    .sidenavEdit a:hover {
+        color: #f1f1f1;
+    }
+    .sidenavEdit .closebtn {
+        text-decoration: none;
+        position: absolute;
+        top: 0;
+        right: 25px;
+        font-size: 36px;
+        margin-left: 50px;
+    }
+    .edit-ticket {
+        text-align: left;
+        font-family: 'Open Sans', sans-serif;
+        padding-left: 6%;
+    }
+    .buttons {
+        display: inline-block;
+        *display: inline;
+        *zoom: 1;
+        padding: 4px 10px 4px;
+        margin-bottom: 0;
+        font-size: 13px;
+        line-height: 18px;
+        color: #2C4E63;
+        text-align: center;
+        text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+        vertical-align: middle;
+        background-color: #2C4E63;
+        width: 45%;
+    }
+    .buttons:hover {
+        text-decoration: none;
+        background-color: #3A1F5B;
+        background-position: 0 -15px;
+    }
+    .buttons-primary {
+        padding: 9px 14px;
+        font-size: 15px;
+        line-height: normal;
+        border-radius: 5px;
+        color: #ffffff;
+        background-color: #2C4E63;
+        border: 1px solid #FFFFFF;
+        text-shadow: 1px 1px 1px rgba(0,0,0,0.4);
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.5);
+    }
+    .rightContainer {
+        width:70%;
+        height:100%;
+    }
+    input {
+        width: 90%;
+        margin-bottom: 10px;
+        background: rgba(0,0,0,0.3);
+        border: none;
+        outline: none;
+        padding: 10px;
+        font-size: 13px;
+        color: #fff;
+        text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
+        border: 1px solid rgba(0,0,0,0.3);
+        border-radius: 4px;
+        box-shadow: inset 0 -5px 45px rgba(100,100,100,0.2), 0 1px 1px rgba(255,255,255,0.2);
+    }
+    #map {
+	    position: fixed !important;
+	    top: 46px;
+	    right: 0;
+	    bottom: 0;
+	    width: 59%;
+	    overflow: hidden;
+
+    }
+    .edButton {
+        display: inline-block;
+        *display: inline;
+        *zoom: 1;
+        padding: 4px 10px 4px;
+        margin-bottom: 0;
+        font-size: 13px;
+        line-height: 18px;
+        color: #2C4E63;
+        text-align: center;
+        text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+        vertical-align: middle;
+        background-color: #2C4E63;
+        width: 70px;
+    }
+    .edButton:hover {
+        text-decoration: none;
+        background-color: #3A1F5B;
+        background-position: 0 -15px;
+    }
+    .edButton-primary {
+        padding: 9px 14px;
+        font-size: 15px;
+        line-height: normal;
+        border-radius: 5px;
+        color: #ffffff;
+        background-color: #2C4E63;
+        border: 1px solid #FFFFFF;
+        text-shadow: 1px 1px 1px rgba(0,0,0,0.4);
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.5);
+    }
+    .markerZoom {
+	cursor: pointer;    
+    }
