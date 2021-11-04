@@ -1,6 +1,10 @@
 <?php
+if (isset($_SERVER['REDIRECT_STATUS'])) { 
+	$status = $_SERVER['REDIRECT_STATUS']; 
+} else { 
+	$status = 404; 
+}
 
-$status = $_SERVER['REDIRECT_STATUS'];
 $codes = array(
 		401 => array('401 Unauthorized', 'You are not authorized to view this page, or you lack valid authentication credentials'),
 		403 => array('403 Forbidden', 'The server has refused to fulfill your request.'),
@@ -17,8 +21,7 @@ $message = $codes[$status][1];
 if ($title == false || strlen($status) != 3) {
        $message = 'Please supply a valid status code.';
 }
-include('header.php');
-// Insert headers here
+
 echo '<h1>'.$title.'</h1>
 <p>'.$message.'</p>';
 // Insert footer here

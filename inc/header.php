@@ -1,28 +1,98 @@
-<?php if (!isset($needmap)) {$needmap = 0;} ?>
-<!DOCTYPE html>
-<html>
-<head>
-	<title><?php if (isset($title)) {echo $title;} else { echo "Welcome to the Diamond Team CAD"; }?></title>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" type="text/css" href="/css/style.css" />
-	<script type="text/javascript" src="/js/json.js"></script>
-	<script type="text/javascript" src="/js/forms.js"></script>
-	<?php if ($needmap == 1) { ?>
-	<script type="text/javascript" src="/js/map.js"></script>
-	<?php } ?>
-</head>
-	
 <?php
+	//Function calls:
+	//Create a message box that will give us information between pages or show us popup info.
 	function msgBox() {
-		echo '<div id="msgBox">';
+		echo '<div id="msgBoxPopup">';
 		if (isset($_SESSION['msgbox'])) {
 			echo $_SESSION['msgbox']; 
 			unset($_SESSION['msgbox']); 
 		}
 		echo '</div>';
-		echo '<script>  var x = document.getElementById("msgBox");
-		setTimeout(function(){ x.className = "show"; setTimeout(function(){x.className = x.className.replace("show", ""); }, 3000);},500);
-		</script>';
-	}	
+		//Javascript for this div is contained in the msgbox.js file
+	}
+	
+	
+	//If there is no needmap variable, create one and set it to 0.
+	if (!isset($needmap)) {$needmap = 0;} 
 ?>
+<!DOCTYPE html>
+<html lang="en-US" <?php 
+//Put some variables into the html tag, to make them easily accessible from javascript later.
+if (isset($_SESSION['myusername'])) { echo 'data-username="'.$_SESSION['myusername'].'" '; }
+if (isset($initType)) { echo 'data-initType="'.$initType.'" '; } 
+if (isset($_SESSION['preferred_map'])) { echo 'data-preferred-map="'.htmlspecialchars($_SESSION['preferred_map']).'"'; }
+if (isset($ticketID)) { echo 'data-ticketID="'.$ticketID.'" '; }
+?>>
+<head>
+	<title><?php if (isset($title)) {echo $title;} else { echo "Welcome to the Diamond Team CAD"; }?></title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="/css/style.css" />
+	<?php 
+	//If we have a pagename variable set, return the unique CSS and JS for those pages.
+	if (isset($pagename)) { ?>
+<link rel="stylesheet" type="text/css" href="/css/<?php echo $pagename; ?>.css" />
+	<script type="text/javascript" src="/js/<?php echo $pagename; ?>.js"></script>
+	<script type="text/javascript" src="/js/json.js"></script>
+	<?php if (isset($pagename) && $pagename != 'loginform') { ?>
+	<script type="text/javascript" src="/js/stickymenu.js"></script>
+	<script type="text/javascript" src="/js/msgbox.js"></script>
+	<script type="text/javascript" src="/js/forms.js"></script>
+	<?php } }
+		//Only if we need the google map stuff should we include it, as it's a lot of extra code pulled from google's server.
+		if ($needmap == 1) { ?>
+<script type="text/javascript" src="/js/map.js"></script>
+	<?php } ?>
+</head>
+<body>
+<?php 
+//Only show the top bar on pages you have to be logged in to see
+if (checklogin()) { ?>
+<nav class="sticky">
+	<ul>
+		<li >Diamond Dispatch: <?php echo $_SESSION['myusername'] ?></li>
+		<?php 
+		//If this is an ambulance, do ambulance things
+		if (checklogin() == 2) { ?>
+<li class="dropbtn" id="dropbtnList">Change Status <i class="fa fa-caret-down dropbtn"></i>
+			<div class="dropdown-content" id="myDropdown">
+				<a id="status1" class="service" data="0" src="#">Out of Service</a>
+				<a id="status1" class="service" data="1" src="#">Available</a>
+				<a id="status2" class="service" data="2" src="#">Enroute to Call</a>
+				<a id="status3" class="service" data="3" src="#">Unavailable</a>
+				<?php
+				$result = $db->query("SELECT id, name FROM hospitals ORDER BY id")->fetchAll();
+				foreach($result as $r) {
+						echo '<a id="statusH'.$r['id'].'" class="service" data="'.($r['id']+3).'" src="#">Enroute to '.$r['name']."</a>\n";
+						if ($result[count($result)-1]['id'] != $r['id']) { echo "\t\t\t\t"; }
+				}
+			?>
+			</div>
+		</li>
+		<?php } ?>
+<li class="dropbtnMap" id="dropbtnMapList">Map Style <i class="fa fa-caret-down dropbtnMap"></i>
+			<div class="dropdownMap-content" id="myDropdownMap">
+				<?php
+				$result = $db->query("SELECT id, name, style FROM map_styles ORDER BY id")->fetchAll();
+				foreach($result as $r) {
+					if ($r['style'] == $_SESSION['preferred_map']) { $r['name'] .= "•"; }
+					echo '<a id="mapStyle'.$r['id'].'" class="mapStyle" data="'.$r['id'].'" src="#">'.$r['name']."</a>\n";
+					if ($result[count($result)-1]['id'] != $r['id']) { echo "\t\t\t\t"; }
+				}
+				?>
+			</div>
+		</li>
+		<li class="logoutbutn">
+			<a class="active">
+			<?php
+			echo "\t", logoutbutton();
+			?>
+			
+			</a>
+		</li>
+	</ul>
+</nav>
+<?php } ?>
+

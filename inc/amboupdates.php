@@ -18,8 +18,8 @@ function enrouteToHospital($db,$var)
 		echo 'no valid id or hospital id';
 		return 'You need a valid id and hospital id';
 	}
-  $params = array(":id"=>$var['id'], ":hosp"=>$var['hospid']);
-  $sql = "UPDATE ambulance_info SET status = 2, location = hospitals.location LEFT JOIN hospitals ON id = :hosp WHERE id = :id";
+  $params = array(":id"=>$var['id'], ":mylat"=>$var['lat'], ":mylng"=>$var['lng'], ":hosp"=>$var['hospid']);
+  $sql = "UPDATE ambulance_info a, hospitals b SET a.status = 2, a.loclat = :mylat, a.loclng = :mylng, a.destination = b.location, a.dstlat = b.lat, a.dstlng = b.lng  WHERE a.id = :id AND b.id = :hosp";
   $result = $db->query($sql, $params);
 	return $result;
 }
@@ -33,7 +33,7 @@ function completeTicket($db,$var)
 		return 'You need a valid id';
 	}
   $params = array(":id"=>$var['id']);
-  $sql = "UPDATE ticket SET active = 0, cleared = NOW() WHERE id = :id";
+  $sql = "UPDATE ticket SET active = 0, cleared = NOW() WHERE active = 1 AND ambulance = :id";
   $result = $db->query($sql,$params);
   return $result;
 }
@@ -41,32 +41,36 @@ function completeTicket($db,$var)
 //Updates ambulance's status. 0=Out of Service, 1=Available, 2=Enroute, 3=Unavailable
 function amboStatus($db,$var)
 {
-  if (!isset($var['id']) || !isset($var['status']))
+	if (!isset($var['id']) || !isset($var['status']))
 	{
 		echo 'no valid id or status';
 		return 'You need a valid id and status';
 	}
-  $params = array(":id"=>$var['id'], ":status"=>$var['status']);
-  $sql = "UPDATE ambulance_info SET status = :status, lastupdate=NOW() WHERE id = :id";
-  $result = $db->query($sql,$params);
-  return $result;
+	$params = array(":id"=>$var['id'], ":status"=>$var['status']);
+	$sql = "UPDATE ambulance_info SET status = :status, lastupdate=NOW() WHERE id = :id";
+	$result = $db->query($sql,$params);
+	if ($var['status'] != 2) {
+		completeTicket($db, $var);
+	}
+	return $result;
 }
 
 //Update the ambulance's location
 function amboUpdate($db,$var)
 {
-  if (!isset($var['id']) || !isset($var['loc']))
+  if (!isset($var['id']) || !isset($var['loc']) || !isset($var['lat']) || !isset($var['lng']))
 	{
 		echo 'no valid id or location';
 		return 'You need a valid id and location';
 	}
-  $params = array(":id"=>$var['id'], ":loc"=>$var['loc']);
-  $sql = "UPDATE ambulance_info SET location = :loc, lastupdate=NOW() WHERE id = :id";
+  $params = array(":id"=>$var['id'], ":loc"=>$var['loc'], ":lat"=>$var['lat'], ":lng"=>$var['lng']);
+  $sql = "UPDATE ambulance_info SET location = :loc, loclat=:lat, loclng=:lng, lastupdate=NOW() WHERE id = :id";
   $result = $db->query($sql, $params);
   return $result;
 }
 
-//This is the actual code in this module. If data is properly posted from a form, and a user with the proper credentials is requesting, they will be allowed to spoof an ambulance
+//This is the actual code in this module. If data is properly posted from a form, and a user with the proper credentials is requesting, they will be allowed to update ambulance data.
+$msg = '';
 if (isset($usrtype) && $usrtype == 2 and isset($_POST))
 {
 	//Simple switch based on the submit type.
@@ -74,31 +78,27 @@ if (isset($usrtype) && $usrtype == 2 and isset($_POST))
 	{
 		case 'en2Hosp':
 			enrouteToHospital($db,$_POST); 
+			amboUpdate($db,$_POST);
 			break;
 		case 'tktDone':
 			completeTicket($db,$_POST);
 			break;
-    case 'ambostat':
-      amboStatus($db,$_POST);
-      break;
-    case 'amboup':
-      amboUpdate($db,$_POST);
-      break;
+		case 'ambostat':
+			amboStatus($db,$_POST);
+			amboUpdate($db,$_POST);
+			break;
+		case 'amboup':
+			amboUpdate($db,$_POST);
+			break;
 	}
-	//After the code above has been handled, return the person to the previous page. This way they never hang out on a blank white page.
-	if(isset($_REQUEST["destination"])){
-		header("Location: {$_REQUEST['destination']}");
-	} else if(isset($_SERVER["HTTP_REFERER"])){
-		header("Location: {$_SERVER['HTTP_REFERER']}");
-	}else{
-		/* some fallback, maybe redirect to index.php */
-	}
+	$msg = "Completed updating";
 } else {
 	//For debugging purposes. Something went wrong, and I don't know if it's the post data or the user's credentials.
 	//var_dump($_POST);
 	//var_dump($usrtype);
-	return;
+	$msg = 'No information submitted';
 }
+return $msg;
 ?>
 
 ?>

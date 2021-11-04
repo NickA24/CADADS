@@ -26,13 +26,21 @@ function checklogin() {
 function logoutbutton() {
 	if (checklogin())
 	{
-		return '<div style="float:right;">Logged in as '.$_SESSION['myusername'].'. <a href="inc/logout.php" style="color:#9c27b0">Log out</a></div>';
+		return '<div id="iamloggedin">Logged in as '.$_SESSION['myusername'].'. <a class="logout" href="inc/logout.php">Log out</a></div>';
 	}
 	return '';
 }
 
 //Only need to do this part if we have any post data at all, otherwise skip the cycles
 if (isset($_POST)) {
+	//Update a user's map preference
+	if (isset($_POST['updateMapStyle']) && $_SESSION['myid'] && checklogin()) {
+		$params = array(":id"=>$_SESSION['myid'], ":mapid"=>$_POST['mapID']);
+		$query = "UPDATE users SET preferred_map = :mapid WHERE id = :id";
+		$result = $db->query($query, $params);
+		$_SESSION['msgbox'] = "Updated preferred map!";
+		return "Updated preferred map!";
+	}
 	//If we receive user data, check if it's valid and if it's submitted by an admin, and insert into the db
 	if (isset($_POST['addnew'])) {
 		if (checklogin() == 3)
