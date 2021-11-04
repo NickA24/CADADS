@@ -113,14 +113,14 @@ if (isset($usrtype) && $usrtype == 3 && isset($_POST) && isset($_POST['submitTyp
 	return;
 }
 $title = "Diamond Dispatch Admin Panel";
+$pagename = "admin";
+
 include('./inc/header.php');
 ?>
-
-<body>
-	<?php echo logoutbutton(); ?>
 	<div>Admin main functions are to Add User, Change Password, Delete user, and see ticket data.</div>
-	<br><br>
-	<div id="msgBox"><?php if (isset($_SESSION['msgbox'])) {echo $_SESSION['msgbox']; unset($_SESSION['msgbox']); } ?></div>
+	<br>
+	<?php msgBox(); ?>
+	<br>
 	<div id="AddUser"><h3>Add a New User</h3>
 		<form method="POST" id="addUser">
 			<input type="hidden" name="submitType" id="submitType" value="adminAddUser">
@@ -141,20 +141,5 @@ include('./inc/header.php');
 	<div id="EditUser"><h3>Edit a User's Name, Password, or Type</h3></div>
 	<div id="showold"><input type="checkbox" id="inactive" name="inactive"><label for="inactive">Show Inactive</label></div>
 	<div id="ambulancetableexample"></div></center>
-	<script>
-		var x = document.getElementById("ambulancetableexample");
-		var y = document.querySelector('input[id="inactive"]');
-		var inactive = 0;
-		//This is the code to get the table to update on click.
-		y.addEventListener('click', (event) => {
-			if(y.checked) { inactive = 1; } else {inactive = 0;}
-			while (x.firstChild) {
-				x.removeChild(x.firstChild);
-			}
-			ticketTable(x, inactive);
-		});
-		//This is found in json.js, if it needs to be edited.
-		ticketTable(x, inactive);
-	</script>
 </body>
 </html>

@@ -4,51 +4,49 @@ function initMap() {
 	map.initMap();
 }
 
-function loadScript(url, callback, arg1)
-{
-	var scr = document.createElement('script');
-	scr.type = 'text/javascript';
-	scr.src = url;
-	if (callback) 
-	{
-		scr.onreadystatechange = function() { callback(arg1); };
-		scr.onload = function() { callback(arg1); };
-	}
-	document.head.appendChild(scr);
-}
-
 //Event listener, called on body load.
-function loadInit(loc, style, id) 
+function loadInit(params) //loc, style, id) 
 {
 	//automatic click checker to zoom on the map when clicking a ticket
 	document.onclick= function(e){e=window.event? event.srcElement: e.target;const x = e.closest('.markerZoom'); if (x) { map.zoomOnMarker(x.getAttribute("src")); }}
 	//loc:1 means ambulance.php, 2:dispatch
 	//Loads the google script, and after loading will do the map initialization.
-	map.mapStyle = style;
-	if (loc == 1) 
+	map.mapStyle = params.preferredMap;
+	var ele = document.getElementById(params.ele);
+	ele.ticketid = params.ticketId;
+	ele.initType = params.initType;
+	url = 'inc/getjson.php?tbl=dispatchMap';
+	gurl = 'inc/googleapi.php';
+	if (params.initType == 1) 
 	{
-		var ele = document.getElementById('curCall');
-		loadScript('/inc/googleapi.php', amboInfo, ele);
-		document.getElementsByTagName("body")[0].addEventListener("keypress", amboShortcuts, false);
+		if (!window.navigator.geolocation) {
+			alert("This browser does not support geolocation! automatic tracking will not function.");
+		}
+		url += '&id='+params.id;
 	} 
-	else if (loc == 2) 
+	else if (params.initType == 3) 
 	{
-		var ele = document.getElementById('body');
-		loadScript('/inc/googleapi.php', map.setupDispatch);
+		url = 'inc/getjson.php?tbl=closest&ticketid='+ele.ticketid;
 	}
-	else if (loc == 3)
-	{
-		var ele = document.getElementById('pick3');
-		ele.ticketid = id;
-		loadScript('/inc/googleapi.php', map.setupAmboPicking, ele);
-	}
+	
+	doAJAX(url, new Object(), (err, data)=> {
+		if (err !== null) {
+			ele.innerHTML = "Oops, error:" + err;
+			if (popupMessage) { popupMessage("Error: " + err); }
+		} else if (data !== null) {
+			ele.data = data;
+			if (!map.init) { loadScript(gurl, map.setup, ele); }
+		} else {
+			if (params.inittype == 3) { 
+				popupMessage("Error finding ambulances to add. Returning to main...");
+				setTimeout('location.href = "index.php";',3000 );
+			}
+		}
+	});
+	
 }
 
-//Hotkeys for the page. Will use later to do automatic ambulance status updates
-function amboShortcuts(e) {
-    var str = "You have pressed a button. Press info: "+e.code+" alt:"+e.altKey+" shift:"+e.shiftKey+" ctrl:"+e.ctrlKey+" meta:"+e.metaKey+" repeat:"+e.repeat;
-    console.log(str); 
-}
+
 
 //Set up a ddMap object.
 var ddMap = {
@@ -57,10 +55,10 @@ var ddMap = {
 	ds: null, // Placeholder for directionsService
 	dr: null, //Placeholder for directionsRenderer
 	iw: null, //Placeholder for google infowindow
-	start: null, //Stores the ambulance location
-	end: null, //Stores the ticket location 
 	infowindow: null, // Placeholder to create an instance of google maps api's infowindow
-	markers: [],
+	loc: null, //Placeholder to have one unified location object, no need to mess with this unless you're an ambulance.
+	ambulance_markers: [],
+	ticket_markers: [],
 	directions: [],
 	colors: [],
 	bounds:null,
@@ -81,30 +79,16 @@ var ddMap = {
 		this.infowindow = new google.maps.InfoWindow({content: contentString});
 		this.bounds = new google.maps.LatLngBounds();
 	},
-	setDirections: function(s, e) {
-		this.start = s;
-		this.end = e;	
-	},
-	getTime: function() {
-		const v = this.dr.routes[0].legs[0];
-		return v.duration;
-	},
-	getDistance: function() {
-		const v = this.dr.routes[0].legs[0];
-		return v.distance;
-	},
 	doBounding: function() {
-		for (var index in this.markers ) {
-			let latlng = this.markers[index].getPosition();
+		for (var index in this.ambulance_markers ) {
+			let latlng = this.ambulance_markers[index].getPosition();
+			this.bounds.extend(latlng);
+		}
+		for (var index in this.ticket_markers ) {
+			let latlng = this.ticket_markers[index].getPosition();
 			this.bounds.extend(latlng);
 		}
 		this.map.fitBounds(this.bounds, 50);
-	},
-	setMapMarkers(map) {
-		for (let i = 0; i < this.markers.length; i++) 
-		{
-			this.markers[i].setMap(map);
-		}
 	},
 	addMarker: function(position, obj) {
 		const amboji = "🚑";
@@ -128,7 +112,7 @@ var ddMap = {
 			{
 				icn.url = icn.url+"%20|00ff00|000000";
 			} else {
-				icn.url = icn.url+"%20|"+obj['clr'].substring(1)+"|000000";	
+				icn.url = icn.url+"%20|"+obj.clr.substring(1)+"|000000";	
 			}
 		} else if (obj['type'] == 0) {
 			//Destinations
@@ -136,10 +120,9 @@ var ddMap = {
 			typename = 'Ticket';
 			if (obj['isFree'] == 0 || obj['clr'] == "#ff0000") {
 				icn.url = icn.url+"%20|ff0000|000000";
-		    	} else {
+			} else {
 				//Figure out how to color it based on what ambo it's connected to.
-				const clr = this.getRandomColor(obj['isFree']);
-				icn.url = icn.url+"%20|"+clr.substring(1)+"|000000";
+				icn.url = icn.url+"%20|"+obj.clr.substring(1)+"|000000";
 			}
 		} else {
 			console.log(obj);
@@ -154,8 +137,24 @@ var ddMap = {
 		marker.type = typename;
 		marker.id = obj['id'];
 		marker.addListener('click', () => this.infoWindowHandler(marker));
-		this.markers.push(marker);
+		if (obj['type'] == 1) {
+			this.ambulance_markers.push(marker);
+		} else if (obj['type'] == 0) {
+			this.ticket_markers.push(marker);
+		}
+		//use this.ambulance_marker.find(x => x.id === 1) to return the object, or this.ambulance_marker.findIndex(x => x.id === 1);
 		this.doBounding();
+	},
+	setMapMarkers(map) {
+		for (let i = 0; i < this.ambulance_markers.length; i++) 
+		{
+			this.ambulance_markers[i].setMap(map);
+		}
+		for (let i = 0; i < this.ticket_markers.length; i++) 
+		{
+			this.ticket_markers[i].setMap(map);
+		}
+		
 	},
 	showMarkers: function() {
 		this.setMapMarkers(this.map);
@@ -165,88 +164,13 @@ var ddMap = {
 	},
 	deleteMarkers: function() {
 		this.hideMarkers();
-		this.markers = [];
+		this.ambulance_markers = [];
+		this.ticket_markers = [];
 	},
 	zoomOnMarker: function(id) {
-		id = this.markers.findIndex((e)=>e.type=="Ticket"&&e.id==id);
+		let index = this.ticket_markers.findIndex(x => x.id == id);
 		this.map.setZoom(17);
-		this.map.panTo(this.markers[id].position);
-	},
-	setupDispatch: function() {
-		getJSON('inc/getjson.php?tbl=dispatchMap', (err, data)=>{
-			if (err !== null) {
-				console.log("Oops, error:" + err);
-			} else if (data !== null) {
-				if (map.init)
-				{
-					data.forEach((e) => {
-					     if (e.destination) 
-						{
-							map.calcAllRoutes(e);
-						} else {
-							let obj = new Object();
-							obj.status = e.status;
-							obj.type = e.source;
-							obj.title = e.name;
-							obj.isFree = e.isFree;
-							obj.id = e.id;
-							if (e.source == 0) { 
-								obj.title += ": "+e.status + "\n"+e.location;
-								if (e.isFree == 0) {
-									obj.title += "\n"+"<a href='inc/closestambulance.php?id="+obj.id+"'>Find Closest Ambulance</a>";	
-								}
-							} else {
-								console.log(e.name+":"+e.status);
-								switch(e.status) {
-									case "0":
-										console.log(e.name+":"+e.status);
-										obj.title += ": Out of Service";
-										break;
-									case "1":
-										obj.title += ": Available";
-										break;
-									case "2":
-										obj.title += ": Enroute";
-										break;
-									case "3":
-										obj.title += ": Unavailable";
-										break;
-								}
-								obj.title += "\n"+e.location;
-							}
-							map.addMarker({"lat":e.loclat, "lng":e.loclng}, obj);
-						}
-					});
-					setTimeout(function(){map.doBounding()},1500);
-				}
-			}
-		});
-	},
-	setupAmbulanceRoute: function(data) {
-		//This runs an initial route determined by the ambulance and ticket locations.
-		map.setDirections({lat:data.loclat, lng:data.loclng}, {lat:data.dstlat,lng:data.dstlng});
-		this.calculateAndDisplayRoute(data);
-	},
-	setupAmboPicking: function(ele) {
-		testFetch('getjson.php?tbl=closest&ticketid='+ele.ticketid, new Object(), (data)=> {
-			if (map.init)
-			{	
-				ele.data = data;
-				data.forEach((e, k) => {
-					e.arrayid = k;
-					map.calcAllRoutes(e);
-				});
-				let obj = new Object();
-				obj.status = 0;
-				obj.type = 0;
-				obj.title = "Destination";
-				obj.isFree = 0;
-				obj.id = data[0].current_ticket;
-				obj.title += ":\n"+data[0].destination;
-				map.addMarker({"lat":data[0].dstlat, "lng":data[0].dstlng}, obj);
-				setTimeout(function(){map.doBounding()},1500);
-			}
-		});
+		this.map.panTo(this.ticket_markers[index].position);
 	},
 	infoWindowHandler: function(marker) {
 		//EventHandler, listening to click events on our generated markers.
@@ -260,16 +184,30 @@ var ddMap = {
 			this.directions[i] = null;
 		}
 		this.directions = [];
-		this.colors = [];
 	},
 	getRandomColor: function(id) {
+		// This function generates vibrant, "evenly spaced" colours (i.e. no clustering). This is ideal for creating easily distinguishable vibrant markers in Google Maps and other apps.
+		// Adam Cole, 2011-Sept-14
+		// HSV to RBG adapted from: http://mjijackson.com/2008/02/rgb-to-hsl-and-rgb-to-hsv-color-model-conversion-algorithms-in-javascript
 		if (this.colors[id]) { return this.colors[id]; }
-		var color;
-		var letters = '0123456789ABCDEF';
-		color = '#';
-		for (var i = 0; i < 6; i++) {
-			color += letters[Math.floor(Math.random() * 16)];
+		let color;
+		var r, g, b;
+		var min = Math.ceil(30);
+		var max = Math.floor(330);
+		var h = Math.floor(Math.random() * (max - min + 1) + min) / 360;
+		var i = ~~(h * 6);
+		var f = h * 6 - i;
+		var q = 1 - f;
+		switch(i % 6){
+			case 0: r = 1; g = f; b = 0; break;
+			case 1: r = q; g = 1; b = 0; break;
+			case 2: r = 0; g = 1; b = f; break;
+			case 3: r = 0; g = q; b = 1; break;
+			case 4: r = f; g = 0; b = 1; break;
+			case 5: r = 1; g = 0; b = q; break;
 		}
+		var c = "#" + ("00" + (~ ~(r * 255)).toString(16)).slice(-2) + ("00" + (~ ~(g * 255)).toString(16)).slice(-2) + ("00" + (~ ~(b * 255)).toString(16)).slice(-2);
+		color = (c);
 		if (id) {
 			this.colors[id] = color;
 		} else {
@@ -277,78 +215,131 @@ var ddMap = {
 		}
 		return color;
 	},
-	//general routes for all ambo->dir
-	calcAllRoutes: function(route) {
-		this.clearAlldr();
-		this.ds.route({
-			origin: route.location,
-			destination: route.destination,
-			travelMode: google.maps.TravelMode.DRIVING,
-		}).then((response) => {
-			const ovp = response.routes[0];
-			const clr = this.getRandomColor(route['id']);
-			let newdr = new google.maps.DirectionsRenderer({map:this.map, suppressMarkers:true, polylineOptions: {strokeColor: clr}});
-			newdr.setDirections(response);
-			this.directions.push(newdr);
-			route.rtid=this.directions.length-1;
-			let obj = new Object();
-			obj.status = route.status
-			obj.type = "1";
-			obj.title = route.name+": Enroute\n"+route.location;
-			if (newdr.directions.routes[0].legs[0]) {
-				obj.title += "\n"+newdr.directions.routes[0].legs[0].distance.text+", "+newdr.directions.routes[0].legs[0].duration.text;
-			}
-			obj.clr = clr;
-			obj.id = route['id'];
-			this.addMarker(ovp.overview_path[0], obj);
-		}).then(() => {
-			if (document.getElementById("radioambo"+route.arrayid)) {
-				document.getElementById("radioambo"+route.arrayid).value = route.id;
-				var p = document.getElementById("ambo"+route.arrayid).firstChild.nextElementSibling.nextElementSibling;
-				p.innerHTML = route.name;
-				p = p.nextElementSibling;
-				p.innerHTML = map.directions[route.rtid].directions.routes[0].legs[0].distance.text;
-				p = p.nextElementSibling;
-				p.innerHTML = map.directions[route.rtid].directions.routes[0].legs[0].duration.text;
-				p = p.nextElementSibling;
-				if (map.directions[route.rtid].directions.routes[0].legs[0].duration.value > 600) {
-					p.innerHTML = "Warning - >10min response time - Inform caller";
-					p.style.backgroundColor = '#f7baba';
-				}
-			}
-		}).catch((e) => console.log("Directions request failed due to " + e));
-	},
-	//specific route for ambulances
-	calculateAndDisplayRoute: function(data) {
-		//This routes the directions through the google server
-		if (!this.start || !this.end) { return; }
+	addDirections: function(or, d, id, initType, o) {
 		this.ds.route(
 		{
-			origin: this.start,
-			destination: this.end,
+			origin: or,
+			destination: d,
 			travelMode: google.maps.TravelMode.DRIVING,
 		})
 		.then((response) => {
 			//Once we get them back, set the directions.
-			this.dr.setDirections(response);
-			const ovp = response.routes[0];
-			let obj = new Object();
-			obj.status = data.status
-			obj.type = "1";
-			obj.title = "Your location:\n"+data.ambulance_location;
-			obj.clr = "#ff0000";
-			this.addMarker(ovp.overview_path[0], obj);
-			if (this.end != this.start)
+			let route = response.routes[0].legs[0];
+			route.id = id;
+			let polypath = [];
+			for (var i = 0; i < route.steps.length; i++)
 			{
-				obj.status = data.active;
-				obj.type = "0";
-				obj.clr = "#ff0000";
-				obj.title = data.name+": "+data.incident_type+"\n"+data.destination
-				this.addMarker(ovp.overview_path[ovp.overview_path.length-1], obj);
+				for (var j = 0; j < route.steps[i].path.length; j++)
+				{
+					polypath.push(route.steps[i].path[j]);
+				}
 			}
+			route.polyline = new google.maps.Polyline({
+				map: this.map,
+				path: polypath,
+				strokeColor: map.getRandomColor(id),
+				strokeOpacity: 1.0,
+				strokeWeight: 5,
+			});
+			const q = this.ambulance_markers.find(x => x.id === route.id);
+			q.title += '\nDistance: '+route.distance.text+', Arrival time: '+ route.duration.text;
+			this.directions.push(route);
+			//this.dr.setDirections(response);
 			this.doBounding();
+			if (initType == 3) 
+			{
+				k = this.directions.length-1;
+				if (document.getElementById("radioambo"+k)) {
+					document.getElementById("radioambo"+k).value = o.id;
+					var p = document.getElementById("ambo"+k).firstChild.nextElementSibling.nextElementSibling;
+					p.innerHTML = o.name;
+					p = p.nextElementSibling;
+					p.innerHTML = map.directions[k].distance.text;
+					p = p.nextElementSibling;
+					p.innerHTML = map.directions[k].duration.text;
+					p = p.nextElementSibling;
+					if (map.directions[k].duration.value > 600) {
+						p.innerHTML = "Warning - >10min response time - Inform caller";
+						p.style.backgroundColor = '#f7baba';
+					}
+				}
+			}
 			//Next, do some magic with the returned data, so we have lat and long of locations. Markers REQUIRE latlong, can't use street data.
 		}).catch((e) => console.log("Directions request failed due to " + e));
+	},
+	markerprep: function(data) {
+		const ambostatus = ["Out of Service", "Available", "Enroute", "Unavailable"];
+		let obj = new Object();
+		obj.dlatlng = null;
+		obj.status = data.status;
+		obj.type = data.markertype;
+		obj.name = data.name;
+		obj.title = data.name;
+		obj.isFree = data.isFree;
+		obj.id = data.id;
+		if (data.loclat && data.loclng) {
+			obj.latlng = { "lat": data.loclat, "lng": data.loclng };
+		}
+		if (obj.type == 1) {
+			obj.title += ": "+ambostatus[obj.status]+"\n"+data.location;
+			obj.clr = map.getRandomColor(obj.id);
+			if (obj.isFree > 0) {
+				obj.dlatlng = { "lat": data.dstlat, "lng": data.dstlng };
+			}
+		} else {
+			obj.title += ": "+obj.status+"\n"+data.location;
+			if (obj.isFree == 0) {
+				obj.title += "\n"+"<a href='closestambulance.php?id="+obj.id+"'>Find Closest Ambulance</a>";
+			} else {
+				obj.clr = map.getRandomColor(obj.isFree);
+			}
+		}
+		return obj;
+	},
+	setup: function(ele) {
+		if (ele.initType == 1) {
+			map.loc = window.navigator.geolocation;
+		}
+		if (Array.isArray(ele.data)) {
+			ele.data.forEach((j, k) => {
+				const o = map.markerprep(j);
+				if (o.latlng) { map.addMarker(o.latlng, o); }
+				if (o.dlatlng) {map.addDirections(o.latlng, o.dlatlng, o.id);}
+				if (ele.initType == 3 && k > 0) {
+					map.addDirections(o.latlng, map.ticket_markers[0].position, o.id, 3, o);
+				}
+			});
+			
+		} else { 
+			popupMessage("Unable to load map, please hold.");
+		}
+	},
+	testDirections: function() {
+		let steps = this.directions[0].steps;
+		let poly = this.directions[0].polyline;
+		this.takeStep(steps, poly, 0, 0);
+	},
+	takeStep: function(steps, poly, stepcount, pathcount) {
+		
+		var step = steps[stepcount];
+		if (!step) { return; }
+		var time = step.duration.value;
+		time = time / step.path.length;
+		map.ambulance_markers[0].setPosition(step.path[pathcount]);
+		if (!(stepcount == 0 && pathcount == 0)) { poly.getPath().removeAt(0); }
+		const ele = document.getElementById("curCall");
+		const pos = {
+			origin: "Enroute",
+			coords: {
+				latitude: steps[stepcount].path[pathcount].lat(),
+				longitude: steps[stepcount].path[pathcount].lng(),
+			},
+		};
+		amboService(2, pos, ele);
+		pathcount++;
+		if (pathcount >= steps[stepcount].path.length) { pathcount = 0; stepcount++; }
+		if (stepcount >= steps.length) { console.log("This should be the location"); return; }
+		setTimeout(map.takeStep, time*1000, steps, poly, stepcount, pathcount);
 	}
 };
 
