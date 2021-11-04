@@ -45,8 +45,8 @@ document.addEventListener('DOMContentLoaded', function(e) {
 				const params = new FormData();
 				params.append("updateMapStyle", "true");
 				params.append("mapID", evt.target.attributes.data.nodeValue);
-				params.method = "post";
-				params.responseType = "text"
+				params.append('method', 'post');
+				params.append('responseType', 'text');
 				doAJAX('inc/login.php',params, function(err, data) {
 					const msgbox = document.getElementById("msgBoxPopup");
 					if (err !== null) {
