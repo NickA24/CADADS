@@ -9,10 +9,15 @@
 //config: for passing arguments. 
 //		-->addEditData - 	boolean value. 1(true): specifically for displaying multiple tickets, it will use colspan:3
 //							This allows one table header to cover the three table columns of id, edit, and delete.
+//							Also returns the Edit and Delete buttons for each table in the ID section.
 //		-->CreateTable - 	boolean value. Creates the table object.
 //		-->CreateHeader-	boolean value. Creates a header section.
 //		-->CreateBody  -	boolean value. Creates the body. If false, just assigns the data to the element.
+//		--TableID	   -	String. Assigns an ID to the main table object for easy access.
+//		-->HeadID	   -	String. Assigns an ID to the table head for easy access.
+//		-->BodyID	   -	String. Assigns an ID to the table body for easy access.
 //		-->DataMask	   -	numbered array. Will output only the data selected, in order it is numbered in the array.
+
 var createJSTable = function(ele, data, config)
 {
 	//The majority of this is using createelement to make the html nodes
@@ -20,6 +25,8 @@ var createJSTable = function(ele, data, config)
 	//We auto-generate the header data off the JSON object's keys.
 	var headdata = Object.keys(data[0]);
 	
+	
+	//CreateBody is handled here. Also references bodyID 
 	if (config.createBody) {
 		var tbody = document.createElement('tbody');
 		if (config.bodyID) { tbody.setAttribute("id", config.bodyID); }
@@ -27,7 +34,7 @@ var createJSTable = function(ele, data, config)
 	}
 	
 
-
+	//Header creation here. Also references headID, dataMask, and addEditData
 	if (config.createHeader) {
 		var thead = document.createElement('thead');
 		if (config.headID) { thead.setAttribute("id", config.headID); }
@@ -60,6 +67,8 @@ var createJSTable = function(ele, data, config)
 		}
 		if (!config.createTable) { ele.appendChild(thead); }
 	}
+	
+	//Table creation, also references tableID and links up head and body if needed.
 	if (config.createTable) {
 		var table = document.createElement('table');
 		table.setAttribute("class", "table1");
@@ -68,6 +77,8 @@ var createJSTable = function(ele, data, config)
 		if (tbody) { table.appendChild(tbody); }
 		ele.appendChild(table);
 	}
+	
+	//This generates the table itself.
 	data.forEach(function(j, v) {
 		//Here we're iterating through the object itself.
 		//Note each one is listed as 0:{array} so we're stripping out the number first
@@ -75,6 +86,8 @@ var createJSTable = function(ele, data, config)
 		tr.setAttribute("class", "markerZoom rows_" + v);
 		tr.setAttribute("src", j["id"]);
 		if (config.createBody) { tbody.appendChild(tr); } else { ele.appendChild(tr); }
+		
+		//If there is a dataMask available, create the table in that order
 		if (config.dataMask.length > 0) {
 			for (var i = 0; i < config.dataMask.length; i++) {
 				var td = document.createElement("td");
@@ -143,6 +156,7 @@ var createJSTable = function(ele, data, config)
 				}
 			}
 		} else {
+		//If there isn't a dataMask, just iterate through it all.
 			for (var k in j) {
 				//K is the associated key, so we use that to get the value from the arrray
 				var td = document.createElement("td");
@@ -230,7 +244,6 @@ var ticketTable = function(ele, showOld, edit)
 			ele.innerHTML = "Oops, error:" + err;
 			if (popupMessage) { popupMessage("Error: " + err); }
 		} else if (data !== null) {
-			ele.data = data;
 			var p = 0;
 			let config = new Object();
 			config.addEditData = 0;
@@ -240,11 +253,6 @@ var ticketTable = function(ele, showOld, edit)
 			config.bodyID = "ambobody";
 			config.dataMask = ["id", "name", "location", "incident_type", "priority", "ambulance", "time", "comments"];
 			if (edit === 1) { config.addEditData = 1; }
-			/*data.forEach(function(j) {
-				delete j.active;
-				delete j.lat;
-				delete j.lng;
-			})*/;
 			createJSTable(ele, data, config);
 		}
 	});

@@ -78,6 +78,22 @@ var ddMap = {
 		//This initializes our infowindow for use with markers.
 		this.infowindow = new google.maps.InfoWindow({content: contentString});
 		this.bounds = new google.maps.LatLngBounds();
+		const ccd = document.createElement("div");
+		this.mapControl(ccd, this.map);
+		this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(ccd);
+	},
+	mapControl: function(div, map) {
+		const controlUI = document.createElement("div");
+		controlUI.setAttribute("class", "controlUI");
+		controlUI.title = "Click to center and show all tickets and ambulances";
+		div.appendChild(controlUI);
+		const controlText = document.createElement("div");
+		controlText.setAttribute("class", "controlText");
+		controlText.innerHTML = "Show All";
+		controlUI.appendChild(controlText);
+		controlUI.addEventListener("click", () => {
+			this.doBounding();
+		});
 	},
 	doBounding: function() {
 		for (var index in this.ambulance_markers ) {
@@ -136,6 +152,7 @@ var ddMap = {
 		});
 		marker.type = typename;
 		marker.id = obj['id'];
+		marker.isFree = obj['isFree'];
 		marker.addListener('click', () => this.infoWindowHandler(marker));
 		if (obj['type'] == 1) {
 			this.ambulance_markers.push(marker);
@@ -169,8 +186,18 @@ var ddMap = {
 	},
 	zoomOnMarker: function(id) {
 		let index = this.ticket_markers.findIndex(x => x.id == id);
-		this.map.setZoom(17);
-		this.map.panTo(this.ticket_markers[index].position);
+		let extraindex = this.directions.findIndex(x => x.id == this.ticket_markers[index].isFree);
+		if (extraindex >= 0) {
+			const c = this.directions[extraindex];
+			console.log(c);
+			this.bounds = new google.maps.LatLngBounds();
+			this.bounds.extend(c.start_location);
+			this.bounds.extend(c.end_location);
+			this.map.fitBounds(this.bounds, 50);
+		} else {
+			this.map.setZoom(15);
+			this.map.panTo(this.ticket_markers[index].position);
+		}
 	},
 	infoWindowHandler: function(marker) {
 		//EventHandler, listening to click events on our generated markers.
@@ -269,7 +296,7 @@ var ddMap = {
 	},
 	markerprep: function(data) {
 		const ambostatus = ["Out of Service", "Available", "Enroute", "Unavailable"];
-		let obj = new Object();
+		var obj = new Object();
 		obj.dlatlng = null;
 		obj.status = data.status;
 		obj.type = data.markertype;
@@ -277,8 +304,10 @@ var ddMap = {
 		obj.title = data.name;
 		obj.isFree = data.isFree;
 		obj.id = data.id;
-		if (data.loclat && data.loclng) {
+		if ((data.loclat && data.loclng)) {
 			obj.latlng = { "lat": data.loclat, "lng": data.loclng };
+		} else if (data.lat && data.lng) {
+			obj.latlng = { "lat": data.lat, "lng": data.lng };
 		}
 		if (obj.type == 1) {
 			obj.title += ": "+ambostatus[obj.status]+"\n"+data.location;
@@ -301,7 +330,7 @@ var ddMap = {
 			map.loc = window.navigator.geolocation;
 		}
 		if (Array.isArray(ele.data)) {
-			ele.data.forEach((j, k) => {
+			ele.data.forEach((j) => {
 				const o = map.markerprep(j);
 				if (o.latlng) { map.addMarker(o.latlng, o); }
 				if (o.dlatlng) {map.addDirections(o.latlng, o.dlatlng, o.id);}

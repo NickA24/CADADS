@@ -40,9 +40,8 @@ function loadScript(url, callback, arg1)
 	var scr = document.createElement('script');
 	scr.type = 'text/javascript';
 	scr.src = url;
-	if (callback) 
+	if (callback)
 	{
-		scr.onreadystatechange = function() { callback(arg1); };
 		scr.onload = function() { callback(arg1); };
 	}
 	document.head.appendChild(scr);
