@@ -77,8 +77,9 @@ if (checklogin()) { ?>
 				<?php
 				$result = $db->query("SELECT id, name, style FROM map_styles ORDER BY id")->fetchAll();
 				foreach($result as $r) {
-					if ($r['style'] == $_SESSION['preferred_map']) { $r['name'] .= "•"; }
-					echo '<a id="mapStyle'.$r['id'].'" class="mapStyle" data="'.$r['id'].'" src="#">'.$r['name']."</a>\n";
+					echo '<a id="mapStyle'.$r['id'].'" class="mapStyle';
+					if ($r['style'] == $_SESSION['preferred_map']) { echo " selected"; }
+					echo '" data="'.$r['id'].'" src="#">'.$r['name']."</a>\n";
 					if ($result[count($result)-1]['id'] != $r['id']) { echo "\t\t\t\t"; }
 				}
 				?>

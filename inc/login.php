@@ -19,6 +19,7 @@ function passmake($a) {
 function checklogin() {
 	if (!isset($_SESSION['myusername'])) {return false;}
 	$myusername = $_SESSION['myusername'];
+	
 	if ($myusername && $_SESSION['mypassword'] == 1) { return $_SESSION['user_type']; } else { return false; }
 	return false;
 }
@@ -35,10 +36,15 @@ function logoutbutton() {
 if (isset($_POST)) {
 	//Update a user's map preference
 	if (isset($_POST['updateMapStyle']) && $_SESSION['myid'] && checklogin()) {
+		//array(4) { ["updateMapStyle"]=> string(4) "true" ["mapID"]=> string(1) "3" ["method"]=> string(4) "post" ["responseType"]=> string(4) "text" } 
 		$params = array(":id"=>$_SESSION['myid'], ":mapid"=>$_POST['mapID']);
 		$query = "UPDATE users SET preferred_map = :mapid WHERE id = :id";
 		$result = $db->query($query, $params);
-		$_SESSION['msgbox'] = "Updated preferred map!";
+		$params = array(":mapid"=>$_POST['mapID']);
+		$query = "SELECT style FROM map_styles WHERE id = :mapid";
+		$result = $db->query($query, $params);
+		$_SESSION['preferred_map'] = $result->fetch()['style'];
+		$_SESSION['msgbox'] = "Updated preferred map";
 		return "Updated preferred map!";
 	}
 	//If we receive user data, check if it's valid and if it's submitted by an admin, and insert into the db
