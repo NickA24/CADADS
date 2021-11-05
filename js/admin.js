@@ -61,7 +61,6 @@ var adminEditUser = function(e)
 		if (err !== null) {
 			msgBox.innerHTML = err;
 		} else {
-			lv.textContent = '';
 			var h2 = document.createElement("h2");
 			editbox.appendChild(h2);
 			h2.innerHTML = "Editing user "+data[0]['name'];
@@ -137,7 +136,7 @@ var adminEditUser = function(e)
 						console.log(data);
 						msgbox.innerHTML = data;
 					}
-					lv.textContent = '';
+					adminListUsers(new event('aa'));
 					editbox.textContent = '';
 				});
 			});
@@ -175,8 +174,7 @@ var adminDeleteUsers = function(e)
 			} else {
 				popupMessage(data);
 			}
-			let lv = document.getElementById("listedUsers");
-			lv.textContent = '';
+			adminListUsers(new event("aa"));
 		});
 	} else {
 		msgbox.innerHTML = "Deletion cancelled";
