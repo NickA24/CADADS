@@ -189,7 +189,6 @@ var ddMap = {
 		let extraindex = this.directions.findIndex(x => x.id == this.ticket_markers[index].isFree);
 		if (extraindex >= 0) {
 			const c = this.directions[extraindex];
-			console.log(c);
 			this.bounds = new google.maps.LatLngBounds();
 			this.bounds.extend(c.start_location);
 			this.bounds.extend(c.end_location);
@@ -291,8 +290,12 @@ var ddMap = {
 					}
 				}
 			}
+			return true;
 			//Next, do some magic with the returned data, so we have lat and long of locations. Markers REQUIRE latlong, can't use street data.
-		}).catch((e) => console.log("Directions request failed due to " + e));
+		}).catch((e) => {
+			console.log("Directions request failed due to " + e);
+			return e;
+		});
 	},
 	markerprep: function(data) {
 		const ambostatus = ["Out of Service", "Available", "Enroute", "Unavailable"];
@@ -338,9 +341,13 @@ var ddMap = {
 					map.addDirections(o.latlng, map.ticket_markers[0].position, o.id, 3, o);
 				}
 			});
-			
 		} else { 
 			popupMessage("Unable to load map, please hold.");
+		}
+		if (ele.initType == 3 && !map.directions.length) 
+		{
+				popupMessage("Sorry, there is no route available to this ticket. Returning to main page...");
+				setTimeout('location.href = "index.php";', 5000 );
 		}
 	},
 	testDirections: function() {
