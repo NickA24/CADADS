@@ -330,7 +330,7 @@ var ddMap = {
 			map.loc = window.navigator.geolocation;
 		}
 		if (Array.isArray(ele.data)) {
-			ele.data.forEach((j) => {
+			ele.data.forEach((j, k) => {
 				const o = map.markerprep(j);
 				if (o.latlng) { map.addMarker(o.latlng, o); }
 				if (o.dlatlng) {map.addDirections(o.latlng, o.dlatlng, o.id);}
