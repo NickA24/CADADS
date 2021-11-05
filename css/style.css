@@ -118,7 +118,7 @@ table, thead, tbody, tr, th, td {
     }
 	
 	.selected::after {
-		content: "▣";
+		content: "●";
 	}
 	
 	
