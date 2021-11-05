@@ -69,6 +69,9 @@ table, thead, tbody, tr, th, td {
         top: 0;
         z-index: 1;
     }
+	.sticky li {
+		cursor: pointer;
+	}
         .dropdown-content {
       display: none;
       position: absolute;
@@ -113,3 +116,33 @@ table, thead, tbody, tr, th, td {
     .show {
       display: block;
     }
+	
+	.selected::after {
+		content: "•";
+	}
+	
+	
+/* Map functions - button looky. */
+
+	.controlUI {
+		background-color: #fff;
+		border: 2px solid #fff;
+		border-radius: 2px;
+		box-shadow: 0 2px 6px rgba(0,0,0,.3);
+		cursor: pointer;
+		margin-top: 10px;
+		margin-bottom: 20px;
+		text-align: center;
+	}
+	.controlUI:hover {
+		background-color: #EBEBEB;
+		border: 2px solid #EBEBEB;
+	}
+	.controlText {
+		color: rgb(25,25,25);
+		font-size: 16px;
+		line-height: 36px;
+		padding-left: 5px;
+		padding-right: 5px;
+		
+	}
