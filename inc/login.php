@@ -36,7 +36,6 @@ function logoutbutton() {
 if (isset($_POST)) {
 	//Update a user's map preference
 	if (isset($_POST['updateMapStyle']) && $_SESSION['myid'] && checklogin()) {
-		//array(4) { ["updateMapStyle"]=> string(4) "true" ["mapID"]=> string(1) "3" ["method"]=> string(4) "post" ["responseType"]=> string(4) "text" } 
 		$params = array(":id"=>$_SESSION['myid'], ":mapid"=>$_POST['mapID']);
 		$query = "UPDATE users SET preferred_map = :mapid WHERE id = :id";
 		$result = $db->query($query, $params);

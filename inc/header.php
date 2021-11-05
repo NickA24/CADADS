@@ -10,7 +10,7 @@
 		echo '</div>';
 		//Javascript for this div is contained in the msgbox.js file
 	}
-	
+	$ambostatuses = ['Out of Service', 'Available', 'Enroute', 'Unavailable'];
 	
 	//If there is no needmap variable, create one and set it to 0.
 	if (!isset($needmap)) {$needmap = 0;} 
@@ -52,7 +52,7 @@ if (isset($ticketID)) { echo 'data-ticketID="'.$ticketID.'" '; }
 if (checklogin()) { ?>
 <nav class="sticky">
 	<ul>
-		<li >Diamond Dispatch: <?php echo $_SESSION['myusername'] ?></li>
+		<li >Diamond Dispatch: <?php echo $_SESSION['myusername']; if (checklogin() == 2) { echo " - ", $ambostatuses[$_SESSION['status']]; } ?></li>
 		<?php 
 		//If this is an ambulance, do ambulance things
 		if (checklogin() == 2) { ?>
@@ -71,7 +71,9 @@ if (checklogin()) { ?>
 			?>
 			</div>
 		</li>
-		<?php } ?>
+		<?php }
+		if (checklogin() != 3) {
+		?>
 <li class="dropbtnMap" id="dropbtnMapList">Map Style <i class="fa fa-caret-down dropbtnMap"></i>
 			<div class="dropdownMap-content" id="myDropdownMap">
 				<?php
@@ -85,6 +87,7 @@ if (checklogin()) { ?>
 				?>
 			</div>
 		</li>
+		<?php } ?>
 		<li class="logoutbutn">
 			<a class="active">
 			<?php
