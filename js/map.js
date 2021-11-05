@@ -292,8 +292,7 @@ var ddMap = {
 				}
 			}
 			//Next, do some magic with the returned data, so we have lat and long of locations. Markers REQUIRE latlong, can't use street data.
-		}).catch((e) => {console.log("Directions request failed due to " + e); return false;});
-		return true;
+		}).catch((e) => console.log("Directions request failed due to " + e));
 	},
 	markerprep: function(data) {
 		const ambostatus = ["Out of Service", "Available", "Enroute", "Unavailable"];
@@ -336,8 +335,7 @@ var ddMap = {
 				if (o.latlng) { map.addMarker(o.latlng, o); }
 				if (o.dlatlng) {map.addDirections(o.latlng, o.dlatlng, o.id);}
 				if (ele.initType == 3 && k > 0) {
-					let a = map.addDirections(o.latlng, map.ticket_markers[0].position, o.id, 3, o);
-					if (!a) { console.log("do the doo"); }
+					map.addDirections(o.latlng, map.ticket_markers[0].position, o.id, 3, o);
 				}
 			});
 			
