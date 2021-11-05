@@ -16,6 +16,9 @@ function adminAddUser($db,$var)
 	{
 		return 'You need a valid name, password, and usertype';
 	}
+	if (strlen($var['name']) > 64 || strlen($var['pass']) > 64) {
+		return 'Your username or password is too long';
+	}
 	$un = $var['name'];
 	$pw = $var['pass'];
 	$ut = $var['userType'];
@@ -71,15 +74,22 @@ function adminEditUser($db,$var)
 		echo "no valid user id";
 		return 'You need a valid user id to edit';
 	}
+	if (isset($var['name']) && strlen($var['name']) > 64)
+	{
+		echo 'Name too long';
+		return 'Your new username is too long, please limit it to 128 characters';
+	}
 	$params = array(":id"=>$var['id'], ":name"=>$var['name'], ":usertype"=>$var['user_type']);
 	$sql = "UPDATE users SET name = :name, user_type = :usertype WHERE id = :id";
 	$result = $db->query($sql, $params);
-	if (isset($var['pass']))
+	if (isset($var['pass']) && strlen($var['pass']) < 64)
 	{
 		unset($params);
 		$params = array(":id"=>$var['id'], ":pass"=> passmake($var['pass']));
 		$sql = "UPDATE users SET hash_pw = :pass WHERE id = :id";
 		$result = $db->query($sql, $params);
+	} else if (isset($var['pass'])) {
+		return 'Your new password is too long, please reduce it to 64 characters max';
 	}
 	return "Updated user id ".$var['id'];
 }
@@ -124,9 +134,9 @@ include('./inc/header.php');
 	<div id="AddUser"><h3>Add a New User</h3>
 		<form method="POST" id="addUser">
 			<input type="hidden" name="submitType" id="submitType" value="adminAddUser">
-			<label for="name">User Name:</label><input type="textbox" name="name" id="name">
-			<label for="pass">Password:</label><input type="password" name="pass" id="pass">
-			<label for="dblchk"></label><input type="password" name="dblchk" id="dblchk" placeholder="Verify Password" onfocusout="doPassCheck(this)">
+			<label for="name">User Name:</label><input type="textbox" name="name" id="name" maxlength="64">
+			<label for="pass">Password:</label><input type="password" name="pass" id="pass" maxlength="64">
+			<label for="dblchk"></label><input type="password" name="dblchk" id="dblchk" maxlength="64" placeholder="Verify Password" onfocusout="doPassCheck(this)">
 			<label for="userType">User Type:</label><select id="userType" name="userType">
 			<option value="1" selected>Dispatch</option>
 			<option value="2">Ambulance</option>
@@ -134,8 +144,18 @@ include('./inc/header.php');
 			<button type="submit" value="submit" name="addUserSubmit" id="addUserSubmit">Add New User</button>
 		</form>
 	</div>
-	<div id="ListUsers"><h3>List users to interact with:<button type="button" name="listUsers" id="listUsers" onclick="adminListUsers(event);">List</button></h3>
-		<select name="listedUsers" id="listedUsers"></select><button type="button" name="EditUserList" id="EditUserList" onclick="adminEditUser(event);">Edit</button>
+	<div id="ListUsers"><h3>List of users to interact with:</h3>
+		<select name="listedUsers" id="listedUsers">
+		<?php
+			$params = array(":id"=>$_SESSION['myid']);
+			$sql = "SELECT id, name, '' AS pass, user_type FROM users WHERE id != :id ORDER BY id";
+			$return = $db->query($sql, $params)->fetchAll(PDO::FETCH_ASSOC);
+			$usrtype = ["Dispatch", "Ambulance", "Admin"];
+			foreach ($return as $r) {
+				echo "<option value='".$r['id']."'>".$r['name']."-".$usrtype[$r['user_type']-1]."</option>";
+			}
+		?>
+		</select><button type="button" name="EditUserList" id="EditUserList" onclick="adminEditUser(event);">Edit</button>
 		<button name="DeleteUserList" id="DeleteUserList" onclick="adminDeleteUsers(event);">Delete</button>
 	</div>
 	<div id="EditUser"><h3>Edit a User's Name, Password, or Type</h3></div>

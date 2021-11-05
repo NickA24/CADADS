@@ -21,7 +21,7 @@
                     <center><h2>New Ticket</h2></center>
                     <br>
                     <label for="name">Name:</label>
-                        <input type="textbox" id="name" name="name">
+                        <input type="textbox" id="name" name="name" maxlength="64">
                     <br>
                     <label for="location">Location:</label>
                         <input type="textbox" id="location" name="location">
@@ -74,7 +74,7 @@
                         </select>
                         <br>
                     <label for="editname">Name:</label>
-                        <input type="textbox" id="editname" name="editname">
+                        <input type="textbox" id="editname" name="editname" maxlength="64">
                     <label for="editlocation">Location:</label>
                         <input type="textbox" id="editlocation" name="editlocation">
                     <label for="editincident">Incident Type:</label>
