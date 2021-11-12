@@ -77,6 +77,7 @@ var createJSTable = function(ele, data, config)
 		if (config.tableID) { table.setAttribute("id", config.tableID); }
 		if (thead) { table.appendChild(thead); }
 		if (tbody) { table.appendChild(tbody); }
+		ele.appendChild(table);
 	}
 	
 	//This generates the table itself.
