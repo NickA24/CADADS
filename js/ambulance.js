@@ -73,6 +73,7 @@ function initNewSource()
 {
 source = new EventSource('/events', {withCredentials: true});
 source.addEventListener('message', event => {
+	console.log("got message");
 	map.loc.getCurrentPosition((position) => {
 					const ele = document.getElementById("curCall");
 					testFetch('inc/googlereversegeocode.php?returntext=1&id='+ele.data.id+'&lat='+position.coords.latitude+'&lng='+position.coords.longitude, {}, (data) => {
