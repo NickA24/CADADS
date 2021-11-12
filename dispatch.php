@@ -64,9 +64,8 @@
                 <form class="edit-ticket" action="/inc/submit.php" method="post">
                     <input type="hidden" name="submitType" id="submitType" value="editTicket">
                     <center><h2>Edit Ticket</h2></center>
-                    <label for="editid">Id:</label>
-                        <br>
-                        <input type="textbox" id="editid" name="editid" readonly><br>
+                    <input type="hidden" id="editid" name="editid" readonly>
+					<label for="editid" id="editidlabel">Id:</label><br>
                     <label for="editactive">Active:</label>
                         <select id="editactive" name="editactive">
                             <option value="0">No</option>
@@ -110,6 +109,11 @@
                 </form>
             </div>
         </div>
+            <br><br>
+        <?php
+        //We are dynamically calling the database with javascript here.
+        //In the future, it will most likely update both on a timer, as well as when data is pushed from the server telling it to update
+        ?>
         
         <div id="tickets"></div>
     </div>
