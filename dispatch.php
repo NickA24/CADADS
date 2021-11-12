@@ -66,7 +66,7 @@
                     <center><h2>Edit Ticket</h2></center>
                     <label for="editid">Id:</label>
                         <br>
-                        <input type="textbox" id="editid" name="editid" readonly>
+                        <input type="textbox" id="editid" name="editid" readonly><br>
                     <label for="editactive">Active:</label>
                         <select id="editactive" name="editactive">
                             <option value="0">No</option>
