@@ -78,6 +78,7 @@ source.addEventListener('ping', event => {
 		const ele = document.getElementById("curCall");
 		testFetch('inc/googlereversegeocode.php?returntext=1&id='+ele.data.id+'&lat='+position.coords.latitude+'&lng='+position.coords.longitude, {}, (data) => {
 			position.origin = data.address;
+			console.log(data);
 			amboService(status, position, ele);
 			map.ambulance_markers[0].setPosition(position);
 		});
