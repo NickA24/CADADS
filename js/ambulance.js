@@ -91,8 +91,8 @@ source.addEventListener('error', event => {
 	//document.body.innerHTML += '<span style="color:red">'+event.data + '</span><br>';
 	if (source.readyState == 2)
 	{
-		source.close();
-		initNewSource();
+		//source.close();
+		//initNewSource();
 	}
 });
 }
