@@ -251,7 +251,28 @@ var ticketTable = function(ele, showOld, edit)
 			config.createHeader = true;
 			config.createBody = true;
 			config.bodyID = "ambobody";
-			config.dataMask = ["id", "name", "location"];
+			config.dataMask = ["name", "location", "incident_type", "priority"];
+			if (edit === 1) { config.addEditData = 1; }
+			createJSTable(ele, data, config);
+		}
+	});
+}
+
+var ticketTable2 = function(ele, showOld, edit)
+{
+	doAJAX('inc/getjson.php?tbl=tkt&showinactive='+showOld, new Object(), function(err, data) {
+		if (err !== null) {
+			ele.innerHTML = "Oops, error:" + err;
+			if (popupMessage) { popupMessage("Error: " + err); }
+		} else if (data !== null) {
+			var p = 0;
+			let config = new Object();
+			config.addEditData = 0;
+			config.createTable = true;
+			config.createHeader = true;
+			config.createBody = true;
+			config.bodyID = "ambobody";
+			config.dataMask = ["id", "ambulance", "time", "comments"];
 			if (edit === 1) { config.addEditData = 1; }
 			createJSTable(ele, data, config);
 		}
