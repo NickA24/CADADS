@@ -30,7 +30,7 @@ function addTicket($db,$var)
         $params = array(":active"=>"1", ":name"=>$var['name'], ":location"=>$var['location'], ":lat"=>$var['lat'], ":lng"=>$var['lng'], ":incident"=>$var['incident_type'], ":priority"=>$priority, ":dispatcher"=>$_SESSION['myid'], ":comment"=>$var['comments']);
         $sql = "INSERT INTO ticket(active, name, location, lat, lng, incident_type, priority, dispatcher, time, comments) VALUES(:active, :name, :location, :lat, :lng, :incident, :priority, :dispatcher, NOW(), :comment)";
         $result = $db->query($sql, $params);
-	return "Ticket added successfully!";
+	return "";
 }
 
 //A function to edit already added tickets. Note these are submitted with a prefix of "edit" because of the code written for testing. This can be changed if you feel like it, but make sure you change the html/js as well.
