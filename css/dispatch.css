@@ -236,4 +236,24 @@
     .markerZoom {
 		cursor: pointer;    
     }
+    tr {
+        width: 550px;
+        text-align: center;
+        display: flex;
+        justify-content: space-evenly;
+    }
+    .main-info {
+        text-align: center;
+    }
+    .more-info, .more-info2{
+        display: none;
+        float: right;
+    }
+    .tickets {
+        background-color: white;
+        border: 3px solid black;
+        border-radius: 15px;
+        display: flex;
+        justify-content: space-evenly;
+    }
 	
