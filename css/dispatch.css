@@ -238,14 +238,10 @@
     }
     tr {
         width: 550px;
-        text-align: center;
         display: flex;
         justify-content: space-evenly;
     }
-    .main-info {
-        text-align: center;
-    }
-    .more-info, .more-info2{
+    .more-info, .more-info2 {
         display: none;
         float: right;
     }
