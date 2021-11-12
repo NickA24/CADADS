@@ -78,6 +78,11 @@ var createJSTable = function(ele, data, config)
 		if (thead) { table.appendChild(thead); }
 		if (tbody) { table.appendChild(tbody); }
 		ele.appendChild(table);
+		var moreButton = document.createElement("button");
+		moreButton.setAttribute("class", "btn-primary btn");
+		moreButton.setAttribute("id", "moreInfoBtn");
+		moreButton.setAttribute("onclick", "moreInfo()");
+		moreButton.innerHTML = "More Info";
 	}
 	
 	//This generates the table itself.
@@ -155,10 +160,6 @@ var createJSTable = function(ele, data, config)
 					td3.appendChild(form2);
 					form2.addEventListener('submit', confirmDeleteTicket);
 					tr.appendChild(td3);
-					var moreButton = document.createElement("button");
-					moreButton.setAttribute("class", "btn-primary btn");
-					moreButton.setAttribute("id", "moreInfoBtn");
-					moreButton.setAttribute("onclick", "moreInfo()");
 				}
 			}
 		} else {
@@ -228,10 +229,6 @@ var createJSTable = function(ele, data, config)
 					td3.appendChild(form2);
 					form2.addEventListener('submit', confirmDeleteTicket);
 					tr.appendChild(td3);
-					var moreButton = document.createElement("button");
-					moreButton.setAttribute("class", "btn-primary btn");
-					moreButton.setAttribute("id", "moreInfoBtn");
-					moreButton.setAttribute("onclick", "moreInfo()");
 				}
 			}
 		}
