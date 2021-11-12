@@ -39,6 +39,8 @@ var createJSTable = function(ele, data, config)
 		var thead = document.createElement('thead');
 		if (config.headID) { thead.setAttribute("id", config.headID); }
 		var tr = document.createElement('tr');
+		tr.setAttribute("class", "main-info");
+		tr.setAttribute("id", "mainInfo");
 		thead.appendChild(tr);
 		if (config.dataMask) {
 			for (var i = 0; i < config.dataMask.length; i++) {
