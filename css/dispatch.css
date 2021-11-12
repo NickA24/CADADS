@@ -236,11 +236,6 @@
     .markerZoom {
 		cursor: pointer;    
     }
-    tr {
-        width: 550px;
-        display: flex;
-        justify-content: space-evenly;
-    }
     .more-info, .more-info2 {
         display: none;
         float: right;
