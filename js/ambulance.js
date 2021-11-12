@@ -79,7 +79,7 @@ source.addEventListener('ping', event => {
 		testFetch('inc/googlereversegeocode.php?returntext=1&id='+ele.data.id+'&lat='+position.coords.latitude+'&lng='+position.coords.longitude, {}, (data) => {
 			position.origin = data.address;
 			amboService(status, position, ele);
-			const coords: {
+			const coords = {
 				lat: position.coords.latitude,
 				lng: position.coords.longitude,
 			}
