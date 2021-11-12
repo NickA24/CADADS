@@ -84,5 +84,6 @@ document.addEventListener('DOMContentLoaded', function(e) {
 	params.datamask = {};
 	var x = document.getElementById(params.ele);
 	ticketTable(x, 0, 1);
+	ticketTable2(x, 0, 1);
 	loadInit(params);
 });
