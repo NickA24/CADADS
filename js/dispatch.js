@@ -57,6 +57,22 @@ function confirmDeleteTicket(e) {
 		//Skipped	
 	}
 }
+function moreInfo() {
+	var more = document.getElementById("moreInfo");
+	var more2 = document.getElementById("moreInfo2");
+	var btntext = document.getElementById("moreInfoBtn");
+
+	if (btntext.innerHTML === "More Info") {
+		more.style.display = "flex";
+		more2.style.display = "flex";
+		btntext.innerHTML = "Less Info"
+	}
+	else {
+		btntext.innerHTML = "More Info"
+		more.style.display = "none";
+		more2.style.display = "none";
+	}
+}
 	
 function openNavAdd() {
   document.getElementById("mySidenav").style.width = "31%";
