@@ -72,7 +72,7 @@ var source;
 function initNewSource()
 {
 source = new EventSource('/events', {withCredentials: true});
-source.addEventListener('message', event => {
+source.addEventListener('ping', event => {
 	console.log("got message");
 	map.loc.getCurrentPosition((position) => {
 					const ele = document.getElementById("curCall");
