@@ -73,12 +73,12 @@ function initNewSource()
 {
 source = new EventSource('/events', {withCredentials: true});
 source.addEventListener('ping', event => {
-	console.log("got message");
+	const status = document.getElementById("curCall").data[0].status;
 	map.loc.getCurrentPosition((position) => {
 		const ele = document.getElementById("curCall");
 		testFetch('inc/googlereversegeocode.php?returntext=1&id='+ele.data.id+'&lat='+position.coords.latitude+'&lng='+position.coords.longitude, {}, (data) => {
 			position.origin = data.address;
-			amboService(evt.target.attributes.data.nodeValue, position, ele);
+			amboService(status, position, ele);
 		});
 	}, (error) => { console.log(error); }, {enableHighAccuracy: false, maximumAge: 5000});
 });
