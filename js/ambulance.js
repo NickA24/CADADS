@@ -68,8 +68,34 @@ var amboInfo = function()
 	});
 }
 
+var source;
+function initNewSource()
+{
+source = new EventSource('/events', {withCredentials: true});
+source.addEventListener('message', event => {
+	map.loc.getCurrentPosition((position) => {
+					const ele = document.getElementById("curCall");
+					testFetch('inc/googlereversegeocode.php?returntext=1&id='+ele.data.id+'&lat='+position.coords.latitude+'&lng='+position.coords.longitude, {}, (data) => {
+						position.origin = data.address;
+						evt.preventDefault();
+						amboService(evt.target.attributes.data.nodeValue, position, ele);
+					});
+				}, (error) => { console.log(error); }, {enableHighAccuracy: false, maximumAge: 5000});
+});
+source.addEventListener('error', event => {
+	//document.body.innerHTML += '<span style="color:red">'+event.data + '</span><br>';
+	if (source.readyState == 2)
+	{
+		source.close();
+		initNewSource();
+	}
+});
+}
+
+
 
 document.addEventListener('DOMContentLoaded', function(e) {
 	document.getElementsByTagName("body")[0].addEventListener("keypress", amboShortcuts, false);
 	amboInfo();
+    	initNewSource();
 });
