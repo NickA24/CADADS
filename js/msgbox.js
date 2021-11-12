@@ -9,6 +9,7 @@ function toggleMessageBox() {
 
 function popupMessage(msg)
 {
+	//console.log((new Error).stack);
 	const msgBox = document.getElementById("msgBoxPopup");
 	if (msgBox) { msgBox.innerHTML = msg; }
 }

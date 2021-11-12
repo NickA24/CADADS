@@ -53,12 +53,8 @@ var amboInfo = function()
 			config.createBody = true;
 			config.bodyID = "ambobody";
 			config.dataMask = ["name", "incident_type", "status", "ambulance_location", "destination"];
+			config.dataMask2nd = ["id", "loclat", "loclng", "dstlat", "dstlng"];
 			createJSTable(ele, data, config);
-			config.createTable = false;
-			config.createHeader = false;
-			config.createBody = false;
-			config.dataMask = ["id", "loclat", "loclng", "dstlat", "dstlng"];
-			createJSTable(document.getElementById("ambobody"), data, config);
 			const html = document.getElementsByTagName("html")[0].dataset;
 			let paramx = new Object();
 			paramx.initType = html.inittype;

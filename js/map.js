@@ -8,7 +8,17 @@ function initMap() {
 function loadInit(params) //loc, style, id) 
 {
 	//automatic click checker to zoom on the map when clicking a ticket
-	document.onclick= function(e){e=window.event? event.srcElement: e.target;const x = e.closest('.markerZoom'); if (x) { map.zoomOnMarker(x.getAttribute("src")); }}
+	document.onclick= function(e){
+		e=window.event? event.srcElement: e.target;const x = e.closest('.markerZoom'); 
+		if (x) { 
+			map.zoomOnMarker(x.getAttribute("id"));
+			var j = document.getElementsByClassName("inner_row");
+			for (let i = 0; i < j.length; i++) {
+				j[i].classList.add("hidden");
+			}
+			x.lastElementChild.classList.remove("hidden");
+		}
+	}
 	//loc:1 means ambulance.php, 2:dispatch
 	//Loads the google script, and after loading will do the map initialization.
 	map.mapStyle = params.preferredMap;
@@ -36,10 +46,8 @@ function loadInit(params) //loc, style, id)
 		} else if (data !== null) {
 			ele.data = data;
 			if (!map.init) { loadScript(gurl, map.setup, ele); }
-		} else {
-			if (params.inittype == 3) { 
-				popupMessage("Error finding ambulances to add. Returning to main...");
-				setTimeout('location.href = "index.php";',3000 );
+			if (params.initType == 3) { 
+				params.callback(data);
 			}
 		}
 	});
@@ -61,6 +69,7 @@ var ddMap = {
 	ticket_markers: [],
 	directions: [],
 	colors: [],
+	promises: 0,
 	bounds:null,
 	mapStyle:null,
 	initMap: function() { //Passes origin and destination
@@ -153,6 +162,7 @@ var ddMap = {
 		marker.type = typename;
 		marker.id = obj['id'];
 		marker.isFree = obj['isFree'];
+		marker.lastupdate = Math.floor((new Date(obj['lastupdate']).getTime())/1000);
 		marker.addListener('click', () => this.infoWindowHandler(marker));
 		if (obj['type'] == 1) {
 			this.ambulance_markers.push(marker);
@@ -242,6 +252,7 @@ var ddMap = {
 		return color;
 	},
 	addDirections: function(or, d, id, initType, o) {
+		this.promises++;
 		this.ds.route(
 		{
 			origin: or,
@@ -290,10 +301,19 @@ var ddMap = {
 					}
 				}
 			}
+			this.promises--;
 			return true;
 			//Next, do some magic with the returned data, so we have lat and long of locations. Markers REQUIRE latlong, can't use street data.
 		}).catch((e) => {
-			console.log("Directions request failed due to " + e);
+			this.promises--;
+			console.log("Directions request failed -> " + e);
+			if (this.promises == 0) {
+				if (!this.directions.length && initType == 3) {
+					//No directions added at all, after attempting many.
+					closestAmbulanceFailed("Failure to find a direct route for any available ambulance. Returning...");
+					return;
+				}
+			}
 			return e;
 		});
 	},
@@ -306,6 +326,7 @@ var ddMap = {
 		obj.name = data.name;
 		obj.title = data.name;
 		obj.isFree = data.isFree;
+		obj.lastupdate = data.lastupdate;
 		obj.id = data.id;
 		if ((data.loclat && data.loclng)) {
 			obj.latlng = { "lat": data.loclat, "lng": data.loclng };
@@ -341,13 +362,12 @@ var ddMap = {
 					map.addDirections(o.latlng, map.ticket_markers[0].position, o.id, 3, o);
 				}
 			});
+			if (ele.initType == 3 && ele.data.length == 1) {
+				closestAmbulanceFailed("There are no available ambulances for this ticket. Returning...");
+				return;
+			}
 		} else { 
 			popupMessage("Unable to load map, please hold.");
-		}
-		if (ele.initType == 3 && !map.directions.length) 
-		{
-				popupMessage("Sorry, there is no route available to this ticket. Returning to main page...");
-				setTimeout('location.href = "index.php";', 5000 );
 		}
 	},
 	testDirections: function() {

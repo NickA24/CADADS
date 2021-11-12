@@ -6,5 +6,15 @@ document.addEventListener('DOMContentLoaded', function(e) {
 	params.ticketId = html.ticketid;
 	params.ele = "pick3";
 	params.datamask = {};
+	params.callback = closestambulancecallback;
 	loadInit(params);
 });
+
+function closestambulancecallback(data) {
+}
+
+function closestAmbulanceFailed(msg) {
+	popupMessage(msg);
+	setTimeout('location.href = "index.php";', 6000 );
+}
+

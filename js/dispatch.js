@@ -7,6 +7,7 @@
 //Input: e: form submission event
 var editFormPrep = function(e)
 {
+	console.log("butts");
 	e.preventDefault();
 	if (e.target.submitType.value == "editTicket" && e.target.editid.value > 0)
 	{
@@ -53,24 +54,8 @@ function confirmDeleteTicket(e) {
 		this.submit();
 		//Do submit
 	} else { 
-		console.log("Skip it please");
+		console.log("Canceling delete function.");
 		//Skipped	
-	}
-}
-function moreInfo() {
-	var more = document.getElementById("moreInfo");
-	var more2 = document.getElementById("moreInfo2");
-	var btntext = document.getElementById("moreInfoBtn");
-
-	if (btntext.innerHTML === "More Info") {
-		more.style.display = "flex";
-		more2.style.display = "flex";
-		btntext.innerHTML = "Less Info"
-	}
-	else {
-		btntext.innerHTML = "More Info"
-		more.style.display = "none";
-		more2.style.display = "none";
 	}
 }
 	
@@ -100,6 +85,5 @@ document.addEventListener('DOMContentLoaded', function(e) {
 	params.datamask = {};
 	var x = document.getElementById(params.ele);
 	ticketTable(x, 0, 1);
-	ticketTable2(x, 0, 1);
 	loadInit(params);
 });
