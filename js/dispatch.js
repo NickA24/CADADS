@@ -17,6 +17,7 @@ var editFormPrep = function(e)
 			} else {
 				data = data[0];
 				document.getElementById("editid").value = data.id;
+				document.getElementById("editidlabel").innerHTML = "<b>Id:"+data.id+"</b>";
 				document.getElementById("editactive").value = data.active;
 				document.getElementById("editname").value = data.name;
 				document.getElementById("editlocation").value = data.location;
