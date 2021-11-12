@@ -110,12 +110,6 @@
                 </form>
             </div>
         </div>
-            <br><br>
-	<button class="btn-primary btn" id="moreInfoBtn" onclick="moreInfo()">More Info</button>
-        <?php
-        //We are dynamically calling the database with javascript here.
-        //In the future, it will most likely update both on a timer, as well as when data is pushed from the server telling it to update
-        ?>
         
         <div id="tickets"></div>
     </div>
