@@ -204,8 +204,10 @@ var ddMap = {
 			this.bounds.extend(c.end_location);
 			this.map.fitBounds(this.bounds, 50);
 		} else {
-			this.map.setZoom(15);
-			this.map.panTo(this.ticket_markers[index].position);
+			if (this.ticket_markers[index]) {
+				this.map.setZoom(15);
+				this.map.panTo(this.ticket_markers[index].position);
+			}
 		}
 	},
 	infoWindowHandler: function(marker) {
