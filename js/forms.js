@@ -77,12 +77,6 @@ var createJSTable = function(ele, data, config)
 		if (config.tableID) { table.setAttribute("id", config.tableID); }
 		if (thead) { table.appendChild(thead); }
 		if (tbody) { table.appendChild(tbody); }
-		var moreButton = document.createElement("button");
-		moreButton.setAttribute("class", "btn-primary btn");
-		moreButton.setAttribute("id", "moreInfoBtn");
-		moreButton.setAttribute("onclick", "moreInfo()");
-		moreButton.innerHTML = "More Info";
-		ele.appendChild(table);
 	}
 	
 	//This generates the table itself.
