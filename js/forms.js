@@ -254,6 +254,10 @@ var ticketTable = function(ele, showOld, edit)
 			config.createBody = true;
 			config.bodyID = "ambobody";
 			config.dataMask = ["name", "location", "incident_type", "priority"];
+			var moreButton = document.createElement("button");
+			moreButton.setAttribute("class", "btn-primary btn");
+			moreButton.setAttribute("id", "moreInfoBtn");
+			moreButton.setAttribute("onclick", "moreInfo()");
 			if (edit === 1) { config.addEditData = 1; }
 			createJSTable(ele, data, config);
 		}
