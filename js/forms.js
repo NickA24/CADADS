@@ -41,11 +41,6 @@ var createJSTable = function(ele, data, config)
 				td.setAttribute("class", "header_" + config.dataMask[i]);
 				td.innerHTML = config.dataMask[i];
 				tr.appendChild(td);
-				/*if(config.dataMask[i] == "id" && config.addEditData === 1)
-				{
-					td.innerHTML = "";
-					td.setAttribute("colspan", 3);
-				}*/
 			}
 		} else {
 			for (var i = 0; i < headdata.length; i++) {
@@ -53,11 +48,6 @@ var createJSTable = function(ele, data, config)
 				td.setAttribute("class", "header_" + headdata[i]);
 				td.innerHTML = headdata[i];
 				tr.appendChild(td);
-				/*if(headdata[i] == "id" && config.addEditData === 1)
-				{
-					td.innerHTML = "";
-					td.setAttribute("colspan", 3);
-				}*/
 			}
 		}
 		if (!config.createTable) { ele.appendChild(thead); }
@@ -84,6 +74,7 @@ var createJSTable = function(ele, data, config)
 		var tr = document.createElement("tr");
 		tr.setAttribute("class", "rows_" + v);
 		tr.setAttribute("src", j["id"]);
+		tr.setAttribute("id", "row_0_"+j["id"]);
 		tbody.appendChild(tr);
 		
 		//If there is a dataMask available, create the table in that order
@@ -95,6 +86,7 @@ var createJSTable = function(ele, data, config)
 				tr = document.createElement("tr");
 				tr.setAttribute("class", "hidden inner_row rows_"+v);
 				tr.setAttribute("src", j["id"]);
+				tr.setAttribute("id", "row_0_"+j["id"]);
 				tbody.appendChild(tr);
 				for (var i = 0; i < config.dataMask2nd.length; i++) {
 					
@@ -113,7 +105,10 @@ var createJSTable = function(ele, data, config)
 var tableCreation = function(tr, i, j ,k, aed) {
 	var td = document.createElement("td");
 	td.setAttribute("class", "info_" + i);
-	td.innerHTML = k;	
+	td.setAttribute("id", "info_"+i+"_"+tr.getAttribute("src"));
+	if (j == "comments" && k.length > 100) {
+		td.innerHTML = k.substring(0, 100)+"...<a href='ticket.php?id="+tr.getAttribute("src")+"'><em>Read More</em></a>";
+	} else { td.innerHTML = k; }
 	tr.appendChild(td);
 	if (j == "id" && aed === 1)
 	{
