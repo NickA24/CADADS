@@ -116,7 +116,9 @@ var tableCreation = function(tr, i, j ,k, aed) {
 	var td = document.createElement("td");
 	td.setAttribute("class", "info_" + i);
 	td.setAttribute("id", "info_"+i+"_"+tr.getAttribute("src"));
-	td.innerHTML = k;	
+	if (j == "comments" && k.length > 100) {
+		td.innerHTML = k.substring(0, 100)+"...<a href='ticket.php?id="+tr.getAttribute("src")+"'><em>Read More</em></a>";
+	} else { td.innerHTML = k; }
 	tr.appendChild(td);
 	if (j == "id" && aed === 1)
 	{
