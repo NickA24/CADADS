@@ -41,9 +41,9 @@
                     <br>
                     <label for="priority">Priority:</label>
                         <select id="priority" name="priority">
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
+                            <option value="1">1 - High/Emergency</option>
+                            <option value="2">2 - Medium/Urgent</option>
+                            <option value="3">3 - Low/Routine</option>
                         </select>
                     <br>
                     <label for="comments">Comments:</label>
@@ -92,9 +92,9 @@
                     <br>
                     <label for="editpriority">Priority:</label>
                         <select id="editpriority" name="editpriority">
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
+                            <option value="1">1 - High/Emergency</option>
+                            <option value="2">2 - Medium/Urgent</option>
+                            <option value="3">3 - Low/Routine</option>
                         </select>
                     <br>
                     <label for="editambulance">Assigned Ambulance:</label>
