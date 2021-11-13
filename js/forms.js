@@ -115,7 +115,7 @@ var createJSTable = function(ele, data, config)
 var tableCreation = function(tr, i, j ,k, aed) {
 	var td = document.createElement("td");
 	td.setAttribute("class", "info_" + i);
-	td.setAttribute("id", "info_"+i+"_"+tr.id);
+	td.setAttribute("id", "info_"+i+"_"+tr.src);
 	td.innerHTML = k;	
 	tr.appendChild(td);
 	if (j == "id" && aed === 1)
