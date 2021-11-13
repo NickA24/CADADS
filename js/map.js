@@ -14,9 +14,12 @@ function loadInit(params) //loc, style, id)
 			map.zoomOnMarker(x.getAttribute("id"));
 			var j = document.getElementsByClassName("inner_row");
 			for (let i = 0; i < j.length; i++) {
-				if (j[i] != x.lastElementChild) {
+				if (j[i].getAttribute("src") != x.id) {
 					j[i].classList.add("hidden");
 				}
+			}
+			if (x.firstElementChild.nextElementSibling != x.lastElementChild) {
+				x.firstElementChild.nextElementSibling.classList.toggle("hidden");
 			}
 			x.lastElementChild.classList.toggle("hidden");
 		}

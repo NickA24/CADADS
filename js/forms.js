@@ -86,7 +86,7 @@ var createJSTable = function(ele, data, config)
 				tr = document.createElement("tr");
 				tr.setAttribute("class", "hidden inner_row rows_"+v);
 				tr.setAttribute("src", j["id"]);
-				tr.setAttribute("id", "row_0_"+j["id"]);
+				tr.setAttribute("id", "row_1_"+j["id"]);
 				tbody.appendChild(tr);
 				for (var i = 0; i < config.dataMask2nd.length; i++) {
 					
@@ -98,6 +98,22 @@ var createJSTable = function(ele, data, config)
 			for (var k in j) {
 				tableCreation(tr, k, k, j[k], config.addEditData);
 			}
+		}
+		if (config.addComments && j['comments'].length > 1) {
+			tr = document.createElement("tr");
+			tr.setAttribute("class", "hidden inner_row rows_"+v);
+			tr.setAttribute("src", j["id"]);
+			tr.setAttribute("id", "row_comment_"+j["id"]);
+			tbody.appendChild(tr);
+			var td = document.createElement("td");
+			td.setAttribute("class", "info_comments");
+			td.setAttribute("colspan", "100%");
+			td.setAttribute("id", "info_comments_"+tr.getAttribute("src"));
+			if (j['comments'].length > 100) {
+				td.innerHTML = "<b>Comments:</b> "+j['comments'].substring(0, 100)+"...<a href='ticket.php?id="+tr.getAttribute("src")+"'><em>Read More</em></a>";
+			} else { td.innerHTML = "<b>Comments:</b> "+j['comments']; }
+			tr.appendChild(td);
+			tbody.appendChild(tr);
 		}
 	});
 }
@@ -190,7 +206,8 @@ var ticketTable = function(ele, showOld, edit)
 			config.createHeader = true;
 			config.tableID = "ambolist";
 			config.dataMask = ["name", "location", "incident_type", "ambulance"];
-			config.dataMask2nd = ["id", "comments", "priority", "time"];
+			config.dataMask2nd = ["id", "time", "priority", "dispatcher"];
+			config.addComments = true;
 			if (edit === 1) { config.addEditData = 1; }
 			createJSTable(ele, data, config);
 		}
