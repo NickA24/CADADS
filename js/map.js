@@ -14,9 +14,11 @@ function loadInit(params) //loc, style, id)
 			map.zoomOnMarker(x.getAttribute("id"));
 			var j = document.getElementsByClassName("inner_row");
 			for (let i = 0; i < j.length; i++) {
-				j[i].classList.add("hidden");
+				if (j[i] != x.lastElementChild) {
+					j[i].classList.add("hidden");
+				}
 			}
-			x.lastElementChild.classList.remove("hidden");
+			x.lastElementChild.classList.toggle("hidden");
 		}
 	}
 	//loc:1 means ambulance.php, 2:dispatch
@@ -233,6 +235,15 @@ var ddMap = {
 		var min = Math.ceil(30);
 		var max = Math.floor(330);
 		var h = Math.floor(Math.random() * (max - min + 1) + min) / 360;
+		let htmp = h*360;
+		if (90 < htmp && htmp < 150) {
+			console.log(htmp+":Green exception");
+			if (htmp < 120) {
+				h = (htmp-30)/360;
+			} else if (htmp >= 120) {
+				h = (htmp+30)/360;
+			}
+		}
 		var i = ~~(h * 6);
 		var f = h * 6 - i;
 		var q = 1 - f;
@@ -283,7 +294,6 @@ var ddMap = {
 			const q = this.ambulance_markers.find(x => x.id === route.id);
 			q.title += '\nDistance: '+route.distance.text+', Arrival time: '+ route.duration.text;
 			this.directions.push(route);
-			//this.dr.setDirections(response);
 			this.doBounding();
 			if (initType == 3) 
 			{
