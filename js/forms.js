@@ -84,6 +84,7 @@ var createJSTable = function(ele, data, config)
 		var tr = document.createElement("tr");
 		tr.setAttribute("class", "rows_" + v);
 		tr.setAttribute("src", j["id"]);
+		tr.setAttribute("id", "row_0_"+j["id"]);
 		tbody.appendChild(tr);
 		
 		//If there is a dataMask available, create the table in that order
@@ -95,6 +96,7 @@ var createJSTable = function(ele, data, config)
 				tr = document.createElement("tr");
 				tr.setAttribute("class", "hidden inner_row rows_"+v);
 				tr.setAttribute("src", j["id"]);
+				tr.setAttribute("id", "row_1_"+j["id"]);
 				tbody.appendChild(tr);
 				for (var i = 0; i < config.dataMask2nd.length; i++) {
 					
@@ -113,6 +115,7 @@ var createJSTable = function(ele, data, config)
 var tableCreation = function(tr, i, j ,k, aed) {
 	var td = document.createElement("td");
 	td.setAttribute("class", "info_" + i);
+	td.setAttribute("id", "info_"+i+"_"+tr.id);
 	td.innerHTML = k;	
 	tr.appendChild(td);
 	if (j == "id" && aed === 1)
