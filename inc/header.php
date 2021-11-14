@@ -52,7 +52,7 @@ if (isset($ticketID)) { echo 'data-ticketID="'.$ticketID.'" '; }
 if (checklogin()) { ?>
 <nav class="sticky">
 	<ul>
-		<li >Diamond Dispatch: <?php echo $_SESSION['myusername']; if (checklogin() == 2) { echo " - ", $ambostatuses[$_SESSION['status']]; } ?></li>
+		<li><a href="..">Diamond Dispatch: <?php echo $_SESSION['myusername']; if (checklogin() == 2) { echo " - ", $ambostatuses[$_SESSION['status']]; } ?></a></li>
 		<?php 
 		//If this is an ambulance, do ambulance things
 		if (checklogin() == 2) { ?>
