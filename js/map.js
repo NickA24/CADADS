@@ -17,6 +17,9 @@ function loadInit(params) //loc, style, id)
 				if (j[i].getAttribute("src") != x.id) {
 					j[i].classList.add("hidden");
 				}
+				if (j[i].classList.contains("header") && x.lastElementChild.classList.contains("hidden")) {
+					j[i].classList.remove("hidden");
+				}
 			}
 			if (x.firstElementChild.nextElementSibling != x.lastElementChild) {
 				x.firstElementChild.nextElementSibling.classList.toggle("hidden");

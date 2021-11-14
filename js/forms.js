@@ -42,6 +42,17 @@ var createJSTable = function(ele, data, config)
 				td.innerHTML = config.dataMask[i];
 				tr.appendChild(td);
 			}
+			if (config.dataMask2nd) {
+				var tr = document.createElement('tr');
+				tr.setAttribute("class", "hidden inner_row header");
+				thead.appendChild(tr);
+				for (var i = 0; i < config.dataMask2nd.length; i++) {
+					var td = document.createElement("th");
+					td.setAttribute("class", "header_" + config.dataMask[i]);
+					td.innerHTML = config.dataMask2nd[i];
+					tr.appendChild(td);
+				}
+			}
 		} else {
 			for (var i = 0; i < headdata.length; i++) {
 				var td = document.createElement("th");
@@ -206,7 +217,7 @@ var ticketTable = function(ele, showOld, edit)
 			config.createHeader = true;
 			config.tableID = "ambolist";
 			config.dataMask = ["name", "location", "incident_type", "ambulance"];
-			config.dataMask2nd = ["id", "time", "priority", "dispatcher"];
+			config.dataMask2nd = ["id", "time", "priorityText", "dispatcher"];
 			config.addComments = true;
 			if (edit === 1) { config.addEditData = 1; }
 			createJSTable(ele, data, config);
