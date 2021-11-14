@@ -55,6 +55,7 @@ document.addEventListener('DOMContentLoaded', function(e) {
 						if (popupMessage) { popupMessage("Error: " + err); }
 					} else {
 						msgbox.innerHTML = data;
+						console.log("here");
 						location.href = "index.php";
 						window.location.reload(true);
 					}
