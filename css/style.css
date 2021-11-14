@@ -2,6 +2,10 @@ table, thead, tbody, tr, th, td {
 	text-align: center;
 }
 
+body {
+	margin: 0;
+}
+
 .logout:link, .logout:visited {
 	color: rgba(0,102,204,1);
 }
@@ -52,11 +56,12 @@ table, thead, tbody, tr, th, td {
         padding: 14px 16px;
         text-decoration: none;
     }
-    li:hover:not(.active) {
+    li:hover {
         background-color: #111;
     }
-	li:first-of-type {
-		background-color:black;
+	li:first-of-type a {
+		color: white;
+		text-decoration: none;
 	}
     .logoutbutn {
         float: right;
