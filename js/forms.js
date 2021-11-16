@@ -40,6 +40,12 @@ var createJSTable = function(ele, data, config)
 				var td = document.createElement("th");
 				td.setAttribute("class", "header_" + config.dataMask[i]);
 				td.innerHTML = config.dataMask[i];
+				if (config.dataMask[i] == "name") {
+					td.innerHTML = "Caller";	
+				}
+				if (config.dataMask[i] == "incident_type") {
+					td.innerHTML = "Type";	
+				}
 				tr.appendChild(td);
 			}
 			if (config.dataMask2nd) {
@@ -50,6 +56,12 @@ var createJSTable = function(ele, data, config)
 					var td = document.createElement("th");
 					td.setAttribute("class", "header_" + config.dataMask[i]);
 					td.innerHTML = config.dataMask2nd[i];
+					if (config.dataMask2nd[i] == "name") {
+						td.innerHTML = "Caller";	
+					}
+					if (config.dataMask2nd[i] == "incident_type") {
+						td.innerHTML = "Type";	
+					}
 					tr.appendChild(td);
 				}
 			}
@@ -216,7 +228,7 @@ var ticketTable = function(ele, showOld, edit)
 			config.createTable = true;
 			config.createHeader = true;
 			config.tableID = "ambolist";
-			config.dataMask = ["name", "location", "incident_type", "ambulance"];
+			config.dataMask = ["name", "location", "incident_type", "ambulance", "color"];
 			config.dataMask2nd = ["id", "time", "priorityText", "dispatcher"];
 			config.addComments = true;
 			if (edit === 1) { config.addEditData = 1; }
