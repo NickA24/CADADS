@@ -6,7 +6,7 @@
 	text-align: center;
 	margin: 0;
         font-family: 'Open Sans', sans-serif;
-	background-color:lightgray;
+	background-image: linear-gradient(lightgray, white);
     }
     ul {
         list-style-type: none;
