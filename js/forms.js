@@ -64,6 +64,16 @@ var createJSTable = function(ele, data, config)
 					}
 					tr.appendChild(td);
 				}
+				if (config.dataMask2nd.length < config.dataMask.length)
+				{
+					let x = config.dataMask.length - config.dataMask2nd.length;
+					for (var i = 0; i < x; i++) {
+						var td = document.createElement("th");
+						td.setAttribute("class", "header_x_" + i);
+						td.innerHTML = '';
+						tr.appendChild(td);
+					}
+				}
 			}
 		} else {
 			for (var i = 0; i < headdata.length; i++) {
@@ -111,8 +121,8 @@ var createJSTable = function(ele, data, config)
 				tr.setAttribute("src", j["id"]);
 				tr.setAttribute("id", "row_1_"+j["id"]);
 				tbody.appendChild(tr);
-				for (var i = 0; i < config.dataMask2nd.length; i++) {
-					
+				for (var i = 0; i < config.dataMask2nd.length; i++) 
+				{	
 					tableCreation(tr, i, config.dataMask2nd[i], j[config.dataMask2nd[i]], config.addEditData);
 				}
 			}
