@@ -65,7 +65,7 @@ var createJSTable = function(ele, data, config)
 					else if (config.dataMask2nd[i] == "incident_type") {
 						td.innerHTML = "Type";	
 					}
-					else if (config.dataMask[i] == "id") {
+					else if (config.dataMask2nd[i] == "id") {
 						td.innerHTML = "Edit";	
 					}
 					tr.appendChild(td);
