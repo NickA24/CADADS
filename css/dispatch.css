@@ -38,6 +38,13 @@
         top: 0;
 	z-index: 1;
     }
+    .sticky2 {
+        background-color: #ffffff;
+        position: -webkit-sticky;
+        position: sticky;
+        top: 10;
+	z-index: 1;
+    }
     .btn {
         display: inline-block;
         *display: inline;
