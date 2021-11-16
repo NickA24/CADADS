@@ -49,7 +49,7 @@
                         </select>
                     <br>
                     <label for="comments">Comments:</label>
-                        <textarea id="editcomments" name="comments" placeholder="Comments not required" rows="8" cols="50"></textarea>
+                        <textarea id="comments" name="comments" placeholder="Comments not required" rows="8" cols="50"></textarea>
                     <button type="submit" name="submitbtn" id="submitbtn" class="submitbtn buttons buttons-primary" onclick="closeNavAdd()">Submit Ticket</button>
                     <button type="reset" name="clear" id="clear" class="buttons buttons-primary">Clear</button>
                 </form>
