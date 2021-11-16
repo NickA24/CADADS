@@ -52,6 +52,13 @@
         top: 90;
 	z-index: 1;
     }
+    .sticky4 {
+        background-color: #ffffff;
+        position: -webkit-sticky;
+        position: sticky;
+        top: 120;
+	z-index: 1;
+    }
     .btn {
         display: inline-block;
         *display: inline;
