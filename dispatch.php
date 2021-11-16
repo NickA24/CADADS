@@ -49,7 +49,7 @@
                         </select>
                     <br>
                     <label for="comments">Comments:</label>
-                        <textarea id="comments" name="comments" placeholder="Comments not required" rows="8" cols="50"></textarea>
+                        <textarea class="commentArea" id="comments" name="comments" placeholder="Comments not required" rows="8" cols="50"></textarea>
                     <button type="submit" name="submitbtn" id="submitbtn" class="submitbtn buttons buttons-primary" onclick="closeNavAdd()">Submit Ticket</button>
                     <button type="reset" name="clear" id="clear" class="buttons buttons-primary">Clear</button>
                 </form>
@@ -105,7 +105,7 @@
                         </select>
                     <br>
                     <label for="editcomments">Comments:</label>
-                        <textarea id="editcomments" name="editcomments" placeholder="Comments not required" rows="8" cols="50"></textarea>
+                        <textarea class="commentArea" id="editcomments" name="editcomments" placeholder="Comments not required" rows="8" cols="50"></textarea>
                     <button type="submit" name="editsubmitbtn" id="editsubmitbtn" class="editsubmitbtn buttons buttons-primary" onclick="closeNavEdit()">Edit Ticket</button>
                     <button type="reset" name="editclose" id="editclose" class="buttons buttons-primary" onclick="closeNavEdit()">Close</button>
                 </form>
