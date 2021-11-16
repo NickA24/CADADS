@@ -27,7 +27,7 @@
                         <input type="textbox" id="location" name="location">
                     <br>
                     <label for="incident">Incident Type:</label>
-                        <select id="incident_type" name="incident_type">
+                        <select id="incident_type" name="incident_type" required>
 			    <option value="-Select One-" selected>-Select One-</option>
                             <?php
                                 // Showing off php calls to the database in the middle of the HTML
