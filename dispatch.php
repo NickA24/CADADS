@@ -28,6 +28,7 @@
                     <br>
                     <label for="incident">Incident Type:</label>
                         <select id="incident_type" name="incident_type">
+			    <option value="-Select One-" selected>-Select One-</option>
                             <?php
                                 // Showing off php calls to the database in the middle of the HTML
                                 // and creating the proper format ourselves in the loop
