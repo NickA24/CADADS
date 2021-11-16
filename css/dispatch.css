@@ -197,7 +197,7 @@
     }
     #map {
 	    position: fixed !important;
-	    top: 46px;
+	    top: 5%;
 	    right: 0;
 	    bottom: 0;
 	    width: 59%;

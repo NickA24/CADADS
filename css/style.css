@@ -44,6 +44,7 @@ body {
         width: 100%;
         margin: 0;
         padding: 0;
+		max-height: 45px;
         overflow: hidden;
         background-color: #333;
         z-index: 1;
@@ -73,9 +74,12 @@ body {
         position: sticky;
         top: 0;
         z-index: 1;
+		height: 45px;
+		max-height: 45px;
     }
 	.sticky li {
 		cursor: pointer;
+
 	}
         .dropdown-content {
       display: none;
