@@ -28,7 +28,7 @@
                     <br>
                     <label for="incident">Incident Type:</label>
                         <select id="incident_type" name="incident_type" required>
-			    <option value="">None</option>
+			    <option value="" disabled selected>None</option>
                             <?php
                                 // Showing off php calls to the database in the middle of the HTML
                                 // and creating the proper format ourselves in the loop
@@ -42,13 +42,14 @@
                     <br>
                     <label for="priority">Priority:</label>
                         <select id="priority" name="priority">
-                            <option value="1">1 - High/Emergency</option>
-                            <option value="2">2 - Medium/Urgent</option>
-                            <option value="3">3 - Low/Routine</option>
+				<option value="" disabled selected>Select a Priority</option>
+                       		<option value="1">1 - High/Emergency</option>
+                            	<option value="2">2 - Medium/Urgent</option>
+                            	<option value="3">3 - Low/Routine</option>
                         </select>
                     <br>
                     <label for="comments">Comments:</label>
-                        <textarea id="editcomments" name="editcomments" placeholder="Comments not required" rows="8" cols="50"></textarea>
+                        <textarea id="editcomments" name="comments" placeholder="Comments not required" rows="8" cols="50"></textarea>
                     <button type="submit" name="submitbtn" id="submitbtn" class="submitbtn buttons buttons-primary" onclick="closeNavAdd()">Submit Ticket</button>
                     <button type="reset" name="clear" id="clear" class="buttons buttons-primary">Clear</button>
                 </form>
