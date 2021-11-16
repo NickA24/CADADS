@@ -93,7 +93,7 @@
         z-index: 1;
         top: 0;
         left: 0;
-        background-image: linear-gradient(lightgray, white);
+        background-image: linear-gradient(to bottom right, lightgray, white);
         overflow-x: hidden;
         padding-top: 60px;
         border-right: 2px solid black;
@@ -124,7 +124,7 @@
         z-index: 1;
         top: 0;
         left: 0;
-        background-image: linear-gradient(lightgray, white);
+        background-image: linear-gradient(to bottom right, lightgray, white);
         overflow-x: hidden;
         padding-top: 60px;
         border-right: 2px solid black;
