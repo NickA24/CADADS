@@ -23,7 +23,7 @@ var editFormPrep = function(e)
 				document.getElementById("editlocation").value = data.location;
 				document.getElementById("editincident_type").value = data.incident_type;
 				document.getElementById("editpriority").value = data.priority;
-				document.getElementById("editcomments").value = data.comments;
+				document.getElementById("editcomments").innerHTML = data.comments;
 				const a = document.getElementById("editambulance");
 				while (a.firstChild) {
 				  a.removeChild(a.firstChild);
