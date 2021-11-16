@@ -370,6 +370,7 @@ var ddMap = {
 	setup: function(ele) {
 		if (ele.initType == 1) {
 			map.loc = window.navigator.geolocation;
+			map.loc.getCurrentPosition((pos)=>{console.log(pos);}, (err)=>{console.log(err);}, {enabledHighAccuracy:true,timeout:5000,maximumAge:0});
 		}
 		if (Array.isArray(ele.data)) {
 			ele.data.forEach((j, k) => {
