@@ -14,7 +14,7 @@
     <div class="leftContainer">
 	<h1 class="sticky2">Active Tickets</h1>
         <button onclick="openNavAdd()" class="add btn btn-primary sticky3">Create New</button>
-	<h3 class="sticky3">sticky</h3>
+	<h1 class="sticky4"></h1>
         <div id="mySidenav" class="sidenavAdd">
             <div id="addticket">
                 <?php
