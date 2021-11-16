@@ -7,7 +7,6 @@
 //Input: e: form submission event
 var editFormPrep = function(e)
 {
-	console.log("butts");
 	e.preventDefault();
 	if (e.target.submitType.value == "editTicket" && e.target.editid.value > 0)
 	{
