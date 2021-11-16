@@ -72,7 +72,6 @@
         width:41%;
         height: 100%;
         padding-top: 0; /* This causes misalignment with the edit button. Why? I don't know. */
-        background-color: lightgray;
     }
     .leftContainer h1 {
 	margin: 0;
