@@ -48,6 +48,9 @@ var createJSTable = function(ele, data, config)
 				}
 				else if (config.dataMask[i] == "id") {
 					td.innerHTML = "Edit";	
+				} 
+				else if (config.dataMask[i] == "priorityText") {
+					td.innerHTML = "Priority";
 				}
 				tr.appendChild(td);
 			}
@@ -67,6 +70,9 @@ var createJSTable = function(ele, data, config)
 					}
 					else if (config.dataMask2nd[i] == "id") {
 						td.innerHTML = "Edit";	
+					}
+					else if (config.dataMask[i] == "priorityText") {
+						td.innerHTML = "Priority";
 					}
 					tr.appendChild(td);
 				}
