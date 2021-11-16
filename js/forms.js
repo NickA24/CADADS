@@ -60,7 +60,7 @@ var createJSTable = function(ele, data, config)
 				thead.appendChild(tr);
 				for (var i = 0; i < config.dataMask2nd.length; i++) {
 					var td = document.createElement("th");
-					td.setAttribute("class", "header_" + config.dataMask[i]);
+					td.setAttribute("class", "header_" + config.dataMask2nd[i]);
 					td.innerHTML = config.dataMask2nd[i];
 					if (config.dataMask2nd[i] == "name") {
 						td.innerHTML = "Caller";	
