@@ -258,7 +258,7 @@ var ticketTable = function(ele, showOld, edit)
 			config.createHeader = true;
 			config.tableID = "ambolist";
 			config.dataMask = ["name", "location", "incident_type", "ambulance", "color"];
-			config.dataMask2nd = ["id", "time", "priorityText", "dispatcher"];
+			config.dataMask2nd = ["id", "time", "incident_description", "dispatcher", "priorityText"];
 			config.addComments = true;
 			if (edit === 1) { config.addEditData = 1; }
 			createJSTable(ele, data, config);
