@@ -43,8 +43,11 @@ var createJSTable = function(ele, data, config)
 				if (config.dataMask[i] == "name") {
 					td.innerHTML = "Caller";	
 				}
-				if (config.dataMask[i] == "incident_type") {
+				else if (config.dataMask[i] == "incident_type") {
 					td.innerHTML = "Type";	
+				}
+				else if (config.dataMask[i] == "id") {
+					td.innerHTML = "Edit";	
 				}
 				tr.appendChild(td);
 			}
@@ -59,8 +62,11 @@ var createJSTable = function(ele, data, config)
 					if (config.dataMask2nd[i] == "name") {
 						td.innerHTML = "Caller";	
 					}
-					if (config.dataMask2nd[i] == "incident_type") {
+					else if (config.dataMask2nd[i] == "incident_type") {
 						td.innerHTML = "Type";	
+					}
+					else if (config.dataMask[i] == "id") {
+						td.innerHTML = "Edit";	
 					}
 					tr.appendChild(td);
 				}
@@ -70,7 +76,7 @@ var createJSTable = function(ele, data, config)
 					for (var i = 0; i < x; i++) {
 						var td = document.createElement("th");
 						td.setAttribute("class", "header_x_" + i);
-						td.innerHTML = '';
+						td.innerHTML = ' ';
 						tr.appendChild(td);
 					}
 				}
