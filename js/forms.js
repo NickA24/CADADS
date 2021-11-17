@@ -115,7 +115,7 @@ var createJSTable = function(ele, data, config)
 	
 	//This generates the table itself.
 	data.forEach(function(j, v) {
-		console.log(map.getRandomColor);
+		console.log(j);
 		//CreateBody is handled here. Also references bodyID 
 		var tbody = document.createElement('tbody');
 		tbody.setAttribute("id", j.id);
@@ -183,6 +183,9 @@ var tableCreation = function(tr, i, j ,k, aed) {
 	td.setAttribute("id", "info_"+i+"_"+tr.getAttribute("src"));
 	if (j == "comments" && k.length > 100) {
 		td.innerHTML = k.substring(0, 100)+"...<a href='ticket.php?id="+tr.getAttribute("src")+"'><em>Read More</em></a>";
+	} else if (j == "color") {
+		td.innerHTML = '';
+		
 	} else { td.innerHTML = k; }
 	tr.appendChild(td);
 	if (j == "id" && aed === 1)
