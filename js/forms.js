@@ -115,7 +115,7 @@ var createJSTable = function(ele, data, config)
 	
 	//This generates the table itself.
 	data.forEach(function(j, v) {
-		console.log(map);
+		console.log(map.getRandomColor);
 		//CreateBody is handled here. Also references bodyID 
 		var tbody = document.createElement('tbody');
 		tbody.setAttribute("id", j.id);
