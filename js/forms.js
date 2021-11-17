@@ -115,7 +115,8 @@ var createJSTable = function(ele, data, config)
 	
 	//This generates the table itself.
 	data.forEach(function(j, v) {
-			//CreateBody is handled here. Also references bodyID 
+		console.log(map);
+		//CreateBody is handled here. Also references bodyID 
 		var tbody = document.createElement('tbody');
 		tbody.setAttribute("id", j.id);
 		tbody.setAttribute("class", "markerZoom");
