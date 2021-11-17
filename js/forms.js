@@ -115,7 +115,6 @@ var createJSTable = function(ele, data, config)
 	
 	//This generates the table itself.
 	data.forEach(function(j, v) {
-		console.log(j);
 		//CreateBody is handled here. Also references bodyID 
 		var tbody = document.createElement('tbody');
 		tbody.setAttribute("id", j.id);
@@ -132,6 +131,9 @@ var createJSTable = function(ele, data, config)
 		//If there is a dataMask available, create the table in that order
 		if (config.dataMask.length > 0) {
 			for (var i = 0; i < config.dataMask.length; i++) {
+				if (config.dataMask[i] == "color") {
+					console.log("hi, color");	
+				}
 				tableCreation(tr, i, config.dataMask[i], j[config.dataMask[i]], config.addEditData);
 			}
 			if (config.dataMask2nd && config.dataMask2nd.length > 0) {
@@ -142,6 +144,9 @@ var createJSTable = function(ele, data, config)
 				tbody.appendChild(tr);
 				for (var i = 0; i < config.dataMask2nd.length; i++) 
 				{	
+					if (config.dataMask[i] == "color") {
+						console.log("hi, color");	
+					}
 					tableCreation(tr, i, config.dataMask2nd[i], j[config.dataMask2nd[i]], config.addEditData);
 				}
 				if (config.dataMask2nd.length < config.dataMask.length)
