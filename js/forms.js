@@ -132,7 +132,7 @@ var createJSTable = function(ele, data, config)
 		if (config.dataMask.length > 0) {
 			for (var i = 0; i < config.dataMask.length; i++) {
 				if (config.dataMask[i] == "color") {
-					console.log("hi, color");	
+					j[config.dataMask[i]] = map.getRandomColor(j['ambo_id']);		
 				}
 				tableCreation(tr, i, config.dataMask[i], j[config.dataMask[i]], config.addEditData);
 			}
@@ -144,8 +144,8 @@ var createJSTable = function(ele, data, config)
 				tbody.appendChild(tr);
 				for (var i = 0; i < config.dataMask2nd.length; i++) 
 				{	
-					if (config.dataMask[i] == "color") {
-						console.log("hi, color");	
+					if (config.dataMask2nd[i] == "color") {
+						j[config.dataMask2nd[i]] = map.getRandomColor(j['ambo_id']);	
 					}
 					tableCreation(tr, i, config.dataMask2nd[i], j[config.dataMask2nd[i]], config.addEditData);
 				}
@@ -190,7 +190,7 @@ var tableCreation = function(tr, i, j ,k, aed) {
 		td.innerHTML = k.substring(0, 100)+"...<a href='ticket.php?id="+tr.getAttribute("src")+"'><em>Read More</em></a>";
 	} else if (j == "color") {
 		td.innerHTML = '';
-		
+		td.setAttribute('style', 'background-color:'+k);
 	} else { td.innerHTML = k; }
 	tr.appendChild(td);
 	if (j == "id" && aed === 1)
