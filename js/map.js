@@ -235,7 +235,7 @@ var ddMap = {
 		// This function generates vibrant, "evenly spaced" colours (i.e. no clustering). This is ideal for creating easily distinguishable vibrant markers in Google Maps and other apps.
 		// Adam Cole, 2011-Sept-14
 		// HSV to RBG adapted from: http://mjijackson.com/2008/02/rgb-to-hsl-and-rgb-to-hsv-color-model-conversion-algorithms-in-javascript
-		if (id == 0) { return "#ff0000"; }
+		if (id == 0 || id == null) { return "#ff0000"; }
 		if (this.colors[id]) { return this.colors[id]; }
 		let color;
 		var r, g, b;
