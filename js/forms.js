@@ -32,6 +32,7 @@ var createJSTable = function(ele, data, config)
 	//Header creation here. Also references headID, dataMask, and addEditData
 	if (config.createHeader) {
 		var thead = document.createElement('thead');
+		thead.setAttribute("class", "head");
 		if (config.headID) { thead.setAttribute("id", config.headID); }
 		var tr = document.createElement('tr');
 		thead.appendChild(tr);
