@@ -110,13 +110,6 @@
 	background-image: linear-gradient(to bottom right, lightgray, white);
 	z-index: 0;
     }
-    .head {
-	background-color: #ffffff;
-        position: -webkit-sticky;
-        position: sticky;
-        top: 170;
-	z-index: -1;
-    }
     #tickets {
         width:100%;
         padding-top: 10px;
