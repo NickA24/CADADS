@@ -107,6 +107,7 @@
 	width: 100%;
 	height: 25%;
 	background-image: linear-gradient(to bottom right, lightgray, white);
+	z-index: -1;
     }
     #tickets {
         width:100%;
