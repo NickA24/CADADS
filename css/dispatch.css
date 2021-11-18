@@ -101,6 +101,7 @@
     .activeTicketsHeader {
 	margin-top: 0px;
 	font-family: Copperplate, Papyrus, fantasy;
+	background-color: transparent;
 	}
     #tickets {
         width:100%;
