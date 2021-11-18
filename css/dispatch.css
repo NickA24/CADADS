@@ -271,6 +271,9 @@
     .markerZoom {
 		cursor: pointer;    
     }
+    info_4 {
+	border-radius: 5px solid white;
+    }
 	
 	.fa:hover {
 		color: red;
