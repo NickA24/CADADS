@@ -103,11 +103,16 @@
 	font-family: Copperplate, Papyrus, fantasy;
 	background-color: transparent;
 	}
+    .headerDiv {
+	width: 100%;
+	height: 25%;
+	background-image: linear-gradient(to bottom right, lightgray, white);
+    }
     #tickets {
         width:100%;
         height: 100%;
         padding-top: 10px;
-		overflow-x: auto;
+	overflow-x: auto;
     }
     .add {
         width: 90%;
