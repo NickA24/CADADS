@@ -110,7 +110,34 @@
 	background-image: linear-gradient(to bottom right, lightgray, white);
 	z-index: 0;
     }
-    .head {
+    .header_name {
+	border-bottom: 2px solid white;
+    }
+    .header_location {
+	border-bottom: 2px solid white;
+    }
+    .header_incident_type {
+	border-bottom: 2px solid white;
+    }
+    .header_ambulance {
+	border-bottom: 2px solid white;
+    }
+    .header_color {
+	border-bottom: 2px solid white;
+    }
+    .header_id {
+	border-bottom: 2px solid white;
+    }
+    .header_time {
+	border-bottom: 2px solid white;
+    }
+    .header_incident_description {
+	border-bottom: 2px solid white;
+    }
+    .header_dispatcher {
+	border-bottom: 2px solid white;
+    }
+    .header_priorityText {
 	border-bottom: 2px solid white;
     }
     #tickets {
