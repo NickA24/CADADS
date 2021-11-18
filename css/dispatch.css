@@ -125,21 +125,6 @@
     .header_color {
 	border-bottom: 2px solid white;
     }
-    .header_id {
-	border-bottom: 2px solid white;
-    }
-    .header_time {
-	border-bottom: 2px solid white;
-    }
-    .header_incident_description {
-	border-bottom: 2px solid white;
-    }
-    .header_dispatcher {
-	border-bottom: 2px solid white;
-    }
-    .header_priorityText {
-	border-bottom: 2px solid white;
-    }
     #tickets {
         width:100%;
         padding-top: 10px;
