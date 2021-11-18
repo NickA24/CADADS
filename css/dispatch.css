@@ -272,7 +272,8 @@
 		cursor: pointer;    
     }
     info_4 {
-	border-radius: 5px solid white;
+	border: 5px solid white;
+	border-radius: 5px;
     }
 	
 	.fa:hover {
