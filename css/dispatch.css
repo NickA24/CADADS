@@ -105,10 +105,10 @@
 	}
     .headerDiv {
 	width: 100%;
-	height: 25%;
+	height: 15%;
 	position: absolute;
 	background-image: linear-gradient(to bottom right, lightgray, white);
-	z-index: -1;
+	z-index: 0;
     }
     #tickets {
         width:100%;
