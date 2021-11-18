@@ -44,6 +44,7 @@
         position: sticky;
         top: 45;
 	margin-top: 0px;
+	margin-bottom: 0px;
 	z-index: 1;
     }
     .sticky3 {
