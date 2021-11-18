@@ -114,8 +114,8 @@
 	background-color: #ffffff;
         position: -webkit-sticky;
         position: sticky;
-        top: 120;
-	z-index: 0;
+        top: 150;
+	z-index: -1;
     }
     #tickets {
         width:100%;
