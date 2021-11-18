@@ -96,13 +96,8 @@
 	margin: 0;
     }
     .h1 {
-	margin: 0;
-	font-family: Copperplate;
-	font-size: 24px;
-	font-style: normal;
-	font-variant: normal;
-	font-weight: bold;
-	line-height: 26.399999618530273px;
+	margin-top: 0px;
+	font-family: Copperplate, Papyrus, fantasy;
 	}
     #tickets {
         width:100%;
