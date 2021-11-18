@@ -5,7 +5,7 @@
     body {
 	text-align: center;
 	margin: 0;
-        /*font-family: 'Open Sans', sans-serif;*/
+        font-family: 'Open Sans', sans-serif;
 	background-image: linear-gradient(lightgray, white);
     }
     ul {
@@ -98,7 +98,7 @@
         padding-top: 0; /* This causes misalignment with the edit button. Why? I don't know. */
 	margin: 0;
     }
-    .h1 {
+    .activeTicketsHeader {
 	margin-top: 0px;
 	font-family: Copperplate, Papyrus, fantasy;
 	}
