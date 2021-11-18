@@ -93,13 +93,16 @@
         width:41%;
         height: 100%;
         padding-top: 0; /* This causes misalignment with the edit button. Why? I don't know. */
-    }
-    .leftContainer {
 	margin: 0;
-	}
+    }
     .h1 {
 	margin: 0;
 	font-family: Copperplate;
+	font-size: 24px;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: bold;
+	line-height: 26.399999618530273px;
 	}
     #tickets {
         width:100%;
