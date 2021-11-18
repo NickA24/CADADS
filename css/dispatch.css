@@ -110,6 +110,9 @@
 	background-image: linear-gradient(to bottom right, lightgray, white);
 	z-index: 0;
     }
+    .head {
+	border-bottom: 2px solid white;
+    }
     #tickets {
         width:100%;
         padding-top: 10px;
