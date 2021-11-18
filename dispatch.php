@@ -23,7 +23,7 @@
                 <a href="javascript:void(0)" class="closebtn" onclick="closeNavAdd()">&times;</a>
                 <form class="add-new-ticket" action="/inc/submit.php" method="post">
                     <input type="hidden" name="submitType" id="submitType" value="addTicket">
-                    <center><h2>New Ticket</h2></center>
+                    <center><h2 class="activeTicketsHeader">New Ticket</h2></center>
                     <br>
                     <label for="name">Name:</label>
                         <input type="textbox" id="name" name="name" maxlength="64">
@@ -70,7 +70,7 @@
                 <a href="javascript:void(0)" class="closebtn" onclick="closeNavEdit()">&times;</a>
                 <form class="edit-ticket" action="/inc/submit.php" method="post">
                     <input type="hidden" name="submitType" id="submitType" value="editTicket">
-                    <center><h2>Edit Ticket</h2></center>
+                    <center><h2 class="activeTicketsHeader">Edit Ticket</h2></center>
                     <input type="hidden" id="editid" name="editid" readonly>
 					<label for="editid" id="editidlabel">Id:</label><br>
                     <label for="editactive">Active:</label>
