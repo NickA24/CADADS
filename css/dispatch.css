@@ -272,8 +272,9 @@
 		cursor: pointer;    
     }
     .info_4 {
-	border: 5px solid white;
-	border-radius: 5px;
+	border: 2px solid white;
+	border-radius: 15px;
+	padding: 10px;
     }
 	
 	.fa:hover {
