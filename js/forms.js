@@ -192,6 +192,7 @@ var tableCreation = function(tr, i, j ,k, aed) {
 	} else if (j == "color") {
 		td.innerHTML = '';
 		td.setAttribute('style', 'background-color:'+k);
+		td.setAttribute("class", "pathColor");
 	} else { td.innerHTML = k; }
 	tr.appendChild(td);
 	if (j == "id" && aed === 1)
