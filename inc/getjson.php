@@ -45,7 +45,7 @@
 				{
 					$where = '';
 				}
-				$sql = "SELECT ticket.id, active, ticket.name, location, lat, lng, incident_tbl.ack AS incident_type, incident_tbl.description AS incident_description, priority, IF(priority=1, 'High', IF(priority=2, 'Med', 'Low')) AS priorityText, IF(ticket.ambulance>0,a.name,'None') AS ambulance, ticket.ambulance AS ambo_id, IF(ticket.dispatcher>0,b.name,'None') AS dispatcher, time, comments FROM ticket LEFT JOIN incident_tbl ON ticket.incident_type = incident_tbl.id LEFT JOIN users a ON a.id=ticket.ambulance LEFT JOIN users b ON b.id=ticket.dispatcher ".$where."ORDER BY active, time";
+				$sql = "SELECT ticket.id, active, ticket.name, location, lat, lng, incident_tbl.ack AS incident_type, incident_tbl.description AS incident_description, priority, IF(priority=1, 'High', IF(priority=2, 'Med', 'Low')) AS priorityText, IF(ticket.ambulance>0,a.name,'None') AS ambulance, ticket.ambulance AS ambo_id, IF(ticket.dispatcher>0,b.name,'None') AS dispatcher, time, comments FROM ticket LEFT JOIN incident_tbl ON ticket.incident_type = incident_tbl.id LEFT JOIN users a ON a.id=ticket.ambulance LEFT JOIN users b ON b.id=ticket.dispatcher ".$where."ORDER BY active DESC, ambo_id ASC, time DESC";
 				break;
 			case 'amb':
 				//This returns all ambulance information for every ambulance, ordered by their status and the last time they updated.
