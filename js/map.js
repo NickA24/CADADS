@@ -329,21 +329,16 @@ var ddMap = {
 			return true;
 			//Next, do some magic with the returned data, so we have lat and long of locations. Markers REQUIRE latlong, can't use street data.
 		}).catch((e) => {
-			if (e.code == google.maps.DirectionsStatus.OVER_QUERY_LIMIT) {
-				console.log(or);
-				console.log(d);
-			} else {
-				this.promises--;
-				console.log("Directions request failed -> " + e);
-				if (this.promises == 0) {
-					if (!this.directions.length && initType == 3) {
-						//No directions added at all, after attempting many.
-						closestAmbulanceFailed("Failure to find a direct route for any available ambulance. Returning...");
-						return;
-					}
+			this.promises--;
+			console.log("Directions request failed -> " + e);
+			if (this.promises == 0) {
+				if (!this.directions.length && initType == 3) {
+					//No directions added at all, after attempting many.
+					closestAmbulanceFailed("Failure to find a direct route for any available ambulance. Returning...");
+					return;
 				}
-				return e;
 			}
+			return e;
 		});
 	},
 	markerprep: function(data) {
@@ -383,13 +378,14 @@ var ddMap = {
 			map.loc = window.navigator.geolocation;
 		}
 		if (Array.isArray(ele.data)) {
-			ele.data.forEach((j, k) => {
+			ele.data.forEach(async (j, k) => {
 				const o = map.markerprep(j);
 				if (o.latlng) { map.addMarker(o.latlng, o); }
 				if (o.dlatlng) {map.addDirections(o.latlng, o.dlatlng, o.id);}
 				if (ele.initType == 3 && k > 0) {
 					map.addDirections(o.latlng, map.ticket_markers[0].position, o.id, 3, o);
 				}
+				await sleep(250);
 			});
 			if (ele.initType == 3 && ele.data.length == 1) {
 				closestAmbulanceFailed("There are no available ambulances for this ticket. Returning...");
@@ -428,5 +424,8 @@ var ddMap = {
 	}
 };
 
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 //After defining what ddMap does, create a global instance of it.
 var map = Object.create(ddMap);
