@@ -390,6 +390,7 @@ var ddMap = {
 				if (ele.initType == 3 && k > 0) {
 					map.addDirections(o.latlng, map.ticket_markers[0].position, o.id, 3, o);
 				}
+				await timer(250);
 			});
 			if (ele.initType == 3 && ele.data.length == 1) {
 				closestAmbulanceFailed("There are no available ambulances for this ticket. Returning...");
@@ -427,6 +428,8 @@ var ddMap = {
 		setTimeout(map.takeStep, time*1000, steps, poly, stepcount, pathcount);
 	}
 };
+
+const timer = ms => new Promise(res => setTimeout(res, ms));
 
 //After defining what ddMap does, create a global instance of it.
 var map = Object.create(ddMap);
