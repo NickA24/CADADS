@@ -1,7 +1,3 @@
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
-<body>
 <?php
     include_once("inc/login.php");
     if (checklogin() != 1) { return; }
@@ -127,3 +123,4 @@
 <?php msgBox(); ?> 
 <div id="map"></div>
 </body>
+</html>
