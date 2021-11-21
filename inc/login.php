@@ -19,9 +19,69 @@ function passmake($a) {
 function checklogin() {
 	if (!isset($_SESSION['myusername'])) {return false;}
 	$myusername = $_SESSION['myusername'];
-	
-	if ($myusername && $_SESSION['mypassword'] == 1) { return $_SESSION['user_type']; } else { return false; }
+
+	if ($myusername && $_SESSION['mypassword'] == 1) { 
+		return $_SESSION['user_type']; 
+	} else { return false; }
 	return false;
+}
+
+function setSessionData($username, $pwd, $db) {
+	//If we receive a username and password, check if they match the db and log in the user, otherwise reject it.
+	$myusername=strtolower($username);
+	$mypassword=$pwd;
+	$params = array(":name" => $myusername);
+	$query = 'SELECT a.id, a.name, a.hash_pw, a.user_type, b.style as preferred_map FROM users as a LEFT JOIN map_styles as b ON a.preferred_map=b.id WHERE a.name = :name';
+	$result = $db->query($query, $params);
+	$result = $result->fetch();
+	if (!$result) {echo "Bad Username or Password!"; return;}
+	if (passcheck($mypassword, $result['hash_pw'])) {
+		echo "Success!";
+		session_regenerate_id(true);
+		$_SESSION['myid'] = $result['id'];
+		$_SESSION['myusername'] = $myusername;
+		$_SESSION['mypassword'] = 1;
+		$_SESSION['user_type'] = $result['user_type'];
+		$_SESSION['status'] = 0;
+		$_SESSION['location'] = 0;
+		$_SESSION['lastupdate'] = 0;
+		$_SESSION['preferred_map'] = $result['preferred_map'];
+		if ($_SESSION['user_type'] == 2)
+		{
+			$query = 'SELECT * FROM ambulance_info WHERE id = :id';
+			$params = array(':id'=>$_SESSION['myid']);
+			$result = $db->query($query, $params);
+			$result = $result->fetch();
+			$_SESSION['status'] = $result['status'];
+			$_SESSION['location'] = $result['location'];
+			$_SESSION['lastupdate'] = $result['lastupdate'];
+		}
+		//header("Location: ../index.php");
+	} else {
+		echo "Bad Username or Password";
+	}
+	return;
+}
+
+function updateSessionData($db)
+{
+	if (!checklogin()) { return; }
+	$params = array(":name" => $_SESSION['myusername']);
+	$query = 'SELECT a.user_type, b.style as preferred_map FROM users as a LEFT JOIN map_styles as b ON a.preferred_map=b.id WHERE a.name = :name';
+	$result = $db->query($query, $params);
+	$result = $result->fetch();
+	$_SESSION['user_type'] = $result['user_type'];
+	$_SESSION['preferred_map'] = $result['preferred_map'];
+	if ($_SESSION['user_type'] == 2)
+	{
+		$query = 'SELECT * FROM ambulance_info WHERE id = :id';
+		$params = array(':id'=>$_SESSION['myid']);
+		$result = $db->query($query, $params);
+		$result = $result->fetch();
+		$_SESSION['status'] = $result['status'];
+		$_SESSION['location'] = $result['location'];
+		$_SESSION['lastupdate'] = $result['lastupdate'];
+	}
 }
 
 function logoutbutton() {
@@ -69,41 +129,14 @@ if (isset($_POST)) {
 		}
 	}
 
-	//If we receive a username and password, check if they match the db and log in the user, otherwise reject it.
 	if (isset($_POST['userLogin']) && $_POST['userLogin'] == "login") {
-		$myusername=strtolower($_POST['name']);
-		$mypassword=$_POST['pwd'];
-		$params = array(":name" => $myusername);
-		$query = 'SELECT a.id, a.name, a.hash_pw, a.user_type, b.style as preferred_map FROM users as a LEFT JOIN map_styles as b ON a.preferred_map=b.id WHERE a.name = :name';
-		$result = $db->query($query, $params);
-		$result = $result->fetch();
-		if (!$result) {echo "Bad Username or Password!"; return;}
-		if (passcheck($mypassword, $result['hash_pw'])) {
-			echo "Success!";
-			session_regenerate_id(true);
-			$_SESSION['myid'] = $result['id'];
-			$_SESSION['myusername'] = $myusername;
-			$_SESSION['mypassword'] = 1;
-			$_SESSION['user_type'] = $result['user_type'];
-			$_SESSION['status'] = 0;
-			$_SESSION['location'] = 0;
-			$_SESSION['lastupdate'] = 0;
-			$_SESSION['preferred_map'] = $result['preferred_map'];
-			if ($_SESSION['user_type'] == 2)
-			{
-				$query = 'SELECT * FROM ambulance_info WHERE id = :id';
-				$params = array(':id'=>$_SESSION['myid']);
-				$result = $db->query($query, $params);
-				$result = $result->fetch();
-				$_SESSION['status'] = $result['status'];
-				$_SESSION['location'] = $result['location'];
-				$_SESSION['lastupdate'] = $result['lastupdate'];
-			}
-			//header("Location: ../index.php");
-		} else {
-			echo "Bad Username or Password";
-		}
+		//If we receive a username and password, check if they match the db and log in the user, otherwise reject it.
+		setSessionData($_POST['name'], $_POST['pwd'], $db);
 		return;
 	}
 }
+if (checklogin()) {
+	updateSessionData($db);
+}
+return;
 ?>

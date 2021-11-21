@@ -66,7 +66,7 @@
 				$time = 0;
 				if (isset($_GET['lastupdate'])) { $time = $_GET['lastupdate']; }
 				$params = array(":id"=>$_SESSION['myid'], ":time"=>$time);
-				$sql = "SELECT ambulance_info.id as id, ambulance_status.name as status, ambulance_info.location as ambulance_location, loclat, loclng, ambulance_info.destination as destination, dstlat, dstlng, active, ticket.name, ticket.id as ticket_id, CONCAT(CONCAT(ack, ' - '), description) as incident_type, priority, time, lastupdate, comments FROM ambulance_info LEFT JOIN ticket ON ambulance_info.current_ticket = ticket.id LEFT JOIN incident_tbl ON incident_type = incident_tbl.id LEFT JOIN ambulance_status ON status = ambulance_status.id WHERE ambulance_info.id = :id AND UNIX_TIMESTAMP(lastupdate) > :time LIMIT 1";
+				$sql = "SELECT ambulance_info.id as id, ambulance_status.name as status, ambulance_info.location as location, loclat, loclng, ambulance_info.destination as destination, dstlat, dstlng, active, ticket.name, ticket.id as ticket_id, incident_tbl.ack AS incident_type, incident_tbl.description AS incident_description, priority, IF(priority=1, 'High', IF(priority=2, 'Med', 'Low')) AS priorityText, IF(ticket.dispatcher>0,b.name,'None') AS dispatcher, time, lastupdate, comments FROM ambulance_info LEFT JOIN ticket ON ambulance_info.current_ticket = ticket.id LEFT JOIN incident_tbl ON incident_type = incident_tbl.id LEFT JOIN ambulance_status ON status = ambulance_status.id LEFT JOIN users b ON b.id=ticket.dispatcher WHERE ambulance_info.id = :id AND UNIX_TIMESTAMP(lastupdate) > :time LIMIT 1";
 				break;
 			case 'dispatchMap':
 				//This returns all ambulance and ticket data to be used as data on the maps.

@@ -28,17 +28,17 @@ if (isset($ticketID)) { echo 'data-ticketID="'.$ticketID.'" '; }
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-	<link rel="stylesheet" type="text/css" href="/css/style.css" />
+	<link rel="stylesheet" defer href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" defer type="text/css" href="/css/style.css" />
 	<?php 
 	//If we have a pagename variable set, return the unique CSS and JS for those pages.
 	if (isset($pagename)) { ?>
-<link rel="stylesheet" type="text/css" href="/css/<?php echo $pagename; ?>.css" />
+<link rel="stylesheet" defer type="text/css" href="/css/<?php echo $pagename; ?>.css" />
 	<script type="text/javascript" src="/js/<?php echo $pagename; ?>.js"></script>
 	<script type="text/javascript" src="/js/json.js"></script>
 	<?php if (isset($pagename) && $pagename != 'loginform') { ?>
 	<script type="text/javascript" src="/js/stickymenu.js"></script>
-	<script type="text/javascript" src="/js/msgbox.js"></script>
+	<script defer type="text/javascript" src="/js/msgbox.js"></script>
 	<script type="text/javascript" src="/js/forms.js"></script>
 	<?php } }
 		//Only if we need the google map stuff should we include it, as it's a lot of extra code pulled from google's server.

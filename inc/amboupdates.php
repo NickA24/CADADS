@@ -92,6 +92,8 @@ if (isset($usrtype) && $usrtype == 2 and isset($_POST))
 			break;
 	}
 	$msg = "Completed updating";
+	updateSessionData($db);
+	header("Location: ../");
 } else {
 	//For debugging purposes. Something went wrong, and I don't know if it's the post data or the user's credentials.
 	//var_dump($_POST);
