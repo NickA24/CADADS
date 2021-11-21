@@ -135,6 +135,9 @@ var createJSTable = function(ele, data, config)
 				if (config.dataMask[i] == "color") {
 					j[config.dataMask[i]] = map.getRandomColor(j['ambo_id']);		
 				}
+				if (config.dataMask[i] == "ambulance" && j[config.dataMask[i]] == "None") {
+					tbody.classList.add("unlinked");
+				}
 				tableCreation(tr, i, config.dataMask[i], j[config.dataMask[i]], config.addEditData);
 			}
 			if (config.dataMask2nd && config.dataMask2nd.length > 0) {
@@ -147,6 +150,9 @@ var createJSTable = function(ele, data, config)
 				{	
 					if (config.dataMask2nd[i] == "color") {
 						j[config.dataMask2nd[i]] = map.getRandomColor(j['ambo_id']);	
+					}
+					if (config.dataMask2nd[i] == "ambulance" && j[config.dataMask2nd[i]] == "None") {
+						tbody.classList.add("unlinked");
 					}
 					tableCreation(tr, i, config.dataMask2nd[i], j[config.dataMask2nd[i]], config.addEditData);
 				}
