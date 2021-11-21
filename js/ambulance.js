@@ -95,6 +95,7 @@ var amboInfo = function()
 var source;
 function initNewSource()
 {
+cosole.log("Setting up updating position");
 var source = setInterval(updateCurrentPos, 15000);
 /*source = new EventSource('/events', {withCredentials: true});
 source.addEventListener('ping', event => {
