@@ -95,7 +95,7 @@ var amboInfo = function()
 var source;
 function initNewSource()
 {
-var source = setInterval(updateCurrentPos, 30000);
+var source = setInterval(updateCurrentPos, 15000);
 /*source = new EventSource('/events', {withCredentials: true});
 source.addEventListener('ping', event => {
 	const status = document.getElementById("curCall").data[0].status;
@@ -128,6 +128,7 @@ function updateCurrentPos()
 	map.loc.getCurrentPosition((position) => {
 		const ele = document.getElementById("curCall");
 		testFetch('inc/googlereversegeocode.php?returntext=1&id='+ele.data.id+'&lat='+position.coords.latitude+'&lng='+position.coords.longitude, {}, (data) => {
+			console.log("updating position");
 			position.origin = data.address;
 			amboService(status, position, ele);
 			const coords = {
