@@ -329,16 +329,21 @@ var ddMap = {
 			return true;
 			//Next, do some magic with the returned data, so we have lat and long of locations. Markers REQUIRE latlong, can't use street data.
 		}).catch((e) => {
-			this.promises--;
-			console.log("Directions request failed -> " + e);
-			if (this.promises == 0) {
-				if (!this.directions.length && initType == 3) {
-					//No directions added at all, after attempting many.
-					closestAmbulanceFailed("Failure to find a direct route for any available ambulance. Returning...");
-					return;
+			if (status == google.maps.GeocoderStatus.OVER_QUERY_LIMIT) {
+				console.log(or);
+				console.log(d);
+			} else {
+				this.promises--;
+				console.log("Directions request failed -> " + e);
+				if (this.promises == 0) {
+					if (!this.directions.length && initType == 3) {
+						//No directions added at all, after attempting many.
+						closestAmbulanceFailed("Failure to find a direct route for any available ambulance. Returning...");
+						return;
+					}
 				}
+				return e;
 			}
-			return e;
 		});
 	},
 	markerprep: function(data) {
