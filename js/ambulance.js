@@ -6,45 +6,47 @@ function amboShortcuts(e) {
 }
 
 function amboService(stat, pos, ele, ajx) {
-	document.getElementById("id").value = ele.tabledata.id;
-	document.getElementById("loc").value = pos.origin;
-	document.getElementById("lat").value = pos.coords.latitude;
-	document.getElementById("lng").value = pos.coords.longitude;
-	if (stat < 4) {
-		document.getElementById("submitType").value = 'ambostat';
-		document.getElementById("status").value = stat;
-	} else {
-		document.getElementById("submitType").value = 'en2Hosp';
-		document.getElementById("hospid").value = stat-3;
-		params.append('hospid', stat-3);
-	}
-	document.getElementById("statusSubmit").submit();
-	
-	/*const params = new FormData();
-	params.append('method', 'POST');
-	params.append('action', '/inc/amboupdates.php');
-	params.append('id', ele.tabledata.id);
-	params.append('loc', pos.origin);
-	params.append('lat', pos.coords.latitude);
-	params.append('lng', pos.coords.longitude);
-	if (stat < 4) {
-		params.append('submitType', 'ambostat');
-		params.append('status', stat);
-	} else {
-		params.append('submitType', 'en2Hosp');
-		params.append('hospid', stat-3);
-	}
-	doAJAX("/inc/amboupdates.php", params, (ret) => {
-		if (ajx) {
-			location.href = "index.php";
-			window.location.reload(true);
+	if (ajx) {
+		document.getElementById("id").value = ele.tabledata.id;
+		document.getElementById("loc").value = pos.origin;
+		document.getElementById("lat").value = pos.coords.latitude;
+		document.getElementById("lng").value = pos.coords.longitude;
+		if (stat < 4) {
+			document.getElementById("submitType").value = 'ambostat';
+			document.getElementById("status").value = stat;
 		} else {
-			let ele = document.getElementById("curCall");
-			ele.innerHTML = '';
-			popupMessage(ret);
-			amboInfo();
+			document.getElementById("submitType").value = 'en2Hosp';
+			document.getElementById("hospid").value = stat-3;
+			params.append('hospid', stat-3);
 		}
-	});*/
+		document.getElementById("statusSubmit").submit();
+	} else {
+		const params = new FormData();
+		params.append('method', 'POST');
+		params.append('action', '/inc/amboupdates.php');
+		params.append('id', ele.tabledata.id);
+		params.append('loc', pos.origin);
+		params.append('lat', pos.coords.latitude);
+		params.append('lng', pos.coords.longitude);
+		if (stat < 4) {
+			params.append('submitType', 'ambostat');
+			params.append('status', stat);
+		} else {
+			params.append('submitType', 'en2Hosp');
+			params.append('hospid', stat-3);
+		}
+		doAJAX("/inc/amboupdates.php", params, (ret) => {
+			if (ajx) {
+				location.href = "index.php";
+				window.location.reload(true);
+			} else {
+				let ele = document.getElementById("curCall");
+				ele.innerHTML = '';
+				popupMessage(ret);
+				amboInfo();
+			}
+		});
+	}
 }
 
 
