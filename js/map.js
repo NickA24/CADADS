@@ -54,7 +54,7 @@ function loadInit(params) //loc, style, id)
 		} else if (data !== null) {
 			ele.data = data;
 			if (!map.init) { loadScript(gurl, map.setup, ele); }
-			if (params.initType == 3) { 
+			if (params.initType == 3) {
 				params.callback(data);
 			}
 		}
@@ -120,6 +120,12 @@ var ddMap = {
 		for (var index in this.ticket_markers ) {
 			let latlng = this.ticket_markers[index].getPosition();
 			this.bounds.extend(latlng);
+		}
+		if (this.bounds.getNorthEast().equals(this.bounds.getSouthWest())) {
+			var extendPoint = new google.maps.LatLng(this.bounds.getNorthEast().lat() + 0.01, this.bounds.getNorthEast().lng() + 0.01);
+			this.bounds.extend(extendPoint);
+			extendPoint = new google.maps.LatLng(this.bounds.getSouthWest().lat() - 0.01, this.bounds.getSouthWest().lng() - 0.01);
+			this.bounds.extend(extendPoint);
 		}
 		this.map.fitBounds(this.bounds, 50);
 	},
@@ -244,7 +250,6 @@ var ddMap = {
 		var h = Math.floor(Math.random() * (max - min + 1) + min) / 360;
 		let htmp = h*360;
 		if (90 < htmp && htmp < 150) {
-			console.log(htmp+":Green exception");
 			if (htmp < 120) {
 				h = (htmp-30)/360;
 			} else if (htmp >= 120) {
@@ -371,7 +376,6 @@ var ddMap = {
 	setup: function(ele) {
 		if (ele.initType == 1) {
 			map.loc = window.navigator.geolocation;
-			map.loc.getCurrentPosition((pos)=>{console.log(pos);}, (err)=>{console.log(err);}, {enabledHighAccuracy:true,timeout:5000,maximumAge:0});
 		}
 		if (Array.isArray(ele.data)) {
 			ele.data.forEach((j, k) => {

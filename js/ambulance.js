@@ -5,9 +5,24 @@ function amboShortcuts(e) {
     console.log(str); 
 }
 
-function amboService(stat, pos, ele) {
-	const params = new FormData();
+function amboService(stat, pos, ele, ajx) {
+	document.getElementById("id").value = ele.tabledata.id;
+	document.getElementById("loc").value = pos.origin;
+	document.getElementById("lat").value = pos.coords.latitude;
+	document.getElementById("lng").value = pos.coords.longitude;
+	if (stat < 4) {
+		document.getElementById("submitType").value = 'ambostat';
+		document.getElementById("status").value = stat;
+	} else {
+		document.getElementById("submitType").value = 'en2Hosp';
+		document.getElementById("hospid").value = stat-3;
+		params.append('hospid', stat-3);
+	}
+	document.getElementById("statusSubmit").submit();
+	
+	/*const params = new FormData();
 	params.append('method', 'POST');
+	params.append('action', '/inc/amboupdates.php');
 	params.append('id', ele.tabledata.id);
 	params.append('loc', pos.origin);
 	params.append('lat', pos.coords.latitude);
@@ -20,11 +35,16 @@ function amboService(stat, pos, ele) {
 		params.append('hospid', stat-3);
 	}
 	doAJAX("/inc/amboupdates.php", params, (ret) => {
-		let ele = document.getElementById("curCall");
-		ele.innerHTML = '';
-		popupMessage(ret);
-		amboInfo();
-	});
+		if (ajx) {
+			location.href = "index.php";
+			window.location.reload(true);
+		} else {
+			let ele = document.getElementById("curCall");
+			ele.innerHTML = '';
+			popupMessage(ret);
+			amboInfo();
+		}
+	});*/
 }
 
 
@@ -52,8 +72,9 @@ var amboInfo = function()
 			config.createHeader = true;
 			config.createBody = true;
 			config.bodyID = "ambobody";
-			config.dataMask = ["name", "incident_type", "status", "ambulance_location", "destination"];
-			config.dataMask2nd = ["id", "loclat", "loclng", "dstlat", "dstlng"];
+			config.dataMask = ["name", "incident_type", "location", "destination", "priorityText"];
+			config.dataMask2nd = ["status", "incident_description", "time", "lastupdate"];
+			config.addComments = true;
 			createJSTable(ele, data, config);
 			const html = document.getElementsByTagName("html")[0].dataset;
 			let paramx = new Object();
@@ -63,6 +84,7 @@ var amboInfo = function()
 			paramx.id = ele.tabledata.id;
 			ele.tabledata.username = html.username;
 			paramx.ele = "curCall";
+			paramx.callback = ambosetupCallback;
 			loadInit(paramx);
 		}
 	});
@@ -71,7 +93,8 @@ var amboInfo = function()
 var source;
 function initNewSource()
 {
-source = new EventSource('/events', {withCredentials: true});
+//var source = setInterval(updateCurrentPos, 30000);
+/*source = new EventSource('/events', {withCredentials: true});
 source.addEventListener('ping', event => {
 	const status = document.getElementById("curCall").data[0].status;
 	map.loc.getCurrentPosition((position) => {
@@ -85,7 +108,7 @@ source.addEventListener('ping', event => {
 			}
 			map.ambulance_markers[0].setPosition(coords);
 		});
-	}, (error) => { console.log(error); }, {enableHighAccuracy: false, maximumAge: 5000});
+	}, (error) => { console.log(error); }, {enableHighAccuracy: false, maximumAge: 30000});
 });
 source.addEventListener('error', event => {
 	//document.body.innerHTML += '<span style="color:red">'+event.data + '</span><br>';
@@ -94,7 +117,29 @@ source.addEventListener('error', event => {
 		source.close();
 		initNewSource();
 	}
-});
+});*/
+}
+
+function updateCurrentPos()
+{
+	const status = document.getElementById("curCall").data[0].status;
+	map.loc.getCurrentPosition((position) => {
+		const ele = document.getElementById("curCall");
+		testFetch('inc/googlereversegeocode.php?returntext=1&id='+ele.data.id+'&lat='+position.coords.latitude+'&lng='+position.coords.longitude, {}, (data) => {
+			position.origin = data.address;
+			amboService(status, position, ele);
+			const coords = {
+				lat: position.coords.latitude,
+				lng: position.coords.longitude,
+			}
+			map.ambulance_markers[0].setPosition(coords);
+		});
+	}, (error) => { console.log(error); }, {enableHighAccuracy: true, maximumAge: 30000});
+}
+
+function ambosetupCallback(dummy)
+{
+	map.loc.watchPosition((pos)=>{console.log(pos);}, (err)=>{console.log("Error in positioning:" + err);}, {enableHighAccuracy:true, maximumAge: 30000, timeout:5000 });
 }
 
 
@@ -102,5 +147,5 @@ source.addEventListener('error', event => {
 document.addEventListener('DOMContentLoaded', function(e) {
 	document.getElementsByTagName("body")[0].addEventListener("keypress", amboShortcuts, false);
 	amboInfo();
-    	initNewSource();
+    initNewSource();
 });

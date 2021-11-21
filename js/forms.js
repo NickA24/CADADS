@@ -164,7 +164,7 @@ var createJSTable = function(ele, data, config)
 				tableCreation(tr, k, k, j[k], config.addEditData);
 			}
 		}
-		if (config.addComments && j['comments'].length > 1) {
+		if (config.addComments && j['comments'] && j['comments'].length > 1) {
 			tr = document.createElement("tr");
 			tr.setAttribute("class", "hidden inner_row rows_"+v);
 			tr.setAttribute("src", j["id"]);

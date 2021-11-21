@@ -29,12 +29,18 @@ document.addEventListener('DOMContentLoaded', function(e) {
 			e.addEventListener("click", function(evt) {
 				map.loc.getCurrentPosition((position) => {
 					const ele = document.getElementById("curCall");
+					evt.preventDefault();
+					console.log("updating status");
+					popupMessage("updating status");
+					position.origin = "Unsure";
+					amboService(evt.target.attributes.data.nodeValue, position, ele);
+					/*
 					testFetch('inc/googlereversegeocode.php?returntext=1&id='+ele.data.id+'&lat='+position.coords.latitude+'&lng='+position.coords.longitude, {}, (data) => {
 						position.origin = data.address;
 						evt.preventDefault();
-						amboService(evt.target.attributes.data.nodeValue, position, ele);
-					});
-				}, (error) => { console.log(error); }, {enableHighAccuracy: false, maximumAge: 5000});
+						amboService(evt.target.attributes.data.nodeValue, position, ele, true);
+					});*/
+				}, (error) => { console.log(error); }, {enableHighAccuracy: true, maximumAge: 30000, timeout: 5000});
 			});
 		});
 	}
