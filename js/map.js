@@ -378,7 +378,7 @@ var ddMap = {
 		}
 		return obj;
 	},
-	setup: function(ele) {
+	setup: async function(ele) {
 		if (ele.initType == 1) {
 			map.loc = window.navigator.geolocation;
 		}
