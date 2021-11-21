@@ -2,6 +2,15 @@
         margin: 0;
         font-family: 'Open Sans', sans-serif;
     }
+	
+	table, thead, tbody, tr, th, td {
+		text-align: center;
+		width: 100%;
+		border-spacing: 0;
+		border-collapse: separate;
+		padding: 0;
+		table-layout: fixed
+	}
 
 
     h3 {
@@ -19,3 +28,26 @@
         right: 0;
         bottom: 0;
     }
+	.markerZoom {
+		cursor: pointer;    
+    }
+	#curCall {
+		border-spacing: 0;
+		width: 100%;
+		border-bottom: 1px dashed black;
+	}
+	#curCall thead {
+		background-color:#888;
+	}
+	#curCall tr {
+		border-spacing: 0;
+	}
+	#curCall td {
+		padding: 5px 0;
+
+	}
+	
+	.hidden {
+		display: none;
+	}
+	
