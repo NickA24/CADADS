@@ -319,6 +319,15 @@
 		background-color:#b3b3b3;
 		border-color:#b3b3b3;
 	}
+	
+	#ambolist .unlinked {
+		background-color: #ffcccc;
+		border-color: #ffcccc;
+	}
+	#ambolist .unlinked:nth-child(even) {
+		background-color: #d9baba;
+		border-color: #d9baba;
+	}
 	#ambolist tr {
 		border-spacing: 0;
 	}
