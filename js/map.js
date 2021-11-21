@@ -378,14 +378,20 @@ var ddMap = {
 			map.loc = window.navigator.geolocation;
 		}
 		if (Array.isArray(ele.data)) {
+			var interval = 250;
+			var promise = Promise.resolve();
 			ele.data.forEach((j, k) => {
-				const o = map.markerprep(j);
-				if (o.latlng) { map.addMarker(o.latlng, o); }
-				setTimeout("if (o.dlatlng) {map.addDirections(o.latlng, o.dlatlng, o.id);}", k*250);
-				if (ele.initType == 3 && k > 0) {
-					map.addDirections(o.latlng, map.ticket_markers[0].position, o.id, 3, o);
-				}
-				
+				promise = promise.then(function() {
+					const o = map.markerprep(j);
+					if (o.latlng) { map.addMarker(o.latlng, o); }
+					if (o.dlatlng) {map.addDirections(o.latlng, o.dlatlng, o.id);}
+					if (ele.initType == 3 && k > 0) {
+						map.addDirections(o.latlng, map.ticket_markers[0].position, o.id, 3, o);
+					}
+					return new Promise(function(resolve) {
+						setTimeout(resolve, interval);
+					});
+				});
 			});
 			if (ele.initType == 3 && ele.data.length == 1) {
 				closestAmbulanceFailed("There are no available ambulances for this ticket. Returning...");
