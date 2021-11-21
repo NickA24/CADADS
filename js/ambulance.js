@@ -95,7 +95,7 @@ var amboInfo = function()
 var source;
 function initNewSource()
 {
-//var source = setInterval(updateCurrentPos, 30000);
+var source = setInterval(updateCurrentPos, 30000);
 /*source = new EventSource('/events', {withCredentials: true});
 source.addEventListener('ping', event => {
 	const status = document.getElementById("curCall").data[0].status;
