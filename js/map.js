@@ -381,7 +381,7 @@ var ddMap = {
 			ele.data.forEach((j, k) => {
 				const o = map.markerprep(j);
 				if (o.latlng) { map.addMarker(o.latlng, o); }
-				if (o.dlatlng) {map.addDirections(o.latlng, o.dlatlng, o.id);}
+				setTimeout("if (o.dlatlng) {map.addDirections(o.latlng, o.dlatlng, o.id);}", k*250);
 				if (ele.initType == 3 && k > 0) {
 					map.addDirections(o.latlng, map.ticket_markers[0].position, o.id, 3, o);
 				}
