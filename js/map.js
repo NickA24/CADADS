@@ -186,7 +186,7 @@ var ddMap = {
 		//use this.ambulance_marker.find(x => x.id === 1) to return the object, or this.ambulance_marker.findIndex(x => x.id === 1);
 		this.doBounding();
 	},
-	setMapMarkers(map) {
+	setMapMarkers: function(map) {
 		for (let i = 0; i < this.ambulance_markers.length; i++) 
 		{
 			this.ambulance_markers[i].setMap(map);
@@ -378,7 +378,7 @@ var ddMap = {
 		}
 		return obj;
 	},
-	setup: async function(ele) {
+	setup: function(ele) {
 		if (ele.initType == 1) {
 			map.loc = window.navigator.geolocation;
 		}
@@ -390,7 +390,6 @@ var ddMap = {
 				if (ele.initType == 3 && k > 0) {
 					map.addDirections(o.latlng, map.ticket_markers[0].position, o.id, 3, o);
 				}
-				await timer(250);
 			});
 			if (ele.initType == 3 && ele.data.length == 1) {
 				closestAmbulanceFailed("There are no available ambulances for this ticket. Returning...");
@@ -428,8 +427,6 @@ var ddMap = {
 		setTimeout(map.takeStep, time*1000, steps, poly, stepcount, pathcount);
 	}
 };
-
-const timer = ms => new Promise(res => setTimeout(res, ms));
 
 //After defining what ddMap does, create a global instance of it.
 var map = Object.create(ddMap);
