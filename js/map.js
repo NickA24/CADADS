@@ -329,7 +329,7 @@ var ddMap = {
 			return true;
 			//Next, do some magic with the returned data, so we have lat and long of locations. Markers REQUIRE latlong, can't use street data.
 		}).catch((e) => {
-			if (status == google.maps.GeocoderStatus.OVER_QUERY_LIMIT) {
+			if (status == google.maps.DirectionsStatus.OVER_QUERY_LIMIT) {
 				console.log(or);
 				console.log(d);
 			} else {
