@@ -379,13 +379,15 @@ var ddMap = {
 		}
 		if (Array.isArray(ele.data)) {
 			ele.data.forEach(async (j, k) => {
+				await sleep(3000);
+				console.log(k);
 				const o = map.markerprep(j);
 				if (o.latlng) { map.addMarker(o.latlng, o); }
 				if (o.dlatlng) {map.addDirections(o.latlng, o.dlatlng, o.id);}
 				if (ele.initType == 3 && k > 0) {
 					map.addDirections(o.latlng, map.ticket_markers[0].position, o.id, 3, o);
 				}
-				await sleep(250);
+				
 			});
 			if (ele.initType == 3 && ele.data.length == 1) {
 				closestAmbulanceFailed("There are no available ambulances for this ticket. Returning...");
