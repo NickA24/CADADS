@@ -26,7 +26,7 @@ if (isset($ticketID)) { echo 'data-ticketID="'.$ticketID.'" '; }
 <head>
 	<title><?php if (isset($title)) {echo $title;} else { echo "Welcome to the Diamond Team CAD"; }?></title>
 	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<link rel="stylesheet" defer href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" defer type="text/css" href="/css/style.css" />
