@@ -50,8 +50,9 @@
 	#curCall thead {
 		background-color:#888;
 	}
-	#curCall tr {
+	#curCall tbody tr {
 		border-spacing: 0;
+		height: 100%;
 	}
 	#curCall td {
 		padding: 5px 0;
