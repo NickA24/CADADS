@@ -63,8 +63,8 @@ function amboUpdate($db,$var)
 		echo 'no valid id or location';
 		return 'You need a valid id and location';
 	}
-  $params = array(":id"=>$var['id'], ":loc"=>$var['loc'], ":lat"=>$var['lat'], ":lng"=>$var['lng']);
-  $sql = "UPDATE ambulance_info SET location = :loc, loclat=:lat, loclng=:lng, lastupdate=NOW() WHERE id = :id";
+  $params = array(":id"=>$var['id'], ":loc"=>$var['loc'], ":lat"=>$var['lat'], ":lng"=>$var['lng'], ":dir"=>$var['directions'], ":dis"=>$var['distance'], ":dur"=>$var['duration']);
+  $sql = "UPDATE ambulance_info SET location = :loc, loclat=:lat, loclng=:lng, directions=:dir, distance=:dis, duration=:dur, lastupdate=NOW() WHERE id = :id";
   $result = $db->query($sql, $params);
   return $result;
 }
@@ -93,7 +93,7 @@ if (isset($usrtype) && $usrtype == 2 and isset($_POST))
 	}
 	$msg = "Completed updating";
 	updateSessionData($db);
-	header("Location: ../");
+	if (!isset($_POST['returnMessage']) || $_POST['returnMessage'] != 1) { header("Location: ../"); }
 } else {
 	//For debugging purposes. Something went wrong, and I don't know if it's the post data or the user's credentials.
 	//var_dump($_POST);

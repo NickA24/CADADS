@@ -77,7 +77,7 @@
 					$uid = " WHERE users.id = :id ";
 					$tid = " AND ambulance = :tid ";
 				}
-				$sql = "SELECT users.id AS id, users.name AS name, 1 as markertype, status, location, loclat, loclng, destination, dstlat, dstlng, 1 as source, current_ticket as isFree, lastupdate FROM ambulance_info LEFT JOIN users ON users.id=ambulance_info.id ".$uid." UNION SELECT ticket.id, name, 0 as markertype, incident_tbl.description AS status, location, lat as loclat, lng as loclng, NULL as destination, NULL as dstlat, NULL as dstlng, 0 as source, ambulance as isFree, time as lastupdate FROM ticket LEFT JOIN incident_tbl ON incident_tbl.id=ticket.incident_type WHERE Active = 1 ".$tid;
+				$sql = "SELECT users.id AS id, users.name AS name, 1 as markertype, status, location, loclat, loclng, destination, dstlat, dstlng, 1 as source, current_ticket as isFree, directions, distance, duration, lastupdate FROM ambulance_info LEFT JOIN users ON users.id=ambulance_info.id ".$uid." UNION SELECT t.id, t.name, 0 as markertype, incident_tbl.description AS status, IF(enroute_to_hospital>0, h.location, t.location) AS location, IF(enroute_to_hospital>0, h.lat, t.lat) as loclat, IF(enroute_to_hospital>0, h.lng, t.lng) as loclng, NULL as destination, NULL as dstlat, NULL as dstlng, 0 as source, ambulance as isFree, null as directions, null as distance, null as duration, time as lastupdate FROM ticket t LEFT JOIN incident_tbl ON incident_tbl.id=t.incident_type LEFT JOIN hospitals h ON enroute_to_hospital = h.id WHERE Active = 1 ".$tid;
 				break;
 			case 'closest':
 				//This returns the closest 3 ambulances to a specific ticket id.
