@@ -113,6 +113,8 @@ var ddMap = {
 		});
 	},
 	doBounding: function() {
+		this.bounds = null;
+		this.bounds = new google.maps.LatLngBounds();
 		for (var index in this.ambulance_markers ) {
 			let latlng = this.ambulance_markers[index].getPosition();
 			this.bounds.extend(latlng);
