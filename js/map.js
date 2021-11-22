@@ -277,8 +277,9 @@ var ddMap = {
 		return color;
 	},
 	addDirections: function(or, d, id, initType, o) {
-		if (o.directions && o.distance && o.duration) {
-			let route = {"id": id, "encodedpolyline":o.directions, "steps": google.maps.geometry.encoding.decodePath(o.directions)};
+		let r = google.maps.geometry.encoding.decodePath(o.directions);
+		if (o.directions && o.distance && o.duration && or.lat == r[0].lat() && or.lng == r[0].lng()) {
+			let route = {"id": id, "encodedpolyline":o.directions, "steps": r};
 			route.start_location = route.steps[0];
 			route.end_location = route.steps[route.steps.length-1];
 			route.polyline = new google.maps.Polyline({
