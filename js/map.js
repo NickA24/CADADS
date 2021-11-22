@@ -8,25 +8,27 @@ function initMap() {
 function loadInit(params) //loc, style, id) 
 {
 	//automatic click checker to zoom on the map when clicking a ticket
-	document.onclick= function(e){
-		e=window.event? event.srcElement: e.target;const x = e.closest('.markerZoom'); 
-		if (x) { 
-			map.zoomOnMarker(x.getAttribute("id"));
-			var j = document.getElementsByClassName("inner_row");
-			for (let i = 0; i < j.length; i++) {
-				if (j[i].getAttribute("src") != x.id) {
-					j[i].classList.add("hidden");
+	if (!map.init) { 
+		document.onclick= function(e){
+			e=window.event? event.srcElement: e.target;const x = e.closest('.markerZoom'); 
+			if (x) { 
+				map.zoomOnMarker(x.getAttribute("id"));
+				var j = document.getElementsByClassName("inner_row");
+				for (let i = 0; i < j.length; i++) {
+					if (j[i].getAttribute("src") != x.id) {
+						j[i].classList.add("hidden");
+					}
+					if (j[i].classList.contains("header") && x.lastElementChild.classList.contains("hidden")) {
+						j[i].classList.remove("hidden");
+					}
 				}
-				if (j[i].classList.contains("header") && x.lastElementChild.classList.contains("hidden")) {
-					j[i].classList.remove("hidden");
+				if (x.firstElementChild.nextElementSibling != x.lastElementChild) {
+					x.firstElementChild.nextElementSibling.classList.toggle("hidden");
 				}
+				x.lastElementChild.classList.toggle("hidden");
 			}
-			if (x.firstElementChild.nextElementSibling != x.lastElementChild) {
-				x.firstElementChild.nextElementSibling.classList.toggle("hidden");
-			}
-			x.lastElementChild.classList.toggle("hidden");
 		}
-	}
+	} else { console.log("map already loaded"); }
 	//loc:1 means ambulance.php, 2:dispatch
 	//Loads the google script, and after loading will do the map initialization.
 	map.mapStyle = params.preferredMap;
@@ -37,9 +39,6 @@ function loadInit(params) //loc, style, id)
 	gurl = 'inc/googleapi.php';
 	if (params.initType == 1) 
 	{
-		if (!window.navigator.geolocation) {
-			alert("This browser does not support geolocation! automatic tracking will not function.");
-		}
 		url += '&id='+params.id;
 	} 
 	else if (params.initType == 3) 
@@ -53,6 +52,7 @@ function loadInit(params) //loc, style, id)
 			if (popupMessage) { popupMessage("Error: " + err); }
 		} else if (data !== null) {
 			ele.data = data;
+			ele.callback = params.callback;
 			if (!map.init) { loadScript(gurl, map.setup, ele); }
 			if (params.initType == 3) {
 				params.callback(data);
@@ -277,69 +277,88 @@ var ddMap = {
 		return color;
 	},
 	addDirections: function(or, d, id, initType, o) {
-		this.promises++;
-		this.ds.route(
-		{
-			origin: or,
-			destination: d,
-			travelMode: google.maps.TravelMode.DRIVING,
-		})
-		.then((response) => {
-			//Once we get them back, set the directions.
-			let route = response.routes[0].legs[0];
-			route.id = id;
-			let polypath = [];
-			for (var i = 0; i < route.steps.length; i++)
-			{
-				for (var j = 0; j < route.steps[i].path.length; j++)
-				{
-					polypath.push(route.steps[i].path[j]);
-				}
-			}
+		if (o.directions && o.distance && o.duration) {
+			let route = {"id": id, "encodedpolyline":o.directions, "steps": google.maps.geometry.encoding.decodePath(o.directions)};
+			route.start_location = route.steps[0];
+			route.end_location = route.steps[route.steps.length-1];
 			route.polyline = new google.maps.Polyline({
 				map: this.map,
-				path: polypath,
+				path: route.steps,
 				strokeColor: map.getRandomColor(id),
 				strokeOpacity: 1.0,
 				strokeWeight: 5,
 			});
+			route.distance = {'text':o.distance};
+			route.duration = {'text':o.duration};
 			const q = this.ambulance_markers.find(x => x.id === route.id);
-			q.title += '\nDistance: '+route.distance.text+', Arrival time: '+ route.duration.text;
+			q.title += '\nDistance: '+o.distance+', Arrival time: '+ o.duration;
 			this.directions.push(route);
 			this.doBounding();
-			if (initType == 3) 
+		} else {
+			this.promises++;
+			this.ds.route(
 			{
-				k = this.directions.length-1;
-				if (document.getElementById("radioambo"+k)) {
-					document.getElementById("radioambo"+k).value = o.id;
-					var p = document.getElementById("ambo"+k).firstChild.nextElementSibling.nextElementSibling;
-					p.innerHTML = o.name;
-					p = p.nextElementSibling;
-					p.innerHTML = map.directions[k].distance.text;
-					p = p.nextElementSibling;
-					p.innerHTML = map.directions[k].duration.text;
-					p = p.nextElementSibling;
-					if (map.directions[k].duration.value > 600) {
-						p.innerHTML = "Warning - >10min response time - Inform caller";
-						p.style.backgroundColor = '#f7baba';
+				origin: or,
+				destination: d,
+				travelMode: google.maps.TravelMode.DRIVING,
+			})
+			.then((response) => {
+				//Once we get them back, set the directions.
+				let route = response.routes[0].legs[0];
+				route.id = id;
+				route.encodedpolyline = response.routes[0].overview_polyline;
+				let polypath = [];
+				for (var i = 0; i < route.steps.length; i++)
+				{
+					for (var j = 0; j < route.steps[i].path.length; j++)
+					{
+						polypath.push(route.steps[i].path[j]);
 					}
 				}
-			}
-			this.promises--;
-			return true;
-			//Next, do some magic with the returned data, so we have lat and long of locations. Markers REQUIRE latlong, can't use street data.
-		}).catch((e) => {
-			this.promises--;
-			console.log("Directions request failed -> " + e);
-			if (this.promises == 0) {
-				if (!this.directions.length && initType == 3) {
-					//No directions added at all, after attempting many.
-					closestAmbulanceFailed("Failure to find a direct route for any available ambulance. Returning...");
-					return;
+				route.polyline = new google.maps.Polyline({
+					map: this.map,
+					path: polypath,
+					strokeColor: map.getRandomColor(id),
+					strokeOpacity: 1.0,
+					strokeWeight: 5,
+				});
+				const q = this.ambulance_markers.find(x => x.id === route.id);
+				q.title += '\nDistance: '+route.distance.text+', Arrival time: '+ route.duration.text;
+				this.directions.push(route);
+				this.doBounding();
+				if (initType == 3) 
+				{
+					k = this.directions.length-1;
+					if (document.getElementById("radioambo"+k)) {
+						document.getElementById("radioambo"+k).value = o.id;
+						var p = document.getElementById("ambo"+k).firstChild.nextElementSibling.nextElementSibling;
+						p.innerHTML = o.name;
+						p = p.nextElementSibling;
+						p.innerHTML = map.directions[k].distance.text;
+						p = p.nextElementSibling;
+						p.innerHTML = map.directions[k].duration.text;
+						p = p.nextElementSibling;
+						if (map.directions[k].duration.value > 600) {
+							p.innerHTML = "Warning - >10min response time - Inform caller";
+							p.style.backgroundColor = '#f7baba';
+						}
+					}
 				}
-			}
-			return e;
-		});
+				this.promises--;
+				return true;
+			}).catch((e) => {
+				this.promises--;
+				console.log("Directions request failed -> " + e);
+				if (this.promises == 0) {
+					if (!this.directions.length && initType == 3) {
+						//No directions added at all, after attempting many.
+						closestAmbulanceFailed("Failure to find a direct route for any available ambulance. Returning...");
+						return;
+					}
+				}
+				return e;
+			});
+		}
 	},
 	markerprep: function(data) {
 		const ambostatus = ["Out of Service", "Available", "Enroute", "Unavailable"];
@@ -371,11 +390,24 @@ var ddMap = {
 				obj.clr = map.getRandomColor(obj.isFree);
 			}
 		}
+		if (data.directions) {
+			obj.directions = data.directions;
+			obj.distance = data.distance;
+			obj.duration = data.duration;
+		}
 		return obj;
 	},
 	setup: function(ele) {
 		if (ele.initType == 1) {
-			map.loc = window.navigator.geolocation;
+			if (!window.navigator.geolocation) {
+				alert("This browser does not support geolocation! automatic tracking will not function.");
+			} else if (map.loc == null) { 
+				map.loc = window.navigator.geolocation;
+			}
+			if (ele.callback) {
+				ele.callback();
+				ele.callback = null;
+			}
 		}
 		if (Array.isArray(ele.data)) {
 			var interval = 250;
@@ -383,12 +415,16 @@ var ddMap = {
 			ele.data.forEach((j, k) => {
 				const o = map.markerprep(j);
 				if (o.latlng) { map.addMarker(o.latlng, o); }
-				promise = promise.then(function() { 
-					if (o.dlatlng) {map.addDirections(o.latlng, o.dlatlng, o.id);}
-					return new Promise(function(resolve) {
-						setTimeout(resolve, interval);
+				if (o.directions && o.directions != '') {
+					map.addDirections(o.latlng, o.dlatlng, o.id, ele.initType, o);
+				} else {
+					promise = promise.then(function() { 
+						if (o.dlatlng && o.dlatlng.lat > 0 && o.dlatlng.lng > 0) {map.addDirections(o.latlng, o.dlatlng, o.id, ele.initType, o);}
+						return new Promise(function(resolve) {
+							setTimeout(resolve, interval);
+						});
 					});
-				});
+				}
 				if (ele.initType == 3 && k > 0) {
 					map.addDirections(o.latlng, map.ticket_markers[0].position, o.id, 3, o);
 				}

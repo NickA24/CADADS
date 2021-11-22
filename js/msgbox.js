@@ -9,11 +9,11 @@ function toggleMessageBox() {
 
 function popupMessage(msg)
 {
-	//console.log((new Error).stack);
 	const msgBox = document.getElementById("msgBoxPopup");
 	if (msgBox) { msgBox.innerHTML = msg; }
 }
 
+var observer;
 document.addEventListener('DOMContentLoaded', function(e) {
 	const msgBox = document.getElementById("msgBoxPopup");
 	if (msgBox) {

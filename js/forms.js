@@ -60,7 +60,7 @@ var createJSTable = function(ele, data, config)
 			}
 			if (config.dataMask2nd) {
 				var tr = document.createElement('tr');
-				tr.setAttribute("class", "hidden inner_row header");
+				tr.setAttribute("class", "header");  //add back in hidden inner_row to class if you want it to hide with the other stuff
 				thead.appendChild(tr);
 				for (var i = 0; i < config.dataMask2nd.length; i++) {
 					var td = document.createElement("th");
@@ -120,6 +120,9 @@ var createJSTable = function(ele, data, config)
 		var tbody = document.createElement('tbody');
 		tbody.setAttribute("id", j.id);
 		tbody.setAttribute("class", "markerZoom");
+		if (config.newTicket) {
+			tbody.classList.add("oncall");
+		}
 		if (!config.createTable) { ele.appendChild(tbody); } else { table.append(tbody); }
 		//Here we're iterating through the object itself.
 		//Note each one is listed as 0:{array} so we're stripping out the number first

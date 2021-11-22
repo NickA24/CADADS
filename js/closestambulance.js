@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', function(e) {
 	params.datamask = {};
 	params.callback = closestambulancecallback;
 	loadInit(params);
+	document.getElementById("submitchooseambo").addEventListener("click", closestambulancepopulatedirections, false);
 });
 
 function closestambulancecallback(data) {
@@ -18,3 +19,11 @@ function closestAmbulanceFailed(msg) {
 	setTimeout('location.href = "index.php";', 6000 );
 }
 
+function closestambulancepopulatedirections(e)
+{
+	const id = e.target.form.amboselect.value;
+	const q = map.directions.find(x => x.id == id);
+	document.getElementById("directions").value = q.encodedpolyline;
+	document.getElementById("distance").value = q.distance.text;
+	document.getElementById("duration").value = q.duration.text;
+}

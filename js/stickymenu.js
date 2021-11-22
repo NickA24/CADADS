@@ -32,14 +32,8 @@ document.addEventListener('DOMContentLoaded', function(e) {
 					evt.preventDefault();
 					console.log("updating status");
 					popupMessage("updating status");
-					position.origin = "Unsure";
+					position.origin = document.getElementById("curCall").data[0].location;
 					amboService(evt.target.attributes.data.nodeValue, position, ele, true);
-					/*
-					testFetch('inc/googlereversegeocode.php?returntext=1&id='+ele.data.id+'&lat='+position.coords.latitude+'&lng='+position.coords.longitude, {}, (data) => {
-						position.origin = data.address;
-						evt.preventDefault();
-						amboService(evt.target.attributes.data.nodeValue, position, ele, true);
-					});*/
 				}, (error) => { console.log(error); }, {enableHighAccuracy: true, maximumAge: 30000, timeout: 5000});
 			});
 		});
