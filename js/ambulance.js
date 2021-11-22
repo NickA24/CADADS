@@ -73,10 +73,6 @@ var amboInfo = function()
 			{
 				config.newTicket = true;
 			}
-			if (ele.tabledata) { 
-				console.log(ele.tabledata.lastupdate);
-				console.log(data[0].lastupdate);
-			}
 			if (ele.tabledata && ele.tabledata.lastupdate == data[0].lastupdate && ele.data[0].directions != '') 
 			{ 
 				console.log("ignoring"); 
