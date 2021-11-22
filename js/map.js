@@ -233,9 +233,13 @@ var ddMap = {
 	clearAlldr: function() {
 		for (let i = 0; i < this.directions.length; i++) 
 		{
-			this.directions[i] = null;
+			this.deleteDirections(i);
 		}
 		this.directions = [];
+	},
+	deleteDirections: function(id) {
+		this.directions[id].setMap(null);
+		this.directions[id] = null;
 	},
 	getRandomColor: function(id) {
 		// This function generates vibrant, "evenly spaced" colours (i.e. no clustering). This is ideal for creating easily distinguishable vibrant markers in Google Maps and other apps.

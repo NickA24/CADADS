@@ -177,7 +177,7 @@ function updateCurrentPos()
 
 function ambosetupCallback(dummy)
 {
-	initNewSource();
+	//initNewSource();
 }
 
 

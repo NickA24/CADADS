@@ -121,7 +121,9 @@ var createJSTable = function(ele, data, config)
 		tbody.setAttribute("id", j.id);
 		tbody.setAttribute("class", "markerZoom");
 		if (config.newTicket) {
-			tbody.classList.add("oncall");
+			document.getElementById("curCall").classList.add("oncall");
+		} else {
+			document.getElementById("curCall").classList.remove("oncall");
 		}
 		if (!config.createTable) { ele.appendChild(tbody); } else { table.append(tbody); }
 		//Here we're iterating through the object itself.
