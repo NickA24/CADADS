@@ -2,14 +2,14 @@
         margin: 0;
         font-family: 'Open Sans', sans-serif;
     }
+	.oncall {
+		background-color: #99ff99;
+		transition: background-color 250ms ease-in;
+	}		
 	
 	table, thead, tbody, tr, th, td {
 		text-align: center;
 		width: 100%;
-		border-spacing: 0;
-		border-collapse: separate;
-		padding: 0;
-		table-layout: fixed
 	}
 
 
@@ -32,30 +32,28 @@
 		cursor: pointer;    
     }
 	#curCall {
-		border-spacing: 0;
 		width: 100%;
 		border-bottom: 1px dashed black;
+		height:154px;
 	}
-	#curCall tbody.oncall {
-		background-color: #99ff99;
-		transition: background-color 250ms ease-in;
+	#curCall>table {
+		table-layout: fixed;
+		border-collapse:collapse;
 	}
-	#curCall table {
-		
-	}
-	#curCall tbody {
-		height:100%;
-	}
-	#curCall thead {
+	#curCall>table>thead {
+		top: 0;
+		position:relative;
+		height:40px;
 		background-color:#888;
 	}
-	#curCall tbody tr {
-		border-spacing: 0;
-		height: 100%;
+	#curCall>table>tbody {
+		position:relative;
+		top:0;
+		height:114px;
 	}
+
 	#curCall td {
 		padding: 5px 0;
-
 	}
 	
 	.hidden {
