@@ -283,8 +283,10 @@ var ddMap = {
 		return color;
 	},
 	addDirections: function(or, d, id, initType, o) {
-		let r = google.maps.geometry.encoding.decodePath(o.directions);
-		if (initType == 2 || (initType != 3 && o.directions && o.distance && o.duration && or.lat == r[0].lat() && or.lng == r[0].lng())) {
+		
+		if (initType != 3 && (initType == 2 || (initType != 3 && o.directions && o.distance && o.duration))) {
+			//&& or.lat == r[0].lat() && or.lng == r[0].lng()
+			let r = google.maps.geometry.encoding.decodePath(o.directions);
 			let route = {"id": id, "encodedpolyline":o.directions, "steps": r};
 			route.start_location = route.steps[0];
 			route.end_location = route.steps[route.steps.length-1];
