@@ -98,9 +98,6 @@ var ddMap = {
 		const ccd = document.createElement("div");
 		this.mapControl(ccd, this.map);
 		this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(ccd);
-		const ib = document.createElement("div");
-		this.mobileTesting(ib, this.map);
-		this.map.controls[google.maps.ControlPosition.BOTTOM_LEFT].push(ib);
 	},
 	mapControl: function(div, map) {
 		const controlUI = document.createElement("div");
@@ -113,19 +110,6 @@ var ddMap = {
 		controlUI.appendChild(controlText);
 		controlUI.addEventListener("click", () => {
 			this.doBounding();
-		});
-	},
-	mobileTesting: function(div, map) {
-		const controlUI = document.createElement("div");
-		controlUI.setAttribute("class", "controlUI");
-		controlUI.title = "Click to test some stuff on mobile";
-		div.appendChild(controlUI);
-		const controlText = document.createElement("div");
-		controlText.setAttribute("class", "controlText");
-		controlText.innerHTML = "Testing";
-		controlUI.appendChild(controlText);
-		controlUI.addEventListener("click", () => {
-			amboInfo();
 		});
 	},
 	doBounding: function() {
