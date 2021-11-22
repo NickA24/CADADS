@@ -42,7 +42,7 @@
 		transition: background-color 250ms ease-in;
 	}
 	#curCall table {
-		height: 100%;
+		height: 154px;
 	}
 	#curCall tbody {
 		height:100%;
