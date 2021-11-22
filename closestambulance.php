@@ -13,6 +13,9 @@
         $sql = "UPDATE ticket SET ambulance = :ambo WHERE id = :id";
         $result = $db->query($sql, $params);
         if ($result) {
+			$params = array(":ambo"=>$_POST['amboselect'], ":dir"=>$_POST['directions'], ":dis"=>$_POST['distance'], ":dur"=>$_POST['duration']);
+			$sql = "UPDATE ambulance_info SET directions=:dir, distance=:dis, duration=:dur WHERE id=:ambo";
+			$result = $db->query($sql, $params);
             $_SESSION['msgbox'] = "Ambulance has been notified, Ticket is active";
         } else {
             $_SESSION['msgbox'] = "There may have been a problem assigning your ambulance.";   
@@ -40,8 +43,11 @@
   <div id="pick3">
       <span>Please choose between the closest 3 ambulances for ticket#<?php echo $_GET['id']; ?></span>
 	  <?php msgBox(); ?>
-      <form class="chooseambulance" action="closestambulance.php" method="post">
+      <form id="chooseambulance" class="chooseambulance" action="closestambulance.php" method="post">
           <input type="hidden" id="chooseambo" name="chooseambo" value="chooseambo"></input>
+			<input type="hidden" id="directions" name="directions" value="">
+			<input type="hidden" id="distance" name="distance" value="">
+			<input type="hidden" id="duration" name="duration" value="">
           <input type="hidden" id="ticket" name="ticket" value="<?php echo $_GET['id']; ?>"></input>
           <table>
               <tr class="ambo1" id="ambo0">
@@ -66,7 +72,7 @@
                   <td></td>
               </tr>
           </table>
-          <button type="submit" name="submit" value="Submit">Submit</button><button type="button" onclick="location.href='../'">Leave Unassigned</button>
+          <button id="submitchooseambo" type="submit" name="submit" value="Submit">Submit</button><button type="button" onclick="location.href='../'">Leave Unassigned</button>
       </form>
   </div>
   <div id="map"></div>
