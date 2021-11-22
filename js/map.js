@@ -238,7 +238,7 @@ var ddMap = {
 		this.directions = [];
 	},
 	deleteDirections: function(id) {
-		this.directions[id].setMap(null);
+		this.directions[id].polyline.setMap(null);
 		this.directions[id] = null;
 	},
 	getRandomColor: function(id) {
