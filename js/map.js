@@ -100,7 +100,7 @@ var ddMap = {
 		this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(ccd);
 		const ib = document.createElement("div");
 		this.mobileTesting(ib, this.map);
-		this.map.controls[google.maps.ControlPosition.TOP_CENTER].push(ib);
+		this.map.controls[google.maps.ControlPosition.BOTTOM_LEFT].push(ib);
 	},
 	mapControl: function(div, map) {
 		const controlUI = document.createElement("div");
