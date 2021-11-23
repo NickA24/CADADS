@@ -303,7 +303,7 @@ var ddMap = {
 			}
 		}
 	},
-	directionFake : function(or, d, id, initType, o, r) {
+	directionFake: function(or, d, id, initType, o, r) {
 		let route = {"id": id, "encodedpolyline":o.directions, "steps": r};
 		route.start_location = route.steps[0];
 		route.end_location = route.steps[route.steps.length-1];
