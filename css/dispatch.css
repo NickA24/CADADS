@@ -122,14 +122,13 @@
     .searchBar {
 	margin-top: 20px;
 	margin-left: 30px;
-	width: 90%;
     }
     .clearButton {
         position: absolute;
         border-radius: 5px;
         z-index: 2;
         border: none;
-	margin-left:10px;
+	margin-left:180px;
         top: 20px;
 	width: 50px;
         height: 37px;
