@@ -305,11 +305,12 @@
 		cursor: pointer;    
     }
     .pathColor {
+	height: 100%;
+	weight: 100%;
 	border: 2px solid white;
 	border-radius: 15px;
 	margin-top: 5px;
 	margin-bottom: 5px;
-	display: block;
     }
 	
 	.fa:hover {
