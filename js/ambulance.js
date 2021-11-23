@@ -73,13 +73,13 @@ var amboInfo = function()
 			{
 				config.newTicket = true;
 			}
-			if (ele.tabledata && ele.tabledata.lastupdate == data[0].lastupdate && ele.data[0].directions != '') 
+			/*if (ele.tabledata && ele.tabledata.lastupdate == data[0].lastupdate && ele.data[0].directions != '') 
 			{ 
 				console.log("ignoring"); 
 				return; 
 			} 
 			else 
-			{
+			{*/
 				ele.tabledata = Object.assign({}, data[0]);
 				data[0].id = data[0].ticket_id;
 				data[0].ticket_id = ele.tabledata.id;
@@ -95,7 +95,7 @@ var amboInfo = function()
 				config.addComments = true;
 				ele.innerHTML = '';
 				createJSTable(ele, data, config);
-			}
+			//}
 			const html = document.getElementsByTagName("html")[0].dataset;
 			let paramx = new Object();
 			paramx.initType = html.inittype;
