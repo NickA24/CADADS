@@ -87,6 +87,9 @@
         background-color: #3A1F5B;
         background-position: 0 -15px;
     }
+    .btn:active {
+	background-color: #B19CD8;
+    }
     .btn-primary {
         padding: 9px 14px;
         font-size: 15px;
