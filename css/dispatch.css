@@ -107,14 +107,13 @@
     }
     .activeTicketsHeader {
 	margin-top: 0px;
+	margin-bottom: 0px;
 	font-family: futuraFont;
 	background-color: transparent;
 	}
     .headerDiv {
 	width: 100%;
-	/*position: fixed;*/
 	background-image: linear-gradient(to bottom right, lightgray, white);
-	/*z-index: 0;*/
     }
     .header_name {
 	border-bottom: 2px solid white;
