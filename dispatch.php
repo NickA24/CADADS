@@ -21,7 +21,7 @@
                 <?php
                 //This is our form to add a new ticket. This should be front and center at all times for dispatcher if possible.
                 ?>
-                <a href="javascript:void(0)" class="closebtn" onclick="closeNavAdd()">&times;</a>
+                <a href="javascript:void(0)" class="closebtn" onclick="closeNavAddForce()">&times;</a>
                 <form class="add-new-ticket" action="/inc/submit.php" method="post">
                     <input type="hidden" name="submitType" id="submitType" value="addTicket">
                     <center><h2 class="activeTicketsHeader">New Ticket</h2></center>
@@ -47,7 +47,7 @@
                         </select>
                     <br>
                     <label for="priority">Priority:</label>
-                        <select id="priority" name="priority">
+                        <select id="priority" name="priority" required>
 				<option value="" disabled selected>Select a Priority</option>
                        		<option value="1">1 - High/Emergency</option>
                             	<option value="2">2 - Medium/Urgent</option>
