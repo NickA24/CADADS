@@ -283,91 +283,108 @@ var ddMap = {
 		return color;
 	},
 	addDirections: function(or, d, id, initType, o) {
-		
-		if (initType != 3 && (initType == 2 || (initType != 3 && o.directions && o.distance && o.duration))) {
-			//&& or.lat == r[0].lat() && or.lng == r[0].lng()
-			let r = google.maps.geometry.encoding.decodePath(o.directions);
-			let route = {"id": id, "encodedpolyline":o.directions, "steps": r};
-			route.start_location = route.steps[0];
-			route.end_location = route.steps[route.steps.length-1];
+		if (initType == 3) {
+			directionPromises(or, d, id, initType, o);	
+		} else {
+			if (o.directions && o.distance && o.duration) {
+				let r = google.maps.geometry.encoding.decodePath(o.directions);
+				if (initType == 2) {
+					directionFake(or,d,id,initType,o, r);
+				} else if (initType == 1 && or.lat == r[0].lat() && or.lng == r[0].lng())
+				{
+					directionFake(or,d,id,initType,o, r);
+				} else {
+					directionPromises(or,d,id,initType,o);	
+				}
+			} else {
+				if (initType == 1) {
+					directionPromises(or,d,id,initType,o);
+				}
+			}
+		}
+	},
+	directionFake : function(or, d, id, initType, o, r) {
+		let route = {"id": id, "encodedpolyline":o.directions, "steps": r};
+		route.start_location = route.steps[0];
+		route.end_location = route.steps[route.steps.length-1];
+		route.polyline = new google.maps.Polyline({
+			map: this.map,
+			path: route.steps,
+			strokeColor: map.getRandomColor(id),
+			strokeOpacity: 1.0,
+			strokeWeight: 5,
+		});
+		route.distance = {'text':o.distance};
+		route.duration = {'text':o.duration};
+		const q = this.ambulance_markers.find(x => x.id === route.id);
+		q.title += '\nDistance: '+o.distance+', Arrival time: '+ o.duration;
+		this.directions.push(route);
+		this.doBounding();
+	},
+	directionPromises: function(or, d, id, initType, o) {
+		this.promises++;
+		this.ds.route(
+		{
+			origin: or,
+			destination: d,
+			travelMode: google.maps.TravelMode.DRIVING,
+		})
+		.then((response) => {
+			//Once we get them back, set the directions.
+			let route = response.routes[0].legs[0];
+			route.id = id;
+			route.encodedpolyline = response.routes[0].overview_polyline;
+			let polypath = [];
+			for (var i = 0; i < route.steps.length; i++)
+			{
+				for (var j = 0; j < route.steps[i].path.length; j++)
+				{
+					polypath.push(route.steps[i].path[j]);
+				}
+			}
 			route.polyline = new google.maps.Polyline({
 				map: this.map,
-				path: route.steps,
+				path: polypath,
 				strokeColor: map.getRandomColor(id),
 				strokeOpacity: 1.0,
 				strokeWeight: 5,
 			});
-			route.distance = {'text':o.distance};
-			route.duration = {'text':o.duration};
 			const q = this.ambulance_markers.find(x => x.id === route.id);
-			q.title += '\nDistance: '+o.distance+', Arrival time: '+ o.duration;
+			q.title += '\nDistance: '+route.distance.text+', Arrival time: '+ route.duration.text;
 			this.directions.push(route);
 			this.doBounding();
-		} else {
-			this.promises++;
-			this.ds.route(
+			if (initType == 3) 
 			{
-				origin: or,
-				destination: d,
-				travelMode: google.maps.TravelMode.DRIVING,
-			})
-			.then((response) => {
-				//Once we get them back, set the directions.
-				let route = response.routes[0].legs[0];
-				route.id = id;
-				route.encodedpolyline = response.routes[0].overview_polyline;
-				let polypath = [];
-				for (var i = 0; i < route.steps.length; i++)
-				{
-					for (var j = 0; j < route.steps[i].path.length; j++)
-					{
-						polypath.push(route.steps[i].path[j]);
+				k = this.directions.length-1;
+				if (document.getElementById("radioambo"+k)) {
+					document.getElementById("radioambo"+k).value = o.id;
+					var p = document.getElementById("ambo"+k).firstChild.nextElementSibling.nextElementSibling;
+					p.innerHTML = o.name;
+					p = p.nextElementSibling;
+					p.innerHTML = map.directions[k].distance.text;
+					p = p.nextElementSibling;
+					p.innerHTML = map.directions[k].duration.text;
+					p = p.nextElementSibling;
+					if (map.directions[k].duration.value > 600) {
+						p.innerHTML = "Warning - >10min response time - Inform caller";
+						p.style.backgroundColor = '#f7baba';
 					}
 				}
-				route.polyline = new google.maps.Polyline({
-					map: this.map,
-					path: polypath,
-					strokeColor: map.getRandomColor(id),
-					strokeOpacity: 1.0,
-					strokeWeight: 5,
-				});
-				const q = this.ambulance_markers.find(x => x.id === route.id);
-				q.title += '\nDistance: '+route.distance.text+', Arrival time: '+ route.duration.text;
-				this.directions.push(route);
-				this.doBounding();
-				if (initType == 3) 
-				{
-					k = this.directions.length-1;
-					if (document.getElementById("radioambo"+k)) {
-						document.getElementById("radioambo"+k).value = o.id;
-						var p = document.getElementById("ambo"+k).firstChild.nextElementSibling.nextElementSibling;
-						p.innerHTML = o.name;
-						p = p.nextElementSibling;
-						p.innerHTML = map.directions[k].distance.text;
-						p = p.nextElementSibling;
-						p.innerHTML = map.directions[k].duration.text;
-						p = p.nextElementSibling;
-						if (map.directions[k].duration.value > 600) {
-							p.innerHTML = "Warning - >10min response time - Inform caller";
-							p.style.backgroundColor = '#f7baba';
-						}
-					}
+			}
+			this.promises--;
+			return true;
+		}).catch((e) => {
+			this.promises--;
+			console.log("Directions request failed -> " + e);
+			if (this.promises == 0) {
+				if (!this.directions.length && initType == 3) {
+					//No directions added at all, after attempting many.
+					closestAmbulanceFailed("Failure to find a direct route for any available ambulance. Returning...");
+					return;
 				}
-				this.promises--;
-				return true;
-			}).catch((e) => {
-				this.promises--;
-				console.log("Directions request failed -> " + e);
-				if (this.promises == 0) {
-					if (!this.directions.length && initType == 3) {
-						//No directions added at all, after attempting many.
-						closestAmbulanceFailed("Failure to find a direct route for any available ambulance. Returning...");
-						return;
-					}
-				}
-				return e;
-			});
-		}
+			}
+			return e;
+		});
 	},
 	markerprep: function(data) {
 		const ambostatus = ["Out of Service", "Available", "Enroute", "Unavailable"];
