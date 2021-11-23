@@ -1,14 +1,14 @@
    html {
-		height: 100%;
-	   	background-image: linear-gradient(lightgray, white);
+	height: 100%;
+	background-image: linear-gradient(lightgray, white);
    }
    @media screen and (max-height: 450px) {
-      .sidenav {padding-top: 15px;}
-      .sidenav a {font-size: 18px;}
+   	.sidenav {padding-top: 15px;}
+      	.sidenav a {font-size: 18px;}
     }
     body {
-		text-align: center;
-		margin: 0;
+	text-align: center;
+	margin: 0;
         font-family: 'Open Sans', sans-serif;
     }
     @font-face {
