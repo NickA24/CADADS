@@ -39,31 +39,31 @@
         position: -webkit-sticky;
         position: sticky;
         top: 0;
-		z-index: 1;
+	z-index: 1;
     }
     .sticky2 {
         background-color: #ffffff;
         position: -webkit-sticky;
         position: sticky;
-        top: 45;
-		margin-top: 0px;
-		margin-bottom: 0px;
-		z-index: 1;
+        top: 45px;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	z-index: 1;
     }
     .sticky3 {
         background-color: #ffffff;
         position: -webkit-sticky;
         position: sticky;
-        top: 90;
-		margin-top: 0px;
-		z-index: 1;
+        top: 90px;
+	margin-top: 0px;
+	z-index: 1;
     }
     .sticky4 {
         background-color: #ffffff;
         position: -webkit-sticky;
         position: sticky;
-        top: 120;
-		z-index: 0;
+        top: 120px;
+	z-index: 0;
     }
     .btn {
         display: inline-block;
