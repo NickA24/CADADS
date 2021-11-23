@@ -148,7 +148,7 @@ function initNewSource()
 		});
 	} else {
 		console.log("fallback to Interval positioning");
-		source = setInterval(updateCurrentPos, 30000);
+		source = setInterval(updateCurrentPos, 15000);
 	}
 }
 
@@ -172,7 +172,7 @@ function updateCurrentPos()
 		} else {
 			amboInfo();
 		}
-	}, (error) => { console.log(error); }, {enableHighAccuracy: true, maximumAge: 30000, timeout: 5000});
+	}, (error) => { console.log(error); }, {enableHighAccuracy: true, maximumAge: 5000, timeout: 5000});
 }
 
 function ambosetupCallback(dummy)
