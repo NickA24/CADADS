@@ -12,7 +12,7 @@
 	    <h1 class="activeTicketsHeader">Active Tickets</h1>
             <button onclick="openNavAdd()" class="add btn btn-primary sticky3">Create New</button>
 	    <div class="buttonIn">
-        	<input class="searchBar" type="text" id="enter" placeholder="Search...">
+        	<input class="searchBar" type="text" id="enter myInput" onkeyup="myFunction()" placeholder="Search...">
         	<button class="clearButton" id="clear">clear</button>
     </div>
 	</div>
