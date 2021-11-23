@@ -11,7 +11,10 @@
 	<div class="headerDiv sticky2">
 	    <h1 class="activeTicketsHeader">Active Tickets</h1>
             <button onclick="openNavAdd()" class="add btn btn-primary sticky3">Create New</button>
-	    <input class="searchBar" type="text" placeholder="Search..."></input>
+	    <div class="buttonIn">
+        	<input class="searchBar" type="text" id="enter" placeholder"Search...">
+        	<button id="clear">clear</button>
+    </div>
 	</div>
         <div id="mySidenav" class="sidenavAdd">
             <div id="addticket">
