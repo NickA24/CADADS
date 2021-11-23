@@ -27,10 +27,10 @@
                     <center><h2 class="activeTicketsHeader">New Ticket</h2></center>
                     <br>
                     <label for="name">Name:</label>
-                        <input type="textbox" id="name" name="name" maxlength="64">
+                        <input type="textbox" id="name" name="name" maxlength="64" required>
                     <br>
                     <label for="location">Location:</label>
-                        <input type="textbox" id="location" name="location">
+                        <input type="textbox" id="location" name="location"required>
                     <br>
                     <label for="incident">Incident Type:</label>
                         <select id="incident_type" name="incident_type" required>
