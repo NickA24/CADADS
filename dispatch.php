@@ -9,7 +9,7 @@
 ?>
     <div class="leftContainer">
 	<div class="headerDiv sticky2">
-	    <h1 class="sticky2 activeTicketsHeader">Active Tickets</h1>
+	    <h1 class="activeTicketsHeader">Active Tickets</h1>
             <button onclick="openNavAdd()" class="add btn btn-primary sticky3">Create New</button>
 	</div>
         <div id="mySidenav" class="sidenavAdd">
