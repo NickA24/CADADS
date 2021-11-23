@@ -88,7 +88,7 @@
         background-position: 0 -15px;
     }
     .btn:active {
-	background-color: #B19CD8;
+	background-color: purple;
     }
     .btn-primary {
         padding: 9px 14px;
