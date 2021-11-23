@@ -202,8 +202,10 @@ var tableCreation = function(tr, i, j ,k, aed) {
 		td.innerHTML = k.substring(0, 100)+"...<a href='ticket.php?id="+tr.getAttribute("src")+"'><em>Read More</em></a>";
 	} else if (j == "color") {
 		td.innerHTML = '';
-		td.setAttribute('style', 'background-color:'+k);
-		td.setAttribute("class", "pathColor");
+		var span = document.createElement("span");
+		span.setAttribute('style', 'background-color:'+k);
+		span.setAttribute("class", "pathColor");
+		td.appendChild(span);
 	} else { td.innerHTML = k; }
 	tr.appendChild(td);
 	if (j == "id" && aed === 1)
