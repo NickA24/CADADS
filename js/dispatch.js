@@ -100,6 +100,11 @@ window.addEventListener('load', () => {
     const button = document.querySelector('#clear');
     button.addEventListener('click', () => {
         document.querySelector('#enter').value = "";
+	var input, filter, table, tr, td, i, txtValue;
+	input = document.getElementById("enter");
+	filter = input.value.toUpperCase();
+	table = document.getElementById("ambolist");
+	tr = table.getElementsByTagName("tr");
 	for (i = 0; i < tr.length; i++) {
     	    td = tr[i].getElementsByTagName("td")[0];
    	    if (td) {
