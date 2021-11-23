@@ -106,7 +106,7 @@ var ddMap = {
 		div.appendChild(controlUI);
 		const controlText = document.createElement("div");
 		controlText.setAttribute("class", "controlText");
-		controlText.innerHTML = "Recenter";
+		controlText.innerHTML = "Show All";
 		controlUI.appendChild(controlText);
 		controlUI.addEventListener("click", () => {
 			this.doBounding();
