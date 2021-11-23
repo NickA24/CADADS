@@ -11,6 +11,10 @@
 		margin: 0;
         font-family: 'Open Sans', sans-serif;
     }
+    @font-face {
+	font-family: futuraFont;
+	src: url("Futura Extra Black Regular.otf");
+    }
     ul {
         list-style-type: none;
         margin: 0;
@@ -103,7 +107,7 @@
     }
     .activeTicketsHeader {
 	margin-top: 0px;
-	font-family: Verdana, Geneva, sans-serif;
+	font-family: futuraFont;
 	background-color: transparent;
 	}
     .headerDiv {
