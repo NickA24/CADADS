@@ -60,21 +60,21 @@ function confirmDeleteTicket(e) {
 }
 	
 function openNavAdd() {
-  document.getElementById("mySidenav").style.width = "31%";
+    document.getElementById("mySidenav").style.width = "31%";
 }
-/* Set the width of the side navigation to 0 */
 function closeNavAdd() {
     if (document.getElementById("name").innerHTML != "") {
   	document.getElementById("mySidenav").style.width = "0";
     }
 }
-
-function openNavEdit() {
-  document.getElementById("mySidenavEdit").style.width = "31%";
+function closeNavAddForce() {
+    document.getElementById("mySidenav").style.width = "0";
 }
-/* Set the width of the side navigation to 0 */
+function openNavEdit() {
+    document.getElementById("mySidenavEdit").style.width = "31%";
+}
 function closeNavEdit() {
-  document.getElementById("mySidenavEdit").style.width = "0";
+    document.getElementById("mySidenavEdit").style.width = "0";
 }
     
 function searchTable() {
