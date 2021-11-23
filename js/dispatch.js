@@ -64,7 +64,9 @@ function openNavAdd() {
 }
 /* Set the width of the side navigation to 0 */
 function closeNavAdd() {
-  document.getElementById("mySidenav").style.width = "0";
+    if (document.getElementById("name").innerHTML != "") {
+  	document.getElementById("mySidenav").style.width = "0";
+    }
 }
 
 function openNavEdit() {
