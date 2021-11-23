@@ -123,6 +123,11 @@ window.addEventListener('load', () => {
     });
 });
 
+function updateMap() {
+	//Update the positioning
+}
+
+var source = null;
 document.addEventListener('DOMContentLoaded', function(e) {
 	const html = document.getElementsByTagName("html")[0].dataset;
 	let params = new Object();
@@ -134,4 +139,5 @@ document.addEventListener('DOMContentLoaded', function(e) {
 	var x = document.getElementById(params.ele);
 	ticketTable(x, 0, 1);
 	loadInit(params);
+	source = setInterval(updateMap, 15000);
 });
