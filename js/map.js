@@ -284,21 +284,21 @@ var ddMap = {
 	},
 	addDirections: function(or, d, id, initType, o) {
 		if (initType == 3) {
-			directionPromises(or, d, id, initType, o);	
+			this.directionPromises(or, d, id, initType, o);	
 		} else {
 			if (o.directions && o.distance && o.duration) {
 				let r = google.maps.geometry.encoding.decodePath(o.directions);
 				if (initType == 2) {
-					directionFake(or,d,id,initType,o, r);
+					this.directionFake(or,d,id,initType,o, r);
 				} else if (initType == 1 && or.lat == r[0].lat() && or.lng == r[0].lng())
 				{
-					directionFake(or,d,id,initType,o, r);
+					this.directionFake(or,d,id,initType,o, r);
 				} else {
-					directionPromises(or,d,id,initType,o);	
+					this.directionPromises(or,d,id,initType,o);	
 				}
 			} else {
 				if (initType == 1) {
-					directionPromises(or,d,id,initType,o);
+					this.directionPromises(or,d,id,initType,o);
 				}
 			}
 		}
