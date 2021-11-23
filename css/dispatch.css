@@ -113,7 +113,7 @@
 	}
     .headerDiv {
 	width: 100%;
-	background-image: linear-gradient(to bottom right, lightgray, white);
+	background-color: lightgray;
     }
     .header_name {
 	border-bottom: 2px solid white;
