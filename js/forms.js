@@ -137,10 +137,10 @@ var createJSTable = function(ele, data, config)
 		//If there is a dataMask available, create the table in that order
 		if (config.dataMask.length > 0) {
 			for (var i = 0; i < config.dataMask.length; i++) {
-				if (config.dataMask[i] == "color") {
+				if (typeof map !== 'undefined' && config.dataMask[i] == "color") {
 					j[config.dataMask[i]] = map.getRandomColor(j['ambo_id']);		
 				}
-				if (config.dataMask[i] == "ambulance" && j[config.dataMask[i]] == "None") {
+				if (typeof map !== 'undefined' && config.dataMask[i] == "ambulance" && j[config.dataMask[i]] == "None") {
 					tbody.classList.add("unlinked");
 				}
 				tableCreation(tr, i, config.dataMask[i], j[config.dataMask[i]], config.addEditData);
@@ -153,10 +153,10 @@ var createJSTable = function(ele, data, config)
 				tbody.appendChild(tr);
 				for (var i = 0; i < config.dataMask2nd.length; i++) 
 				{	
-					if (config.dataMask2nd[i] == "color") {
+					if (typeof map !== 'undefined' && config.dataMask2nd[i] == "color") {
 						j[config.dataMask2nd[i]] = map.getRandomColor(j['ambo_id']);	
 					}
-					if (config.dataMask2nd[i] == "ambulance" && j[config.dataMask2nd[i]] == "None") {
+					if (typeof map !== 'undefined' && config.dataMask2nd[i] == "ambulance" && j[config.dataMask2nd[i]] == "None") {
 						tbody.classList.add("unlinked");
 					}
 					tableCreation(tr, i, config.dataMask2nd[i], j[config.dataMask2nd[i]], config.addEditData);
@@ -202,8 +202,8 @@ var tableCreation = function(tr, i, j ,k, aed) {
 		td.innerHTML = k.substring(0, 100)+"...<a href='ticket.php?id="+tr.getAttribute("src")+"'><em>Read More</em></a>";
 	} else if (j == "color") {
 		td.innerHTML = '';
-		var span = document.createElement("span");
-		span.innerHTML = ' ';
+		var span = document.createElement("div");
+		span.innerHTML = '';
 		span.setAttribute('style', 'background-color:'+k);
 		span.setAttribute("class", "pathColor");
 		td.appendChild(span);

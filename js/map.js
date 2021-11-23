@@ -80,6 +80,8 @@ var ddMap = {
 	promises: 0,
 	bounds:null,
 	mapStyle:null,
+	promiseFunc: Promise.resolve(),
+	promiseInterval: 250,
 	initMap: function() { //Passes origin and destination
 		this.map = new google.maps.Map(document.getElementById("map"), {
 			center: { lat: 34.182175, lng: -117.318794 },
@@ -322,68 +324,74 @@ var ddMap = {
 		this.doBounding();
 	},
 	directionPromises: function(or, d, id, initType, o) {
+		console.log("doin the direction business");
 		this.promises++;
-		this.ds.route(
-		{
-			origin: or,
-			destination: d,
-			travelMode: google.maps.TravelMode.DRIVING,
-		})
-		.then((response) => {
-			//Once we get them back, set the directions.
-			let route = response.routes[0].legs[0];
-			route.id = id;
-			route.encodedpolyline = response.routes[0].overview_polyline;
-			let polypath = [];
-			for (var i = 0; i < route.steps.length; i++)
+		this.promiseFunc = this.promiseFunc.then(() => {
+			this.ds.route(
 			{
-				for (var j = 0; j < route.steps[i].path.length; j++)
+				origin: or,
+				destination: d,
+				travelMode: google.maps.TravelMode.DRIVING,
+			})
+			.then((response) => {
+				//Once we get them back, set the directions.
+				let route = response.routes[0].legs[0];
+				route.id = id;
+				route.encodedpolyline = response.routes[0].overview_polyline;
+				let polypath = [];
+				for (var i = 0; i < route.steps.length; i++)
 				{
-					polypath.push(route.steps[i].path[j]);
-				}
-			}
-			route.polyline = new google.maps.Polyline({
-				map: this.map,
-				path: polypath,
-				strokeColor: map.getRandomColor(id),
-				strokeOpacity: 1.0,
-				strokeWeight: 5,
-			});
-			const q = this.ambulance_markers.find(x => x.id === route.id);
-			q.title += '\nDistance: '+route.distance.text+', Arrival time: '+ route.duration.text;
-			this.directions.push(route);
-			this.doBounding();
-			if (initType == 3) 
-			{
-				k = this.directions.length-1;
-				if (document.getElementById("radioambo"+k)) {
-					document.getElementById("radioambo"+k).value = o.id;
-					var p = document.getElementById("ambo"+k).firstChild.nextElementSibling.nextElementSibling;
-					p.innerHTML = o.name;
-					p = p.nextElementSibling;
-					p.innerHTML = map.directions[k].distance.text;
-					p = p.nextElementSibling;
-					p.innerHTML = map.directions[k].duration.text;
-					p = p.nextElementSibling;
-					if (map.directions[k].duration.value > 600) {
-						p.innerHTML = "Warning - >10min response time - Inform caller";
-						p.style.backgroundColor = '#f7baba';
+					for (var j = 0; j < route.steps[i].path.length; j++)
+					{
+						polypath.push(route.steps[i].path[j]);
 					}
 				}
-			}
-			this.promises--;
-			return true;
-		}).catch((e) => {
-			this.promises--;
-			console.log("Directions request failed -> " + e);
-			if (this.promises == 0) {
-				if (!this.directions.length && initType == 3) {
-					//No directions added at all, after attempting many.
-					closestAmbulanceFailed("Failure to find a direct route for any available ambulance. Returning...");
-					return;
+				route.polyline = new google.maps.Polyline({
+					map: this.map,
+					path: polypath,
+					strokeColor: map.getRandomColor(id),
+					strokeOpacity: 1.0,
+					strokeWeight: 5,
+				});
+				const q = this.ambulance_markers.find(x => x.id === route.id);
+				q.title += '\nDistance: '+route.distance.text+', Arrival time: '+ route.duration.text;
+				this.directions.push(route);
+				this.doBounding();
+				if (initType == 3) 
+				{
+					k = this.directions.length-1;
+					if (document.getElementById("radioambo"+k)) {
+						document.getElementById("radioambo"+k).value = o.id;
+						var p = document.getElementById("ambo"+k).firstChild.nextElementSibling.nextElementSibling;
+						p.innerHTML = o.name;
+						p = p.nextElementSibling;
+						p.innerHTML = map.directions[k].distance.text;
+						p = p.nextElementSibling;
+						p.innerHTML = map.directions[k].duration.text;
+						p = p.nextElementSibling;
+						if (map.directions[k].duration.value > 600) {
+							p.innerHTML = "Warning - >10min response time - Inform caller";
+							p.style.backgroundColor = '#f7baba';
+						}
+					}
 				}
-			}
-			return e;
+				this.promises--;
+				return true;
+			}).catch((e) => {
+				this.promises--;
+				console.log("Directions request failed -> " + e);
+				if (this.promises == 0) {
+					if (!this.directions.length && initType == 3) {
+						//No directions added at all, after attempting many.
+						closestAmbulanceFailed("Failure to find a direct route for any available ambulance. Returning...");
+						return;
+					}
+				}
+				return e;
+			});
+			return new Promise(function(resolve) {
+				setTimeout(resolve, this.promiseInterval);
+			});
 		});
 	},
 	markerprep: function(data) {
@@ -424,6 +432,23 @@ var ddMap = {
 		return obj;
 	},
 	setup: function(ele) {
+		if (Array.isArray(ele.data)) {
+			if (ele.initType == 3 && ele.data.length == 1) {
+				closestAmbulanceFailed("There are no available ambulances for this ticket. Returning...");
+				return;
+			}
+			ele.data.forEach((j, k) => {
+				const o = map.markerprep(j);
+				if (o.latlng) { map.addMarker(o.latlng, o); }
+				if (o.type == 1 && (o.directions || o.dlatlng)) {
+					map.addDirections(o.latlng, o.dlatlng, o.id, ele.initType, o);
+				} else if (ele.initType == 3 && k > 0) {
+					map.addDirections(o.latlng, map.ticket_markers[0].position, o.id, 3, o);
+				}
+			});
+		} else { 
+			popupMessage("Unable to load map, please hold.");
+		}
 		if (ele.initType == 1) {
 			if (!window.navigator.geolocation) {
 				alert("This browser does not support geolocation! automatic tracking will not function.");
@@ -434,33 +459,6 @@ var ddMap = {
 				ele.callback();
 				ele.callback = null;
 			}
-		}
-		if (Array.isArray(ele.data)) {
-			var interval = 250;
-			var promise = Promise.resolve();
-			ele.data.forEach((j, k) => {
-				const o = map.markerprep(j);
-				if (o.latlng) { map.addMarker(o.latlng, o); }
-				if (o.directions && o.directions != '') {
-					map.addDirections(o.latlng, o.dlatlng, o.id, ele.initType, o);
-				} else {
-					promise = promise.then(function() { 
-						if (o.dlatlng && o.dlatlng.lat > 0 && o.dlatlng.lng > 0) {map.addDirections(o.latlng, o.dlatlng, o.id, ele.initType, o);}
-						return new Promise(function(resolve) {
-							setTimeout(resolve, interval);
-						});
-					});
-				}
-				if (ele.initType == 3 && k > 0) {
-					map.addDirections(o.latlng, map.ticket_markers[0].position, o.id, 3, o);
-				}
-			});
-			if (ele.initType == 3 && ele.data.length == 1) {
-				closestAmbulanceFailed("There are no available ambulances for this ticket. Returning...");
-				return;
-			}
-		} else { 
-			popupMessage("Unable to load map, please hold.");
 		}
 	},
 	testDirections: function() {

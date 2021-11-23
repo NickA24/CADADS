@@ -60,64 +60,66 @@ function confirmDeleteTicket(e) {
 }
 	
 function openNavAdd() {
-    document.getElementById("mySidenav").style.width = "31%";
+  document.getElementById("mySidenav").style.width = "31%";
 }
+/* Set the width of the side navigation to 0 */
 function closeNavAdd() {
-    if (document.getElementById("name").innerHTML != "") {
-  	document.getElementById("mySidenav").style.width = "0";
-    }
+    if (document.getElementById("name").innerHTML != "") {	
+		document.getElementById("mySidenav").style.width = "0";
+	}
 }
 function closeNavAddForce() {
     document.getElementById("mySidenav").style.width = "0";
 }
 function openNavEdit() {
-    document.getElementById("mySidenavEdit").style.width = "31%";
+  document.getElementById("mySidenavEdit").style.width = "31%";
 }
+/* Set the width of the side navigation to 0 */
 function closeNavEdit() {
-    document.getElementById("mySidenavEdit").style.width = "0";
+  document.getElementById("mySidenavEdit").style.width = "0";
 }
-    
+
 function searchTable() {
-  var input, filter, table, tr, td, i, txtValue;
-  input = document.getElementById("enter");
-  filter = input.value.toUpperCase();
-  table = document.getElementById("ambolist");
-  tr = table.getElementsByTagName("tr");
-
-  // Loop through all table rows, and hide those who don't match the search query
-  for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[0];
-    if (td) {
-      txtValue = td.textContent || td.innerText;
-      if (txtValue.toUpperCase().indexOf(filter) > -1) {
-        tr[i].style.display = "";
-      } else {
-        tr[i].style.display = "none";
-      }
-    }
-  }
-}
-
-window.addEventListener('load', () => {
-    const button = document.querySelector('#clear');
-    button.addEventListener('click', () => {
-        document.querySelector('#enter').value = "";
 	var input, filter, table, tr, td, i, txtValue;
 	input = document.getElementById("enter");
 	filter = input.value.toUpperCase();
 	table = document.getElementById("ambolist");
 	tr = table.getElementsByTagName("tr");
+
+	// Loop through all table rows, and hide those who don't match the search query
 	for (i = 0; i < tr.length; i++) {
-    	    td = tr[i].getElementsByTagName("td")[0];
-   	    if (td) {
-      		txtValue = td.textContent || td.innerText;
-      		if (txtValue.toUpperCase().indexOf(filter) > -1) {
-        	    tr[i].style.display = "";
-      		} else {
-        	    tr[i].style.display = "none";
-      		}
-    	    }
-  	}
+		td = tr[i].getElementsByTagName("td")[0];
+		if (td) {
+			txtValue = td.textContent || td.innerText;
+			if (txtValue.toUpperCase().indexOf(filter) > -1) {
+				tr[i].style.display = "";
+			} else {
+				tr[i].style.display = "none";
+			}
+		}
+	}
+}
+
+window.addEventListener('load', () => {
+    const button = document.querySelector('#clear');
+    button.addEventListener('click', () => {
+		document.querySelector('#enter').value = "";
+		var input, filter, table, tr, td, i, txtValue;
+		input = document.getElementById("enter");
+		filter = input.value.toUpperCase();
+		table = document.getElementById("ambolist");
+		tr = table.getElementsByTagName("tr");
+		for (i = 0; i < tr.length; i++) {
+				td = tr[i].getElementsByTagName("td")[0];
+			if (td) {
+				txtValue = td.textContent || td.innerText;
+				if (txtValue.toUpperCase().indexOf(filter) > -1) {
+					tr[i].style.display = "";
+				} else {
+					tr[i].style.display = "none";
+				}
+			}
+		}
     });
 });
 
