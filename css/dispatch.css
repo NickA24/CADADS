@@ -134,6 +134,7 @@
         width:100%;
         padding-top: 10px;
 	overflow-x: auto;
+	z-index: auto;
     }
     .add {
         width: 90%;
