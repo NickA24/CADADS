@@ -203,6 +203,7 @@ var tableCreation = function(tr, i, j ,k, aed) {
 	} else if (j == "color") {
 		td.innerHTML = '';
 		var span = document.createElement("span");
+		span.innerHTML = ' ';
 		span.setAttribute('style', 'background-color:'+k);
 		span.setAttribute("class", "pathColor");
 		td.appendChild(span);
