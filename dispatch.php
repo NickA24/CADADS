@@ -13,7 +13,7 @@
             <button onclick="openNavAdd()" class="add btn btn-primary sticky3">Create New</button>
 	    <div class="buttonIn">
         	<input class="searchBar" type="text" id="enter" placeholder"Search...">
-        	<button id="clear">clear</button>
+        	<button class="clearButton" id="clear">clear</button>
     </div>
 	</div>
         <div id="mySidenav" class="sidenavAdd">
