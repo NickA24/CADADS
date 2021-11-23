@@ -135,6 +135,10 @@
         color: black;
         background-color: gray;
     }
+    .clear:hover {
+	background-color: lightgray;
+	border: 2px solid white;
+    }
     .header_name {
 	border-bottom: 2px solid white;
     }
