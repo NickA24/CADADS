@@ -74,6 +74,13 @@ function openNavEdit() {
 function closeNavEdit() {
   document.getElementById("mySidenavEdit").style.width = "0";
 }
+    
+window.addEventListener('load', () => {
+    const button = document.querySelector('#clear');
+    button.addEventListener('click', () => {
+        document.querySelector('#enter').value = "";
+    });
+});
 
 document.addEventListener('DOMContentLoaded', function(e) {
 	const html = document.getElementsByTagName("html")[0].dataset;
