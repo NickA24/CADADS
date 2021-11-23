@@ -8,9 +8,10 @@
 
 ?>
     <div class="leftContainer">
-	<h1 class="sticky2 activeTicketsHeader">Active Tickets</h1>
-        <button onclick="openNavAdd()" class="add btn btn-primary sticky3">Create New</button>
-	<div class="headerDiv sticky4"></div>
+	<div class="headerDiv sticky4">
+	    <h1 class="sticky2 activeTicketsHeader">Active Tickets</h1>
+            <button onclick="openNavAdd()" class="add btn btn-primary sticky3">Create New</button>
+	</div>
         <div id="mySidenav" class="sidenavAdd">
             <div id="addticket">
                 <?php
