@@ -77,7 +77,7 @@ function closeNavEdit() {
     
 function searchTable() {
   var input, filter, table, tr, td, i, txtValue;
-  input = document.getElementById("myInput");
+  input = document.getElementById("enter");
   filter = input.value.toUpperCase();
   table = document.getElementById("ambolist");
   tr = table.getElementsByTagName("tr");
