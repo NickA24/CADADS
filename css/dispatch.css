@@ -139,6 +139,9 @@
 	background-color: lightgray;
 	border: 2px solid white;
     }
+    .clearButton:active {
+	background-color: white;
+    }
     .header_name {
 	border-bottom: 2px solid white;
     }
