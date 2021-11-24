@@ -102,5 +102,3 @@ if (isset($usrtype) && $usrtype == 2 and isset($_POST))
 }
 return $msg;
 ?>
-
-?>
