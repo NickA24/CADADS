@@ -270,7 +270,7 @@ var ddMap = {
 					map.addDirections(o.latlng, o.dlatlng, o.id, ele.initType, o);
 				}
 			});
-			setTimeout(map.delaydelete, 500, tmpdirections, tmpambo, tmptkt);
+			setTimeout(map.delaydelete, 1000, tmpdirections, tmpambo, tmptkt);
 		} else { 
 			popupMessage("Unable to load map, please hold.");
 		}
