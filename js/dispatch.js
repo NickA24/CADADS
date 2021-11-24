@@ -124,7 +124,21 @@ window.addEventListener('load', () => {
 });
 
 function updateMap() {
-	//Update the positioning
+	let ele = document.getElementById("tickets");
+	doAJAX(ele.dataconfig.url, ele.dataconfig, function(err, data){
+		if (err !== null) {
+			ele.innerHTML = "Oops, error:" + err;
+			if (popupMessage) { popupMessage("Error: " + err); }
+		} else if (data !== null) {
+			ele.data = data['dispatchMap'];
+			ele.tabledata = data['tickets'];
+			ele.innerHTML = '';
+			map.redraw(ele);
+			ele.innerHTML = '';
+			createJSTable(ele, ele.tabledata, ele.tableconfig);
+			console.log("updated");
+		}
+	});
 }
 
 var source = null;
@@ -136,8 +150,34 @@ document.addEventListener('DOMContentLoaded', function(e) {
 	params.ticketId = 0;
 	params.ele = "tickets";
 	params.datamask = {};
-	var x = document.getElementById(params.ele);
-	ticketTable(x, 0, 1);
-	loadInit(params);
+	let ele = document.getElementById(params.ele);
+	params.method = "get";
+	params.responseType = "json";
+	params.url = 'inc/getjson.php?tbl=tkt';
+	doAJAX(params.url, params, function(err, data){
+		if (err !== null) {
+			ele.innerHTML = "Oops, error:" + err;
+			if (popupMessage) { popupMessage("Error: " + err); }
+		} else if (data !== null) {
+			ele.data = data['dispatchMap'];
+			ele.tabledata = data['tickets'];
+			if (!map.init) { 
+				loadInit(params); 
+			}
+			let config = new Object();
+			config.addEditData = 0;
+			config.createTable = true;
+			config.createHeader = true;
+			config.tableID = "ambolist";
+			config.dataMask = ["name", "location", "incident_type", "ambulance", "color"];
+			config.dataMask2nd = ["id", "time", "incident_description", "dispatcher", "priorityText"];
+			config.addComments = true;
+			config.addEditData = 1;
+			ele.innerHTML = '';
+			createJSTable(ele, ele.tabledata, config);
+			ele.tableconfig = config;
+			ele.dataconfig = params;
+		}
+	});
 	source = setInterval(updateMap, 15000);
 });

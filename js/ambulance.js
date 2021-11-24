@@ -5,97 +5,33 @@ function amboShortcuts(e) {
     console.log(str); 
 }
 
-function amboService(stat, pos, ele, ajx) {
-	if (ajx) {
-		document.getElementById("id").value = ele.tabledata.id;
-		document.getElementById("loc").value = pos.origin;
-		document.getElementById("lat").value = pos.coords.latitude;
-		document.getElementById("lng").value = pos.coords.longitude;
-		if (stat < 4) {
-			document.getElementById("submitType").value = 'ambostat';
-			document.getElementById("status").value = stat;
-		} else {
-			document.getElementById("submitType").value = 'en2Hosp';
-			document.getElementById("hospid").value = stat-3;
-		}
-		document.getElementById("directions").value = '';
-		document.getElementById("distance").value = '';
-		document.getElementById("duration").value = '';
-		document.getElementById("statusSubmit").submit();
-	} else {
-		const params = new FormData();
-		params.append('returnMessage', 1);
-		params.append('method', 'POST');
-		params.append('action', '/inc/amboupdates.php');
-		params.append('id', ele.tabledata.id);
-		params.append('loc', pos.origin);
-		params.append('lat', pos.coords.latitude);
-		params.append('lng', pos.coords.longitude);
-		if (ele[0] && ele[0].directions && ele[0].directions != '')
-		{
-			params.append('directions', ele[0].directions);
-			params.append('distance', ele[0].distance);
-			params.append('duration', ele[0].duration);
-		} else if (map.directions && map.directions[0]) {
-			params.append('directions', map.directions[0].encodedpolyline);
-			params.append('distance', map.directions[0].distance.text);
-			params.append('duration', map.directions[0].duration.text);
-		}
-		params.append('submitType', 'amboup');
-
-		doAJAX("/inc/amboupdates.php", params, (ret) => {
-			let ele = document.getElementById("curCall");
-			ele.innerHTML = '';
-			popupMessage(ret);
-			amboInfo();
-		});
-	}
-}
-
 
 //This displays the current data for the logged-in ambulance user.
 //Note the map.testfunc() runs the initial google map script. We should change this later, probably.
 //Used: ambulance.php
 //input: ele: document element to put table info into.
-var amboInfo = function()
+var amboInit = function()
 {
 	let ele = document.getElementById("curCall");
 	const params = new Object();
 	params.method = "get";
 	params.responseType = "json";
-	doAJAX('inc/getjson.php?tbl=curAmbo', params, function(err, data){
+	let url = 'inc/getjson.php?tbl=curAmbo';
+	if (ele.pos.latitude && ele.pos.longitude)
+	{
+		url += "&lat="+ele.pos.latitude+"&lng="+ele.pos.longitude;
+	}
+	doAJAX(url, params, function(err, data){
 		if (err !== null) {
 			ele.innerHTML = "Oops, error:" + err;
 			if (popupMessage) { popupMessage("Error: " + err); }
 		} else if (data !== null) {
-			let config = new Object(); 
-			if (data[0].ticket_id > 0)
-			{
-				config.newTicket = true;
-			}
-			/*if (ele.tabledata && ele.tabledata.lastupdate == data[0].lastupdate && ele.data[0].directions != '') 
-			{ 
-				console.log("ignoring"); 
-				return; 
-			} 
-			else 
-			{*/
-				ele.tabledata = Object.assign({}, data[0]);
-				data[0].id = data[0].ticket_id;
-				data[0].ticket_id = ele.tabledata.id;
-				
-				
-				config.addEditData = 0;
-				config.createTable = true;
-				config.createHeader = true;
-				config.createBody = true;
-				config.bodyID = "ambobody";
-				config.dataMask = ["name", "incident_type", "location", "destination", "priorityText"];
-				config.dataMask2nd = ["status", "incident_description", "time", "lastupdate"];
-				config.addComments = true;
-				ele.innerHTML = '';
-				createJSTable(ele, data, config);
-			//}
+			ele.data = data['dispatchMap'];
+			ele.tabledata = Object.assign({}, data['curAmbo'][0]);
+			let config = new Object();
+			data = data['curAmbo'];
+			ele.tabledata.id = data[0].ticket_id;
+			ele.tabledata.ticket_id = data[0].id;
 			const html = document.getElementsByTagName("html")[0].dataset;
 			let paramx = new Object();
 			paramx.initType = html.inittype;
@@ -104,30 +40,90 @@ var amboInfo = function()
 			paramx.id = ele.tabledata.id;
 			ele.tabledata.username = html.username;
 			paramx.ele = "curCall";
-			paramx.callback = ambosetupCallback;
+			ele.callback = ambosetupCallback;
 			if (!map.init) { 
 				loadInit(paramx); 
-			} else { 
-				doAJAX('inc/getjson.php?tbl=dispatchMap&id='+ele.tabledata.id, new Object(), (err, datax)=> {
-					if (err !== null) {
-						ele.innerHTML = "Oops, error:" + err;
-					} else if (datax !== null) {
-						ele.data = datax;
-						map.clearAlldr();
-						map.deleteMarkers();
-						map.setup(ele);
-					}
-				});
 			}
+			if (data[0].ticket_id > 0)
+			{
+				config.newTicket = true;
+			}
+			config.addEditData = 0;
+			config.createTable = true;
+			config.createHeader = true;
+			config.createBody = true;
+			config.bodyID = "ambobody";
+			config.dataMask = ["name", "incident_type", "location", "destination", "priorityText"];
+			config.dataMask2nd = ["status", "incident_description", "time", "lastupdate"];
+			config.addComments = true;
+			ele.innerHTML = '';
+			createJSTable(ele, [ele.tabledata], config);
+			ele.tableconfig = config;
+			ele.dataconfig = paramx;
 		}
 	});
+}
+
+var amboUpdate = function()
+{
+	let ele = document.getElementById("curCall");
+	const params = new Object();
+	params.method = "get";
+	params.responseType = "json";
+	let url = 'inc/getjson.php?tbl=curAmbo';
+	if (ele.pos.latitude && ele.pos.longitude)
+	{
+		url += "&lat="+ele.pos.latitude+"&lng="+ele.pos.longitude;
+	}
+	doAJAX(url, params, function(err, data){
+		if (err !== null) {
+			ele.innerHTML = "Oops, error:" + err;
+			if (popupMessage) { popupMessage("Error: " + err); }
+		} else if (data !== null) {
+			ele.data = data['dispatchMap'];
+			ele.tabledata = Object.assign({}, data['curAmbo'][0]);
+			data = data['curAmbo'];
+			ele.tabledata.id = data[0].ticket_id;
+			ele.tabledata.ticket_id = data[0].id;
+			map.redraw(ele);
+			ele.innerHTML = '';
+			createJSTable(ele, [ele.tabledata], ele.tableconfig);
+			console.log("updated");
+		}
+	});
+}
+
+//A single geolocation var just to make it easy on ourselves.
+var loc;
+
+//Using promises to do async functions in a proper order.
+var updateCurrentPos = () => { 
+	return new Promise((resolve, reject) => {
+		loc.getCurrentPosition((position) => resolve(geo_success(position)), (error) => reject(geo_fail(error)), {enableHighAccuracy: true, maximumAge: 5000, timeout: 5000});
+	});
+}
+
+function geo_success(pos)
+{
+	let ele = document.getElementById("curCall");
+	ele.pos = pos.coords;
+	console.log("updating position");
+}
+
+function geo_fail(err)
+{
+	console.log(err);
+}
+
+function amboUpdateWorker() {
+	updateCurrentPos().then(amboUpdate);
 }
 
 var source;
 var attempts = 3;
 function initNewSource()
 {
-	if (attempts > 0) {
+	/*if (attempts > 0) {
 		console.log("Attempting Server-Sent Events, Attempt:"+(4-attempts)+".");
 		source = new EventSource('/events', {withCredentials: true});
 		source.addEventListener('ping', event => {
@@ -142,37 +138,13 @@ function initNewSource()
 					attempts--;
 					console.log("Failed "+(3-attempts)+" times.");
 					initNewSource();
-					
 				}
 			}
 		});
-	} else {
+	} else {*/
 		console.log("fallback to Interval positioning");
-		source = setInterval(updateCurrentPos, 15000);
-	}
-}
-
-function updateCurrentPos()
-{
-	map.loc.getCurrentPosition((position) => {
-		const ele = document.getElementById("curCall");
-		if (position.coords.latitude != ele.data[0].loclat || position.coords.longitude != ele.data[0].loclng) 
-		{
-			testFetch('inc/googlereversegeocode.php?returntext=1&id='+ele.data.id+'&lat='+position.coords.latitude+'&lng='+position.coords.longitude, {}, (data) => {
-				console.log("updating position");
-				position.origin = data.address;
-				amboService(status, position, ele);
-				const coords = {
-					lat: position.coords.latitude,
-					lng: position.coords.longitude,
-				}
-				map.ambulance_markers[0].setPosition(coords);
-				map.doBounding();
-			});
-		} else {
-			amboInfo();
-		}
-	}, (error) => { console.log(error); }, {enableHighAccuracy: true, maximumAge: 5000, timeout: 5000});
+		//source = setInterval(amboUpdateWorker, 15000);
+	//}
 }
 
 function ambosetupCallback(dummy)
@@ -181,8 +153,13 @@ function ambosetupCallback(dummy)
 }
 
 
-
 document.addEventListener('DOMContentLoaded', function(e) {
 	document.getElementsByTagName("body")[0].addEventListener("keypress", amboShortcuts, false);
-	amboInfo();
+	if (!window.navigator.geolocation) {
+		alert("This browser does not support geolocation! automatic tracking will not function.");
+	} else if (loc == null) { 
+		loc = window.navigator.geolocation;
+	}
+	updateCurrentPos().then(amboInit);
 });
+

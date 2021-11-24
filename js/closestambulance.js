@@ -1,5 +1,7 @@
 document.addEventListener('DOMContentLoaded', function(e) {
+	document.getElementById("submitchooseambo").addEventListener("click", closestambulancepopulatedirections, false);
 	const html = document.getElementsByTagName("html")[0].dataset;
+	const ele = document.getElementById("pick3");
 	let params = new Object();
 	params.initType = html.inittype;
 	params.preferredMap = html.preferredMap;
@@ -7,8 +9,19 @@ document.addEventListener('DOMContentLoaded', function(e) {
 	params.ele = "pick3";
 	params.datamask = {};
 	params.callback = closestambulancecallback;
-	loadInit(params);
-	document.getElementById("submitchooseambo").addEventListener("click", closestambulancepopulatedirections, false);
+	url = 'inc/getjson.php?tbl=closest&ticketid='+params.ticketId;
+	doAJAX(url, new Object(), (err, data)=> {
+		if (err !== null) {
+			ele.innerHTML = "Oops, error:" + err;
+			if (popupMessage) { popupMessage("Error: " + err); }
+		} else if (data !== null) {
+			ele.data = data;
+			ele.callback = params.callback;
+			loadInit(params);
+		}
+	});
+	
+	
 });
 
 function closestambulancecallback(data) {

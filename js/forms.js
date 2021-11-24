@@ -212,6 +212,14 @@ var tableCreation = function(tr, i, j ,k, aed) {
 	if (j == "id" && aed === 1)
 	{
 		td.innerHTML = '';
+		var aaa = document.createElement("a");
+		aaa.setAttribute("type", "submit");
+		aaa.setAttribute("href", "closestambulance.php?id="+k);
+		aaa.setAttribute("title", "Choose closest ambulance for this ticket");
+		aaa.setAttribute("class", "fa fa-ambulance linkformat");
+		aaa.setAttribute("onclick", "");
+		aaa.innerHTML = '';
+		td.appendChild(aaa);
 		var form1 = document.createElement("form");
 		form1.setAttribute("name","editform"+k);
 		form1.setAttribute("id","editform"+k);
@@ -230,6 +238,7 @@ var tableCreation = function(tr, i, j ,k, aed) {
 		hid2.setAttribute("value",k);
 		var btn1 = document.createElement("a");
 		btn1.setAttribute("type", "submit");
+		btn1.setAttribute("title", "Edit this Ticket");
 		btn1.setAttribute("onclick", "openNavEdit(); this.parentNode.dispatchEvent(new Event('submit', {'bubbles':true, 'cancelable':true}));");
 		btn1.setAttribute("class", "fa fa-edit");
 		form1.appendChild(hid1);
@@ -257,6 +266,7 @@ var tableCreation = function(tr, i, j ,k, aed) {
 		var btn2 = document.createElement("a");
 		btn2.setAttribute("type", "submit");
 		btn2.setAttribute("class", "fa fa-trash");
+		btn2.setAttribute("title", "Delete this Ticket");
 		btn2.setAttribute("onclick", "this.parentNode.dispatchEvent(new Event('submit', {'bubbles':true, 'cancelable':true}));");
 		form2.appendChild(hid3);
 		form2.appendChild(hid4);
@@ -264,35 +274,4 @@ var tableCreation = function(tr, i, j ,k, aed) {
 		td.appendChild(form2);
 		form2.addEventListener('submit', confirmDeleteTicket);
 	}
-}
-
-//This generates the ticket table automatically for us.
-//The initial use case is when you toggle the Show Inactive button, it will grab fresh data from the db using our getJSON function
-//and then display it by creating a DOM table with javascript.
-//The messier code at the bottom checks if it is the ID field being created, and generates two buttons alongside it, Edit and Delete
-//This gives us the data in an easy format to allow the user to edit or delete information later.
-//Used: dispatch.php, admin.php
-//Inputs: ele: Document element to display table in
-//showOld: Boolean. Toggles whether to show inactive data as well
-//edit: Boolean. Toggles whether to combine the ID column into 3 columns. Read createJSTable for more info.
-var ticketTable = function(ele, showOld, edit)
-{
-	doAJAX('inc/getjson.php?tbl=tkt&showinactive='+showOld, new Object(), function(err, data) {
-		if (err !== null) {
-			ele.innerHTML = "Oops, error:" + err;
-			if (popupMessage) { popupMessage("Error: " + err); }
-		} else if (data !== null) {
-			var p = 0;
-			let config = new Object();
-			config.addEditData = 0;
-			config.createTable = true;
-			config.createHeader = true;
-			config.tableID = "ambolist";
-			config.dataMask = ["name", "location", "incident_type", "ambulance", "color"];
-			config.dataMask2nd = ["id", "time", "incident_description", "dispatcher", "priorityText"];
-			config.addComments = true;
-			if (edit === 1) { config.addEditData = 1; }
-			createJSTable(ele, data, config);
-		}
-	});
 }
