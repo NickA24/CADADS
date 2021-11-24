@@ -9,10 +9,10 @@
 ?>
     <div class="leftContainer">
 	<div class="headerDiv sticky2">
-	    <h1 class="activeTicketsHeader">Active Tickets</h1>
+	    <h1 class="activeTicketsHeader">Tickets: <span id="tix#">0</span> Ambos: <span id="ambo#">0</span></h1>
             <button onclick="openNavAdd()" class="add btn btn-primary sticky3">Create New</button>
 	    <div class="buttonIn">
-        	<input class="searchBar" type="text" id="enter" onkeyup="searchTable()" placeholder="Search...">
+        	<input class="searchBar" type="text" id="enter" placeholder="Search...">
         	<button class="clearButton" id="clear">clear</button>
     </div>
 	</div>
@@ -21,16 +21,16 @@
                 <?php
                 //This is our form to add a new ticket. This should be front and center at all times for dispatcher if possible.
                 ?>
-                <a href="javascript:void(0)" class="closebtn" onclick="closeNavAddForce()">&times;</a>
+                <a href="javascript:void(0)" class="closebtn" onclick="closeNavAdd()">&times;</a>
                 <form class="add-new-ticket" action="/inc/submit.php" method="post">
                     <input type="hidden" name="submitType" id="submitType" value="addTicket">
                     <center><h2 class="activeTicketsHeader">New Ticket</h2></center>
                     <br>
                     <label for="name">Name:</label>
-                        <input type="textbox" id="name" name="name" maxlength="64" required>
+                        <input type="textbox" id="name" name="name" maxlength="64">
                     <br>
                     <label for="location">Location:</label>
-                        <input type="textbox" id="location" name="location"required>
+                        <input type="textbox" id="location" name="location">
                     <br>
                     <label for="incident">Incident Type:</label>
                         <select id="incident_type" name="incident_type" required>
@@ -47,7 +47,7 @@
                         </select>
                     <br>
                     <label for="priority">Priority:</label>
-                        <select id="priority" name="priority" required>
+                        <select id="priority" name="priority">
 				<option value="" disabled selected>Select a Priority</option>
                        		<option value="1">1 - High/Emergency</option>
                             	<option value="2">2 - Medium/Urgent</option>
