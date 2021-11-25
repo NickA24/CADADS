@@ -246,6 +246,7 @@ var ddMap = {
 		} else { 
 			popupMessage("Unable to load map, please hold.");
 		}
+		map.doBounding();
 		if (ele.initType == 1) {
 			if (ele.callback) {
 				ele.callback();
@@ -373,7 +374,7 @@ var ddMap = {
 			this.ticket_markers.push(marker);
 		}
 		//use this.ambulance_marker.find(x => x.id === 1) to return the object, or this.ambulance_marker.findIndex(x => x.id === 1);
-		this.doBounding();
+		//this.doBounding();
 	},
 	addDirections: function(or, d, id, initType, o) {
 		if (initType == 3) {
@@ -401,7 +402,7 @@ var ddMap = {
 		const q = this.ambulance_markers.find(x => x.id === route.id);
 		q.title += '\nDistance: '+o.distance+', Arrival time: '+ o.duration;
 		this.directions.push(route);
-		this.doBounding();
+		//this.doBounding();
 	},
 	directionPromises: function(or, d, id, initType, o) {
 		this.promises++;
@@ -436,7 +437,7 @@ var ddMap = {
 				q.title += '\nDistance: '+route.distance.text+', Arrival time: '+ route.duration.text;
 				const x = this.directions.find(x => x.id === route.id);
 				this.directions.push(route);
-				this.doBounding();
+				//this.doBounding();
 				if (initType == 3) 
 				{
 					k = this.directions.length-1;
