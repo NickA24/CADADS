@@ -137,8 +137,16 @@ function updateMap() {
 			ele.innerHTML = '';
 			createJSTable(ele, ele.tabledata, ele.tableconfig);
 			console.log("updated");
+			updateCounts();
 		}
 	});
+}
+
+function updateCounts() {
+	const t = document.getElementById("tix#");
+	const a = document.getElementById("ambo#");
+	t.innerHTML = map.ticket_markers.length;
+	a.innerHTML = map.ambulance_markers.length;
 }
 
 var source = null;
@@ -151,6 +159,7 @@ document.addEventListener('DOMContentLoaded', function(e) {
 	params.ele = "tickets";
 	params.datamask = {};
 	let ele = document.getElementById(params.ele);
+	ele.callback = updateCounts;
 	params.method = "get";
 	params.responseType = "json";
 	params.url = 'inc/getjson.php?tbl=tkt';

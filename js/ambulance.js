@@ -143,7 +143,7 @@ function initNewSource()
 		});
 	} else {*/
 		console.log("fallback to Interval positioning");
-		//source = setInterval(amboUpdateWorker, 15000);
+		source = setInterval(amboUpdateWorker, 15000);
 	//}
 }
 

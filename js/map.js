@@ -247,14 +247,7 @@ var ddMap = {
 			popupMessage("Unable to load map, please hold.");
 		}
 		map.doBounding();
-		if (ele.initType == 1) {
-			if (ele.callback) {
-				ele.callback();
-			}
-		} else if (ele.initType == 3) {
-			ele.callback(data);
-			ele.callback = null;
-		}
+		ele.callback();
 	},
 	redraw: function(ele) { 
 		if (Array.isArray(ele.data)) {
