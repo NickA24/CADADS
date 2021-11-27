@@ -131,35 +131,39 @@ include('./inc/header.php');
 	<br>
 	<?php msgBox(); ?>
 	<br>
-	<div id="AddUser"><h3>Add a New User</h3>
-		<form method="POST" id="addUser">
-			<input type="hidden" name="submitType" id="submitType" value="adminAddUser">
-			<label for="name">User Name:</label><input type="textbox" name="name" id="name" maxlength="64">
-			<label for="pass">Password:</label><input type="password" name="pass" id="pass" maxlength="64">
-			<label for="dblchk"></label><input type="password" name="dblchk" id="dblchk" maxlength="64" placeholder="Verify Password" onfocusout="doPassCheck(this)">
-			<label for="userType">User Type:</label><select id="userType" name="userType">
-			<option value="1" selected>Dispatch</option>
-			<option value="2">Ambulance</option>
-			<option value="3">Admin</option></select>
-			<button type="submit" value="submit" name="addUserSubmit" id="addUserSubmit">Add New User</button>
-		</form>
+	<div class="leftContainer">
+		<div id="AddUser"><h3>Add a New User</h3>
+			<form method="POST" id="addUser">
+				<input type="hidden" name="submitType" id="submitType" value="adminAddUser">
+				<label for="name">User Name:</label><input type="textbox" name="name" id="name" maxlength="64">
+				<label for="pass">Password:</label><input type="password" name="pass" id="pass" maxlength="64">
+				<label for="dblchk"></label><input type="password" name="dblchk" id="dblchk" maxlength="64" placeholder="Verify Password" onfocusout="doPassCheck(this)">
+				<label for="userType">User Type:</label><select id="userType" name="userType">
+				<option value="1" selected>Dispatch</option>
+				<option value="2">Ambulance</option>
+				<option value="3">Admin</option></select>
+				<button type="submit" value="submit" name="addUserSubmit" id="addUserSubmit">Add New User</button>
+			</form>
+		</div>
+		<div id="ListUsers"><h3>List of users to interact with:</h3>
+			<select name="listedUsers" id="listedUsers">
+			<?php
+				$params = array(":id"=>$_SESSION['myid']);
+				$sql = "SELECT id, name, '' AS pass, user_type FROM users WHERE id != :id ORDER BY id";
+				$return = $db->query($sql, $params)->fetchAll(PDO::FETCH_ASSOC);
+				$usrtype = ["Dispatch", "Ambulance", "Admin"];
+				foreach ($return as $r) {
+					echo "<option value='".$r['id']."'>".$r['name']."-".$usrtype[$r['user_type']-1]."</option>";
+				}
+			?>
+			</select><button type="button" name="EditUserList" id="EditUserList" onclick="adminEditUser(event);">Edit</button>
+			<button name="DeleteUserList" id="DeleteUserList" onclick="adminDeleteUsers(event);">Delete</button>
+		</div>
+		<div id="EditUser"><h3>Edit a User's Name, Password, or Type</h3></div>
 	</div>
-	<div id="ListUsers"><h3>List of users to interact with:</h3>
-		<select name="listedUsers" id="listedUsers">
-		<?php
-			$params = array(":id"=>$_SESSION['myid']);
-			$sql = "SELECT id, name, '' AS pass, user_type FROM users WHERE id != :id ORDER BY id";
-			$return = $db->query($sql, $params)->fetchAll(PDO::FETCH_ASSOC);
-			$usrtype = ["Dispatch", "Ambulance", "Admin"];
-			foreach ($return as $r) {
-				echo "<option value='".$r['id']."'>".$r['name']."-".$usrtype[$r['user_type']-1]."</option>";
-			}
-		?>
-		</select><button type="button" name="EditUserList" id="EditUserList" onclick="adminEditUser(event);">Edit</button>
-		<button name="DeleteUserList" id="DeleteUserList" onclick="adminDeleteUsers(event);">Delete</button>
+	<div class="rightContainer">
+		<div id="showold"><input type="checkbox" id="inactive" name="inactive"><label for="inactive">Show Inactive</label></div>
+		<div id="ambulancetableexample"></div></center>
 	</div>
-	<div id="EditUser"><h3>Edit a User's Name, Password, or Type</h3></div>
-	<div id="showold"><input type="checkbox" id="inactive" name="inactive"><label for="inactive">Show Inactive</label></div>
-	<div id="ambulancetableexample"></div></center>
 </body>
 </html>
