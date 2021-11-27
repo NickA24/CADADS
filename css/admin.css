@@ -20,13 +20,3 @@
   text-align: left;
   font-size: 110%;
 }
-</style>
-<script>
-function ShowCont(){
-  var x = document.getElementById("AddForm");
-    if (x.style.display === "none") {
-      x.style.display = "block";
-    } else {
-      x.style.display = "none";
-  }
-}
