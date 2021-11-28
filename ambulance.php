@@ -24,15 +24,9 @@ include_once("./inc/header.php");
 <?php msgBox(); ?>
 <form id="statusSubmit" style="display:none; visibility:hidden;" method="POST" action="/inc/amboupdates.php">
 	<input type="hidden" id="id" name="id" value="">
-	<input type="hidden" id="loc" name="loc" value="">
-	<input type="hidden" id="lat" name="lat" value="">
-	<input type="hidden" id="lng" name="lng" value="">
 	<input type="hidden" id="submitType" name="submitType" value="">
 	<input type="hidden" id="status" name="status" value="">
 	<input type="hidden" id="hospid" name="hospid" value="">
-	<input type="hidden" id="directions" name="directions" value="">
-	<input type="hidden" id="distance" name="distance" value="">
-	<input type="hidden" id="duration" name="duration" value="">
 </form>
 </body>
 </html>

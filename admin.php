@@ -127,25 +127,234 @@ $pagename = "admin";
 
 include('./inc/header.php');
 ?>
-	<div>Admin main functions are to Add User, Change Password, Delete user, and see ticket data.</div>
 	<br>
 	<?php msgBox(); ?>
 	<br>
+	<div id="searchOptions">
+		<h3>Search By:</h3>
+			<form id="search" name="search">
+			<table>
+				<tr>
+					<td>Incident Type</td>
+					<td>
+						<select id="incident_type" name="incident_type">
+							<option value="" disabled selected>Select an Incident</option>
+								<?php
+									// Showing off php calls to the database in the middle of the HTML
+									// and creating the proper format ourselves in the loop
+									$sql = "SELECT * FROM incident_tbl ORDER BY id";
+									$ack = $db->query($sql);
+									foreach ($ack as $row) {
+									echo '<option id="incident'. $row['id']. '" value="'. $row['id'] .'">'. $row['ack']. ' - '. $row['description']. '</option>';
+									}
+								 ?>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>Priority</td>
+					<td>
+						<select id="priority" name="priority">
+							<option value="" disabled selected>Select a Priority</option>
+							<option value="1">1 - High/Emergency</option>
+							<option value="2">2 - Medium/Urgent</option>
+							<option value="3">3 - Low/Routine</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>Ambulance</td>
+					<td>
+						<select id="ambulance" name="ambulance">
+							<option value="" disabled selected>Select an Ambulance</option>
+						<?php
+							$params = array();
+							$sql = "SELECT id, name FROM users WHERE user_type = 2 ORDER BY id";
+							$return = $db->query($sql, $params)->fetchAll(PDO::FETCH_ASSOC);
+							foreach ($return as $r) {
+								echo "<option value='".$r['id']."'>".$r['name']."</option>";
+							}
+						?>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>Dispatcher</td>
+					<td>
+						<select id="dispatcher" name="dispatcher">
+							<option value="" disabled selected>Select a Dispatcher</option>
+						<?php
+							$params = array();
+							$sql = "SELECT id, name FROM users WHERE user_type = 1 ORDER BY id";
+							$return = $db->query($sql, $params)->fetchAll(PDO::FETCH_ASSOC);
+							foreach ($return as $r) {
+								echo "<option value='".$r['id']."'>".$r['name']."</option>";
+							}
+						?>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Date Created:
+					</td>
+					<td>
+						<input id="dateCreated" name="dateCreated">
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Date Completed:
+					</td>
+					<td>
+						<input id="dateCompleted" name="dateCompleted">
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Time Created:
+					</td>
+					<td>
+						<input id="timeCreated" name="timeCreated">
+						Range:
+						<select id="timeCreatedRange" name="timeCreatedRange">
+							<option value="" disabled selected>-</option>
+							<option value="0">0</option>
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+							<option value="5">5</option>
+							<option value="6">6</option>
+							<option value="7">7</option>
+							<option value="8">8</option>
+							<option value="9">9</option>
+							<option value="10">10</option>
+							<option value="11">11</option>
+							<option value="12">12</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Time Completed:
+					</td>
+					<td>
+						<input id="timeCompleted" name="timeCompleted">
+												Range:
+						<select id="timeCompletedRange" name="timeCompletedRange">
+							<option value="" disabled selected>-</option>
+							<option value="0">0</option>
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+							<option value="5">5</option>
+							<option value="6">6</option>
+							<option value="7">7</option>
+							<option value="8">8</option>
+							<option value="9">9</option>
+							<option value="10">10</option>
+							<option value="11">11</option>
+							<option value="12">12</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Time to Complete:
+					</td>
+					<td>
+						<select id="TtCStart" name="TtCStart">
+							<option value="" disabled selected>-</option>
+							<option value="0">0</option>
+							<option value="5">5</option>
+							<option value="10">10</option>
+							<option value="15">15</option>
+							<option value="20">20</option>
+							<option value="25">25</option>
+							<option value="30">30</option>
+							<option value="35">35</option>
+							<option value="40">40</option>
+							<option value="45">45</option>
+							<option value="50">50</option>
+							<option value="55">55</option>
+							<option value="60">60</option>
+						</select>
+						-
+						<select id="TtCEnd" name="TtCEnd">
+							<option value="" disabled selected>-</option>
+							<option value="5">5</option>
+							<option value="10">10</option>
+							<option value="15">15</option>
+							<option value="20">20</option>
+							<option value="25">25</option>
+							<option value="30">30</option>
+							<option value="35">35</option>
+							<option value="40">40</option>
+							<option value="45">45</option>
+							<option value="50">50</option>
+							<option value="55">55</option>
+							<option value="60">60</option>
+							<option value="99">>60</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td></td>
+					<td>
+						<input type="submit" value="Search">
+					</td>
+				</tr>
+			</table>
+			</form>
+	</div>
 	<div class="leftContainer">
 		<div id="AddUser"><h3>Add a New User</h3>
 			<form method="POST" id="addUser">
 				<input type="hidden" name="submitType" id="submitType" value="adminAddUser">
-				<label for="name">User Name:</label><input type="textbox" name="name" id="name" maxlength="64">
-				<label for="pass">Password:</label><input type="password" name="pass" id="pass" maxlength="64">
-				<label for="dblchk"></label><input type="password" name="dblchk" id="dblchk" maxlength="64" placeholder="Verify Password" onfocusout="doPassCheck(this)">
-				<label for="userType">User Type:</label><select id="userType" name="userType">
-				<option value="1" selected>Dispatch</option>
-				<option value="2">Ambulance</option>
-				<option value="3">Admin</option></select>
-				<button type="submit" value="submit" name="addUserSubmit" id="addUserSubmit">Add New User</button>
+				<table>
+					<tr>
+						<td>
+							<label for="name">User Name:</label>
+						</td>
+						<td>
+							<input type="textbox" name="name" id="name" maxlength="64" >
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<label for="pass">Password:</label>
+						</td>
+						<td>
+							<input type="password" name="pass" id="pass" maxlength="64">
+						</td>
+						<td>
+							<label for="dblchk"></label><input type="password" name="dblchk" id="dblchk" maxlength="64" placeholder="Verify Password" onfocusout="doPassCheck(this)">
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<label for="userType">User Type:</label>
+						</td>
+						<td>
+							<select id="userType" name="userType">
+								<option value="1" selected>Dispatch</option>
+								<option value="2">Ambulance</option>
+								<option value="3">Admin</option>
+							</select>
+						</td>
+						<td>
+							<button type="submit" value="submit" name="addUserSubmit" id="addUserSubmit">Add New User</button>
+						</td>
+					</tr>
+				</table>
 			</form>
 		</div>
 		<div id="ListUsers"><h3>List of users to interact with:</h3>
+			<table>
+				<tr>
+					<td>
 			<select name="listedUsers" id="listedUsers">
 			<?php
 				$params = array(":id"=>$_SESSION['myid']);
@@ -156,14 +365,22 @@ include('./inc/header.php');
 					echo "<option value='".$r['id']."'>".$r['name']."-".$usrtype[$r['user_type']-1]."</option>";
 				}
 			?>
-			</select><button type="button" name="EditUserList" id="EditUserList" onclick="adminEditUser(event);">Edit</button>
-			<button name="DeleteUserList" id="DeleteUserList" onclick="adminDeleteUsers(event);">Delete</button>
+			</select>
+					</td>
+					<td>
+						<button type="button" name="EditUserList" id="EditUserList" onclick="adminEditUser(event);">Edit</button>
+					</td>
+					<td>
+						<button name="DeleteUserList" id="DeleteUserList" onclick="adminDeleteUsers(event);">Delete</button>
+					</td>
+				</tr>
+			</table>
 		</div>
 		<div id="EditUser"><h3>Edit a User's Name, Password, or Type</h3></div>
 	</div>
 	<div class="rightContainer">
-		<div id="showold"><input type="checkbox" id="inactive" name="inactive"><label for="inactive">Show Inactive</label></div>
-		<div id="ambulancetableexample"></div></center>
+		<h3 id="tabletoptext">Open Tickets</h3>
+		<div id="admintable"></div></center>
 	</div>
 </body>
 </html>
