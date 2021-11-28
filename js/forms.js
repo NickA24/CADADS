@@ -181,6 +181,9 @@ var createJSTable = function(ele, data, config)
 		if (config.addComments && j['comments'] && j['comments'].length > 1) {
 			tr = document.createElement("tr");
 			tr.setAttribute("class", "hidden inner_row rows_"+v);
+			if (j.id == reloadid) {
+				tr.classList.remove("hidden");
+			}
 			tr.setAttribute("src", j["id"]);
 			tr.setAttribute("id", "row_comment_"+j["id"]);
 			tbody.appendChild(tr);
