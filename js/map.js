@@ -4,6 +4,7 @@ function initMap() {
 	map.initMap();
 }
 
+var reloadid = 0;
 //Event listener, called on body load.
 function loadInit(params) //loc, style, id) 
 {
@@ -11,7 +12,8 @@ function loadInit(params) //loc, style, id)
 	if (!map.init) { 
 		document.onclick= function(e){
 			e=window.event? event.srcElement: e.target;const x = e.closest('.markerZoom'); 
-			if (x) { 
+			if (x) {
+				reloadid = x.id;
 				map.zoomOnMarker(x.getAttribute("id"));
 				var j = document.getElementsByClassName("inner_row");
 				for (let i = 0; i < j.length; i++) {

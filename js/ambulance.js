@@ -5,6 +5,18 @@ function amboShortcuts(e) {
     console.log(str); 
 }
 
+function amboService(stat) {
+	const ele = document.getElementById("curCall");
+	document.getElementById("id").value = ele.tabledata.id;
+	if (stat < 4) {
+		document.getElementById("submitType").value = 'ambostat';
+		document.getElementById("status").value = stat;
+	} else {
+		document.getElementById("submitType").value = 'en2Hosp';
+		document.getElementById("hospid").value = stat-3;
+	}
+	document.getElementById("statusSubmit").submit();
+}
 
 //This displays the current data for the logged-in ambulance user.
 //Note the map.testfunc() runs the initial google map script. We should change this later, probably.

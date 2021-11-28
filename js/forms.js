@@ -148,6 +148,9 @@ var createJSTable = function(ele, data, config)
 			if (config.dataMask2nd && config.dataMask2nd.length > 0) {
 				tr = document.createElement("tr");
 				tr.setAttribute("class", "hidden inner_row rows_"+v);
+				if (j.id == reloadid) {
+					tr.classList.remove("hidden");
+				}
 				tr.setAttribute("src", j["id"]);
 				tr.setAttribute("id", "row_1_"+j["id"]);
 				tbody.appendChild(tr);

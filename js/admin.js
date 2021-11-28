@@ -53,6 +53,8 @@ var adminListUsers = function(e)
 var adminEditUser = function(e)
 {
 	e.preventDefault();
+	document.getElementById("ListUsers").classList.remove("show");
+	document.getElementById("EditUser").classList.add("show");
 	const msgbox = document.getElementById("msgBoxPopup");
 	const editbox = document.getElementById("EditUser");
 	editbox.textContent = '';
@@ -67,18 +69,22 @@ var adminEditUser = function(e)
 			var frm = document.createElement("form");
 			frm.setAttribute("method", "POST");
 			frm.setAttribute("action", "admin.php");
-			frm.setAttribute("id", "EditUser");
+			frm.setAttribute("id", "EditUserForm");
 			var submittype = document.createElement("input");
 			submittype.setAttribute("type", "hidden");
 			submittype.setAttribute("name", "submitType");
 			submittype.setAttribute("id", "submitType");
 			submittype.setAttribute("value", "adminEditUser");
 			frm.appendChild(submittype);
+			var table = document.createElement("table");
 			data.forEach(function(j) {
 				for (var k in j)
 				{
+					var tr = document.createElement("tr");
+					var td1 = document.createElement("td");
+					var td2 = document.createElement("td");
 					if (k == "user_type") {
-						
+						td1.innerHTML = "User Type:";
 						var sel = document.createElement("select");
 						sel.setAttribute("name", "user_type");
 						sel.setAttribute("id", "user_type");
@@ -100,8 +106,7 @@ var adminEditUser = function(e)
 						sel.appendChild(opt1);
 						sel.appendChild(opt2);
 						sel.appendChild(opt3);
-						frm.appendChild(sel);
-						
+						td2.appendChild(sel);
 					} else {
 						var inp = document.createElement("input");
 						inp.setAttribute("id", k);
@@ -116,16 +121,20 @@ var adminEditUser = function(e)
 							lbl.setAttribute("for", k);
 							lbl.innerHTML = k+":"
 							inp.setAttribute("type", "textbox");
-							frm.appendChild(lbl);
+							td1.appendChild(lbl);
 						}
-						frm.appendChild(inp);
+						td2.appendChild(inp);
 					}
+					tr.appendChild(td1);
+					tr.appendChild(td2);
+					table.appendChild(tr);
 				}
 			});
+			frm.appendChild(table);
 			var sbm = document.createElement("input");
 			sbm.setAttribute("type", "submit");
 			sbm.setAttribute("id", "usrEditSubmit");
-			sbm.setAttribute("value", "submit");
+			sbm.setAttribute("value", "Submit");
 			sbm.addEventListener("submit", function(e) {
 				e.preventDefault();
 				let formData = new FormData(frm);
@@ -136,7 +145,7 @@ var adminEditUser = function(e)
 						console.log(data);
 						msgbox.innerHTML = data;
 					}
-					adminListUsers(new event('aa'));
+					adminListUsers(new CustomEvent('aa'));
 					editbox.textContent = '';
 				});
 			});
@@ -145,7 +154,11 @@ var adminEditUser = function(e)
 			clr.setAttribute("type", "reset");
 			clr.setAttribute("id", "usrEditClear");
 			clr.setAttribute("value", "Clear");
-			clr.addEventListener("click", function(e) {e.preventDefault(); editbox.textContent=''; });
+			clr.addEventListener("click", function(e) {
+				e.preventDefault(); 
+				editbox.textContent='';
+				document.getElementById("EditUser").classList.remove("show");				
+			});
 			clr.innerHTML = "Clear";
 			frm.appendChild(clr);
 			editbox.appendChild(frm);
@@ -174,7 +187,8 @@ var adminDeleteUsers = function(e)
 			} else {
 				popupMessage(data);
 			}
-			adminListUsers(new event("aa"));
+			adminListUsers(new CustomEvent('aa'));
+			document.getElementById("ListUsers").classList.remove("show");			
 		});
 	} else {
 		msgbox.innerHTML = "Deletion cancelled";
@@ -197,19 +211,159 @@ var doPassCheck = function(t) {
 	t.reportValidity();	
 }
 
+function ShowCont(){
+  var x = document.getElementById("AddForm");
+    if (x.style.display === "none") {
+      x.style.display = "block";
+    } else {
+      x.style.display = "none";
+  }
+}
 
+var reloadid = 0;
 document.addEventListener('DOMContentLoaded', function(e) {
-		var x = document.getElementById("ambulancetableexample");
-		var y = document.querySelector('input[id="inactive"]');
-		var inactive = 0;
+		var ele = document.getElementById("admintable");
+		document.onclick= function(e){
+			e=window.event? event.srcElement: e.target;const x = e.closest('.markerZoom'); 
+			if (x) {
+				reloadid = x.id;
+				//map.zoomOnMarker(x.getAttribute("id"));
+				var j = document.getElementsByClassName("inner_row");
+				for (let i = 0; i < j.length; i++) {
+					if (j[i].getAttribute("src") != x.id) {
+						j[i].classList.add("hidden");
+					}
+					if (j[i].classList.contains("header") && x.lastElementChild.classList.contains("hidden")) {
+						j[i].classList.remove("hidden");
+					}
+				}
+				if (x.firstElementChild.nextElementSibling != x.lastElementChild) {
+					x.firstElementChild.nextElementSibling.classList.toggle("hidden");
+				}
+				x.lastElementChild.classList.toggle("hidden");
+			}
+		}
+		var search = document.getElementById("search");
+		search.addEventListener("submit", function(e) {
+			e.preventDefault();
+			ele.tableconfig.url = 'inc/getjson.php?tbl=admintkt';
+			const qrst = new FormData(e.target);
+			var tmptc = '';
+			var tmptco = '';
+			for (var v of qrst.entries()) {
+				if (v[1]) {
+					if (v[0] == 'timeCreated') {
+						tmptc = v[1];
+					}
+					if (v[0] == 'timeCompleted') {
+						tmptco = v[1];
+					}
+					if (v[0] == 'timeCreatedRange')
+					{
+						let tmp = tmptc.split(":");
+						tmp[0] = parseInt(tmp[0],10)+parseInt(v[1],10);
+						v[1] = tmp.join(":");
+					}
+					if (v[0] == 'timeCompletedRange')
+					{
+						let tmp = tmptco.split(":");
+						tmp[0] = parseInt(tmp[0],10)+parseInt(v[1],10);
+						v[1] = tmp.join(":");
+					}
+					ele.tableconfig.url += '&'+v[0]+'='+v[1];
+				}
+			}
+			doAJAX(ele.tableconfig.url, ele.tableconfig, function(err, data){
+				if (err !== null) {
+					ele.innerHTML = "Oops, error:" + err;
+					if (popupMessage) { popupMessage("Error: " + err); }
+				} else {
+					search.reset();
+					ele.tabledata = data;
+					ele.innerHTML = '';
+					if (data !== null) { createJSTable(ele, ele.tabledata, ele.tableconfig); }
+				}
+			});
+			let x = document.getElementById("searchOptions");
+			x.classList.remove("show");
+		});
+		/*var y = document.querySelector('input[id="inactive"]');
 		//This is the code to get the table to update on click.
 		y.addEventListener('click', (event) => {
-			if(y.checked) { inactive = 1; } else {inactive = 0;}
-			while (x.firstChild) {
-				x.removeChild(x.firstChild);
+			if(y.checked) { ele.tableconfig.inactive = 1; } else {ele.tableconfig.inactive = 0;}
+			while (ele.firstChild) {
+				ele.removeChild(ele.firstChild);
 			}
-			ticketTable(x, inactive);
+			createJSTable(ele, ele.tabledata, ele.tableconfig);
+		});*/
+		const html = document.getElementsByTagName("html")[0].dataset;
+		let config = new Object();
+		config.method = "get";
+		config.responseType = "json";
+		config.url = 'inc/getjson.php?tbl=admintkt';
+		config.addEditData = 0;
+		config.createTable = true;
+		config.createHeader = true;
+		config.tableID = "admintable";
+		config.dataMask = ["name", "location", "incident_type", "ambulance"];
+		config.dataMask2nd = ["priorityText","time", "incident_description", "dispatcher"];
+		config.addComments = true;
+		config.addEditData = 1;
+		ele.innerHTML = '';
+		ele.tableconfig = config;
+		doAJAX(ele.tableconfig.url, ele.tableconfig, function(err, data){
+			if (err !== null) {
+				ele.innerHTML = "Oops, error:" + err;
+				if (popupMessage) { popupMessage("Error: " + err); }
+			} else if (data !== null) {
+				ele.tabledata = data;
+				createJSTable(ele, ele.tabledata, ele.tableconfig);
+			}
 		});
+		let dCrO = new Object();
+		dCrO.dateFormat = 'Y-m-d';
+		dCrO.altFormat = 'm/d/Y';
+		dCrO.altInput = true;
+		dCrO.altInputClass = "";
+		dCrO.allowInput = false;
+		//dCrO.appendTo = null;
+		dCrO.ariaDateFormat = 'F j, Y';
+		dCrO.clickOpens = true;
+		//dCrO.defaultDate = null;
+		dCrO.defaultHour = 12;
+		dCrO.defaultMinute = 0;
+		dCrO.minDate = "2021-07-20";
+		dCrO.maxDate = new Date().toISOString().slice(0,10);
+		//dCrO.disable = null;
+		dCrO.disableMobile = false;
+		dCrO.enabl = [];
+		dCrO.enableTime = false;
+		dCrO.enableSeconds = false;
+		//dCrO.formatDate = null;
+		dCrO.hourIncrement = 1;
+		dCrO.inline = false;
+		dCrO.shorthandCurrentMonth = false;
+		dCrO.minuteIncrement = 5;
+		dCrO.mode = 'range';
+		dCrO.prevArrow = '&lt;';
+		dCrO.nextArrow = '&gt;';
+		dCrO.parseDate = false;
+		dCrO.static = false;
+		dCrO.time_24hr = false;
+		dCrO.weekNumbers = true;
+		dCrO.noCalendar = false;
+		dCrO.onChange = null;
+		dCrO.onClose = null;
+		dCrO.onOpen = null;
+		dCrO.onReady = null;
+		var dCr = flatpickr("#dateCreated", dCrO);
+		var dCo = flatpickr("#dateCompleted", dCrO);
+		let dCrO2 = new Object();
+		dCrO2.dateFormat = 'H:i';
+		dCrO2.mode = 'single';
+		dCrO2.noCalendar = true;
+		dCrO2.enableTime = true;
+		var tCr = flatpickr("#timeCreated", dCrO2);
+		var tCo = flatpickr("#timeCompleted", dCrO2);
 		//This is found in json.js, if it needs to be edited.
-		ticketTable(x, inactive);
 });
