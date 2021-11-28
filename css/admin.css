@@ -1,17 +1,16 @@
 .leftContainer {
   /*This is the button area*/
-  width:30%;
-  height: 100%;
-  float: left;
+  margin: 5px 0;
+  width:100%;
   text-align: center;
   background-image: linear-gradient(cyan, grey);
   /*border-right: 1rem solid;*/
 }
 .rightContainer {
-  width: 70%;
+  margin: 5px 0;
+  width: 100%;
   height: 100%;
-  float: right;
-  text-align: left;
+  text-align: center;
   background-image: linear-gradient(grey, cyan);
   /*border-left: 1rem solid;*/
 }
@@ -19,4 +18,18 @@
   color: inherit;
   text-align: left;
   font-size: 110%;
+}
+
+table {
+	width: 100%;
+	text-align: center;
+}
+	
+.hidden {
+	display: none;
+}
+	
+
+#AddUser, #ListUsers, #EditUser, #EditUserList, #DeleteUserList, #searchOptions {
+	display: none;
 }

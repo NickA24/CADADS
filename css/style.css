@@ -6,6 +6,10 @@ body {
 	margin: 0;
 }
 
+.markerZoom {
+	cursor: pointer;
+}
+
 a.linkformat {
 	color:black;
 	padding-right:5px;
@@ -69,7 +73,7 @@ a.linkformat:hover {
     li:hover {
         background-color: #111;
     }
-	li:first-of-type a {
+	li:first-of-type a, .search {
 		color: white;
 		text-decoration: none;
 	}
@@ -90,7 +94,7 @@ a.linkformat:hover {
 		cursor: pointer;
 
 	}
-        .dropdown-content {
+    .dropdown-content, .dropdownMap-content, .dropdownAdmin-content {
       display: none;
       position: absolute;
       background-color: #f9f9f9;
@@ -99,7 +103,7 @@ a.linkformat:hover {
       z-index: 4;
     }
 
-    .dropdown-content a {
+    .dropdown-content>a, .dropdownMap-content>a, .dropdownAdmin-content>a {
       float: none;
       color: black;
       padding: 12px 16px;
@@ -108,31 +112,12 @@ a.linkformat:hover {
       text-align: left;
     }
 
-    .dropdown-content a:hover {
+    .dropdown-content>a:hover, .dropdownMap-content>a:hover, .dropdownAdmin-content>a:hover {
       background-color: #ddd;
     }
-
-	.dropdownMap-content {
-      display: none;
-      position: absolute;
-      background-color: #f9f9f9;
-      min-width: 160px;
-      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-      z-index: 1;
-    }
-    .dropdownMap-content a {
-      float: none;
-      color: black;
-      padding: 12px 16px;
-      text-decoration: none;
-      display: block;
-      text-align: left;
-    }
-    .dropdownMap-content a:hover {
-      background-color: #ddd;
-    }
+	
     .show {
-      display: block;
+      display: block !important;
     }
 	
 	.selected::after {
