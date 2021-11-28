@@ -3,7 +3,7 @@ include_once("login.php");
 $usrtype = checklogin();
 
 //Don't let non-logged in people see this page at all
-if (!isset($usrtype) || $usrtype <= 0)
+if (!isset($usrtype) || $usrtype != 2)
 {
 	echo "not logged in";
 	return;
@@ -18,9 +18,12 @@ function enrouteToHospital($db,$var)
 		echo 'no valid id or hospital id';
 		return 'You need a valid id and hospital id';
 	}
-  $params = array(":id"=>$var['id'], ":mylat"=>$var['lat'], ":mylng"=>$var['lng'], ":hosp"=>$var['hospid']);
-  $sql = "UPDATE ambulance_info a, hospitals b SET a.status = 2, a.loclat = :mylat, a.loclng = :mylng, a.destination = b.location, a.dstlat = b.lat, a.dstlng = b.lng  WHERE a.id = :id AND b.id = :hosp";
-  $result = $db->query($sql, $params);
+	$params = array(":id"=>$var['id'], ":hosp"=>$var['hospid']);
+	$sql = "UPDATE ticket SET enroute_to_hospital = :hosp WHERE id = :id";
+	$result = $db->query($sql, $params);
+	$params = array(":id"=>$_SESSION['myid'], ":hosp"=>$var['hospid']);
+	$sql = "UPDATE ambulance_info a, hospitals b SET a.status = 2, a.destination = b.location, a.dstlat = b.lat, a.dstlng = b.lng, a.directions=''  WHERE a.id = :id AND b.id = :hosp";
+	$result = $db->query($sql, $params);
 	return $result;
 }
 
@@ -33,7 +36,7 @@ function completeTicket($db,$var)
 		return 'You need a valid id';
 	}
   $params = array(":id"=>$var['id']);
-  $sql = "UPDATE ticket SET active = 0, cleared = NOW() WHERE active = 1 AND ambulance = :id";
+  $sql = "UPDATE ticket SET active = 0, cleared = NOW() WHERE active = 1 AND id = :id";
   $result = $db->query($sql,$params);
   return $result;
 }
@@ -46,11 +49,19 @@ function amboStatus($db,$var)
 		echo 'no valid id or status';
 		return 'You need a valid id and status';
 	}
-	$params = array(":id"=>$var['id'], ":status"=>$var['status']);
-	$sql = "UPDATE ambulance_info SET status = :status, lastupdate=NOW() WHERE id = :id";
+	$params = array(":id"=>$_SESSION['myid'], ":status"=>$var['status']);
+	$ct = "current_ticket = 0, directions = '', distance='', duration='', ";
+	if ($var['status'] == 2) {
+		$ct = '';
+	}
+	$sql = "UPDATE ambulance_info SET status = :status, ".$ct."lastupdate=NOW() WHERE id = :id";
 	$result = $db->query($sql,$params);
 	if ($var['status'] != 2) {
 		completeTicket($db, $var);
+	} else {
+		$params = array(":id"=>$var['id']);
+		$sql = "UPDATE ticket SET enroute_to_hospital = 0 WHERE id = :id";
+		$result = $db->query($sql, $params);
 	}
 	return $result;
 }
@@ -78,14 +89,12 @@ if (isset($usrtype) && $usrtype == 2 and isset($_POST))
 	{
 		case 'en2Hosp':
 			enrouteToHospital($db,$_POST); 
-			amboUpdate($db,$_POST);
 			break;
 		case 'tktDone':
 			completeTicket($db,$_POST);
 			break;
 		case 'ambostat':
 			amboStatus($db,$_POST);
-			amboUpdate($db,$_POST);
 			break;
 		case 'amboup':
 			amboUpdate($db,$_POST);

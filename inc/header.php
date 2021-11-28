@@ -44,7 +44,14 @@ if (isset($ticketID)) { echo 'data-ticketID="'.$ticketID.'" '; }
 		//Only if we need the google map stuff should we include it, as it's a lot of extra code pulled from google's server.
 		if ($needmap == 1) { ?>
 <script type="text/javascript" src="/js/map.js"></script>
-	<?php } ?>
+	<?php } 
+	
+		//flatpickr found at https://github.com/flatpickr/flatpickr by chmln
+		if (checklogin() == 3) { ?>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+	<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+	
+		<?php } ?>
 </head>
 <body>
 <?php 
@@ -55,6 +62,17 @@ if (checklogin()) { ?>
 		<li><a href="..">Diamond Dispatch: <?php echo $_SESSION['myusername']; if (checklogin() == 2) { echo " - ", $ambostatuses[$_SESSION['status']]; } ?></a></li>
 		<?php 
 		//If this is an ambulance, do ambulance things
+		if (checklogin() == 3) { ?>
+		<li class="dropbtnAdmin" id="dropbtnAdminList">User Menu <i class="fa fa-caret-down dropbtnAdmin"></i>
+			<div class="dropdownAdmin-content" id="myDropdownAdmin">
+				<a id="adminAdd" class="adminFn" data-x="0" src="#">Add User</a>
+				<a id="adminEdit" class="adminFn" data-x="1" src="#">Edit User</a>
+				<a id="adminDelete" class="adminFn" data-x="2" src="#">Delete user</a>
+			</div>
+		</li>
+		<li><a href="#" class="search fa fa-search" id="searchlink"> Search</a></li>
+		<?php
+		}
 		if (checklogin() == 2) { ?>
 <li class="dropbtn" id="dropbtnList">Change Status <i class="fa fa-caret-down dropbtn"></i>
 			<div class="dropdown-content" id="myDropdown">
