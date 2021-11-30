@@ -17,12 +17,6 @@ body {
   text-align: center;
   /*border-left: 1rem solid;*/
 }
-.form1{
-  color: inherit;
-  text-align: left;
-  font-size: 110%;
-}
-
 #admintable {
     border-spacing: 0;
     height:1px;
@@ -37,7 +31,18 @@ body {
     border-color:#b3b3b3;
     opacity: 50%;
 }
+#admintable .unlinked {
+    background-color: #ffcccc;
+    border-color: #ffcccc;
+    opacity: 50%;
 
+}
+#admintable .unlinked:nth-child(even) {
+    background-color: #d9baba;
+    border-color: #d9baba;
+    opacity: 50%;
+
+}
 .hidden {
     display: none;
 }
