@@ -32,6 +32,11 @@
 				if (count($_GET) > 1) {
 					$where = 'WHERE ';
 					$params = array();
+					if (isset($_GET['active']))
+					{
+						$params[":act"]=$_GET['active'];
+						$where .= 'active = :act AND';
+					}
 					if (isset($_GET['incident_type']))
 					{
 						$params[":it"]=$_GET['incident_type'];
