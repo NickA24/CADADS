@@ -20,6 +20,8 @@
 
 var createJSTable = function(ele, data, config)
 {
+	
+	if (!data || !data[0]) { return ; }
 	//The majority of this is using createelement to make the html nodes
 	//It's kind of monotonous but it's just one way to generate this stuff
 	//We auto-generate the header data off the JSON object's keys.
