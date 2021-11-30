@@ -1,13 +1,13 @@
-body {
+html {
     background-image: linear-gradient(grey, cyan);
+	height: 100%;
 }
 .leftContainer {
   /*This is the button area*/
   margin: 0;
   width:100%;
   text-align: center;
-  border: 2px solid white;
-  border-radius: 12px;
+  border-bottom: 1px solid black;
 	
 }
 .rightContainer {
@@ -17,23 +17,36 @@ body {
   text-align: center;
   /*border-left: 1rem solid;*/
 }
+.form1{
+  color: inherit;
+  text-align: left;
+  font-size: 110%;
+}
+
 table {
-     width: 100%;
-     text-align: center;
- }
+	width: 100%;
+	text-align: center;
+	border: 2px solid white;
+}
+
 #admintable {
-    font-size: 18px;
-    width: 100%;
-    text-align: center;
+	border-spacing: 0;
+	height:1px;
+	width:100%;
+	font-size: 18px;
+	text-align: center;
 }
+
 #admintable thead {
-    background-color:#888;
-}
+		background-color:#888;
+	}
+	
 #admintable tbody:nth-child(even) {
     background-color:#b3b3b3;
     border-color:#b3b3b3;
     opacity: 50%;
 }
+	
 #admintable .unlinked {
     background-color: #ffcccc;
     border-color: #ffcccc;
@@ -45,9 +58,9 @@ table {
     border-color: #d9baba;
     opacity: 50%;
 
-}
+}							  
 .hidden {
-    display: none;
+	display: none;
 }
 	
 
