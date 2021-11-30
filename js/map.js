@@ -474,3 +474,4 @@ var ddMap = {
 
 //After defining what ddMap does, create a global instance of it.
 var map = Object.create(ddMap);
+map.initMap();
