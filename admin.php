@@ -380,7 +380,7 @@ include('./inc/header.php');
 	</div>
 	<div class="rightContainer">
 		<h3 id="tabletoptext">Open Tickets</h3>
-		<div id="admintable"></div></center>
+		<div id="admintablecontainer"></div></center>
 	</div>
 </body>
 </html>
