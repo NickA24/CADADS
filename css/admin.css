@@ -27,9 +27,29 @@ table {
 	width: 100%;
 	text-align: center;
 }
-	
+#ambolist {
+    border-spacing: 0;
+    height:1px;
+    width: 100%;
+}
+#ambolist thead {
+    background-color:#888;
+}
+#ambolist tbody:nth-child(even) {
+    background-color:#b3b3b3;
+    border-color:#b3b3b3;
+}
+#ambolist .unlinked {
+    background-color: #ffcccc;
+    border-color: #ffcccc;
+}
+#ambolist .unlinked:nth-child(even) {
+    background-color: #d9baba;
+    border-color: #d9baba;
+}
+
 .hidden {
-	display: none;
+    display: none;
 }
 	
 
