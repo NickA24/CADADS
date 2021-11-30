@@ -17,6 +17,11 @@ body {
   text-align: center;
   /*border-left: 1rem solid;*/
 }
+.form1{
+   color: inherit;
+   text-align: left;
+   font-size: 110%;
+ }
 #admintable {
     font-size: 18px;
     width: 100%;
