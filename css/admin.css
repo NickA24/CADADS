@@ -3,7 +3,7 @@ body {
 }
 .leftContainer {
   /*This is the button area*/
-  margin: 5px 0;
+  margin: 0;
   width:100%;
   text-align: center;
   background-image: linear-gradient(cyan, grey);
