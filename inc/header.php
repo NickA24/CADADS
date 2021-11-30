@@ -22,6 +22,7 @@ if (isset($_SESSION['myusername'])) { echo 'data-username="'.$_SESSION['myuserna
 if (isset($initType)) { echo 'data-initType="'.$initType.'" '; } 
 if (isset($_SESSION['preferred_map'])) { echo 'data-preferred-map="'.htmlspecialchars($_SESSION['preferred_map']).'"'; }
 if (isset($ticketID)) { echo 'data-ticketID="'.$ticketID.'" '; }
+if (isset($_GET['dummy'])) { echo 'data-dummy="true"'; }
 ?>>
 <head>
 	<title><?php if (isset($title)) {echo $title;} else { echo "Welcome to the Diamond Team CAD"; }?></title>

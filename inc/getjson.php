@@ -32,11 +32,6 @@
 				if (count($_GET) > 1) {
 					$where = 'WHERE ';
 					$params = array();
-					if (isset($_GET['active']))
-					{
-						$params[":act"]=$_GET['active'];
-						$where .= 'active = :act AND';
-					}
 					if (isset($_GET['incident_type']))
 					{
 						$params[":it"]=$_GET['incident_type'];
@@ -125,7 +120,7 @@
 				//This returns all active tickets in the system. if showinactive is 1, it will return ALL TICKETS, both active and cleared.
 				$sql = "SELECT ticket.id, active, ticket.name, location, lat, lng, incident_tbl.ack AS incident_type, incident_tbl.description AS incident_description, priority, IF(priority=1, 'High', IF(priority=2, 'Med', 'Low')) AS priorityText, IF(ticket.ambulance>0,a.name,'None') AS ambulance, ticket.ambulance AS ambo_id, IF(ticket.dispatcher>0,b.name,'None') AS dispatcher, time, comments FROM ticket LEFT JOIN incident_tbl ON ticket.incident_type = incident_tbl.id LEFT JOIN users a ON a.id=ticket.ambulance LEFT JOIN users b ON b.id=ticket.dispatcher WHERE active = 1 ORDER BY active DESC, ambo_id ASC, time ASC";
 				$returna = $db->query($sql, $params)->fetchAll(PDO::FETCH_ASSOC);
-				$sql = "SELECT users.id AS id, users.name AS name, 1 as markertype, status, location, loclat, loclng, destination, dstlat, dstlng, 1 as source, current_ticket as isFree, directions, distance, duration, lastupdate FROM ambulance_info LEFT JOIN users ON users.id=ambulance_info.id WHERE status > 0 UNION SELECT t.id, t.name, 0 as markertype, incident_tbl.description AS status, IF(enroute_to_hospital>0, h.location, t.location) AS location, IF(enroute_to_hospital>0, h.lat, t.lat) as loclat, IF(enroute_to_hospital>0, h.lng, t.lng) as loclng, NULL as destination, NULL as dstlat, NULL as dstlng, 0 as source, ambulance as isFree, null as directions, null as distance, null as duration, time as lastupdate FROM ticket t LEFT JOIN incident_tbl ON incident_tbl.id=t.incident_type LEFT JOIN hospitals h ON enroute_to_hospital = h.id WHERE active = 1";
+				$sql = "SELECT users.id AS id, users.name AS name, 1 as markertype, status, location, loclat, loclng, destination, dstlat, dstlng, 1 as source, current_ticket as isFree, directions, distance, duration, lastupdate FROM ambulance_info LEFT JOIN users ON users.id=ambulance_info.id UNION SELECT t.id, t.name, 0 as markertype, incident_tbl.description AS status, IF(enroute_to_hospital>0, h.location, t.location) AS location, IF(enroute_to_hospital>0, h.lat, t.lat) as loclat, IF(enroute_to_hospital>0, h.lng, t.lng) as loclng, NULL as destination, NULL as dstlat, NULL as dstlng, 0 as source, ambulance as isFree, null as directions, null as distance, null as duration, time as lastupdate FROM ticket t LEFT JOIN incident_tbl ON incident_tbl.id=t.incident_type LEFT JOIN hospitals h ON enroute_to_hospital = h.id WHERE active = 1";
 				$returnb = $db->query($sql, $params)->fetchAll(PDO::FETCH_ASSOC);
 				$returnfull = array("tickets"=>$returna, "dispatchMap"=>$returnb);
 				echo json_encode($returnfull);
@@ -147,13 +142,21 @@
 			case 'curAmbo':
 				//This returns all ambulance data about the currently logged in ambulance. Only self-data.
 				if ($_SESSION['user_type'] != 2) { echo 'NOT AN AMBULANCE GET OUTTA HERE'; return; }
+				$params = array(":id"=>$_SESSION['myid']);
+				$sql = "SELECT status, current_ticket, directions FROM ambulance_info WHERE id = :id";
+				$info = $db->query($sql, $params)->fetchAll(PDO::FETCH_ASSOC)[0];
 				if (isset($_GET['lat']) && isset($_GET['lng']))
 				{
 					$_GET['o'] = $_GET['lat'].",".$_GET['lng'];
 					include('googledirections.php');
+				} 
+				else if ($info['status'] == 2 && $info['current_ticket'] > 0 && ($info['directions'] == '' || $info['directions'] == NULL))
+				{
+					$info['dodir'] = true;
+					include('googledirections.php');
 				}
 				$time = 0;
-				if (isset($_GET['lastupdate'])) { $time = $_GET['lastupdate']; }
+				//if (isset($_GET['lastupdate'])) { $time = strtotime($_GET['lastupdate']); }
 				$params = array(":id"=>$_SESSION['myid'], ":time"=>$time);
 				$sql = "SELECT ambulance_info.id as id, ambulance_status.name as status, ambulance_info.location as location, loclat, loclng, ambulance_info.destination as destination, dstlat, dstlng, active, ticket.name, ticket.id as ticket_id, incident_tbl.ack AS incident_type, incident_tbl.description AS incident_description, priority, IF(priority=1, 'High', IF(priority=2, 'Med', 'Low')) AS priorityText, IF(ticket.dispatcher>0,b.name,'None') AS dispatcher, time, lastupdate, comments FROM ambulance_info LEFT JOIN ticket ON ambulance_info.current_ticket = ticket.id LEFT JOIN incident_tbl ON incident_type = incident_tbl.id LEFT JOIN ambulance_status ON status = ambulance_status.id LEFT JOIN users b ON b.id=ticket.dispatcher WHERE ambulance_info.id = :id AND UNIX_TIMESTAMP(lastupdate) > :time LIMIT 1";
 				$returna = $db->query($sql, $params)->fetchAll(PDO::FETCH_ASSOC);
