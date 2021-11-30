@@ -344,6 +344,7 @@ include('./inc/header.php');
 						</td>
 						<td>
 							<button type="submit" value="submit" name="addUserSubmit" id="addUserSubmit">Add New User</button>
+							<button id="cancel" onclick="closed">Cancel</button>
 						</td>
 					</tr>
 				</table>
@@ -367,9 +368,11 @@ include('./inc/header.php');
 					</td>
 					<td>
 						<button type="button" name="EditUserList" id="EditUserList" onclick="adminEditUser(event);">Edit</button>
+						<button id="cancel" onclick="closed">Cancel</button>
 					</td>
 					<td>
 						<button name="DeleteUserList" id="DeleteUserList" onclick="adminDeleteUsers(event);">Delete</button>
+						<button id="cancel" onclick="closed">Cancel</button>
 					</td>
 				</tr>
 			</table>
