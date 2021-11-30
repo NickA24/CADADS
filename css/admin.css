@@ -23,14 +23,11 @@ body {
   font-size: 110%;
 }
 
-table {
-	width: 100%;
-	text-align: center;
-}
 #admintable {
     border-spacing: 0;
     height:1px;
     width: 100%;
+    text-align: center;
 }
 #admintable thead {
     background-color:#888;
