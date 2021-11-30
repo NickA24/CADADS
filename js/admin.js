@@ -114,6 +114,9 @@ var adminEditUser = function(e)
 						inp.setAttribute("type", "hidden");						
 						inp.setAttribute("value", j[k]);
 						if (k == "pass") {
+							inp.setAttribute("id", k+"edit");
+							inp.setAttribute("name", k+"edit");
+							inp.setAttribute("type", "password");
 							inp.setAttribute("placeholder", "Leave blank to keep same");
 						}
 						if (k != "id") {
@@ -124,6 +127,14 @@ var adminEditUser = function(e)
 							td1.appendChild(lbl);
 						}
 						td2.appendChild(inp);
+						if (k == "pass") {
+							var inp2 = document.createElement("input");
+							inp2.setAttribute("id", k+"edit2");
+							inp2.setAttribute("name", k+"edit2");
+							inp2.setAttribute("type", "password");
+							inp2.setAttribute("placeholder", "Enter twice to change");
+							td2.appendChild(inp2);
+						}
 					}
 					tr.appendChild(td1);
 					tr.appendChild(td2);
@@ -162,6 +173,7 @@ var adminEditUser = function(e)
 			clr.innerHTML = "Clear";
 			frm.appendChild(clr);
 			editbox.appendChild(frm);
+			document.getElementById("passedit2").addEventListener("focusout", doPassCheck, this);
 		}
 	});
 }
@@ -196,11 +208,14 @@ var adminDeleteUsers = function(e)
 }
 
 //This is a password check function, this compares the two text boxes and gives a notice
-var doPassCheck = function(t) {
+function doPassCheck(t) {
+	let r = 'pass';
+	if (t.id = 'passedit2') { r = 'passedit'; t = document.getElementById('passedit2'); }
+	const s = document.getElementById(r);
 	if (t.value == '') {
 		t.setCustomValidity('');
 		t.style.backgroundColor = "";
-	} else if (t.value != document.getElementById('pass').value && t.value != '')
+	} else if (s && t.value != s.value && t.value != '')
 	{
 		t.style.backgroundColor = "rgba(255,0,0,0.3)";
 		t.setCustomValidity('Passwords must match!');
@@ -222,7 +237,7 @@ function ShowCont(){
 
 var reloadid = 0;
 document.addEventListener('DOMContentLoaded', function(e) {
-		var ele = document.getElementById("admintable");
+		var ele = document.getElementById("admintablecontainer");
 		document.onclick= function(e){
 			e=window.event? event.srcElement: e.target;const x = e.closest('.markerZoom'); 
 			if (x) {
@@ -367,9 +382,8 @@ document.addEventListener('DOMContentLoaded', function(e) {
 		var tCo = flatpickr("#timeCompleted", dCrO2);
 		//This is found in json.js, if it needs to be edited.
 });
-
 function closed() {
 	document.getElementById("AddUser").classList.remove("show");
 	document.getElementById("ListUser").classList.remove("show");
 	document.getElementById("EditUser").classList.remove("show");
-}
+}				   

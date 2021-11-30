@@ -27,7 +27,11 @@ document.addEventListener('DOMContentLoaded', function(e) {
 	const dropAdmin = document.getElementById("dropbtnAdminList");
 	const sl = document.getElementById("searchlink");
 	if (sl) {
-		sl.addEventListener("click", function(e) {
+		//sl.addEventListener("click", function(e) {
+		//	e.preventDefault();
+		//	document.getElementById("searchOptions").classList.toggle("show");
+		//});
+		sl.parentNode.addEventListener("click", function(e) {
 			e.preventDefault();
 			document.getElementById("searchOptions").classList.toggle("show");
 		});

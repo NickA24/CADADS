@@ -1,4 +1,10 @@
 
+//A single geolocation var just to make it easy on ourselves.
+var loc;
+//A single audio variable as well
+var notif = new Audio('./sound/notif.wav');
+
+
 //Hotkeys for the page. Will use later to do automatic ambulance status updates
 function amboShortcuts(e) {
     var str = "You have pressed a button. Press info: "+e.code+" alt:"+e.altKey+" shift:"+e.shiftKey+" ctrl:"+e.ctrlKey+" meta:"+e.metaKey+" repeat:"+e.repeat;
@@ -18,10 +24,7 @@ function amboService(stat) {
 	document.getElementById("statusSubmit").submit();
 }
 
-//This displays the current data for the logged-in ambulance user.
-//Note the map.testfunc() runs the initial google map script. We should change this later, probably.
-//Used: ambulance.php
-//input: ele: document element to put table info into.
+//This initializes the current data for the logged-in ambulance user.
 var amboInit = function()
 {
 	let ele = document.getElementById("curCall");
@@ -29,7 +32,7 @@ var amboInit = function()
 	params.method = "get";
 	params.responseType = "json";
 	let url = 'inc/getjson.php?tbl=curAmbo';
-	if (ele.pos.latitude && ele.pos.longitude)
+	if (ele.pos && ele.pos.latitude && ele.pos.longitude)
 	{
 		url += "&lat="+ele.pos.latitude+"&lng="+ele.pos.longitude;
 	}
@@ -56,6 +59,7 @@ var amboInit = function()
 			if (!map.init) { 
 				loadInit(paramx); 
 			}
+			config.newTicket = false;
 			if (data[0].ticket_id > 0)
 			{
 				config.newTicket = true;
@@ -76,6 +80,7 @@ var amboInit = function()
 	});
 }
 
+//This continues to update the map and the ticket data.
 var amboUpdate = function()
 {
 	let ele = document.getElementById("curCall");
@@ -83,7 +88,11 @@ var amboUpdate = function()
 	params.method = "get";
 	params.responseType = "json";
 	let url = 'inc/getjson.php?tbl=curAmbo';
-	if (ele.pos.latitude && ele.pos.longitude)
+	if (ele.tabledata && ele.tabledata.lastupdate)
+	{
+		url += '&lastupdate='+ele.tabledata.lastupdate;
+	}
+	if (ele.pos && ele.pos.latitude && ele.pos.longitude && (ele.pos.latitude != ele.tabledata.loclat || ele.pos.longitude != ele.tabledata.loclng))
 	{
 		url += "&lat="+ele.pos.latitude+"&lng="+ele.pos.longitude;
 	}
@@ -97,21 +106,33 @@ var amboUpdate = function()
 			data = data['curAmbo'];
 			ele.tabledata.id = data[0].ticket_id;
 			ele.tabledata.ticket_id = data[0].id;
+			if (ele.tableconfig.newTicket == false && ele.tabledata.id > 0)
+			{
+				notif.play();
+				ele.tableconfig.newTicket = true;
+			} else if ((ele.tabledata.id == 0 || ele.tabledata.id == null) && ele.tableconfig.newTicket == true) {
+				ele.tableconfig.newTicket = false;
+			}
+			
+
+
 			map.redraw(ele);
 			ele.innerHTML = '';
 			createJSTable(ele, [ele.tabledata], ele.tableconfig);
-			console.log("updated");
+			//console.log("updated");
 		}
 	});
 }
 
-//A single geolocation var just to make it easy on ourselves.
-var loc;
-
 //Using promises to do async functions in a proper order.
 var updateCurrentPos = () => { 
 	return new Promise((resolve, reject) => {
-		loc.getCurrentPosition((position) => resolve(geo_success(position)), (error) => reject(geo_fail(error)), {enableHighAccuracy: true, maximumAge: 5000, timeout: 5000});
+		if (loc) 
+		{
+			loc.getCurrentPosition((position) => resolve(geo_success(position)), (error) => reject(geo_fail(error)), {enableHighAccuracy: true, maximumAge: 5000, timeout: 5000});
+		} else {
+			resolve(geo_fail("No location"));
+		}
 	});
 }
 
@@ -135,28 +156,8 @@ var source;
 var attempts = 3;
 function initNewSource()
 {
-	/*if (attempts > 0) {
-		console.log("Attempting Server-Sent Events, Attempt:"+(4-attempts)+".");
-		source = new EventSource('/events', {withCredentials: true});
-		source.addEventListener('ping', event => {
-			updateCurrentPos();
-			attempts = 3;
-		});
-		source.addEventListener('error', event => {
-			if (source.readyState == 2)
-			{
-				source.close();
-				if (attempts > 0) {
-					attempts--;
-					console.log("Failed "+(3-attempts)+" times.");
-					initNewSource();
-				}
-			}
-		});
-	} else {*/
-		console.log("fallback to Interval positioning");
-		source = setInterval(amboUpdateWorker, 15000);
-	//}
+	console.log("fallback to Interval positioning");
+	source = setInterval(amboUpdateWorker, 15000);
 }
 
 function ambosetupCallback(dummy)
@@ -166,11 +167,17 @@ function ambosetupCallback(dummy)
 
 
 document.addEventListener('DOMContentLoaded', function(e) {
-	document.getElementsByTagName("body")[0].addEventListener("keypress", amboShortcuts, false);
+	const html = document.getElementsByTagName("html")[0].dataset;
+	//document.getElementsByTagName("body")[0].addEventListener("keypress", amboShortcuts, false);
 	if (!window.navigator.geolocation) {
+		console.log("No geolocation available");
 		alert("This browser does not support geolocation! automatic tracking will not function.");
-	} else if (loc == null) { 
+	} else if (loc == null && html.dummy == null) {
+		console.log("geoloc available");
 		loc = window.navigator.geolocation;
+	} else if (html.dummy) {
+		console.log("dummy");
+		alert("This is a dummy version of the ambulance page. It will show updates to this ambulance, but not use this client's geolocation");
 	}
 	updateCurrentPos().then(amboInit);
 });

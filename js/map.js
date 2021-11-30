@@ -245,11 +245,10 @@ var ddMap = {
 					map.addDirections(o.latlng, map.ticket_markers[0].position, o.id, 3, o);
 				}
 			});
-			map.doBounding();
 		} else { 
 			popupMessage("Unable to load map, please hold.");
 		}
-		
+		map.doBounding();
 		ele.callback();
 	},
 	redraw: function(ele) { 
