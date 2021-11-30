@@ -6,7 +6,9 @@ body {
   margin: 0;
   width:100%;
   text-align: center;
-  right: 2px solid white;*/
+  border: 2px solid white;
+  border-radius: 12px;
+	
 }
 .rightContainer {
   margin: 5px 0;
