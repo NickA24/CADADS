@@ -127,9 +127,7 @@ $pagename = "admin";
 
 include('./inc/header.php');
 ?>
-	<br>
 	<?php msgBox(); ?>
-	<br>
 	<div id="searchOptions">
 		<h3>Search By:</h3>
 			<form id="search" name="search">
