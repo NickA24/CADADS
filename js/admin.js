@@ -369,13 +369,7 @@ document.addEventListener('DOMContentLoaded', function(e) {
 });
 
 function closed() {
-	if (document.getElementById("AddUser").style.display = "show") {
-		document.getElementById("Adduser").style.display = "none"
-	}
-	if (document.getElementById("EditUser").style.display = "show") {
-		document.getElementById("EditUser").style.display = "none"
-	}
-	if (document.getElementById("ListUser").style.display = "show") {
-		document.getElementById("ListUser").style.display = "none"
-	}
+	document.getElementById("AddUser").classList.remove("show");
+	document.getElementById("ListUser").classList.remove("show");
+	document.getElementById("EditUser").classList.remove("show");
 }
