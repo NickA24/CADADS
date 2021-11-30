@@ -43,10 +43,14 @@ table {
 #admintable .unlinked {
     background-color: #ffcccc;
     border-color: #ffcccc;
+    opacity: 50%;
+
 }
 #admintable .unlinked:nth-child(even) {
     background-color: #d9baba;
     border-color: #d9baba;
+    opacity: 50%;
+
 }
 
 .hidden {
