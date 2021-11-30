@@ -18,8 +18,7 @@ body {
   /*border-left: 1rem solid;*/
 }
 #admintable {
-    border-spacing: 0;
-    height:1px;
+    font-size: 18px;
     width: 100%;
     text-align: center;
 }
