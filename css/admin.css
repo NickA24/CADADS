@@ -6,7 +6,6 @@ body {
   margin: 0;
   width:100%;
   text-align: center;
-  background-image: linear-gradient(cyan, grey);
   /*border-right: 1rem solid;*/
 }
 .rightContainer {
