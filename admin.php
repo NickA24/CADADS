@@ -379,6 +379,8 @@ include('./inc/header.php');
 					</td>
 					<td>
 						<button name="DeleteUserList" id="DeleteUserList" onclick="adminDeleteUsers(event);">Delete</button>
+					</td>
+					<td>
 						<button id="cancel" onclick="closed">Cancel</button>
 					</td>
 				</tr>
