@@ -131,7 +131,7 @@ include('./inc/header.php');
 	<div id="searchOptions">
 		<h3>Search By:</h3>
 			<form id="search" name="search">
-			<table>
+			<table style="text-align:left">
 				<tr>
 					<td>Ticket Activity</td>
 					<td>
