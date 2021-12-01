@@ -11,7 +11,7 @@
 	$latlng = $latlng[0];
 	if (isset($_GET['o'])) 
 	{
-		if ($_GET['o'] == $latlng['loclat'].','.$latlng['loclng'] && !isset($info['dodir'])
+		if ($_GET['o'] == $latlng['loclat'].','.$latlng['loclng'] && !isset($info['dodir']))
 		{
 			return;	
 		}
