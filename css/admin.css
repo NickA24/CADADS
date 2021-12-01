@@ -29,6 +29,10 @@ table {
 	border: 2px solid white;
 }
 
+#search td:first-of-type {
+	font-weight: bolder;	
+}
+
 #admintable {
 	border-spacing: 0;
 	height:1px;
