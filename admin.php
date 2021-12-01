@@ -133,6 +133,14 @@ include('./inc/header.php');
 			<form id="search" name="search">
 			<table>
 				<tr>
+					<td>Ticket Activity</td>
+					<td>
+						<label for="activetype1">Active tickets</label><input type="radio" id="activetype1" name="activetype" value="0" checked><br>
+						<label for="activetype2">Inactive tickets</label><input type="radio" id="activetype2" name="activetype" value="1"><br>
+						<label for="activetype3">All Tickets</label><input type="radio" id="activetype3" name="activetype" value="2">
+					</td>
+				</tr>
+				<tr>
 					<td>Incident Type</td>
 					<td>
 						<select id="incident_type" name="incident_type">
