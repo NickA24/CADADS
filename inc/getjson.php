@@ -36,10 +36,10 @@
 					{
 						switch($_GET['activetype'])
 						{
-							case 0:
+							case 1:
 								//Get only inactive
 								$where .= 'active = 0 AND ';
-							case 1:
+							case 2:
 								//Get both active and inactive
 								//That means don't search for active at all
 								break;
