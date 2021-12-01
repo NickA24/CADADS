@@ -10,19 +10,7 @@
 	$latlng = $db->query($sql, $params)->fetchAll(PDO::FETCH_ASSOC);
 	$latlng = $latlng[0];
 	if (isset($_GET['o'])) 
-	{
-		if ($_GET['o'] == $latlng['loclat'].','.$latlng['loclng'] && !isset($info['dodir']))
-		{
-			echo 'no';
-			return;	
-		}
-		$origin = urlencode($_GET['o']);
-	} 
-	else if ($latlng['loclat'] != 0 && $latlng['loclng'] != 0) 
-	{
-		if (!isset($info['dodir'])) { echo 'really, no'; return; }
-		$origin = urlencode($latlng['loclat'].",".$latlng['loclng']);
-	} else { return; }
+	{$origin = urlencode($_GET['o']);} else if ($latlng['loclat'] != 0 && $latlng['loclng'] != 0) {$origin = urlencode($latlng['loclat'].",".$latlng['loclng']);} else { return; }
 	if (isset($_GET['d'])) {$destination = urlencode($_GET['d']); } else if ($latlng['dstlat'] != 0 && $latlng['dstlng'] != 0) {$destination = urlencode($latlng['dstlat'].",".$latlng['dstlng']); } else { return; }
 	$url = "https://maps.googleapis.com/maps/api/directions/json?origin=".$origin."&destination=".$destination;
 	include('config.php');
