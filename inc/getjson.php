@@ -28,7 +28,7 @@
 				$sql = "SELECT id, name, '' AS pass, user_type FROM users ".$uid."ORDER BY id".$lim;
 				break;
 			case 'admintkt':
-				$where = '';
+				$where = 'WHERE active = 1';
 				if (count($_GET) > 1) {
 					$where = 'WHERE ';
 					$params = array();
