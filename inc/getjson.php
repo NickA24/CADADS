@@ -154,6 +154,8 @@
 				else if ($info['status'] == 2 && $info['current_ticket'] > 0 && ($info['directions'] == '' || $info['directions'] == NULL))
 				{
 					include('googledirections.php');
+				} else {
+				$debug['b'] = "Didn't use google directions dot php";	
 				}
 				$time = 0;
 				//if (isset($_GET['lastupdate'])) { $time = strtotime($_GET['lastupdate']); }
