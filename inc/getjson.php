@@ -32,25 +32,44 @@
 				if (count($_GET) > 1) {
 					$where = 'WHERE ';
 					$params = array();
+					if (isset($_GET['activetype']))
+					{
+						switch($_GET['activetype'])
+						{
+							case 0:
+								//Get only inactive
+								$where .= 'active = 0 AND ';
+							case 1:
+								//Get both active and inactive
+								//That means don't search for active at all
+								break;
+							case 0:
+							default:
+								//Only get active
+								$where .= 'active = 1 AND ';
+						}
+					} else {
+						$where .= 'active = 1 AND ';	
+					}
 					if (isset($_GET['incident_type']))
 					{
 						$params[":it"]=$_GET['incident_type'];
-						$where .= 'incident_type = :it AND';
+						$where .= 'incident_type = :it AND ';
 					}
 					if (isset($_GET['priority']))
 					{
 						$params[':p']=$_GET['priority'];
-						$where .= 'priority = :p AND';
+						$where .= 'priority = :p AND ';
 					}
 					if (isset($_GET['ambulance']))
 					{
 						$params[':ambo']=$_GET['ambulance']; 
-						$where .= 'ambulance = :ambo AND';
+						$where .= 'ambulance = :ambo AND ';
 					}
 					if (isset($_GET['dispatcher']))
 					{
 						$params[":disp"]=$_GET['dispatcher'];
-						$where .= 'dispatcher = :disp AND';
+						$where .= 'dispatcher = :disp AND ';
 					}
 					if (isset($_GET['dateCreated']))
 					{
@@ -58,7 +77,7 @@
 						if ($createarray[1] == '') { $createarray[1] = "now()"; }
 						$params[":dCreateA"]=$createarray[0]; 
 						$params[":dCreateB"]=$createarray[1]; 
-						$where .= 'time BETWEEN date(:dCreateA) AND date(:dCreateB) AND';
+						$where .= 'time BETWEEN date(:dCreateA) AND date(:dCreateB) AND ';
 					}
 					if (isset($_GET['dateCompleted']))
 					{
@@ -66,7 +85,7 @@
 						if ($completearray[1] == '') { $completearray[1] = "now()"; }
 						$params[":dCompleteA"]=$completearray[0]; 
 						$params[":dCompleteB"]=$completearray[1];
-						$where .= 'cleared IS NOT NULL AND cleared BETWEEN date(:dCompleteA) AND date(:dCompleteB) AND';
+						$where .= 'cleared IS NOT NULL AND cleared BETWEEN date(:dCompleteA) AND date(:dCompleteB) AND ';
 					}
 					if (isset($_GET['timeCreated']))
 					{
@@ -75,7 +94,7 @@
 							$params[":tCreateRange"]=$_GET['timeCreatedRange']; 
 							$where .= 'time(time) BETWEEN time(:tCreate) AND time(:tCreateRange) AND';
 						} else {
-							$where .= 'time(time) = time(:tCreate) AND';
+							$where .= 'time(time) = time(:tCreate) AND ';
 						}
 					}
 					if (isset($_GET['timeCompleted']))
@@ -85,17 +104,17 @@
 							$params[":tCompleteRange"]=$_GET['timeCompletedRange'];
 							$where .= 'time(cleared) BETWEEN time(:tComplete) AND time(:tCompleteRange) AND';
 						} else {
-							$where .= 'time(cleared) = time(:tComplete) AND';
+							$where .= 'time(cleared) = time(:tComplete) AND ';
 						}
 					}
 					if (isset($_GET['TtCStart']) && isset($_GET['TtCEnd']))
 					{
 						if ($_GET['TtCEnd'] > 60) {
-							$where .= 'TIMESTAMPDIFF(MINUTE,time,cleared) > 60';
+							$where .= 'TIMESTAMPDIFF(MINUTE,time,cleared) > 60 AND ';
 						} else {
 							$params[":tcStart"]=$_GET['TtCStart']; 
 							$params[":tcEnd"]=$_GET['TtCEnd'];
-							$where .= 'TIMESTAMPDIFF(MINUTE, time, cleared) BETWEEN :tcStart AND :tcEnd';
+							$where .= 'TIMESTAMPDIFF(MINUTE, time, cleared) BETWEEN :tcStart AND :tcEnd AND ';
 						}
 					}
 					if (strlen($where) > 0)
