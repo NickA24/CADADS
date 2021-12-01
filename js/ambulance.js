@@ -178,6 +178,9 @@ document.addEventListener('DOMContentLoaded', function(e) {
 	} else if (html.dummy) {
 		console.log("dummy");
 		alert("This is a dummy version of the ambulance page. It will show updates to this ambulance, but not use this client's geolocation");
+	} else {
+		console.log("Don't know...");
+		loc = window.navigator.geolocation;
 	}
 	updateCurrentPos().then(amboInit);
 });
