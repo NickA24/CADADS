@@ -42,6 +42,7 @@
 							case 2:
 								//Get both active and inactive
 								//That means don't search for active at all
+								$where .= 'active >= 0 AND ';
 								break;
 							case 0:
 							default:
