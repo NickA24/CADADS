@@ -143,16 +143,15 @@
 				//This returns all ambulance data about the currently logged in ambulance. Only self-data.
 				if ($_SESSION['user_type'] != 2) { echo 'NOT AN AMBULANCE GET OUTTA HERE'; return; }
 				$params = array(":id"=>$_SESSION['myid']);
-				$sql = "SELECT status, current_ticket, directions FROM ambulance_info WHERE id = :id";
+				$sql = "SELECT loclat, loclng, status, current_ticket, directions FROM ambulance_info WHERE id = :id";
 				$info = $db->query($sql, $params)->fetchAll(PDO::FETCH_ASSOC)[0];
-				if (isset($_GET['lat']) && isset($_GET['lng']))
+				if (isset($_GET['lat']) && isset($_GET['lng']) && ($_GET['lat'] != $info['loclat'] || $_GET['lng'] != $info['loclng']))
 				{
 					$_GET['o'] = $_GET['lat'].",".$_GET['lng'];
 					include('googledirections.php');
 				} 
 				else if ($info['status'] == 2 && $info['current_ticket'] > 0 && ($info['directions'] == '' || $info['directions'] == NULL))
 				{
-					$info['dodir'] = true;
 					include('googledirections.php');
 				}
 				$time = 0;
