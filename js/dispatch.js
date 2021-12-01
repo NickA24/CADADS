@@ -188,5 +188,5 @@ document.addEventListener('DOMContentLoaded', function(e) {
 			ele.dataconfig = params;
 		}
 	});
-	source = setInterval(updateMap, 15000);
+	source = setInterval(updateMap, 11000);
 });
