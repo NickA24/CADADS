@@ -13,13 +13,14 @@
 	{
 		if ($_GET['o'] == $latlng['loclat'].','.$latlng['loclng'] && !isset($info['dodir']))
 		{
+			echo 'no';
 			return;	
 		}
 		$origin = urlencode($_GET['o']);
 	} 
 	else if ($latlng['loclat'] != 0 && $latlng['loclng'] != 0) 
 	{
-		if (!isset($info['dodir'])) { return; }
+		if (!isset($info['dodir'])) { echo 'really, no'; return; }
 		$origin = urlencode($latlng['loclat'].",".$latlng['loclng']);
 	} else { return; }
 	if (isset($_GET['d'])) {$destination = urlencode($_GET['d']); } else if ($latlng['dstlat'] != 0 && $latlng['dstlng'] != 0) {$destination = urlencode($latlng['dstlat'].",".$latlng['dstlng']); } else { return; }
