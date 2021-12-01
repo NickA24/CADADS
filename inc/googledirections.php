@@ -3,7 +3,7 @@
 	if (strlen(session_id()) < 1) {session_start();}
 	//This file is to return a direction object using the Google API. 
 	//It will take two addresses and make a path between them. Wow.
-
+	echo $info['dodir'];
 	if (!isset($_SESSION['myusername']) || $_SESSION['user_type'] != 2) { return; }
 	$params = array(":id"=>$_SESSION['myid']);
 	$sql = "SELECT loclat, loclng, dstlat, dstlng FROM ambulance_info WHERE ambulance_info.id = :id";
