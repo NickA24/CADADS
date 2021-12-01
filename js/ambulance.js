@@ -157,7 +157,7 @@ var attempts = 3;
 function initNewSource()
 {
 	console.log("fallback to Interval positioning");
-	source = setInterval(amboUpdateWorker, 15000);
+	source = setInterval(amboUpdateWorker, 10000);
 }
 
 function ambosetupCallback(dummy)
