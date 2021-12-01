@@ -146,10 +146,10 @@
 				$sql = "SELECT loclat, loclng, status, current_ticket, directions FROM ambulance_info WHERE id = :id";
 				$info = $db->query($sql, $params)->fetchAll(PDO::FETCH_ASSOC)[0];
 				$debug['a'] = (isset($_GET['lat']) && isset($_GET['lng']) && ($_GET['lat'] != $info['loclat'] || $_GET['lng'] != $info['loclng']));
-				$debug['b'] = $_GET['lat'];
-				$debug['c'] = $_GET['lng'];
-				$debug['d'] = $info['loclat'];
-				$debug['e'] = $info['loclng'];
+				$debug['b'] = round($_GET['lat'], -3);
+				$debug['c'] = round($_GET['lng'], -3);
+				$debug['d'] = round($info['loclat'], -3);
+				$debug['e'] = round($info['loclng'], -3);
 				$debug['f'] = $info;
 				if (isset($_GET['lat']) && isset($_GET['lng']) && ($_GET['lat'] != $info['loclat'] || $_GET['lng'] != $info['loclng']))
 				{
