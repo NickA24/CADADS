@@ -26,8 +26,8 @@ a.linkformat:hover {
 	/* The snackbar - position it at the top and in the middle of the screen */
 	#msgBoxPopup {
 		/* located in style.css */
-		min-width: 250px; 
-		margin-left: -125px; 
+		width:500px;
+		margin-left: -250px; 
 		background-color: #333; 
 		color: #fff; 
 		text-align: center; 
@@ -40,6 +40,7 @@ a.linkformat:hover {
 		visibility: hidden; 		
 		overflow: hidden;
 		opacity: 0;
+		overflow-wrap: break-word;
 		transition: top 250ms ease-in, opacity 250ms ease-in, visibility 0s 1s;
 	}
 
