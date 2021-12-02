@@ -7,6 +7,7 @@
 	$params = array(":id"=>$_SESSION['myid']);
 	if ($_SESSION['user_type'] == 2)
 	{
+		echo "getting latlng";
 		$sql = "SELECT loclat, loclng, dstlat, dstlng FROM ambulance_info WHERE ambulance_info.id = :id";
 		$latlng = $db->query($sql, $params)->fetchAll(PDO::FETCH_ASSOC);
 		$latlng = $latlng[0];
