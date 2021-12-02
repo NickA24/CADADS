@@ -3,7 +3,7 @@
 	if (strlen(session_id()) < 1) {session_start();}
 	//This file is to return a direction object using the Google API. 
 	//It will take two addresses and make a path between them. Wow.
-	if (!isset($_SESSION['myusername']) || $_SESSION['user_type'] <= 0 || $_SESSION['user_type'] >= 3) { return; }
+	if (!isset($_SESSION['myusername']) || $_SESSION['user_type'] <= 0 || $_SESSION['user_type'] >= 3) { echo "no username or wrong usertype"; return; }
 	$params = array(":id"=>$_SESSION['myid']);
 	if ($_SESSION['user_type'] == 2)
 	{
