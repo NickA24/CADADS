@@ -13,7 +13,7 @@ function loadInit(params) //loc, style, id)
 		document.onclick= function(e){
 			e=window.event? event.srcElement: e.target;const x = e.closest('.markerZoom'); 
 			if (x) {
-				reloadid = x.id;
+				if (reloadid == x.id) { reloadid = 0; } else { reloadid = x.id; }
 				map.zoomOnMarker(x.getAttribute("id"));
 				var j = document.getElementsByClassName("inner_row");
 				for (let i = 0; i < j.length; i++) {
