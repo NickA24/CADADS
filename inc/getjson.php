@@ -166,7 +166,7 @@
 				$sql = "SELECT loclat, loclng, status, current_ticket, directions FROM ambulance_info WHERE id = :id";
 				$info = $db->query($sql, $params)->fetchAll(PDO::FETCH_ASSOC)[0];
 				$debug = '';
-				if (isset($_GET['lat']) && isset($_GET['lng']) && (round($_GET['lat'],3) != round($info['loclat'],3) || round($_GET['lng'],3) != round($info['loclng'],3)))
+				if (isset($_GET['lat']) && isset($_GET['lng'])) //&& (round($_GET['lat'],3) != round($info['loclat'],3) || round($_GET['lng'],3) != round($info['loclng'],3)))
 				{
 					$debug = "Updating location with googledirections";
 					$_GET['o'] = $_GET['lat'].",".$_GET['lng'];
