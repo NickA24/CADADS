@@ -186,7 +186,7 @@ var adminDeleteUsers = function(e)
 	e.preventDefault();
 	const msgbox = document.getElementById("msgBoxPopup");
 	const lu = document.getElementById("listedUsers");
-	let confirmAction = confirm("Are you sure you want to delete user "+lu.value+"?");
+	let confirmAction = confirm("Are you sure you want to delete user "+lu.value+":"+lu.innerHTML+"?");
 	if (confirmAction) {
 		const params = new FormData();
 		params.append("method", "POST");
