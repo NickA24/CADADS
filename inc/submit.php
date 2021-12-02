@@ -29,7 +29,7 @@ function addTicket($db,$var)
 	$_GET['d'] = $var['lat'].",".$var['lng'];
 	$_GET['o'] = $DispatchCenter['lat'].",".$DispatchCenter['lng'];
 	$_GET['dFromHome'] = true;
-	if ($DispatchMaxTime && $DispatchMaxTime != -1)
+	/*if ($DispatchMaxTime && $DispatchMaxTime != -1)
 	{
 		include('googledirections.php');
 		if (!$directions || ($directions && $directions["routes"][0]["legs"][0]["duration"]['value'] > $DispatchMaxTime))
@@ -37,7 +37,7 @@ function addTicket($db,$var)
 			echo "No route or route exceeded MaxTime";
 			return "This call is not within your designated service area. Please transfer the call to the closest Dispatch Center";
 		}
-	}
+	}*/
 	$priority = (isset($var['priority'])) ? $var['priority'] : 1;
     $params = array(":active"=>"1", ":name"=>$var['name'], ":location"=>$var['location'], ":lat"=>$var['lat'], ":lng"=>$var['lng'], ":incident"=>$var['incident_type'], ":priority"=>$priority, ":dispatcher"=>$_SESSION['myid'], ":comment"=>$var['comments']);
     $sql = "INSERT INTO ticket(active, name, location, lat, lng, incident_type, priority, dispatcher, time, comments) VALUES(:active, :name, :location, :lat, :lng, :incident, :priority, :dispatcher, NOW(), :comment)";
