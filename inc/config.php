@@ -6,5 +6,8 @@ $PDOKey = "Your MySQL password here";
 
 //GoogleAPIKey is for connecting to any google API.
 $GoogleAPIKey = "Your API Key Here";
+
+$DispatchCenter = array('lat'=>34.182175, 'lng'=>-117.318794); //The central location of your dispatch area. 
+$DispatchMaxTime = 3600; //How far away an ambulance is allowed to go. In seconds. Default 3600 => 1 hour.
 return;
 ?>
