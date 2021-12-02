@@ -60,7 +60,7 @@ function confirmDeleteTicket(e) {
 }
 	
 function openNavAdd() {
-  document.getElementById("mySidenav").style.width = "31%";
+  document.getElementById("mySidenav").style.width = "41%";
 }
 /* Set the width of the side navigation to 0 */
 function closeNavAdd() {
@@ -72,7 +72,7 @@ function closeNavAddForce() {
     document.getElementById("mySidenav").style.width = "0";
 }
 function openNavEdit() {
-  document.getElementById("mySidenavEdit").style.width = "31%";
+  document.getElementById("mySidenavEdit").style.width = "41%";
 }
 /* Set the width of the side navigation to 0 */
 function closeNavEdit() {
@@ -146,7 +146,18 @@ function updateCounts() {
 	const t = document.getElementById("tix#");
 	const a = document.getElementById("ambo#");
 	t.innerHTML = map.ticket_markers.length;
-	a.innerHTML = map.ambulance_markers.length;
+	a.innerHTML = map.ambulance_markers.filter(x=>x.isFree == 0).length;
+	switch(a.innerHTML)
+	{
+		case "0":
+			a.setAttribute("style", "color:#f00");
+			break;
+		case "1":
+			a.setAttribute("style", "color:#ff0");
+			break;
+		default:
+			a.setAttribute("style", "color:#0f0");
+	}
 }
 
 var source = null;
@@ -188,5 +199,5 @@ document.addEventListener('DOMContentLoaded', function(e) {
 			ele.dataconfig = params;
 		}
 	});
-	source = setInterval(updateMap, 11000);
+	source = setInterval(updateMap, 10000);
 });

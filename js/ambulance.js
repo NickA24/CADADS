@@ -149,14 +149,15 @@ function geo_fail(err)
 }
 
 function amboUpdateWorker() {
-	updateCurrentPos().then(amboUpdate);
+	updateCurrentPos().then(amboUpdate).catch((e)=>{popupMessage("Geolocation isn't working. Do you have it disabled?");});
 }
 
 var source;
 var attempts = 3;
 function initNewSource()
 {
-	console.log("fallback to Interval positioning");
+	//This is where the server-sent event stuff went. Removed to reduce complexity.
+	//console.log("fallback to Interval positioning");
 	source = setInterval(amboUpdateWorker, 10000);
 }
 
@@ -179,9 +180,9 @@ document.addEventListener('DOMContentLoaded', function(e) {
 		console.log("dummy");
 		alert("This is a dummy version of the ambulance page. It will show updates to this ambulance, but not use this client's geolocation");
 	} else {
-		console.log("Don't know...");
+		console.log("Don't know let's just try stuff...");
 		loc = window.navigator.geolocation;
 	}
-	updateCurrentPos().then(amboInit);
+	updateCurrentPos().then(amboInit).catch((e)=>{popupMessage("Geolocation isn't working. Do you have it disabled?");});
 });
 

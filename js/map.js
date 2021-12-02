@@ -34,6 +34,8 @@ function loadInit(params) //loc, style, id)
 	//loc:1 means ambulance.php, 2:dispatch
 	//Loads the google script, and after loading will do the map initialization.
 	map.mapStyle = params.preferredMap;
+	const html = document.getElementsByTagName("html")[0].dataset;
+	map.dispatchCenter = {"lat": parseFloat(html.dispatchcenterlat), "lng": parseFloat(html.dispatchcenterlng) };
 	var ele = document.getElementById(params.ele);
 	ele.ticketid = params.ticketId;
 	ele.initType = params.initType;
@@ -49,6 +51,7 @@ var ddMap = {
 	dr: null, //Placeholder for directionsRenderer
 	iw: null, //Placeholder for google infowindow
 	infowindow: null, // Placeholder to create an instance of google maps api's infowindow
+	dispatchCenter: { "lat": 0, "lng": 0},
 	ambulance_markers: [],
 	ticket_markers: [],
 	directions: [],
@@ -58,9 +61,9 @@ var ddMap = {
 	mapStyle:null,
 	promiseFunc: Promise.resolve(),
 	promiseInterval: 250,
-	initMap: function() { //Passes origin and destination
+	initMap: function() {
 		this.map = new google.maps.Map(document.getElementById("map"), {
-			center: { lat: 34.182175, lng: -117.318794 },
+			center: this.dispatchCenter,
 			zoom: 15,
 			mapId: this.mapStyle,
 		});
