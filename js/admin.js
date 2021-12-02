@@ -382,7 +382,8 @@ document.addEventListener('DOMContentLoaded', function(e) {
 		var tCo = flatpickr("#timeCompleted", dCrO2);
 		//This is found in json.js, if it needs to be edited.
 });
-function closed() {
+function closed(e) {
+	e.preventDefault();
 	document.getElementById("AddUser").classList.remove("show");
 	document.getElementById("ListUsers").classList.remove("show");
 	document.getElementById("EditUser").classList.remove("show");
