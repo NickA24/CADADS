@@ -119,7 +119,7 @@ var adminEditUser = function(e)
 							inp.setAttribute("type", "password");
 							inp.setAttribute("placeholder", "Leave blank to keep same");
 						}
-						if (k != "id") {
+						if (k != "id" && k != "pass") {
 							var lbl = document.createElement("label");
 							lbl.setAttribute("for", k);
 							lbl.innerHTML = k+":"
