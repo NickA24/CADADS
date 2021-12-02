@@ -27,7 +27,7 @@ class cadDB {
 	//This handles all SQL queries. 
 	//$query is the actual SQL statement, such as "SELECT * FROM tbl_name"
 	//If a parameter is passed, it will pass data to the database, assuming the SQL query is something that adds or updates new information
-	public function query($query, $param = null)
+	public function query($query, $param = null, $error = null)
 	{
 		try {
 			if ($param) {
@@ -38,9 +38,9 @@ class cadDB {
 			$result->execute($param);
 			return $result;
 		} catch (PDOException $e) {
-			if ($param["ERROR"])
+			if ($error)
 			{
-				echo $param["ERROR"];
+				echo $error;
 			}
 			echo "If you think this was a server error, please contact your system administrator. <a href='..'>Return home</a><br><br>Following is the error code --";
 			exit ("Unexpected error from PDO: ".$e->getMessage());
