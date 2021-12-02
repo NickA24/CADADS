@@ -7,7 +7,6 @@
 	$params = array(":id"=>$_SESSION['myid']);
 	if ($_SESSION['user_type'] == 2)
 	{
-		echo "getting latlng";
 		$sql = "SELECT loclat, loclng, dstlat, dstlng FROM ambulance_info WHERE ambulance_info.id = :id";
 		$latlng = $db->query($sql, $params)->fetchAll(PDO::FETCH_ASSOC);
 		$latlng = $latlng[0];
@@ -21,7 +20,7 @@
 	//If for some reason we want/need to return it as a string for javascript, rather than as a PHP object, call this file with ?returntext=1
 	if (isset($_GET['returntext'])) { echo $directions; return; }
 	$directions = json_decode($directions,true);
-	if (isset($_GET['dFromHome'])) { return; }
+	if (isset($_GET['dFromHome'])) { echo "stopping here"; return; }
 	$_SESSION['location'] = $directions["routes"][0]["legs"][0]["start_address"];
 	$var['id'] = $_SESSION['myid'];
 	$var['directions'] = $directions["routes"][0]["overview_polyline"]["points"];
