@@ -230,8 +230,6 @@ var tableCreation = function(tr, i, j ,k, aed) {
 			aaa.setAttribute("onclick", "");
 			aaa.innerHTML = '';
 			td.appendChild(aaa);
-		} else {
-			console.log(tr.parentNode);
 		}
 		var form1 = document.createElement("form");
 		form1.setAttribute("name","editform"+k);
