@@ -11,6 +11,7 @@ function passcheck($a, $b) {
 }
 
 //Function to create a hashed password to store in the database
+//In the future: pass an $option containing cost(int) with value above 10, to generate more robust passwords.
 function passmake($a) {
 	return password_hash($a, PASSWORD_BCRYPT);
 }
@@ -26,8 +27,8 @@ function checklogin() {
 	return false;
 }
 
+//If we receive a username and password, check if they match the db and log in the user, otherwise reject it.
 function setSessionData($username, $pwd, $db) {
-	//If we receive a username and password, check if they match the db and log in the user, otherwise reject it.
 	$myusername=strtolower($username);
 	$mypassword=$pwd;
 	$params = array(":name" => $myusername);
@@ -63,6 +64,7 @@ function setSessionData($username, $pwd, $db) {
 	return;
 }
 
+//Regenerate the Session data if it has become out of date. Specifically useful for possible changes to preferred map, ambulance's status, or location
 function updateSessionData($db)
 {
 	if (!checklogin()) { return; }

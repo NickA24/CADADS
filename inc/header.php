@@ -19,6 +19,7 @@
 <html lang="en-US" <?php 
 //Put some variables into the html tag, to make them easily accessible from javascript later.
 if (isset($_SESSION['myusername'])) { echo 'data-username="'.$_SESSION['myusername'].'" '; }
+if (isset($DispatchCenter)) { echo 'data-dispatchCenterLat="'.$DispatchCenter["lat"].'" data-dispatchCenterLng="'.$DispatchCenter["lng"].'" '; }
 if (isset($initType)) { echo 'data-initType="'.$initType.'" '; } 
 if (isset($_SESSION['preferred_map'])) { echo 'data-preferred-map="'.htmlspecialchars($_SESSION['preferred_map']).'"'; }
 if (isset($ticketID)) { echo 'data-ticketID="'.$ticketID.'" '; }

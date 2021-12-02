@@ -38,7 +38,13 @@ class cadDB {
 			$result->execute($param);
 			return $result;
 		} catch (PDOException $e) {
+			if ($param["ERROR"])
+			{
+				echo $param["ERROR"];
+			}
+			echo "If you think this was a server error, please contact your system administrator. <a href='..'>Return home</a><br><br>Following is the error code --";
 			exit ("Unexpected error from PDO: ".$e->getMessage());
+			
 			return 0;
 		}
 	}

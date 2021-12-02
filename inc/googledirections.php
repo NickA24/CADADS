@@ -3,20 +3,24 @@
 	if (strlen(session_id()) < 1) {session_start();}
 	//This file is to return a direction object using the Google API. 
 	//It will take two addresses and make a path between them. Wow.
-	if (!isset($_SESSION['myusername']) || $_SESSION['user_type'] != 2) { return; }
+	if (!isset($_SESSION['myusername']) || $_SESSION['user_type'] <= 0 || $_SESSION['user_type'] >= 3) { return; }
 	$params = array(":id"=>$_SESSION['myid']);
-	$sql = "SELECT loclat, loclng, dstlat, dstlng FROM ambulance_info WHERE ambulance_info.id = :id";
-	$latlng = $db->query($sql, $params)->fetchAll(PDO::FETCH_ASSOC);
-	$latlng = $latlng[0];
-	if (isset($_GET['o'])) 
-	{$origin = urlencode($_GET['o']);} else if ($latlng['loclat'] != 0 && $latlng['loclng'] != 0) {$origin = urlencode($latlng['loclat'].",".$latlng['loclng']);} else { return; }
+	if ($_SESSION['user_type'] == 2)
+	{
+		$sql = "SELECT loclat, loclng, dstlat, dstlng FROM ambulance_info WHERE ambulance_info.id = :id";
+		$latlng = $db->query($sql, $params)->fetchAll(PDO::FETCH_ASSOC);
+		$latlng = $latlng[0];
+	}
+	if (isset($_GET['o'])) {$origin = urlencode($_GET['o']);} else if ($latlng['loclat'] != 0 && $latlng['loclng'] != 0) {$origin = urlencode($latlng['loclat'].",".$latlng['loclng']);} else { return; }
 	if (isset($_GET['d'])) {$destination = urlencode($_GET['d']); } else if ($latlng['dstlat'] != 0 && $latlng['dstlng'] != 0) {$destination = urlencode($latlng['dstlat'].",".$latlng['dstlng']); } else { return; }
+
 	$url = "https://maps.googleapis.com/maps/api/directions/json?origin=".$origin."&destination=".$destination;
-	include('config.php');
+	include_once('config.php');
 	$directions = @file_get_contents($url.'&key='.$GoogleAPIKey);
 	//If for some reason we want/need to return it as a string for javascript, rather than as a PHP object, call this file with ?returntext=1
 	if (isset($_GET['returntext'])) { echo $directions; return; }
 	$directions = json_decode($directions,true);
+	if (isset($_GET['dFromHome'])) { return; }
 	$_SESSION['location'] = $directions["routes"][0]["legs"][0]["start_address"];
 	$var['id'] = $_SESSION['myid'];
 	$var['directions'] = $directions["routes"][0]["overview_polyline"]["points"];
