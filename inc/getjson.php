@@ -165,13 +165,16 @@
 				$params = array(":id"=>$_SESSION['myid']);
 				$sql = "SELECT loclat, loclng, status, current_ticket, directions FROM ambulance_info WHERE id = :id";
 				$info = $db->query($sql, $params)->fetchAll(PDO::FETCH_ASSOC)[0];
+				$debug = '';
 				if (isset($_GET['lat']) && isset($_GET['lng']) && (round($_GET['lat'],3) != round($info['loclat'],3) || round($_GET['lng'],3) != round($info['loclng'],3)))
 				{
+					$debug = "Updating location with googledirections";
 					$_GET['o'] = $_GET['lat'].",".$_GET['lng'];
 					include('googledirections.php');
 				} 
 				else if ($info['status'] == 2 && $info['current_ticket'] > 0 && ($info['directions'] == '' || $info['directions'] == NULL))
 				{
+					$debug = "Updating location because directions are missing";
 					include('googledirections.php');
 				}
 				$time = 0;
@@ -182,7 +185,7 @@
 				$params = array(":id"=>$_SESSION['myid'], ":tid"=>$_SESSION['myid']);
 				$sql = "SELECT users.id AS id, users.name AS name, 1 as markertype, status, location, loclat, loclng, destination, dstlat, dstlng, 1 as source, current_ticket as isFree, directions, distance, duration, lastupdate FROM ambulance_info LEFT JOIN users ON users.id=ambulance_info.id WHERE users.id = :id UNION SELECT t.id, t.name, 0 as markertype, incident_tbl.description AS status, IF(enroute_to_hospital>0, h.location, t.location) AS location, IF(enroute_to_hospital>0, h.lat, t.lat) as loclat, IF(enroute_to_hospital>0, h.lng, t.lng) as loclng, NULL as destination, NULL as dstlat, NULL as dstlng, 0 as source, ambulance as isFree, null as directions, null as distance, null as duration, time as lastupdate FROM ticket t LEFT JOIN incident_tbl ON incident_tbl.id=t.incident_type LEFT JOIN hospitals h ON enroute_to_hospital = h.id WHERE Active = 1  AND ambulance = :tid";
 				$returnb = $db->query($sql, $params)->fetchAll(PDO::FETCH_ASSOC);
-				$returnfull = array("curAmbo"=>$returna, "dispatchMap"=>$returnb);
+				$returnfull = array("curAmbo"=>$returna, "dispatchMap"=>$returnb, "debug"=>$debug);
 				echo  json_encode($returnfull);
 				return;
 				break;
