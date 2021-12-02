@@ -21,7 +21,6 @@
 	if (isset($_GET['returntext'])) { echo $directions; return; }
 	$directions = json_decode($directions,true);
 	if (isset($_GET['dFromHome'])) { return; }
-	var_dump($directions);
 	$_SESSION['location'] = $directions["routes"][0]["legs"][0]["start_address"];
 	$var['id'] = $_SESSION['myid'];
 	$var['directions'] = $directions["routes"][0]["overview_polyline"]["points"];
