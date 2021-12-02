@@ -220,14 +220,19 @@ var tableCreation = function(tr, i, j ,k, aed) {
 	if (j == "id" && aed === 1)
 	{
 		td.innerHTML = '';
-		var aaa = document.createElement("a");
-		aaa.setAttribute("type", "submit");
-		aaa.setAttribute("href", "closestambulance.php?id="+k);
-		aaa.setAttribute("title", "Choose closest ambulance for this ticket");
-		aaa.setAttribute("class", "fa fa-ambulance linkformat");
-		aaa.setAttribute("onclick", "");
-		aaa.innerHTML = '';
-		td.appendChild(aaa);
+		if (tr.parentNode.classList.contains("unlinked"))
+		{
+			var aaa = document.createElement("a");
+			aaa.setAttribute("type", "submit");
+			aaa.setAttribute("href", "closestambulance.php?id="+k);
+			aaa.setAttribute("title", "Choose closest ambulance for this ticket");
+			aaa.setAttribute("class", "fa fa-ambulance linkformat");
+			aaa.setAttribute("onclick", "");
+			aaa.innerHTML = '';
+			td.appendChild(aaa);
+		} else {
+			console.log(tr.parentNode);
+		}
 		var form1 = document.createElement("form");
 		form1.setAttribute("name","editform"+k);
 		form1.setAttribute("id","editform"+k);
