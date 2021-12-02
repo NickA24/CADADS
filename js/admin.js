@@ -384,6 +384,6 @@ document.addEventListener('DOMContentLoaded', function(e) {
 });
 function closed() {
 	document.getElementById("AddUser").classList.remove("show");
-	document.getElementById("ListUser").classList.remove("show");
+	document.getElementById("ListUsers").classList.remove("show");
 	document.getElementById("EditUser").classList.remove("show");
 }				   
