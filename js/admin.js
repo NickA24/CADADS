@@ -119,11 +119,11 @@ var adminEditUser = function(e)
 							inp.setAttribute("type", "password");
 							inp.setAttribute("placeholder", "Leave blank to keep same");
 						}
-						if (k != "id" && k != "pass") {
+						if (k != "id") {
 							var lbl = document.createElement("label");
 							lbl.setAttribute("for", k);
 							lbl.innerHTML = k+":"
-							inp.setAttribute("type", "textbox");
+							if (k != "pass") { inp.setAttribute("type", "textbox"); }
 							td1.appendChild(lbl);
 						}
 						td2.appendChild(inp);
