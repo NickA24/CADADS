@@ -5,9 +5,10 @@ include('./inc/header.php');
 ?>
 
 <body>
-    <div style="position:relative">
-        <img class="background" src="img/background2.png" alt="Background"/>
-    </div>
+	<div class="gradient"></div>
+    <?php /*<div style="position:relative">
+        <img class="background" alt="Background"/>
+    </div> */ ?>
     <form  method="post" id="loginbox">
         <div class="login">
             <img class="logo" src="img/logo_v2_trans.png" alt="DD_Logo"/>

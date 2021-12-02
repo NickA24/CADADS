@@ -22,7 +22,7 @@ function adminAddUser($db,$var)
 	$un = $var['name'];
 	$pw = $var['pass'];
 	$ut = $var['userType'];
-	$params = array(":name" => $un, ":pw" => passmake($pw), ":ut" => $ut);
+	$params = array(":name" => $un, ":pw" => passmake($pw), ":ut" => $ut, "ERROR"=>"There was a problem adding this user. You might have attempted to use a name already in use.<br><br>");
 	$query = "INSERT INTO users(name, hash_pw, user_type) VALUES(:name, :pw, :ut)";
 	$result = $db->query($query, $params);
 	//If this is an ambulance, create a new entry in the ambo info at that id#
