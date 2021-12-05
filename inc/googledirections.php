@@ -6,7 +6,6 @@
 	if (!isset($_SESSION['myusername']) || ($_SESSION['user_type'] != 2 && !isset($_GET['amboid']))) { return; }
 	$amboid = $_SESSION['myid'];
 	if (isset($_GET['amboid'])) { $amboid = $_GET['amboid']; }
-	echo $amboid;
 	$params = array(":id"=>$amboid);
 	$sql = "SELECT loclat, loclng, dstlat, dstlng FROM ambulance_info WHERE ambulance_info.id = :id";
 	$latlng = $db->query($sql, $params)->fetchAll(PDO::FETCH_ASSOC);
@@ -28,7 +27,6 @@
 	} else { 
 		$destination = $origin;
 	}
-	echo "this far";
 	$url = "https://maps.googleapis.com/maps/api/directions/json?origin=".$origin."&destination=".$destination;
 	include('config.php');
 	$directions = @file_get_contents($url.'&key='.$GoogleAPIKey);
@@ -36,7 +34,7 @@
 	if (isset($_GET['returntext'])) { echo $directions; return; }
 	$directions = json_decode($directions,true);
 	$_SESSION['location'] = $directions["routes"][0]["legs"][0]["start_address"];
-	$var['id'] = $_SESSION['myid'];
+	$var['id'] = $amboid;
 	$var['directions'] = $directions["routes"][0]["overview_polyline"]["points"];
 	$var['loc'] = $directions["routes"][0]["legs"][0]["start_address"];
 	$var['lat'] = $directions["routes"][0]["legs"][0]["start_location"]["lat"];
@@ -45,7 +43,6 @@
 	$var['duration'] = $directions["routes"][0]["legs"][0]["duration"]["text"];
 	if ($origin == $destination)
 	{
-		echo "Nullifying";
 		$var['directions'] = NULL;
 		$var['disatnce'] = NULL;
 		$var['duration'] = NULL;
