@@ -35,14 +35,12 @@ function closestAmbulanceFailed(msg) {
 function closestambulancepopulatedirections(e)
 {
 	const id = e.target.form.amboselect.value;
-	console.log(id);
 	if (!id || id == null || id == 'null' || id == 0 || id == '')
 	{
 		e.preventDefault();
 		popupMessage("Please choose an available ambulance, if any, or leave unassigned");
 		return;
 	}
-	e.preventDefault();
 	const q = map.directions.find(x => x.id == id);
 	document.getElementById("directions").value = q.encodedpolyline;
 	document.getElementById("distance").value = q.distance.text;
