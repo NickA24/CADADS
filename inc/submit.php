@@ -49,13 +49,12 @@ function addTicket($db,$var)
 //This is done by a database trigger.
 function editTicket($db,$var)
 {
-	return var_dump_ret($var);
 	if (!isset($var['editid']) || !isset($var['editlocation']))
 	{
 		echo "no valid name or location";
 		return 'You need a valid name and location to edit';
 	}
-	if (!isset($var['ambulance'])) { $var['ambulance'] = 0; }
+	if (!isset($var['editambulance'])) { $var['editambulance'] = 0; }
 	$address = $var['editlocation'];
         include('googlegeocode.php');
         $var['editlocation'] = $Geocodeobj["results"][0]["formatted_address"];
@@ -68,10 +67,9 @@ function editTicket($db,$var)
 	$params = array(":active"=>$var['editactive'], ":name"=>$var['editname'], ":location"=>$var['editlocation'], ":lat"=>$var['editlat'], ":lng"=>$var['editlng'], ":incident"=>$var['editincident_type'], ":priority"=>$var['editpriority'], ":ambulance"=>$var['editambulance'], ":comments"=>$var['editcomments'], ":id"=>$var['editid']);
 	$sql = "UPDATE ticket SET active=:active, name=:name, location=:location, lat=:lat, lng=:lng, incident_type=:incident,priority=:priority,ambulance=:ambulance,comments=:comments WHERE id = :id";
 	$result = $db->query($sql, $params);
-	if ($var['ambulance'] > 0)
+	if ($var['editambulance'] > 0)
 	{
-		echo 'going for '.$var['ambulance'];
-		$_GET['amboid'] = $var['ambulance'];
+		$_GET['amboid'] = $var['editambulance'];
 		include('googledirections.php');
 	}
 	return "Ticket edited successfully! - ".$var['ambulance'];
