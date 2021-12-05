@@ -42,6 +42,7 @@ function closestambulancepopulatedirections(e)
 		popupMessage("Please choose an available ambulance, if any, or leave unassigned");
 		return;
 	}
+	e.preventDefault();
 	const q = map.directions.find(x => x.id == id);
 	document.getElementById("directions").value = q.encodedpolyline;
 	document.getElementById("distance").value = q.distance.text;
