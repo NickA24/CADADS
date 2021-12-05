@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Oct 27, 2021 at 03:35 PM
+-- Generation Time: Dec 05, 2021 at 09:35 AM
 -- Server version: 5.7.35
 -- PHP Version: 7.4.25
 
@@ -31,12 +31,15 @@ CREATE TABLE `ambulance_info` (
   `id` int(11) NOT NULL,
   `status` tinyint(1) NOT NULL DEFAULT '0',
   `current_ticket` int(11) NOT NULL DEFAULT '0',
-  `location` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  `loclat` double NOT NULL DEFAULT '0',
-  `loclng` double NOT NULL DEFAULT '0',
+  `location` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '1805 Medical Center Dr, San Bernardino, CA 92411 	',
+  `loclat` double NOT NULL DEFAULT '34.1313185',
+  `loclng` double NOT NULL DEFAULT '-117.3209714',
   `destination` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   `dstlat` double NOT NULL DEFAULT '0',
   `dstlng` double NOT NULL DEFAULT '0',
+  `directions` mediumtext COLLATE utf8mb4_unicode_ci,
+  `distance` tinytext COLLATE utf8mb4_unicode_ci,
+  `duration` tinytext COLLATE utf8mb4_unicode_ci,
   `lastupdate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -186,7 +189,7 @@ INSERT INTO `map_styles` (`id`, `name`, `style`) VALUES
 CREATE TABLE `ticket` (
   `id` int(11) NOT NULL,
   `active` tinyint(1) NOT NULL DEFAULT '0',
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
   `location` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `lat` double NOT NULL DEFAULT '0',
   `lng` double NOT NULL DEFAULT '0',
@@ -194,6 +197,7 @@ CREATE TABLE `ticket` (
   `priority` tinyint(1) NOT NULL,
   `ambulance` int(11) NOT NULL DEFAULT '0',
   `dispatcher` int(11) NOT NULL DEFAULT '0',
+  `enroute_to_hospital` int(2) NOT NULL DEFAULT '0',
   `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `cleared` timestamp NULL DEFAULT NULL,
   `comments` longtext COLLATE utf8mb4_unicode_ci NOT NULL
@@ -203,7 +207,7 @@ CREATE TABLE `ticket` (
 -- Triggers `ticket`
 --
 DELIMITER $$
-CREATE TRIGGER `ambo_delete` BEFORE DELETE ON `ticket` FOR EACH ROW UPDATE ambulance_info SET status=1, current_ticket=0, destination = '', dstlat=0, dstlng=0, lastupdate=NOW() WHERE id=OLD.ambulance
+CREATE TRIGGER `ambo_delete` BEFORE DELETE ON `ticket` FOR EACH ROW UPDATE ambulance_info SET status=1, current_ticket=0, destination = '', dstlat=0, dstlng=0,directions=NULL,distance=NULL,duration=NULL, lastupdate=NOW() WHERE id=OLD.ambulance
 $$
 DELIMITER ;
 DELIMITER $$
@@ -212,7 +216,7 @@ $$
 DELIMITER ;
 DELIMITER $$
 CREATE TRIGGER `ambo_update` AFTER UPDATE ON `ticket` FOR EACH ROW IF (NEW.active = 0 AND OLD.active = 1) THEN
-UPDATE ambulance_info SET status = 1, current_ticket = 0, destination = '', dstlat=0, dstlng=0, lastupdate = NOW() WHERE id = OLD.ambulance;
+UPDATE ambulance_info SET status = 1, current_ticket = 0, destination = '', dstlat=0, dstlng=0, directions = '', distance = '', duration = '', lastupdate = NOW() WHERE id = OLD.ambulance;
 IF (NEW.cleared = 0) THEN
 UPDATE ticket SET cleared = NOW();
 END IF;
@@ -230,8 +234,8 @@ DELIMITER ;
 
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `hash_pw` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `hash_pw` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
   `user_type` int(1) NOT NULL,
   `preferred_map` tinyint(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
