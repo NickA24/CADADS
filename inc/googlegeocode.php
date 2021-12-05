@@ -6,6 +6,7 @@
   $address = urlencode($address);
   $url = "https://maps.googleapis.com/maps/api/geocode/json?address=".htmlentities($address);
   include_once('config.php');
+  return var_dump_ret($url);
   $Geocodeobj = @file_get_contents($url.'&key='.$GoogleAPIKey);
   //If for some reason we want/need to return it as a string for javascript, rather than as a PHP object, call this file with ?returntext=1
   if (isset($_GET['returntext'])) { echo $Geocodeobj; return; }
