@@ -39,6 +39,12 @@
 	$var['lng'] = $directions["routes"][0]["legs"][0]["start_location"]["lng"];
 	$var['distance'] = $directions["routes"][0]["legs"][0]["distance"]["text"];
 	$var['duration'] = $directions["routes"][0]["legs"][0]["duration"]["text"];
+	if ($origin == $destination)
+	{
+		$var['directions'] = NULL;
+		$var['disatnce'] = '';
+		$var['duration'] = '';
+	}
 	$params = array(":id"=>$var['id'], ":loc"=>$var['loc'], ":lat"=>$var['lat'], ":lng"=>$var['lng'], ":dir"=>$var['directions'], ":dis"=>$var['distance'], ":dur"=>$var['duration']);
 	$sql = "UPDATE ambulance_info SET location = :loc, loclat=:lat, loclng=:lng, directions=:dir, distance=:dis, duration=:dur, lastupdate=NOW() WHERE id = :id";
 	$result = $db->query($sql, $params);
