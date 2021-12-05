@@ -54,6 +54,10 @@ function editTicket($db,$v)
 		echo "no valid name or location";
 		return 'You need a valid name and location to edit';
 	}
+	//This is a hack to allow for editing ambulances in the edit screen without ruining everything (something that shouldn't be done but w/e)
+	$params = array(":active"=>0, ":id"=>$v['editid'], ":amb"=>0);
+	$sql = "UPDATE ticket SET active=:active, ambulance=:amb WHERE id=:id";
+	$result = $db->query($sql, $params);
 	if (!isset($v['editambulance'])) { $v['editambulance'] = 0; }
 	$address = $v['editlocation'];
         include('googlegeocode.php');
