@@ -28,6 +28,7 @@
 	} else { 
 		$destination = $origin;
 	}
+	echo "this far";
 	$url = "https://maps.googleapis.com/maps/api/directions/json?origin=".$origin."&destination=".$destination;
 	include('config.php');
 	$directions = @file_get_contents($url.'&key='.$GoogleAPIKey);
