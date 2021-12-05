@@ -49,7 +49,7 @@ function addTicket($db,$var)
 //This is done by a database trigger.
 function editTicket($db,$v)
 {
-		return var_dump_ret($GoogleAPIKey);
+		return var_dump_ret($DispatchMaxTime);
 	if (!isset($v['editid']) || !isset($v['editlocation']))
 	{
 		echo "no valid name or location";
