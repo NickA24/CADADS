@@ -49,7 +49,7 @@ function addTicket($db,$var)
 //This is done by a database trigger.
 function editTicket($db,$var)
 {
-	return $var;
+	return var_dump_ret($var);
 	if (!isset($var['editid']) || !isset($var['editlocation']))
 	{
 		echo "no valid name or location";
