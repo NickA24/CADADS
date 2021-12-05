@@ -67,6 +67,7 @@ function editTicket($db,$v)
 	$params = array(":active"=>$v['editactive'], ":name"=>$v['editname'], ":location"=>$v['editlocation'], ":lat"=>$v['editlat'], ":lng"=>$v['editlng'], ":incident"=>$v['editincident_type'], ":priority"=>$v['editpriority'], ":ambulance"=>$v['editambulance'], ":comments"=>$v['editcomments'], ":id"=>$v['editid']);
 	$sql = "UPDATE ticket SET active=:active, name=:name, location=:location, lat=:lat, lng=:lng, incident_type=:incident,priority=:priority,ambulance=:ambulance,comments=:comments WHERE id = :id";
 	$result = $db->query($sql, $params);
+	return var_dump_ret($v);
 	if ($v['editambulance'] > 0)
 	{
 		$_GET['amboid'] = $v['editambulance'];
