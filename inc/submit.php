@@ -47,32 +47,32 @@ function addTicket($db,$var)
 //A function to edit already added tickets. Note these are submitted with a prefix of "edit" because of the code written for testing. This can be changed if you feel like it, but make sure you change the html/js as well.
 //Note: If you edit an ambulance value in the ticket table, it will automatically update the relevant data in the ambulance_info table as well!
 //This is done by a database trigger.
-function editTicket($db,$var)
+function editTicket($db,$v)
 {
-	if (!isset($var['editid']) || !isset($var['editlocation']))
+	if (!isset($v['editid']) || !isset($v['editlocation']))
 	{
 		echo "no valid name or location";
 		return 'You need a valid name and location to edit';
 	}
-	if (!isset($var['editambulance'])) { $var['editambulance'] = 0; }
-	$address = $var['editlocation'];
+	if (!isset($v['editambulance'])) { $v['editambulance'] = 0; }
+	$address = $v['editlocation'];
         include('googlegeocode.php');
-        $var['editlocation'] = $Geocodeobj["results"][0]["formatted_address"];
-        $var['editlat'] = $Geocodeobj["results"][0]["geometry"]["location"]["lat"];
-        $var['editlng'] = $Geocodeobj["results"][0]["geometry"]["location"]["lng"];
-	if ($var['editlocation'] == NULL || $var['editlat'] == '' || $var['editlng'] == '') {
+        $v['editlocation'] = $Geocodeobj["results"][0]["formatted_address"];
+        $v['editlat'] = $Geocodeobj["results"][0]["geometry"]["location"]["lat"];
+        $v['editlng'] = $Geocodeobj["results"][0]["geometry"]["location"]["lng"];
+	if ($v['editlocation'] == NULL || $v['editlat'] == '' || $v['editlng'] == '') {
 		echo 'Invalid address passed';
 		return 'There was a problem with your submission: Not a valid street address:';
 	}
-	$params = array(":active"=>$var['editactive'], ":name"=>$var['editname'], ":location"=>$var['editlocation'], ":lat"=>$var['editlat'], ":lng"=>$var['editlng'], ":incident"=>$var['editincident_type'], ":priority"=>$var['editpriority'], ":ambulance"=>$var['editambulance'], ":comments"=>$var['editcomments'], ":id"=>$var['editid']);
+	$params = array(":active"=>$v['editactive'], ":name"=>$v['editname'], ":location"=>$v['editlocation'], ":lat"=>$v['editlat'], ":lng"=>$v['editlng'], ":incident"=>$v['editincident_type'], ":priority"=>$v['editpriority'], ":ambulance"=>$v['editambulance'], ":comments"=>$v['editcomments'], ":id"=>$v['editid']);
 	$sql = "UPDATE ticket SET active=:active, name=:name, location=:location, lat=:lat, lng=:lng, incident_type=:incident,priority=:priority,ambulance=:ambulance,comments=:comments WHERE id = :id";
 	$result = $db->query($sql, $params);
-	if ($var['editambulance'] > 0)
+	if ($v['editambulance'] > 0)
 	{
-		$_GET['amboid'] = $var['editambulance'];
+		$_GET['amboid'] = $v['editambulance'];
 		include('googledirections.php');
 	}
-	return "Ticket edited successfully! - ".$var['ambulance'];
+	return "Ticket edited successfully! - ".$v['ambulance'];
 }
 
 //This deletes an entry from the database. Dispatchers shouldn't be deleting valid tickets, whether they were completed or called off, but it's here in case there was a mistake.
