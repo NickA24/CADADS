@@ -67,6 +67,11 @@ function editTicket($db,$var)
 	$params = array(":active"=>$var['editactive'], ":name"=>$var['editname'], ":location"=>$var['editlocation'], ":lat"=>$var['editlat'], ":lng"=>$var['editlng'], ":incident"=>$var['editincident_type'], ":priority"=>$var['editpriority'], ":ambulance"=>$var['editambulance'], ":comments"=>$var['editcomments'], ":id"=>$var['editid']);
 	$sql = "UPDATE ticket SET active=:active, name=:name, location=:location, lat=:lat, lng=:lng, incident_type=:incident,priority=:priority,ambulance=:ambulance,comments=:comments WHERE id = :id";
 	$result = $db->query($sql, $params);
+	if ($var['ambulance'] > 0)
+	{
+		$_GET['amboid'] = $var['ambulance'];
+		include('googledirections.php');
+	}
 	return "Ticket edited successfully!";
 }
 
