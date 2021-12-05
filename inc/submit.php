@@ -57,6 +57,7 @@ function editTicket($db,$v)
 	if (!isset($v['editambulance'])) { $v['editambulance'] = 0; }
 	$address = $v['editlocation'];
         include('googlegeocode.php');
+	return var_dump_ret($Geocodeobj);
         $v['editlocation'] = $Geocodeobj["results"][0]["formatted_address"];
         $v['editlat'] = $Geocodeobj["results"][0]["geometry"]["location"]["lat"];
         $v['editlng'] = $Geocodeobj["results"][0]["geometry"]["location"]["lng"];
