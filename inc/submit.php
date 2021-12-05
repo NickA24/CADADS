@@ -12,6 +12,7 @@ if (!isset($usrtype) || $usrtype <= 0)
 //A function to add tickets directly to the database.
 function addTicket($db,$var)
 {
+	include_once("config.php");
 	if (!isset($var['name']) || !isset($var['location']))
 	{
 		echo 'no valid name or location';
