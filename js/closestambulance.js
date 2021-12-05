@@ -36,7 +36,7 @@ function closestambulancepopulatedirections(e)
 {
 	const id = e.target.form.amboselect.value;
 	console.log(id);
-	if (id == null || id == 0)
+	if (id !== null || id == 0)
 	{
 		e.preventDefault();
 		popupMessage("Please choose an available ambulance, if any, or leave unassigned");
