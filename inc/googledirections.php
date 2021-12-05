@@ -6,6 +6,7 @@
 	if (!isset($_SESSION['myusername']) || ($_SESSION['user_type'] != 2 && !isset($_GET['amboid']))) { return; }
 	$amboid = $_SESSION['myid'];
 	if (isset($_GET['amboid'])) { $amboid = $_GET['amboid']; }
+	echo $amboid;
 	$params = array(":id"=>$amboid);
 	$sql = "SELECT loclat, loclng, dstlat, dstlng FROM ambulance_info WHERE ambulance_info.id = :id";
 	$latlng = $db->query($sql, $params)->fetchAll(PDO::FETCH_ASSOC);
