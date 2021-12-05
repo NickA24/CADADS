@@ -73,7 +73,7 @@ function editTicket($db,$var)
 		$_GET['amboid'] = $var['ambulance'];
 		include('googledirections.php');
 	}
-	return "Ticket edited successfully!";
+	return "Ticket edited successfully! - ".$var['ambulance'];
 }
 
 //This deletes an entry from the database. Dispatchers shouldn't be deleting valid tickets, whether they were completed or called off, but it's here in case there was a mistake.
