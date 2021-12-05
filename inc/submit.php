@@ -69,6 +69,7 @@ function editTicket($db,$var)
 	$result = $db->query($sql, $params);
 	if ($var['ambulance'] > 0)
 	{
+		echo 'going for '.$var['ambulance'];
 		$_GET['amboid'] = $var['ambulance'];
 		include('googledirections.php');
 	}
