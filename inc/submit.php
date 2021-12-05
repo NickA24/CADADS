@@ -12,7 +12,6 @@ if (!isset($usrtype) || $usrtype <= 0)
 //A function to add tickets directly to the database.
 function addTicket($db,$var)
 {
-	include_once("config.php");
 	if (!isset($var['name']) || !isset($var['location']))
 	{
 		echo 'no valid name or location';
@@ -50,6 +49,7 @@ function addTicket($db,$var)
 //This is done by a database trigger.
 function editTicket($db,$v)
 {
+		return var_dump_ret($GoogleAPIKey);
 	if (!isset($v['editid']) || !isset($v['editlocation']))
 	{
 		echo "no valid name or location";
@@ -58,7 +58,7 @@ function editTicket($db,$v)
 	if (!isset($v['editambulance'])) { $v['editambulance'] = 0; }
 	$address = $v['editlocation'];
         include('googlegeocode.php');
-	return var_dump_ret($GoogleAPIKey);
+
         $v['editlocation'] = $Geocodeobj["results"][0]["formatted_address"];
         $v['editlat'] = $Geocodeobj["results"][0]["geometry"]["location"]["lat"];
         $v['editlng'] = $Geocodeobj["results"][0]["geometry"]["location"]["lng"];
