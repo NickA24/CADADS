@@ -10,7 +10,7 @@ if (!checklogin()) {
 	return; 
 }
 
-//The page name is called ambulance, so let's make sure we grab ambulance-related css and js files in header.
+//The page name is called ticket, so let's make sure we grab ticket-related css and js files in header.
 $pagename="ticket"; 
 //Include the header and top navigation page
 
