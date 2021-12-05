@@ -56,11 +56,11 @@ function editTicket($db,$v)
 	}
 	if (!isset($v['editambulance'])) { $v['editambulance'] = 0; }
 	$address = $v['editlocation'];
+	return var_dump_ret($v);
         include('googlegeocode.php');
         $v['editlocation'] = $Geocodeobj["results"][0]["formatted_address"];
         $v['editlat'] = $Geocodeobj["results"][0]["geometry"]["location"]["lat"];
         $v['editlng'] = $Geocodeobj["results"][0]["geometry"]["location"]["lng"];
-		return var_dump_ret($v);
 	if ($v['editlocation'] == NULL || $v['editlat'] == '' || $v['editlng'] == '') {
 		echo 'Invalid address passed';
 		return 'There was a problem with your submission: Not a valid street address:';
