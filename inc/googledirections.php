@@ -44,6 +44,7 @@
 	$var['duration'] = $directions["routes"][0]["legs"][0]["duration"]["text"];
 	if ($origin == $destination)
 	{
+		echo "Nullifying";
 		$var['directions'] = NULL;
 		$var['disatnce'] = NULL;
 		$var['duration'] = NULL;
