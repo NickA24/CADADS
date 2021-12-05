@@ -50,21 +50,21 @@
 			<input type="hidden" id="duration" name="duration" value="">
           <input type="hidden" id="ticket" name="ticket" value="<?php echo $_GET['id']; ?>"></input>
           <table>
-              <tr class="ambo1" id="ambo0">
+              <tr class="ambo1" id="ambo0" required>
                   <td><input type="radio" id="radioambo0" name="amboselect" value="null"></td>
                   <td></td>
                   <td></td>
                   <td></td>
                   <td></td>
               </tr>
-              <tr class="ambo2" id="ambo1">
+              <tr class="ambo2" id="ambo1" required>
                   <td><input type="radio" id="radioambo1" name="amboselect" value="null"></td>
                   <td></td>
                   <td></td>
                   <td></td>
                   <td></td>
               </tr>
-              <tr class="ambo3" id="ambo2">
+              <tr class="ambo3" id="ambo2" required>
                   <td><input type="radio" id="radioambo2" name="amboselect" value="null"></td>
                   <td></td>
                   <td></td>
